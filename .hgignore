@@ -59,3 +59,4 @@ syntax: glob
 js/Bitmap.js
 out/Bitmap.js
 template/*
+out/*

@@ -901,7 +901,7 @@ class Bitmap {
         let bitmap = new Bitmap(undefined, undefined, true);
         bitmap._url = url;
         bitmap._loadingState = 'pending';
-        return bitmap;
+        return bitmap;  
     };
 
     private _requestImage(url) {
