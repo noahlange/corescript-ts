@@ -9,7 +9,7 @@
   "js/rpg_core/RequestQueue.js",
   "js/rpg_core/Point.js",
   "js/rpg_core/Rectangle.js",
-  "js/rpg_core/Bitmap.js",
+  "out/Bitmap.js",
   "js/rpg_core/Graphics.js",
   "js/rpg_core/Input.js",
   "js/rpg_core/TouchInput.js",

@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es5",
+        "noImplicitUseStrict": false,
+        "noImplicitAny": false,
+        "removeComments": false,
+        "preserveConstEnums": false,
+        "sourceMap": false,
+        "allowJs": true,
+        "strict": false,
+        "outDir": "out",
+
+        "suppressExcessPropertyErrors": true,
+        "suppressImplicitAnyIndexErrors": true,
+
+        "lib": [
+            "dom", "es6"
+        ]
+    },
+
+    "include": [
+        "ts/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "tests",
+        "dist"
+    ]
+}
