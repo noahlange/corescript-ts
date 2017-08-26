@@ -4,7 +4,7 @@
   "js/rpg_core/JsExtensions.js",
   "js/rpg_core/Utils.js",
   "out/CacheEntry.js",
-  "js/rpg_core/CacheMap.js",
+  "out/CacheMap.js",
   "js/rpg_core/ImageCache.js",
   "js/rpg_core/RequestQueue.js",
   "js/rpg_core/Point.js",
@@ -27,6 +27,6 @@
   "js/rpg_core/WebAudio.js",
   "js/rpg_core/Html5Audio.js",
   "js/rpg_core/JsonEx.js",
-  "js/rpg_core/Decrypter.js",
+  "out/Decrypter.js",
   "js/rpg_core/ResourceHandler.js"
 ]

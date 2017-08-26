@@ -802,7 +802,8 @@ class Bitmap {
      * @method _onLoad
      * @private
      */
-    private _onLoad() {
+    /// NOTE: jadi public karena dibutuhkan oleh Decrypter
+    public _onLoad() {
         this._image.removeEventListener('load', this._loadListener);
         this._image.removeEventListener('error', this._errorListener);
         this._renewCanvas();
@@ -871,7 +872,8 @@ class Bitmap {
      * @method _onError
      * @private
      */
-    private _onError() {
+    /// NOTE: jadi public karena dibutuhkan oleh Decrypter
+    public _onError() {
         this._image.removeEventListener('load', this._loadListener);
         this._image.removeEventListener('error', this._errorListener);
         this._loadingState = 'error';
