@@ -22,7 +22,9 @@ Scene_Base.prototype.constructor = Scene_Base;
  * @memberof Scene_Base
  */
 Scene_Base.prototype.initialize = function() {
-    Stage.prototype.initialize.call(this);
+    // Stage.prototype.initialize.call(this);
+    Stage.call(this); /// bungcip: sementara
+
     this._active = false;
     this._fadeSign = 0;
     this._fadeDuration = 0;

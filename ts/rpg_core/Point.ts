@@ -7,16 +7,9 @@
  * @param {Number} x The x coordinate
  * @param {Number} y The y coordinate
  */
-function Point() {
-    this.initialize.apply(this, arguments);
+class Point extends PIXI.Point {
+
 }
-
-Point.prototype = Object.create(PIXI.Point.prototype);
-Point.prototype.constructor = Point;
-
-Point.prototype.initialize = function(x, y) {
-    PIXI.Point.call(this, x, y);
-};
 
 /**
  * The x coordinate.

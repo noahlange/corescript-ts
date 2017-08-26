@@ -5,19 +5,15 @@
  * @class Stage
  * @constructor
  */
-function Stage() {
-    this.initialize.apply(this, arguments);
+class Stage extends PIXI.Container {
+    constructor() {
+        super();
+    
+        // The interactive flag causes a memory leak.
+        this.interactive = false;
+    };
+    
 }
-
-Stage.prototype = Object.create(PIXI.Container.prototype);
-Stage.prototype.constructor = Stage;
-
-Stage.prototype.initialize = function() {
-    PIXI.Container.call(this);
-
-    // The interactive flag causes a memory leak.
-    this.interactive = false;
-};
 
 /**
  * [read-only] The array of children of the stage.
