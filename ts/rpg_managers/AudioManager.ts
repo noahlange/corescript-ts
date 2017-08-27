@@ -151,7 +151,7 @@ class AudioManager {
         }
     };
     
-    static playBgs (bgs, pos) {
+    static playBgs (bgs, pos?) {
         if (this.isCurrentBgs(bgs)) {
             this.updateBgsParameters(bgs);
         } else {

@@ -219,35 +219,35 @@ class ImageManager {
         return this.requestBitmap('img/animations/', filename, hue, true);
     };
     
-    static requestBattleback1(filename, hue) {
+    static requestBattleback1(filename, hue?) {
         return this.requestBitmap('img/battlebacks1/', filename, hue, true);
     };
     
-    static requestBattleback2(filename, hue) {
+    static requestBattleback2(filename, hue?) {
         return this.requestBitmap('img/battlebacks2/', filename, hue, true);
     };
     
-    static requestEnemy(filename, hue) {
+    static requestEnemy(filename, hue?) {
         return this.requestBitmap('img/enemies/', filename, hue, true);
     };
     
-    static requestCharacter(filename, hue) {
+    static requestCharacter(filename, hue?) {
         return this.requestBitmap('img/characters/', filename, hue, false);
     };
     
-    static requestFace(filename, hue) {
+    static requestFace(filename, hue?) {
         return this.requestBitmap('img/faces/', filename, hue, true);
     };
     
-    static requestParallax(filename, hue) {
+    static requestParallax(filename, hue?) {
         return this.requestBitmap('img/parallaxes/', filename, hue, true);
     };
     
-    static requestPicture(filename, hue) {
+    static requestPicture(filename, hue?) {
         return this.requestBitmap('img/pictures/', filename, hue, true);
     };
     
-    static requestSvActor(filename, hue) {
+    static requestSvActor(filename, hue?) {
         return this.requestBitmap('img/sv_actors/', filename, hue, false);
     };
     
@@ -259,15 +259,15 @@ class ImageManager {
         return this.requestBitmap('img/system/', filename, hue, false);
     };
     
-    static requestTileset(filename, hue) {
+    static requestTileset(filename, hue?) {
         return this.requestBitmap('img/tilesets/', filename, hue, false);
     };
     
-    static requestTitle1(filename, hue) {
+    static requestTitle1(filename, hue?) {
         return this.requestBitmap('img/titles1/', filename, hue, true);
     };
     
-    static requestTitle2(filename, hue) {
+    static requestTitle2(filename, hue?) {
         return this.requestBitmap('img/titles2/', filename, hue, true);
     };
     

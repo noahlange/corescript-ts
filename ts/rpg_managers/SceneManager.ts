@@ -339,8 +339,8 @@ class SceneManager {
         this._stopped = true;
     };
 
-    static prepareNextScene() {
-        this._nextScene.prepare.apply(this._nextScene, arguments);
+    static prepareNextScene(...arg) {
+        this._nextScene.prepare.apply(this._nextScene, arg);
     };
 
     static snap() {
