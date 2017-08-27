@@ -11,7 +11,7 @@ Sprite_Damage.prototype = Object.create(Sprite.prototype);
 Sprite_Damage.prototype.constructor = Sprite_Damage;
 
 Sprite_Damage.prototype.initialize = function() {
-    Sprite.prototype.initialize.call(this);
+    Sprite.call(this);
     this._duration = 90;
     this._flashColor = [0, 0, 0, 0];
     this._flashDuration = 0;

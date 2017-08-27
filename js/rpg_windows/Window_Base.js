@@ -7,11 +7,12 @@ function Window_Base() {
     this.initialize.apply(this, arguments);
 }
 
-Window_Base.prototype = Object.create(Window.prototype);
+Window_Base.prototype = Object.create(CoreWindow.prototype);
 Window_Base.prototype.constructor = Window_Base;
 
 Window_Base.prototype.initialize = function(x, y, width, height) {
-    Window.prototype.initialize.call(this);
+    CoreWindow.call(this);
+
     this.loadWindowskin();
     this.move(x, y, width, height);
     this.updatePadding();
@@ -103,7 +104,7 @@ Window_Base.prototype.resetTextColor = function() {
 };
 
 Window_Base.prototype.update = function() {
-    Window.prototype.update.call(this);
+    CoreWindow.prototype.update.call(this);
     this.updateTone();
     this.updateOpen();
     this.updateClose();

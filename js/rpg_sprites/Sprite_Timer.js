@@ -11,7 +11,7 @@ Sprite_Timer.prototype = Object.create(Sprite.prototype);
 Sprite_Timer.prototype.constructor = Sprite_Timer;
 
 Sprite_Timer.prototype.initialize = function() {
-    Sprite.prototype.initialize.call(this);
+    Sprite.call(this);
     this._seconds = 0;
     this.createBitmap();
     this.update();

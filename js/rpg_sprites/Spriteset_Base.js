@@ -11,7 +11,7 @@ Spriteset_Base.prototype = Object.create(Sprite.prototype);
 Spriteset_Base.prototype.constructor = Spriteset_Base;
 
 Spriteset_Base.prototype.initialize = function() {
-    Sprite.prototype.initialize.call(this);
+    Sprite.call(this);
     this.setFrame(0, 0, Graphics.width, Graphics.height);
     this._tone = [0, 0, 0, 0];
     this.opaque = true;

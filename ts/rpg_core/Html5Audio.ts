@@ -5,19 +5,26 @@
  * @class Html5Audio
  * @constructor
  */
-function Html5Audio() {
-    throw new Error('This is a static class');
-}
+class Html5Audio {
+    protected static _initialized = false;
+    protected static _unlocked = false;
+    protected static _audioElement = null;
+    protected static _gainTweenInterval = null;
+    protected static _tweenGain = 0;
+    protected static _tweenTargetGain = 0;
+    protected static _tweenGainStep = 0;
+    protected static _staticSePath = null;
 
-Html5Audio._initialized = false;
-Html5Audio._unlocked = false;
-Html5Audio._audioElement = null;
-Html5Audio._gainTweenInterval = null;
-Html5Audio._tweenGain = 0;
-Html5Audio._tweenTargetGain = 0;
-Html5Audio._tweenGainStep = 0;
-Html5Audio._staticSePath = null;
 
+    protected static _url : string;
+    protected static _isLoading: boolean;
+    protected static _buffered: boolean;
+
+    protected static _volume: number;
+    protected static _loadListeners: any[];
+    protected static _hasError: boolean;
+    protected static _autoPlay: boolean;
+    
 /**
  * Sets up the Html5 Audio.
  *
@@ -25,7 +32,7 @@ Html5Audio._staticSePath = null;
  * @method setup
  * @param {String} url The url of the audio file
  */
-Html5Audio.setup = function (url) {
+static setup(url) {
     if (!this._initialized) {
         this.initialize();
     }
@@ -44,7 +51,7 @@ Html5Audio.setup = function (url) {
  * @method initialize
  * @return {Boolean} True if the audio system is available
  */
-Html5Audio.initialize = function () {
+static initialize() {
     if (!this._initialized) {
         if (!this._audioElement) {
             try {
@@ -64,7 +71,7 @@ Html5Audio.initialize = function () {
  * @method _setupEventHandlers
  * @private
  */
-Html5Audio._setupEventHandlers = function () {
+protected static _setupEventHandlers() {
     document.addEventListener('touchstart', this._onTouchStart.bind(this));
     document.addEventListener('visibilitychange', this._onVisibilityChange.bind(this));
     this._audioElement.addEventListener("loadeddata", this._onLoadedData.bind(this));
@@ -77,7 +84,7 @@ Html5Audio._setupEventHandlers = function () {
  * @method _onTouchStart
  * @private
  */
-Html5Audio._onTouchStart = function () {
+protected static _onTouchStart() {
     if (this._audioElement && !this._unlocked) {
         if (this._isLoading) {
             this._load(this._url);
@@ -99,7 +106,7 @@ Html5Audio._onTouchStart = function () {
  * @method _onVisibilityChange
  * @private
  */
-Html5Audio._onVisibilityChange = function () {
+protected static _onVisibilityChange() {
     if (document.visibilityState === 'hidden') {
         this._onHide();
     } else {
@@ -112,7 +119,7 @@ Html5Audio._onVisibilityChange = function () {
  * @method _onLoadedData
  * @private
  */
-Html5Audio._onLoadedData = function () {
+protected static _onLoadedData() {
     this._buffered = true;
     if (this._unlocked) this._onLoad();
 };
@@ -122,7 +129,7 @@ Html5Audio._onLoadedData = function () {
  * @method _onError
  * @private
  */
-Html5Audio._onError = function () {
+protected static _onError() {
     this._hasError = true;
 };
 
@@ -131,7 +138,7 @@ Html5Audio._onError = function () {
  * @method _onEnded
  * @private
  */
-Html5Audio._onEnded = function () {
+protected static _onEnded() {
     if (!this._audioElement.loop) {
         this.stop();
     }
@@ -142,7 +149,7 @@ Html5Audio._onEnded = function () {
  * @method _onHide
  * @private
  */
-Html5Audio._onHide = function () {
+protected static _onHide() {
     this._audioElement.volume = 0;
     this._tweenGain = 0;
 };
@@ -152,7 +159,7 @@ Html5Audio._onHide = function () {
  * @method _onShow
  * @private
  */
-Html5Audio._onShow = function () {
+protected static _onShow() {
     this.fadeIn(0.5);
 };
 
@@ -162,7 +169,7 @@ Html5Audio._onShow = function () {
  * @static
  * @method clear
  */
-Html5Audio.clear = function () {
+static clear() {
     this.stop();
     this._volume = 1;
     this._loadListeners = [];
@@ -178,7 +185,7 @@ Html5Audio.clear = function () {
  * @static
  * @param {String} url
  */
-Html5Audio.setStaticSe = function (url) {
+static setStaticSe(url) {
     if (!this._initialized) {
         this.initialize();
         this.clear();
@@ -192,12 +199,9 @@ Html5Audio.setStaticSe = function (url) {
  * @property url
  * @type String
  */
-Object.defineProperty(Html5Audio, 'url', {
-    get: function () {
-        return Html5Audio._url;
-    },
-    configurable: true
-});
+    static get url () {
+        return this._url;
+    }
 
 /**
  * The volume of the audio.
@@ -205,18 +209,16 @@ Object.defineProperty(Html5Audio, 'url', {
  * @property volume
  * @type Number
  */
-Object.defineProperty(Html5Audio, 'volume', {
-    get: function () {
-        return Html5Audio._volume;
-    }.bind(this),
-    set: function (value) {
-        Html5Audio._volume = value;
-        if (Html5Audio._audioElement) {
-            Html5Audio._audioElement.volume = this._volume;
+    static get volume () {
+        return this._volume;
+    }
+
+    static set volumne (value) {
+        this._volume = value;
+        if (this._audioElement) {
+            this._audioElement.volume = this._volume;
         }
-    },
-    configurable: true
-});
+    }
 
 /**
  * Checks whether the audio data is ready to play.
@@ -225,7 +227,7 @@ Object.defineProperty(Html5Audio, 'volume', {
  * @method isReady
  * @return {Boolean} True if the audio data is ready to play
  */
-Html5Audio.isReady = function () {
+static isReady() {
     return this._buffered;
 };
 
@@ -236,7 +238,7 @@ Html5Audio.isReady = function () {
  * @method isError
  * @return {Boolean} True if a loading error has occurred
  */
-Html5Audio.isError = function () {
+static isError() {
     return this._hasError;
 };
 
@@ -247,7 +249,7 @@ Html5Audio.isError = function () {
  * @method isPlaying
  * @return {Boolean} True if the audio is playing
  */
-Html5Audio.isPlaying = function () {
+static isPlaying() {
     return !this._audioElement.paused;
 };
 
@@ -259,11 +261,11 @@ Html5Audio.isPlaying = function () {
  * @param {Boolean} loop Whether the audio data play in a loop
  * @param {Number} offset The start position to play in seconds
  */
-Html5Audio.play = function (loop, offset) {
+static play(loop, offset) {
     if (this.isReady()) {
         offset = offset || 0;
         this._startPlaying(loop, offset);
-    } else if (Html5Audio._audioElement) {
+    } else if (this._audioElement) {
         this._autoPlay = true;
         this.addLoadListener(function () {
             if (this._autoPlay) {
@@ -284,7 +286,8 @@ Html5Audio.play = function (loop, offset) {
  * @static
  * @method stop
  */
-Html5Audio.stop = function () {
+protected static _tweenInterval;
+static stop() {
     if (this._audioElement) this._audioElement.pause();
     this._autoPlay = false;
     if (this._tweenInterval) {
@@ -301,7 +304,7 @@ Html5Audio.stop = function () {
  * @method fadeIn
  * @param {Number} duration Fade-in time in seconds
  */
-Html5Audio.fadeIn = function (duration) {
+static fadeIn(duration) {
     if (this.isReady()) {
         if (this._audioElement) {
             this._tweenTargetGain = this._volume;
@@ -322,7 +325,7 @@ Html5Audio.fadeIn = function (duration) {
  * @method fadeOut
  * @param {Number} duration Fade-out time in seconds
  */
-Html5Audio.fadeOut = function (duration) {
+static fadeOut(duration) {
     if (this._audioElement) {
         this._tweenTargetGain = 0;
         this._tweenGain = this._volume;
@@ -336,7 +339,7 @@ Html5Audio.fadeOut = function (duration) {
  * @static
  * @method seek
  */
-Html5Audio.seek = function () {
+static seek() {
     if (this._audioElement) {
         return this._audioElement.currentTime;
     } else {
@@ -351,7 +354,7 @@ Html5Audio.seek = function () {
  * @method addLoadListener
  * @param {Function} listner The callback function
  */
-Html5Audio.addLoadListener = function (listner) {
+static addLoadListener(listner) {
     this._loadListeners.push(listner);
 };
 
@@ -361,7 +364,7 @@ Html5Audio.addLoadListener = function (listner) {
  * @param {String} url
  * @private
  */
-Html5Audio._load = function (url) {
+protected static _load(url) {
     if (this._audioElement) {
         this._isLoading = true;
         this._audioElement.src = url;
@@ -376,7 +379,7 @@ Html5Audio._load = function (url) {
  * @param {Number} offset
  * @private
  */
-Html5Audio._startPlaying = function (loop, offset) {
+protected static _startPlaying(loop, offset) {
     this._audioElement.loop = loop;
     if (this._gainTweenInterval) {
         clearInterval(this._gainTweenInterval);
@@ -394,7 +397,7 @@ Html5Audio._startPlaying = function (loop, offset) {
  * @method _onLoad
  * @private
  */
-Html5Audio._onLoad = function () {
+protected static _onLoad() {
     this._isLoading = false;
     while (this._loadListeners.length > 0) {
         var listener = this._loadListeners.shift();
@@ -408,7 +411,7 @@ Html5Audio._onLoad = function () {
  * @params {Number} duration
  * @private
  */
-Html5Audio._startGainTween = function (duration) {
+protected static _startGainTween(duration) {
     this._audioElement.volume = this._tweenGain;
     if (this._gainTweenInterval) {
         clearInterval(this._gainTweenInterval);
@@ -416,7 +419,7 @@ Html5Audio._startGainTween = function (duration) {
     }
     this._tweenGainStep = (this._tweenTargetGain - this._tweenGain) / (60 * duration);
     this._gainTweenInterval = setInterval(function () {
-        Html5Audio._applyTweenValue(Html5Audio._tweenTargetGain);
+        this._applyTweenValue(this._tweenTargetGain);
     }, 1000 / 60);
 };
 
@@ -426,20 +429,24 @@ Html5Audio._startGainTween = function (duration) {
  * @param {Number} volume
  * @private
  */
-Html5Audio._applyTweenValue = function (volume) {
-    Html5Audio._tweenGain += Html5Audio._tweenGainStep;
-    if (Html5Audio._tweenGain < 0 && Html5Audio._tweenGainStep < 0) {
-        Html5Audio._tweenGain = 0;
+protected static applyTweenValue(volume) {
+    this._tweenGain += this._tweenGainStep;
+    if (this._tweenGain < 0 && this._tweenGainStep < 0) {
+        this._tweenGain = 0;
     }
-    else if (Html5Audio._tweenGain > volume && Html5Audio._tweenGainStep > 0) {
-        Html5Audio._tweenGain = volume;
-    }
-
-    if (Math.abs(Html5Audio._tweenTargetGain - Html5Audio._tweenGain) < 0.01) {
-        Html5Audio._tweenGain = Html5Audio._tweenTargetGain;
-        clearInterval(Html5Audio._gainTweenInterval);
-        Html5Audio._gainTweenInterval = null;
+    else if (this._tweenGain > volume && this._tweenGainStep > 0) {
+        this._tweenGain = volume;
     }
 
-    Html5Audio._audioElement.volume = Html5Audio._tweenGain;
+    if (Math.abs(this._tweenTargetGain - this._tweenGain) < 0.01) {
+        this._tweenGain = this._tweenTargetGain;
+        clearInterval(this._gainTweenInterval);
+        this._gainTweenInterval = null;
+    }
+
+    this._audioElement.volume = this._tweenGain;
 };
+
+}
+
+

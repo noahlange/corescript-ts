@@ -11,7 +11,7 @@ Sprite_StateIcon.prototype = Object.create(Sprite.prototype);
 Sprite_StateIcon.prototype.constructor = Sprite_StateIcon;
 
 Sprite_StateIcon.prototype.initialize = function() {
-    Sprite.prototype.initialize.call(this);
+    Sprite.call(this);
     this.initMembers();
     this.loadBitmap();
 };

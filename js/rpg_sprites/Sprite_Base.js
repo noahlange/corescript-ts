@@ -11,7 +11,7 @@ Sprite_Base.prototype = Object.create(Sprite.prototype);
 Sprite_Base.prototype.constructor = Sprite_Base;
 
 Sprite_Base.prototype.initialize = function() {
-    Sprite.prototype.initialize.call(this);
+    Sprite.call(this);
     this._animationSprites = [];
     this._effectTarget = this;
     this._hiding = false;

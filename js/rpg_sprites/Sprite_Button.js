@@ -11,7 +11,7 @@ Sprite_Button.prototype = Object.create(Sprite.prototype);
 Sprite_Button.prototype.constructor = Sprite_Button;
 
 Sprite_Button.prototype.initialize = function() {
-    Sprite.prototype.initialize.call(this);
+    Sprite.call(this);
     this._touching = false;
     this._coldFrame = null;
     this._hotFrame = null;

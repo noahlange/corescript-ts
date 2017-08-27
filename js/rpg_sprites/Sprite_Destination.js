@@ -11,7 +11,7 @@ Sprite_Destination.prototype = Object.create(Sprite.prototype);
 Sprite_Destination.prototype.constructor = Sprite_Destination;
 
 Sprite_Destination.prototype.initialize = function() {
-    Sprite.prototype.initialize.call(this);
+    Sprite.call(this);
     this.createBitmap();
     this._frameCount = 0;
 };

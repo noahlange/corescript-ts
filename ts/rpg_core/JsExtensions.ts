@@ -5,9 +5,30 @@
  *
  * @class JsExtensions
  */
-function JsExtensions() {
-    throw new Error('This is not a class');
+
+declare interface Number {
+    clamp(min: number, b: number): number;
+    mod(n: number): number;
+    padZero(n: number) : string;
 }
+
+declare interface String {
+    padZero(n: number) : string;
+    format(...args): string;
+    contains(n: string) : boolean;
+}
+
+
+declare interface Array<T> {
+    contains(n: T) : boolean;
+    equals(n: T[]) : boolean;
+    clone(): T[];
+}
+
+interface Math {
+    randomInt(number): number;
+}
+
 
 /**
  * Returns a number whose value is limited to the given range.
@@ -19,7 +40,8 @@ function JsExtensions() {
  */
 Number.prototype.clamp = function(min, max) {
     return Math.min(Math.max(this, min), max);
-};
+}
+
 
 /**
  * Returns a modulo value which is always positive.
