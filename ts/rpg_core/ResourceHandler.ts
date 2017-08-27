@@ -9,7 +9,7 @@ class ResourceHandler {
     static _reloaders = [];
     static _defaultRetryInterval = [500, 1000, 3000];
     
-    static createLoader(url, retryMethod, resignMethod, retryInterval?) {
+    static createLoader(url, retryMethod, resignMethod?, retryInterval?) {
         retryInterval = retryInterval || this._defaultRetryInterval;
         var reloaders = this._reloaders;
         var retryCount = 0;

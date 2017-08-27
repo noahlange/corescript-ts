@@ -133,7 +133,7 @@ class Bitmap {
     private __canvas: HTMLCanvasElement;
     private __context: CanvasRenderingContext2D;
 
-    constructor(width, height, defer = false) {
+    constructor(width?, height?, defer = false) {
         if (!defer) {
             this._createCanvas(width, height);
         }
