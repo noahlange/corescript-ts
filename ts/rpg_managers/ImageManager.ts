@@ -54,7 +54,7 @@ class ImageManager {
         return this.loadBitmap('img/sv_enemies/', filename, hue, true);
     };
     
-    static loadSystem(filename, hue) {
+    static loadSystem(filename, hue?) {
         return this.loadBitmap('img/system/', filename, hue, false);
     };
     
@@ -62,11 +62,11 @@ class ImageManager {
         return this.loadBitmap('img/tilesets/', filename, hue, false);
     };
     
-    static loadTitle1(filename, hue) {
+    static loadTitle1(filename, hue?) {
         return this.loadBitmap('img/titles1/', filename, hue, true);
     };
     
-    static loadTitle2(filename, hue) {
+    static loadTitle2(filename, hue?) {
         return this.loadBitmap('img/titles2/', filename, hue, true);
     };
     
@@ -171,7 +171,7 @@ class ImageManager {
         return this.reserveBitmap('img/sv_enemies/', filename, hue, true, reservationId);
     };
     
-    static reserveSystem(filename, hue, reservationId) {
+    static reserveSystem(filename, hue?, reservationId?) {
         return this.reserveBitmap('img/system/', filename, hue, false, reservationId || this._systemReservationId);
     };
     
