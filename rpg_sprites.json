@@ -1,5 +1,5 @@
 [
-  "js/rpg_sprites/_header.js",
+  "out/rpg_sprites/_header.js",
   "out/rpg_sprites/Sprite_Base.js",
   "out/rpg_sprites/Sprite_Button.js",
   "out/rpg_sprites/Sprite_Character.js",

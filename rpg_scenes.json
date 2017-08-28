@@ -1,5 +1,5 @@
 [
-  "js/rpg_scenes/_header.js",
+  "out/rpg_scenes/_header.js",
   "out/rpg_scenes/Scene_Base.js",
   "out/rpg_scenes/Scene_Boot.js",
   "out/rpg_scenes/Scene_Title.js",
