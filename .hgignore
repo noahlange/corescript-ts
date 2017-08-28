@@ -55,8 +55,5 @@ game/*
 todo.md
 corescript/*
 corescript.zip
-syntax: glob
-js/Bitmap.js
-out/Bitmap.js
 template/*
 out/*

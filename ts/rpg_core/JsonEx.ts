@@ -83,10 +83,10 @@ class JsonEx {
         delete object['@c'];
 
         if (typeof object === 'object') {
-            Object.keys(object).forEach(function (key) {
+            Object.keys(object).forEach((key) => {
                 var value = object[key];
                 if (typeof value === 'object') {
-                    this._cleanMetadata(value);
+                    JsonEx._cleanMetadata(value);
                 }
             });
         }
