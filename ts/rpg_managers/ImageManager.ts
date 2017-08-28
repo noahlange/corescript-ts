@@ -14,39 +14,39 @@ class ImageManager {
         return  path + ':' + hue;
     };
     
-    static loadAnimation(filename, hue) {
+    static loadAnimation(filename, hue?) {
         return this.loadBitmap('img/animations/', filename, hue, true);
     };
     
-    static loadBattleback1(filename, hue) {
+    static loadBattleback1(filename, hue?) {
         return this.loadBitmap('img/battlebacks1/', filename, hue, true);
     };
     
-    static loadBattleback2(filename, hue) {
+    static loadBattleback2(filename, hue?) {
         return this.loadBitmap('img/battlebacks2/', filename, hue, true);
     };
     
-    static loadEnemy(filename, hue) {
+    static loadEnemy(filename, hue?) {
         return this.loadBitmap('img/enemies/', filename, hue, true);
     };
     
-    static loadCharacter(filename, hue) {
+    static loadCharacter(filename, hue?) {
         return this.loadBitmap('img/characters/', filename, hue, false);
     };
     
-    static loadFace(filename, hue) {
+    static loadFace(filename, hue?) {
         return this.loadBitmap('img/faces/', filename, hue, true);
     };
     
-    static loadParallax(filename, hue) {
+    static loadParallax(filename, hue?) {
         return this.loadBitmap('img/parallaxes/', filename, hue, true);
     };
     
-    static loadPicture(filename, hue) {
+    static loadPicture(filename, hue?) {
         return this.loadBitmap('img/pictures/', filename, hue, true);
     };
     
-    static loadSvActor(filename, hue) {
+    static loadSvActor(filename, hue?) {
         return this.loadBitmap('img/sv_actors/', filename, hue, false);
     };
     
@@ -58,7 +58,7 @@ class ImageManager {
         return this.loadBitmap('img/system/', filename, hue, false);
     };
     
-    static loadTileset(filename, hue) {
+    static loadTileset(filename, hue?) {
         return this.loadBitmap('img/tilesets/', filename, hue, false);
     };
     

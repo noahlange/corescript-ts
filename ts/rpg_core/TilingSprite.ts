@@ -22,7 +22,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
 
     public tilingTexture: any;
 
-    constructor(bitmap) {
+    constructor(bitmap?) {
         super(new PIXI.Texture(new PIXI.BaseTexture()));
 
         this._bitmap = null;
