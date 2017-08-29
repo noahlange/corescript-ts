@@ -7,16 +7,16 @@ class Scene_Options extends Scene_MenuBase {
     protected _optionsWindow;
 
     // initialize() {
-    //     Scene_MenuBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     create() {
-        Scene_MenuBase.prototype.create.call(this);
+        super.create();
         this.createOptionsWindow();
     };
     
     terminate() {
-        Scene_MenuBase.prototype.terminate.call(this);
+        super.terminate();
         ConfigManager.save();
     };
     

@@ -36,7 +36,7 @@ class Spriteset_Base extends Sprite {
     };
 
     update() {
-        Sprite.prototype.update.call(this);
+        super.update();
         this.updateScreenSprites();
         this.updateToneChanger();
         this.updatePosition();

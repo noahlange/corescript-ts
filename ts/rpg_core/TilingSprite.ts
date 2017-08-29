@@ -158,10 +158,11 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
     updateTransform() {
         this.tilePosition.x = Math.round(-this.origin.x);
         this.tilePosition.y = Math.round(-this.origin.y);
-        this.updateTransformTS();
+        // this.updateTransformTS();
+        super.updateTransform();
     };
 
-    updateTransformTS = PIXI.extras.TilingSprite.prototype.updateTransform;;
+    // updateTransformTS = super.updateTransform;;
 
     /**
      * @method _onBitmapLoad

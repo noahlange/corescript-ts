@@ -49,7 +49,7 @@ class ShaderTilemap extends Tilemap {
      */
     renderCanvas(renderer) {
         this._hackRenderer(renderer);
-        PIXI.Container.prototype.renderCanvas.call(this, renderer);
+        super.renderCanvas(renderer);
     };
 
 
@@ -61,7 +61,7 @@ class ShaderTilemap extends Tilemap {
      */
     renderWebGL(renderer) {
         this._hackRenderer(renderer);
-        PIXI.Container.prototype.renderWebGL.call(this, renderer);
+        super.renderWebGL(renderer);
     };
 
     /**
@@ -112,7 +112,7 @@ class ShaderTilemap extends Tilemap {
             this._needsRepaint = false;
         }
         this._sortChildren();
-        PIXI.Container.prototype.updateTransform.call(this);
+        super.updateTransform();
     };
 
     /**

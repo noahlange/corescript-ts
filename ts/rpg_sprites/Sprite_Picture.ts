@@ -20,7 +20,7 @@ class Sprite_Picture extends Sprite {
     };
     
     update() {
-        Sprite.prototype.update.call(this);
+        super.update();
         this.updateBitmap();
         if (this.visible) {
             this.updateOrigin();

@@ -7,11 +7,11 @@ class Scene_Status extends Scene_MenuBase {
     protected _statusWindow;
     
     // initialize() {
-    //     Scene_MenuBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     create() {
-        Scene_MenuBase.prototype.create.call(this);
+        super.create();
         this._statusWindow = new Window_Status();
         this._statusWindow.setHandler('cancel', this.popScene.bind(this));
         this._statusWindow.setHandler('pagedown', this.nextActor.bind(this));
@@ -21,7 +21,7 @@ class Scene_Status extends Scene_MenuBase {
     };
 
     start() {
-        Scene_MenuBase.prototype.start.call(this);
+        super.start();
         this.refreshActor();
     };
 

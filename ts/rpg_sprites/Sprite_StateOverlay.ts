@@ -34,7 +34,7 @@ class Sprite_StateOverlay extends Sprite_Base {
     };
 
     update() {
-        Sprite_Base.prototype.update.call(this);
+        super.update();
         this._animationCount++;
         if (this._animationCount >= this.animationWait()) {
             this.updatePattern();

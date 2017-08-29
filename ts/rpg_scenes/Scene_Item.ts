@@ -9,11 +9,11 @@ class Scene_Item extends Scene_ItemBase {
     protected _helpWindow;
     
     // initialize() {
-    //     Scene_ItemBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
     
     create() {
-        Scene_ItemBase.prototype.create.call(this);
+        super.create();
         this.createHelpWindow();
         this.createCategoryWindow();
         this.createItemWindow();
@@ -73,7 +73,7 @@ class Scene_Item extends Scene_ItemBase {
     };
     
     useItem() {
-        Scene_ItemBase.prototype.useItem.call(this);
+        super.useItem();
         this._itemWindow.redrawCurrentItem();
     };
         

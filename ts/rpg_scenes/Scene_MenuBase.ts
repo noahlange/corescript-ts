@@ -9,11 +9,11 @@ class Scene_MenuBase extends Scene_Base {
     protected _helpWindow;
     
     // initialize() {
-    //     Scene_Base.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     create() {
-        Scene_Base.prototype.create.call(this);
+        super.create();
         this.createBackground();
         this.updateActor();
         this.createWindowLayer();

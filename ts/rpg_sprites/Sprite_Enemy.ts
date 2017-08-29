@@ -19,7 +19,7 @@ class Sprite_Enemy extends Sprite_Battler {
     }
 
     initMembers() {
-        Sprite_Battler.prototype.initMembers.call(this);
+        super.initMembers();
         this._enemy = null;
         this._appeared = false;
         this._battlerName = '';
@@ -36,14 +36,14 @@ class Sprite_Enemy extends Sprite_Battler {
     };
 
     setBattler(battler) {
-        Sprite_Battler.prototype.setBattler.call(this, battler);
+        super.setBattler(battler);
         this._enemy = battler;
         this.setHome(battler.screenX(), battler.screenY());
         this._stateIconSprite.setup(battler);
     };
 
     update() {
-        Sprite_Battler.prototype.update.call(this);
+        super.update();
         if (this._enemy) {
             this.updateEffect();
             this.updateStateSprite();
@@ -51,7 +51,7 @@ class Sprite_Enemy extends Sprite_Battler {
     };
 
     updateBitmap() {
-        Sprite_Battler.prototype.updateBitmap.call(this);
+        super.updateBitmap();
         var name = this._enemy.battlerName();
         var hue = this._enemy.battlerHue();
         if (this._battlerName !== name || this._battlerHue !== hue) {
@@ -71,7 +71,7 @@ class Sprite_Enemy extends Sprite_Battler {
     };
 
     updateFrame() {
-        Sprite_Battler.prototype.updateFrame.call(this);
+        super.updateFrame();
         var frameHeight = this.bitmap.height;
         if (this._effectType === 'bossCollapse') {
             frameHeight = this._effectDuration;
@@ -80,7 +80,7 @@ class Sprite_Enemy extends Sprite_Battler {
     };
 
     updatePosition() {
-        Sprite_Battler.prototype.updatePosition.call(this);
+        super.updatePosition();
         this.x += this._shake;
     };
 

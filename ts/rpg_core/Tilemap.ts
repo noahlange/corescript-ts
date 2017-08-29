@@ -257,7 +257,7 @@ class Tilemap extends PIXI.Container {
             this._needsRepaint = false;
         }
         this._sortChildren();
-        PIXI.Container.prototype.updateTransform.call(this);
+        super.updateTransform();
     };
 
     /**

@@ -9,18 +9,18 @@ class Scene_Menu extends Scene_MenuBase {
     protected _goldWindow;
     
     // initialize() {
-    //     Scene_MenuBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     create() {
-        Scene_MenuBase.prototype.create.call(this);
+        super.create();
         this.createCommandWindow();
         this.createGoldWindow();
         this.createStatusWindow();
     };
 
     start() {
-        Scene_MenuBase.prototype.start.call(this);
+        super.start();
         this._statusWindow.refresh();
     };
 

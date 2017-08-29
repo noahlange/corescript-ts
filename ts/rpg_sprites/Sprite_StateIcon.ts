@@ -37,7 +37,7 @@ class Sprite_StateIcon extends Sprite {
     };
 
     update() {
-        Sprite.prototype.update.call(this);
+        super.update();
         this._animationCount++;
         if (this._animationCount >= this.animationWait()) {
             this.updateIcon();

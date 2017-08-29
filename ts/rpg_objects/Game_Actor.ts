@@ -123,17 +123,17 @@ class Game_Actor extends Game_Battler {
     };
     
     clearStates() {
-        Game_Battler.prototype.clearStates.call(this);
+        super.clearStates();
         this._stateSteps = {};
     };
     
     eraseState(stateId) {
-        Game_Battler.prototype.eraseState.call(this, stateId);
+        super.eraseState(stateId);
         delete this._stateSteps[stateId];
     };
     
     resetStateCounts(stateId) {
-        Game_Battler.prototype.resetStateCounts.call(this, stateId);
+        super.resetStateCounts(stateId);
         this._stateSteps[stateId] = $dataStates[stateId].stepsToRemove;
     };
     
@@ -378,7 +378,7 @@ class Game_Actor extends Game_Battler {
     
     refresh() {
         this.releaseUnequippableItems(false);
-        Game_Battler.prototype.refresh.call(this);
+        super.refresh();
     };
     
     isActor() {
@@ -430,7 +430,7 @@ class Game_Actor extends Game_Battler {
     };
     
     traitObjects() {
-        var objects = Game_Battler.prototype.traitObjects.call(this);
+        var objects = super.traitObjects();
         objects = objects.concat([this.actor(), this.currentClass()]);
         var equips = this.equips();
         for (var i = 0; i < equips.length; i++) {
@@ -443,7 +443,7 @@ class Game_Actor extends Game_Battler {
     };
     
     attackElements() {
-        var set = Game_Battler.prototype.attackElements.call(this);
+        var set = super.attackElements();
         if (this.hasNoWeapons() && !set.contains(this.bareHandsElementId())) {
             set.push(this.bareHandsElementId());
         }
@@ -462,7 +462,7 @@ class Game_Actor extends Game_Battler {
         if (paramId === 0) {
             return 9999;    // MHP
         }
-        return Game_Battler.prototype.paramMax.call(this, paramId);
+        return super.paramMax(paramId);
     };
     
     paramBase(paramId) {
@@ -470,7 +470,7 @@ class Game_Actor extends Game_Battler {
     };
     
     paramPlus(paramId) {
-        var value = Game_Battler.prototype.paramPlus.call(this, paramId);
+        var value = super.paramPlus(paramId);
         var equips = this.equips();
         for (var i = 0; i < equips.length; i++) {
             var item = equips[i];
@@ -623,7 +623,7 @@ class Game_Actor extends Game_Battler {
     
     startAnimation(animationId, mirror, delay) {
         mirror = !mirror;
-        Game_Battler.prototype.startAnimation.call(this, animationId, mirror, delay);
+        super.startAnimation(animationId, mirror, delay);
     };
     
     performActionStart(action) {
@@ -646,7 +646,7 @@ class Game_Actor extends Game_Battler {
     };
     
     performActionEnd() {
-        Game_Battler.prototype.performActionEnd.call(this);
+        super.performActionEnd();
     };
     
     performAttack() {
@@ -666,7 +666,7 @@ class Game_Actor extends Game_Battler {
     };
     
     performDamage() {
-        Game_Battler.prototype.performDamage.call(this);
+        super.performDamage();
         if (this.isSpriteVisible()) {
             this.requestMotion('damage');
         } else {
@@ -676,22 +676,22 @@ class Game_Actor extends Game_Battler {
     };
     
     performEvasion() {
-        Game_Battler.prototype.performEvasion.call(this);
+        super.performEvasion();
         this.requestMotion('evade');
     };
     
     performMagicEvasion() {
-        Game_Battler.prototype.performMagicEvasion.call(this);
+        super.performMagicEvasion();
         this.requestMotion('evade');
     };
     
     performCounter() {
-        Game_Battler.prototype.performCounter.call(this);
+        super.performCounter();
         this.performAttack();
     };
     
     performCollapse() {
-        Game_Battler.prototype.performCollapse.call(this);
+        super.performCollapse();
         if ($gameParty.inBattle()) {
             SoundManager.playActorCollapse();
         }

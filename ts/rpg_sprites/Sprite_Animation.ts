@@ -81,7 +81,7 @@ class Sprite_Animation extends Sprite {
     };
 
     update() {
-        Sprite.prototype.update.call(this);
+        super.update();
         this.updateMain();
         this.updateFlash();
         this.updateScreenFlash();

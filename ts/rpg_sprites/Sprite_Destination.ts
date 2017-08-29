@@ -13,7 +13,7 @@ class Sprite_Destination extends Sprite {
     };
     
     update() {
-        Sprite.prototype.update.call(this);
+        super.update();
         if ($gameTemp.isDestinationValid()){
             this.updatePosition();
             this.updateAnimation();

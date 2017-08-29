@@ -304,7 +304,7 @@ class Game_Party extends Game_Unit {
     };
     
     isAllDead() {
-        if (Game_Unit.prototype.isAllDead.call(this)) {
+        if (super.isAllDead()) {
             return this.inBattle() || !this.isEmpty();
         } else {
             return false;

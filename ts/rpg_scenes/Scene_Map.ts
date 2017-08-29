@@ -25,7 +25,7 @@ class Scene_Map extends Scene_Base {
     };
 
     create() {
-        Scene_Base.prototype.create.call(this);
+        super.create();
         this._transfer = $gamePlayer.isTransferring();
         var mapId = this._transfer ? $gamePlayer.newMapId() : $gameMap.mapId();
         DataManager.loadMapData(mapId);
@@ -36,7 +36,7 @@ class Scene_Map extends Scene_Base {
             this.onMapLoaded();
             this._mapLoaded = true;
         }
-        return this._mapLoaded && Scene_Base.prototype.isReady.call(this);
+        return this._mapLoaded && super.isReady();
     };
 
     onMapLoaded() {
@@ -47,7 +47,7 @@ class Scene_Map extends Scene_Base {
     };
 
     start() {
-        Scene_Base.prototype.start.call(this);
+        super.start();
         SceneManager.clearStack();
         if (this._transfer) {
             this.fadeInForTransfer();
@@ -68,7 +68,7 @@ class Scene_Map extends Scene_Base {
             this.updateEncounterEffect();
         }
         this.updateWaitCount();
-        Scene_Base.prototype.update.call(this);
+        super.update();
     };
 
     updateMainMultiply() {
@@ -92,7 +92,7 @@ class Scene_Map extends Scene_Base {
     };
 
     stop() {
-        Scene_Base.prototype.stop.call(this);
+        super.stop();
         $gamePlayer.straighten();
         this._mapNameWindow.close();
         if (this.needsSlowFadeOut()) {
@@ -107,11 +107,11 @@ class Scene_Map extends Scene_Base {
     isBusy() {
         return ((this._messageWindow && this._messageWindow.isClosing()) ||
             this._waitCount > 0 || this._encounterEffectDuration > 0 ||
-            Scene_Base.prototype.isBusy.call(this));
+            super.isBusy());
     };
 
     terminate() {
-        Scene_Base.prototype.terminate.call(this);
+        super.terminate();
         if (!SceneManager.isNextScene(Scene_Battle)) {
             this._spriteset.update();
             this._mapNameWindow.hide();

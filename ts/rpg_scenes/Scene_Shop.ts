@@ -17,7 +17,7 @@ class Scene_Shop extends Scene_MenuBase {
     protected _sellWindow;
 
     // initialize() {
-    //     Scene_MenuBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
     
     prepare(goods, purchaseOnly) {
@@ -27,7 +27,7 @@ class Scene_Shop extends Scene_MenuBase {
     };
     
     create() {
-        Scene_MenuBase.prototype.create.call(this);
+        super.create();
         this.createHelpWindow();
         this.createGoldWindow();
         this.createCommandWindow();

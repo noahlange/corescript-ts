@@ -6,7 +6,7 @@
 class Scene_Save extends Scene_File {
 
     // initialize() {
-    //     Scene_File.prototype.initialize.call(this);
+    //     super.initialize();
     // };
     
     mode() {
@@ -22,7 +22,7 @@ class Scene_Save extends Scene_File {
     };
     
     onSavefileOk() {
-        Scene_File.prototype.onSavefileOk.call(this);
+        super.onSavefileOk();
         $gameSystem.onBeforeSave();
         if (DataManager.saveGame(this.savefileId())) {
             this.onSaveSuccess();

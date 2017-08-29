@@ -34,7 +34,7 @@ class Sprite_Balloon extends Sprite_Base {
     };
 
     update() {
-        Sprite_Base.prototype.update.call(this);
+        super.update();
         if (this._duration > 0) {
             this._duration--;
             if (this._duration > 0) {

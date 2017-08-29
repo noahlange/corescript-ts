@@ -29,7 +29,7 @@ class Game_Follower extends Game_Character {
     };
     
     update() {
-        Game_Character.prototype.update.call(this);
+        super.update();
         this.setMoveSpeed($gamePlayer.realMoveSpeed());
         this.setOpacity($gamePlayer.opacity());
         this.setBlendMode($gamePlayer.blendMode());

@@ -12,7 +12,7 @@ class Scene_Boot extends Scene_Base {
     };
     
     create() {
-        Scene_Base.prototype.create.call(this);
+        super.create();
         DataManager.loadDatabase();
         ConfigManager.load();
         this.loadSystemWindowImage();
@@ -36,7 +36,7 @@ class Scene_Boot extends Scene_Base {
     };
     
     isReady() {
-        if (Scene_Base.prototype.isReady.call(this)) {
+        if (super.isReady()) {
             return DataManager.isDatabaseLoaded() && this.isGameFontLoaded();
         } else {
             return false;
@@ -55,7 +55,7 @@ class Scene_Boot extends Scene_Base {
     };
     
     start() {
-        Scene_Base.prototype.start.call(this);
+        super.start();
         SoundManager.preloadImportantSounds();
         if (DataManager.isBattleTest()) {
             DataManager.setupBattleTest();

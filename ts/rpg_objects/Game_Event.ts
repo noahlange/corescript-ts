@@ -56,7 +56,7 @@ class Game_Event extends Game_Character {
     };
     
     isCollidedWithCharacters(x, y) {
-        return (Game_Character.prototype.isCollidedWithCharacters.call(this, x, y) ||
+        return (super.isCollidedWithCharacters(x, y) ||
                 this.isCollidedWithPlayerCharacters(x, y));
     };
     
@@ -88,7 +88,7 @@ class Game_Event extends Game_Character {
         if (this._locked) {
             this.resetStopCount();
         }
-        Game_Character.prototype.updateStop.call(this);
+        super.updateStop();
         if (!this.isMoveRouteForcing()) {
             this.updateSelfMovement();
         }
@@ -320,7 +320,7 @@ class Game_Event extends Game_Character {
     };
     
     update() {
-        Game_Character.prototype.update.call(this);
+        super.update();
         this.checkEventTriggerAuto();
         this.updateParallel();
     };
@@ -335,12 +335,12 @@ class Game_Event extends Game_Character {
     };
     
     locate(x, y) {
-        Game_Character.prototype.locate.call(this, x, y);
+        super.locate.call(x, y);
         this._prelockDirection = 0;
     };
     
     forceMoveRoute(moveRoute) {
-        Game_Character.prototype.forceMoveRoute.call(this, moveRoute);
+        super.forceMoveRoute.call(moveRoute);
         this._prelockDirection = 0;
     };
         

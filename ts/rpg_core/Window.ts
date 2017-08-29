@@ -352,7 +352,7 @@ class CoreWindow extends PIXI.Container {
         this._updateArrows();
         this._updatePauseSign();
         this._updateContents();
-        PIXI.Container.prototype.updateTransform.call(this);
+        super.updateTransform();
     };
 
     /**

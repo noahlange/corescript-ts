@@ -12,7 +12,7 @@ class Scene_Load extends Scene_File {
     };
     
     terminate() {
-        Scene_File.prototype.terminate.call(this);
+        super.terminate();
         if (this._loadSuccess) {
             $gameSystem.onAfterLoad();
         }
@@ -31,7 +31,7 @@ class Scene_Load extends Scene_File {
     };
     
     onSavefileOk() {
-        Scene_File.prototype.onSavefileOk.call(this);
+        super.onSavefileOk();
         if (DataManager.loadGame(this.savefileId())) {
             this.onLoadSuccess();
         } else {

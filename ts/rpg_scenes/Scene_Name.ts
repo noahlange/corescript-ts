@@ -10,7 +10,7 @@ class Scene_Name extends Scene_MenuBase {
     protected _inputWindow;
 
     // initialize() {
-    //     Scene_MenuBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     prepare(actorId, maxLength) {
@@ -19,14 +19,14 @@ class Scene_Name extends Scene_MenuBase {
     };
 
     create() {
-        Scene_MenuBase.prototype.create.call(this);
+        super.create();
         this._actor = $gameActors.actor(this._actorId);
         this.createEditWindow();
         this.createInputWindow();
     };
 
     start() {
-        Scene_MenuBase.prototype.start.call(this);
+        super.start();
         this._editWindow.refresh();
     };
 

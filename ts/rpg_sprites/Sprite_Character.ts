@@ -39,7 +39,7 @@ class Sprite_Character extends Sprite_Base {
     };
     
     update() {
-        Sprite_Base.prototype.update.call(this);
+        super.update();
         this.updateBitmap();
         this.updateFrame();
         this.updatePosition();
@@ -49,7 +49,7 @@ class Sprite_Character extends Sprite_Base {
     };
     
     updateVisibility() {
-        Sprite_Base.prototype.updateVisibility.call(this);
+        super.updateVisibility();
         if (this._character.isTransparent()) {
             this.visible = false;
         }

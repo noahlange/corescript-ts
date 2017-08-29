@@ -7,17 +7,17 @@ class Scene_Gameover extends Scene_Base {
     protected _backSprite;
 
     // initialize() {
-    //     Scene_Base.prototype.initialize.call(this);
+    //     super.initialize();
     // };
     
     create() {
-        Scene_Base.prototype.create.call(this);
+        super.create();
         this.playGameoverMusic();
         this.createBackground();
     };
     
     start() {
-        Scene_Base.prototype.start.call(this);
+        super.start();
         this.startFadeIn(this.slowFadeSpeed(), false);
     };
     
@@ -25,16 +25,16 @@ class Scene_Gameover extends Scene_Base {
         if (this.isActive() && !this.isBusy() && this.isTriggered()) {
             this.gotoTitle();
         }
-        Scene_Base.prototype.update.call(this);
+        super.update();
     };
     
     stop() {
-        Scene_Base.prototype.stop.call(this);
+        super.stop();
         this.fadeOutAll();
     };
     
     terminate() {
-        Scene_Base.prototype.terminate.call(this);
+        super.terminate();
         AudioManager.stopAll();
     };
     

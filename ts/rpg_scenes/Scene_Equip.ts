@@ -11,11 +11,11 @@ class Scene_Equip extends Scene_MenuBase {
     protected _itemWindow;
 
     // initialize() {
-    //     Scene_MenuBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     create() {
-        Scene_MenuBase.prototype.create.call(this);
+        super.create();
         this.createHelpWindow();
         this.createStatusWindow();
         this.createCommandWindow();

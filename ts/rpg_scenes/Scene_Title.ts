@@ -10,11 +10,11 @@ class Scene_Title extends Scene_Base {
     protected _gameTitleSprite;
 
     // initialize() {
-    //     Scene_Base.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     create() {
-        Scene_Base.prototype.create.call(this);
+        super.create();
         this.createBackground();
         this.createForeground();
         this.createWindowLayer();
@@ -22,7 +22,7 @@ class Scene_Title extends Scene_Base {
     };
 
     start() {
-        Scene_Base.prototype.start.call(this);
+        super.start();
         SceneManager.clearStack();
         this.centerSprite(this._backSprite1);
         this.centerSprite(this._backSprite2);
@@ -34,15 +34,15 @@ class Scene_Title extends Scene_Base {
         if (!this.isBusy()) {
             this._commandWindow.open();
         }
-        Scene_Base.prototype.update.call(this);
+        super.update();
     };
 
     isBusy() {
-        return this._commandWindow.isClosing() || Scene_Base.prototype.isBusy.call(this);
+        return this._commandWindow.isClosing() || super.isBusy();
     };
 
     terminate() {
-        Scene_Base.prototype.terminate.call(this);
+        super.terminate();
         SceneManager.snapForBackground();
     };
 

@@ -97,7 +97,7 @@ class Game_Vehicle extends Game_Character {
     
     pos(x, y) {
         if (this._mapId === $gameMap.mapId()) {
-            return Game_Character.prototype.pos.call(this, x, y);
+            return super.pos.call(x, y);
         } else {
             return false;
         }
@@ -147,7 +147,7 @@ class Game_Vehicle extends Game_Character {
     };
     
     screenY() {
-        return Game_Character.prototype.screenY.call(this) - this._altitude;
+        return super.screenY() - this._altitude;
     };
     
     shadowX() {
@@ -171,7 +171,7 @@ class Game_Vehicle extends Game_Character {
     };
     
     update() {
-        Game_Character.prototype.update.call(this);
+        super.update();
         if (this.isAirship()) {
             this.updateAirship();
         }

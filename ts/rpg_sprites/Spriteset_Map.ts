@@ -14,11 +14,11 @@ class Spriteset_Map extends Spriteset_Base {
     protected _weather;
 
     // initialize() {
-    //     Spriteset_Base.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     createLowerLayer() {
-        Spriteset_Base.prototype.createLowerLayer.call(this);
+        super.createLowerLayer();
         this.createParallax();
         this.createTilemap();
         this.createCharacters();
@@ -28,7 +28,7 @@ class Spriteset_Map extends Spriteset_Base {
     };
 
     update() {
-        Spriteset_Base.prototype.update.call(this);
+        super.update();
         this.updateTileset();
         this.updateParallax();
         this.updateTilemap();

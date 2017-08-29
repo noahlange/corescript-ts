@@ -5,7 +5,7 @@
 
 class Scene_Debug extends Scene_MenuBase {
     // initialize() {
-    //     Scene_MenuBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     protected _rangeWindow;
@@ -14,7 +14,7 @@ class Scene_Debug extends Scene_MenuBase {
     
     
     create() {
-        Scene_MenuBase.prototype.create.call(this);
+        super.create();
         this.createRangeWindow();
         this.createEditWindow();
         this.createDebugHelpWindow();

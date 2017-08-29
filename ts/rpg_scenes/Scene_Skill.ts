@@ -9,11 +9,11 @@ class Scene_Skill extends Scene_ItemBase {
     
 
     // initialize() {
-    //     Scene_ItemBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
     
     create() {
-        Scene_ItemBase.prototype.create.call(this);
+        super.create();
         this.createHelpWindow();
         this.createSkillTypeWindow();
         this.createStatusWindow();
@@ -22,7 +22,7 @@ class Scene_Skill extends Scene_ItemBase {
     };
     
     start() {
-        Scene_ItemBase.prototype.start.call(this);
+        super.start();
         this.refreshActor();
     };
     
@@ -91,7 +91,7 @@ class Scene_Skill extends Scene_ItemBase {
     };
     
     useItem() {
-        Scene_ItemBase.prototype.useItem.call(this);
+        super.useItem();
         this._statusWindow.refresh();
         this._itemWindow.refresh();
     };

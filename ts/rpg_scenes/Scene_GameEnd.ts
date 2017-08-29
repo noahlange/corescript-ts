@@ -6,21 +6,21 @@
 class Scene_GameEnd extends Scene_MenuBase {
     protected _commandWindow;
     // initialize() {
-    //     Scene_MenuBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
     
     create() {
-        Scene_MenuBase.prototype.create.call(this);
+        super.create();
         this.createCommandWindow();
     };
     
     stop() {
-        Scene_MenuBase.prototype.stop.call(this);
+        super.stop();
         this._commandWindow.close();
     };
     
     createBackground() {
-        Scene_MenuBase.prototype.createBackground.call(this);
+        super.createBackground();
         this.setBackgroundOpacity(128);
     };
     

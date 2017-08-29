@@ -66,7 +66,7 @@ class Game_Player extends Game_Character {
         if (this._vehicleGettingOn || this._vehicleGettingOff) {
             return false;
         }
-        return Game_Character.prototype.isStopping.call(this);
+        return super.isStopping();
     };
     
     reserveTransfer(mapId, x, y, d, fadeType) {
@@ -112,7 +112,7 @@ class Game_Player extends Game_Character {
         if (vehicle) {
             return vehicle.isMapPassable(x, y, d);
         } else {
-            return Game_Character.prototype.isMapPassable.call(this, x, y, d);
+            return super.isMapPassable(x, y, d);
         }
     };
     
@@ -169,7 +169,7 @@ class Game_Player extends Game_Character {
     };
     
     locate(x, y) {
-        Game_Character.prototype.locate.call(this, x, y);
+        super.locate(x, y);
         this.center(x, y);
         this.makeEncounterCount();
         if (this.isInVehicle()) {
@@ -179,7 +179,7 @@ class Game_Player extends Game_Character {
     };
     
     increaseSteps() {
-        Game_Character.prototype.increaseSteps.call(this);
+        super.increaseSteps();
         if (this.isNormal()) {
             $gameParty.increaseSteps();
         }
@@ -595,18 +595,18 @@ class Game_Player extends Game_Character {
         if (this.canPass(this.x, this.y, d)) {
             this._followers.updateMove();
         }
-        Game_Character.prototype.moveStraight.call(this, d);
+        super.moveStraight(d);
     };
     
     moveDiagonally(horz, vert) {
         if (this.canPassDiagonally(this.x, this.y, horz, vert)) {
             this._followers.updateMove();
         }
-        Game_Character.prototype.moveDiagonally.call(this, horz, vert);
+        super.moveDiagonally(horz, vert);
     };
     
     jump(xPlus, yPlus) {
-        Game_Character.prototype.jump.call(this, xPlus, yPlus);
+        super.jump(xPlus, yPlus);
         this._followers.jumpAll();
     };
     

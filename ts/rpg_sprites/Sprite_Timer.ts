@@ -19,7 +19,7 @@ class Sprite_Timer extends Sprite {
     };
     
     update() {
-        Sprite.prototype.update.call(this);
+        super.update();
         this.updateBitmap();
         this.updatePosition();
         this.updateVisibility();

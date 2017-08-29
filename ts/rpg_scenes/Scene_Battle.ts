@@ -22,12 +22,12 @@ class Scene_Battle extends Scene_Base {
     // };
     
     create() {
-        Scene_Base.prototype.create.call(this);
+        super.create();
         this.createDisplayObjects();
     };
     
     start() {
-        Scene_Base.prototype.start.call(this);
+        super.start();
         this.startFadeIn(this.fadeSpeed(), false);
         BattleManager.playBattleBgm();
         BattleManager.startBattle();
@@ -42,7 +42,7 @@ class Scene_Battle extends Scene_Base {
         if (active && !this.isBusy()) {
             this.updateBattleProcess();
         }
-        Scene_Base.prototype.update.call(this);
+        super.update();
     };
     
     updateBattleProcess() {
@@ -75,7 +75,7 @@ class Scene_Battle extends Scene_Base {
     };
     
     stop() {
-        Scene_Base.prototype.stop.call(this);
+        super.stop();
         if (this.needsSlowFadeOut()) {
             this.startFadeOut(this.slowFadeSpeed(), false);
         } else {
@@ -87,7 +87,7 @@ class Scene_Battle extends Scene_Base {
     };
     
     terminate() {
-        Scene_Base.prototype.terminate.call(this);
+        super.terminate();
         $gameParty.onBattleEnd();
         $gameTroop.onBattleEnd();
         AudioManager.stopMe();

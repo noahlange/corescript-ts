@@ -47,7 +47,7 @@ class Sprite_Battler extends Sprite_Base {
     };
     
     update() {
-        Sprite_Base.prototype.update.call(this);
+        super.update();
         if (this._battler) {
             this.updateMain();
             this.updateAnimation();
@@ -59,7 +59,7 @@ class Sprite_Battler extends Sprite_Base {
     };
     
     updateVisibility() {
-        Sprite_Base.prototype.updateVisibility.call(this);
+        super.updateVisibility();
         if (!this._battler || !this._battler.isSpriteVisible()) {
             this.visible = false;
         }

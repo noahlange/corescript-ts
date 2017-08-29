@@ -16,7 +16,7 @@ class Sprite_Base extends Sprite {
     };
 
     update() {
-        Sprite.prototype.update.call(this);
+        super.update();
         this.updateVisibility();
         this.updateAnimationSprites();
     };

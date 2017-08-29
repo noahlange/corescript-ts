@@ -19,7 +19,7 @@ class Spriteset_Battle extends Spriteset_Base {
     };
     
     createLowerLayer() {
-        Spriteset_Base.prototype.createLowerLayer.call(this);
+        super.createLowerLayer();
         this.createBackground();
         this.createBattleField();
         this.createBattleback();
@@ -34,7 +34,7 @@ class Spriteset_Battle extends Spriteset_Base {
     };
     
     update() {
-        Spriteset_Base.prototype.update.call(this);
+        super.update();
         this.updateActors();
         this.updateBattleback();
     };

@@ -42,7 +42,7 @@ class Sprite_Actor extends Sprite_Battler {
     };
 
     initMembers() {
-        Sprite_Battler.prototype.initMembers.call(this);
+        super.initMembers();
         this._battlerName = '';
         this._motion = null;
         this._motionCount = 0;
@@ -81,7 +81,7 @@ class Sprite_Actor extends Sprite_Battler {
     };
 
     setBattler(battler) {
-        Sprite_Battler.prototype.setBattler.call(this, battler);
+        super.setBattler(battler);
         var changed = (battler !== this._actor);
         if (changed) {
             this._actor = battler;
@@ -102,7 +102,7 @@ class Sprite_Actor extends Sprite_Battler {
     };
 
     update() {
-        Sprite_Battler.prototype.update.call(this);
+        super.update();
         this.updateShadow();
         if (this._actor) {
             this.updateMotion();
@@ -114,7 +114,7 @@ class Sprite_Actor extends Sprite_Battler {
     };
 
     updateMain() {
-        Sprite_Battler.prototype.updateMain.call(this);
+        super.updateMain();
         if (this._actor.isSpriteVisible() && !this.isMoving()) {
             this.updateTargetPosition();
         }
@@ -154,7 +154,7 @@ class Sprite_Actor extends Sprite_Battler {
     };
 
     updateBitmap() {
-        Sprite_Battler.prototype.updateBitmap.call(this);
+        super.updateBitmap();
         var name = this._actor.battlerName();
         if (this._battlerName !== name) {
             this._battlerName = name;
@@ -163,7 +163,7 @@ class Sprite_Actor extends Sprite_Battler {
     };
 
     updateFrame() {
-        Sprite_Battler.prototype.updateFrame.call(this);
+        super.updateFrame();
         var bitmap = this._mainSprite.bitmap;
         if (bitmap) {
             var motionIndex = this._motion ? this._motion.index : 0;
@@ -179,7 +179,7 @@ class Sprite_Actor extends Sprite_Battler {
     updateMove() {
         var bitmap = this._mainSprite.bitmap;
         if (!bitmap || bitmap.isReady()) {
-            Sprite_Battler.prototype.updateMove.call(this);
+            super.updateMove();
         }
     };
 
@@ -263,7 +263,7 @@ class Sprite_Actor extends Sprite_Battler {
     };
 
     onMoveEnd() {
-        Sprite_Battler.prototype.onMoveEnd.call(this);
+        super.onMoveEnd();
         if (!BattleManager.isBattleEnd()) {
             this.refreshMotion();
         }

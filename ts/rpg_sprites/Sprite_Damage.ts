@@ -78,7 +78,7 @@ class Sprite_Damage extends Sprite {
     };
     
     update() {
-        Sprite.prototype.update.call(this);
+        super.update();
         if (this._duration > 0) {
             this._duration--;
             for (var i = 0; i < this.children.length; i++) {

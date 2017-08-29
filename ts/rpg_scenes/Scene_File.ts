@@ -8,18 +8,18 @@ class Scene_File extends Scene_MenuBase {
     protected _helpWindow;
     
     // initialize() {
-    //     Scene_MenuBase.prototype.initialize.call(this);
+    //     super.initialize();
     // };
 
     create() {
-        Scene_MenuBase.prototype.create.call(this);
+        super.create();
         DataManager.loadAllSavefileImages();
         this.createHelpWindow();
         this.createListWindow();
     };
 
     start() {
-        Scene_MenuBase.prototype.start.call(this);
+        super.start();
         this._listWindow.refresh();
     };
 
