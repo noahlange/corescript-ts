@@ -11,7 +11,7 @@ Window_BattleItem.prototype = Object.create(Window_ItemList.prototype);
 Window_BattleItem.prototype.constructor = Window_BattleItem;
 
 Window_BattleItem.prototype.initialize = function(x, y, width, height) {
-    Window_ItemList.prototype.initialize.call(this, x, y, width, height);
+    Window_ItemList.call(this, x, y, width, height);
     this.hide();
 };
 

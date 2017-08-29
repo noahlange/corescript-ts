@@ -14,7 +14,7 @@ Window_EventItem.prototype.initialize = function(messageWindow) {
     this._messageWindow = messageWindow;
     var width = Graphics.boxWidth;
     var height = this.windowHeight();
-    Window_ItemList.prototype.initialize.call(this, 0, 0, width, height);
+    Window_ItemList.call(this, 0, 0, width, height);
     this.openness = 0;
     this.deactivate();
     this.setHandler('ok',     this.onOk.bind(this));

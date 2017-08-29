@@ -11,7 +11,7 @@ Window_ShopSell.prototype = Object.create(Window_ItemList.prototype);
 Window_ShopSell.prototype.constructor = Window_ShopSell;
 
 Window_ShopSell.prototype.initialize = function(x, y, width, height) {
-    Window_ItemList.prototype.initialize.call(this, x, y, width, height);
+    Window_ItemList.call(this, x, y, width, height);
 };
 
 Window_ShopSell.prototype.isEnabled = function(item) {

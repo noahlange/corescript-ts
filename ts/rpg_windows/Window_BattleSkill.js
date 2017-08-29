@@ -11,7 +11,7 @@ Window_BattleSkill.prototype = Object.create(Window_SkillList.prototype);
 Window_BattleSkill.prototype.constructor = Window_BattleSkill;
 
 Window_BattleSkill.prototype.initialize = function(x, y, width, height) {
-    Window_SkillList.prototype.initialize.call(this, x, y, width, height);
+    Window_SkillList.call(this, x, y, width, height);
     this.hide();
 };
 

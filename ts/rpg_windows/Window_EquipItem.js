@@ -11,7 +11,7 @@ Window_EquipItem.prototype = Object.create(Window_ItemList.prototype);
 Window_EquipItem.prototype.constructor = Window_EquipItem;
 
 Window_EquipItem.prototype.initialize = function(x, y, width, height) {
-    Window_ItemList.prototype.initialize.call(this, x, y, width, height);
+    Window_ItemList.call(this, x, y, width, height);
     this._actor = null;
     this._slotId = 0;
 };
