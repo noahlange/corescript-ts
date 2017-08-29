@@ -75,7 +75,7 @@ Window_NameInput.prototype.initialize = function(editWindow) {
     var y = editWindow.y + editWindow.height + 8;
     var width = editWindow.width;
     var height = this.windowHeight();
-    Window_Selectable.prototype.initialize.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y, width, height);
     this._editWindow = editWindow;
     this._page = 0;
     this._index = 0;

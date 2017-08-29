@@ -13,7 +13,7 @@ Window_ShopNumber.prototype.constructor = Window_ShopNumber;
 
 Window_ShopNumber.prototype.initialize = function(x, y, height) {
     var width = this.windowWidth();
-    Window_Selectable.prototype.initialize.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y, width, height);
     this._item = null;
     this._max = 1;
     this._price = 0;

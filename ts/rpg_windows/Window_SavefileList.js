@@ -11,7 +11,7 @@ Window_SavefileList.prototype = Object.create(Window_Selectable.prototype);
 Window_SavefileList.prototype.constructor = Window_SavefileList;
 
 Window_SavefileList.prototype.initialize = function(x, y, width, height) {
-    Window_Selectable.prototype.initialize.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y, width, height);
     this.activate();
     this._mode = null;
 };

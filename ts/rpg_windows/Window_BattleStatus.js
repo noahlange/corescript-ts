@@ -15,7 +15,7 @@ Window_BattleStatus.prototype.initialize = function() {
     var height = this.windowHeight();
     var x = Graphics.boxWidth - width;
     var y = Graphics.boxHeight - height;
-    Window_Selectable.prototype.initialize.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y, width, height);
     this.refresh();
     this.openness = 0;
 };

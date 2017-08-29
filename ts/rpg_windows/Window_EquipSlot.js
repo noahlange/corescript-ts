@@ -11,7 +11,7 @@ Window_EquipSlot.prototype = Object.create(Window_Selectable.prototype);
 Window_EquipSlot.prototype.constructor = Window_EquipSlot;
 
 Window_EquipSlot.prototype.initialize = function(x, y, width, height) {
-    Window_Selectable.prototype.initialize.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y, width, height);
     this._actor = null;
     this.refresh();
 };

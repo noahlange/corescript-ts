@@ -11,7 +11,7 @@ Window_ItemList.prototype = Object.create(Window_Selectable.prototype);
 Window_ItemList.prototype.constructor = Window_ItemList;
 
 Window_ItemList.prototype.initialize = function(x, y, width, height) {
-    Window_Selectable.prototype.initialize.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y, width, height);
     this._category = 'none';
     this._data = [];
 };

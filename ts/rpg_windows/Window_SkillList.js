@@ -11,7 +11,7 @@ Window_SkillList.prototype = Object.create(Window_Selectable.prototype);
 Window_SkillList.prototype.constructor = Window_SkillList;
 
 Window_SkillList.prototype.initialize = function(x, y, width, height) {
-    Window_Selectable.prototype.initialize.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y, width, height);
     this._actor = null;
     this._stypeId = 0;
     this._data = [];

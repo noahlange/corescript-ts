@@ -14,7 +14,7 @@ Window_BattleEnemy.prototype.initialize = function(x, y) {
     this._enemies = [];
     var width = this.windowWidth();
     var height = this.windowHeight();
-    Window_Selectable.prototype.initialize.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y, width, height);
     this.refresh();
     this.hide();
 };
