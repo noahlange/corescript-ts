@@ -4,37 +4,37 @@
 // The static class that manages the configuration data.
 
 class ConfigManager {
-    static alwaysDash        = false;
-    static commandRemember   = false;
+    static alwaysDash = false;
+    static commandRemember = false;
 
-        static get bgmVolume() {
-            return AudioManager._bgmVolume;
-        }
-        static set bgmVolume(value) {
-            AudioManager.bgmVolume = value;
-        }
-    
-        static get bgsVolume() {
-            return AudioManager.bgsVolume;
-        }
-        static set bgsVolume(value) {
-            AudioManager.bgsVolume = value;
-        }
-    
-        static get meVolume() {
-            return AudioManager.meVolume;
-        }
-        static set meVolume(value) {
-            AudioManager.meVolume = value;
-        }
-    
-        static get seVolume() {
-            return AudioManager.seVolume;
-        }
-        static set seVolume(value) {
-            AudioManager.seVolume = value;
-        }
-    
+    static get bgmVolume() {
+        return AudioManager._bgmVolume;
+    }
+    static set bgmVolume(value) {
+        AudioManager.bgmVolume = value;
+    }
+
+    static get bgsVolume() {
+        return AudioManager.bgsVolume;
+    }
+    static set bgsVolume(value) {
+        AudioManager.bgsVolume = value;
+    }
+
+    static get meVolume() {
+        return AudioManager.meVolume;
+    }
+    static set meVolume(value) {
+        AudioManager.meVolume = value;
+    }
+
+    static get seVolume() {
+        return AudioManager.seVolume;
+    }
+    static set seVolume(value) {
+        AudioManager.seVolume = value;
+    }
+
     static load() {
         var json;
         var config = {};
@@ -48,11 +48,11 @@ class ConfigManager {
         }
         this.applyData(config);
     };
-    
+
     static save() {
         StorageManager.save(-1, JSON.stringify(this.makeData()));
     };
-    
+
     static makeData() {
         var config = {};
         config['alwaysDash'] = this.alwaysDash;
@@ -63,7 +63,7 @@ class ConfigManager {
         config['seVolume'] = this.seVolume;
         return config;
     };
-    
+
     static applyData(config) {
         this.alwaysDash = this.readFlag(config, 'alwaysDash');
         this.commandRemember = this.readFlag(config, 'commandRemember');
@@ -72,11 +72,11 @@ class ConfigManager {
         this.meVolume = this.readVolume(config, 'meVolume');
         this.seVolume = this.readVolume(config, 'seVolume');
     };
-    
+
     static readFlag(config, name) {
         return !!config[name];
     };
-    
+
     static readVolume(config, name) {
         var value = config[name];
         if (value !== undefined) {
@@ -85,7 +85,7 @@ class ConfigManager {
             return 100;
         }
     };
-        
+
 }
 
 

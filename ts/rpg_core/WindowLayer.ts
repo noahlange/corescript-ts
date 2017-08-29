@@ -21,18 +21,18 @@ class WindowLayer extends PIXI.Container {
         this._height = 0;
         this._tempCanvas = null;
         this._translationMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
-    
+
         this._windowMask = new PIXI.Graphics();
         this._windowMask.beginFill(0xffffff, 1);
         this._windowMask.drawRect(0, 0, 0, 0);
         this._windowMask.endFill();
         /// bungcip: jadi any agar tidak error
         this._windowRect = (this._windowMask as any).graphicsData[0].shape;
-    
+
         this._renderSprite = null;
         this.filterArea = new PIXI.Rectangle();
         this.filters = [WindowLayer.voidFilter];
-    
+
         //temporary fix for memory leak bug
         this.on('removed', this.onRemoveAsAChild);
     };
@@ -40,35 +40,35 @@ class WindowLayer extends PIXI.Container {
     onRemoveAsAChild() {
         this.removeChildren();
     }
-    
+
     static voidFilter = new PIXI.filters.VoidFilter();
-    
+
     /**
      * The width of the window layer in pixels.
      *
      * @property width
      * @type Number
      */
-        get width() {
-            return this._width;
-        }
-        set width(value) {
-            this._width = value;
-        }
-    
+    get width() {
+        return this._width;
+    }
+    set width(value) {
+        this._width = value;
+    }
+
     /**
      * The height of the window layer in pixels.
      *
      * @property height
      * @type Number
      */
-        get height() {
-            return this._height;
-        }
-        set height(value) {
-            this._height = value;
-        }
-    
+    get height() {
+        return this._height;
+    }
+    set height(value) {
+        this._height = value;
+    }
+
     /**
      * Sets the x, y, width, and height all at once.
      *
@@ -84,21 +84,21 @@ class WindowLayer extends PIXI.Container {
         this.width = width;
         this.height = height;
     };
-    
+
     /**
      * Updates the window layer for each frame.
      *
      * @method update
      */
     update() {
-        this.children.forEach(function(child) {
+        this.children.forEach(function (child) {
             if (child['update']) {
                 /// bungcip: jadi any agar bisa dipanggil
                 (child as any).update();
             }
         });
     };
-    
+
     /**
      * @method _renderCanvas
      * @param {Object} renderSession
@@ -108,26 +108,26 @@ class WindowLayer extends PIXI.Container {
         if (!this.visible || !this.renderable) {
             return;
         }
-    
+
         if (!this._tempCanvas) {
             this._tempCanvas = document.createElement('canvas');
         }
-    
+
         this._tempCanvas.width = Graphics.width;
         this._tempCanvas.height = Graphics.height;
-    
+
         var realCanvasContext = renderer.context;
         var context = this._tempCanvas.getContext('2d');
-    
+
         context.save();
         context.clearRect(0, 0, Graphics.width, Graphics.height);
         context.beginPath();
         context.rect(this.x, this.y, this.width, this.height);
         context.closePath();
         context.clip();
-    
+
         renderer.context = context;
-    
+
         for (var i = 0; i < this.children.length; i++) {
             var child = this.children[i];
             /// bungcip: ada any agar bisa dicompile
@@ -138,15 +138,15 @@ class WindowLayer extends PIXI.Container {
                 context.restore();
             }
         }
-    
+
         context.restore();
-    
+
         renderer.context = realCanvasContext;
         renderer.context.setTransform(1, 0, 0, 1, 0, 0);
         renderer.context.globalCompositeOperation = 'source-over';
         renderer.context.globalAlpha = 1;
         renderer.context.drawImage(this._tempCanvas, 0, 0);
-    
+
         for (var j = 0; j < this.children.length; j++) {
             /// bungcip: ada any agar bisa dicompile
             if (!(this.children[j] as any)._isWindow) {
@@ -154,7 +154,7 @@ class WindowLayer extends PIXI.Container {
             }
         }
     };
-    
+
     /**
      * @method _canvasClearWindowRect
      * @param {Object} renderSession
@@ -168,7 +168,7 @@ class WindowLayer extends PIXI.Container {
         var rh = window.height * window._openness / 255;
         renderSession.context.clearRect(rx, ry, rw, rh);
     };
-    
+
     /**
      * @method _renderWebGL
      * @param {Object} renderSession
@@ -178,26 +178,26 @@ class WindowLayer extends PIXI.Container {
         if (!this.visible || !this.renderable) {
             return;
         }
-    
-        if (this.children.length==0) {
+
+        if (this.children.length == 0) {
             return;
         }
-    
+
         renderer.flush();
         this.filterArea.copy(this as any);
         renderer.filterManager.pushFilter(this, this.filters);
         renderer.currentRenderer.start();
-    
+
         var shift = new PIXI.Point();
         var rt = renderer._activeRenderTarget;
         var projectionMatrix = rt.projectionMatrix;
         shift.x = Math.round((projectionMatrix.tx + 1) / 2 * rt.sourceFrame.width);
         shift.y = Math.round((projectionMatrix.ty + 1) / 2 * rt.sourceFrame.height);
-    
+
         for (var i = 0; i < this.children.length; i++) {
             var child = this.children[i];
             /// bungcip: ada any agar bisa dicompile
-            if ((child as any)._isWindow && child.visible && (child as any).openness > 0) {            
+            if ((child as any)._isWindow && child.visible && (child as any).openness > 0) {
                 this._maskWindow(child, shift);
                 renderer.maskManager.pushScissorMask(this, this._windowMask);
                 renderer.clear();
@@ -207,11 +207,11 @@ class WindowLayer extends PIXI.Container {
                 renderer.currentRenderer.flush();
             }
         }
-    
+
         renderer.flush();
         renderer.filterManager.popFilter();
         renderer.maskManager.popScissorMask();
-    
+
         for (var j = 0; j < this.children.length; j++) {
             /// bungcip: ada any agar bisa dicompile
             if (!(this.children[j] as any)._isWindow) {
@@ -219,7 +219,7 @@ class WindowLayer extends PIXI.Container {
             }
         }
     };
-    
+
     /**
      * @method _maskWindow
      * @param {Window} window
@@ -234,7 +234,7 @@ class WindowLayer extends PIXI.Container {
         rect.width = window.width;
         rect.height = window.height * window._openness / 255;
     };
-        
+
 }
 
 
