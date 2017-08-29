@@ -233,7 +233,7 @@ class TouchInput {
      * @property date
      * @type Number
      */
-    static get static() {
+    static get date() {
         return this._date;
     }
 

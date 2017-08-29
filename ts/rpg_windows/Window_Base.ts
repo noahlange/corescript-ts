@@ -431,7 +431,7 @@ class Window_Base extends CoreWindow {
         this.contents.blt(bitmap, sx, sy, pw, ph, x, y);
     };
 
-    drawFace(faceName, faceIndex, x, y, width, height) {
+    drawFace(faceName, faceIndex, x, y, width?, height?) {
         width = width || Window_Base._faceWidth;
         height = height || Window_Base._faceHeight;
         var bitmap = ImageManager.loadFace(faceName);
@@ -486,7 +486,7 @@ class Window_Base extends CoreWindow {
         this.drawCharacter(actor.characterName(), actor.characterIndex(), x, y);
     };
 
-    drawActorFace(actor, x, y, width, height) {
+    drawActorFace(actor, x, y, width?, height?) {
         this.drawFace(actor.faceName(), actor.faceIndex(), x, y, width, height);
     };
 
