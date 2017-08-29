@@ -16,9 +16,7 @@ Window_DebugRange.lastIndex  = 0;
 Window_DebugRange.prototype.initialize = function(x, y) {
     this._maxSwitches = Math.ceil(($dataSystem.switches.length - 1) / 10);
     this._maxVariables = Math.ceil(($dataSystem.variables.length - 1) / 10);
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    Window_Selectable.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y);
     this.refresh();
     this.setTopRow(Window_DebugRange.lastTopRow);
     this.select(Window_DebugRange.lastIndex);

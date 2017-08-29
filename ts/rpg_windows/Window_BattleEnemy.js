@@ -12,9 +12,7 @@ Window_BattleEnemy.prototype.constructor = Window_BattleEnemy;
 
 Window_BattleEnemy.prototype.initialize = function(x, y) {
     this._enemies = [];
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    Window_Selectable.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y);
     this.refresh();
     this.hide();
 };

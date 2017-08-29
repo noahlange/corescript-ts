@@ -14,7 +14,7 @@ class Window_Selectable extends Window_Base {
     protected _scrollX;
     protected _scrollY;
 
-    constructor(x, y, width, height) {
+    constructor(x?, y?, width?, height?) {
         super(x, y, width, height);
         this._index = -1;
         this._cursorFixed = false;

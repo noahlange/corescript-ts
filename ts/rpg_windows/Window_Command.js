@@ -13,9 +13,7 @@ Window_Command.prototype.constructor = Window_Command;
 Window_Command.prototype.initialize = function(x, y) {
     this.clearCommandList();
     this.makeCommandList();
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    Window_Selectable.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y);
     this.refresh();
     this.select(0);
     this.activate();

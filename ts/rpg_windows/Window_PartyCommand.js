@@ -11,8 +11,7 @@ Window_PartyCommand.prototype = Object.create(Window_Command.prototype);
 Window_PartyCommand.prototype.constructor = Window_PartyCommand;
 
 Window_PartyCommand.prototype.initialize = function() {
-    var y = Graphics.boxHeight - this.windowHeight();
-    Window_Command.prototype.initialize.call(this, 0, y);
+    Window_Command.prototype.initialize.call(this, 0);
     this.openness = 0;
     this.deactivate();
 };
@@ -20,6 +19,11 @@ Window_PartyCommand.prototype.initialize = function() {
 Window_PartyCommand.prototype.windowWidth = function() {
     return 192;
 };
+
+Window_PartyCommand.prototype.windowY = function() {
+    return Graphics.boxHeight - this.windowHeight();
+};
+
 
 Window_PartyCommand.prototype.numVisibleRows = function() {
     return 4;

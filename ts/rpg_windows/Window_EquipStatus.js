@@ -11,9 +11,7 @@ Window_EquipStatus.prototype = Object.create(Window_Base.prototype);
 Window_EquipStatus.prototype.constructor = Window_EquipStatus;
 
 Window_EquipStatus.prototype.initialize = function(x, y) {
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    Window_Base.call(this, x, y, width, height);
+    Window_Base.call(this, x, y);
     this._actor = null;
     this._tempActor = null;
     this.refresh();

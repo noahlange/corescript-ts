@@ -7,7 +7,7 @@ class Window_ItemList extends Window_Selectable {
     protected _category;
     protected _data;
 
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height?) {
         super(x, y, width, height);
         this._category = 'none';
         this._data = [];

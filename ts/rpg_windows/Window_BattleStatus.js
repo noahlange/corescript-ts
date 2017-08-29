@@ -11,11 +11,7 @@ Window_BattleStatus.prototype = Object.create(Window_Selectable.prototype);
 Window_BattleStatus.prototype.constructor = Window_BattleStatus;
 
 Window_BattleStatus.prototype.initialize = function() {
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    var x = Graphics.boxWidth - width;
-    var y = Graphics.boxHeight - height;
-    Window_Selectable.call(this, x, y, width, height);
+    Window_Selectable.call(this);
     this.refresh();
     this.openness = 0;
 };
@@ -27,6 +23,16 @@ Window_BattleStatus.prototype.windowWidth = function() {
 Window_BattleStatus.prototype.windowHeight = function() {
     return Window_Base.fittingHeight(this.numVisibleRows());
 };
+
+Window_BattleStatus.prototype.windowX = function() {
+    return Graphics.boxWidth - this.windowWidth();
+};
+
+Window_BattleStatus.prototype.windowY = function() {
+    return Graphics.boxHeight - this.windowHeight();
+};
+
+
 
 Window_BattleStatus.prototype.numVisibleRows = function() {
     return 4;

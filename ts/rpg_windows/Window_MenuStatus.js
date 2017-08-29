@@ -11,9 +11,7 @@ Window_MenuStatus.prototype = Object.create(Window_Selectable.prototype);
 Window_MenuStatus.prototype.constructor = Window_MenuStatus;
 
 Window_MenuStatus.prototype.initialize = function(x, y) {
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    Window_Selectable.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y);
     this._formationMode = false;
     this._pendingIndex = -1;
     this.refresh();

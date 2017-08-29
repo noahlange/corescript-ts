@@ -12,9 +12,7 @@ Window_BattleLog.prototype = Object.create(Window_Selectable.prototype);
 Window_BattleLog.prototype.constructor = Window_BattleLog;
 
 Window_BattleLog.prototype.initialize = function() {
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    Window_Selectable.call(this, 0, 0, width, height);
+    Window_Selectable.call(this, 0, 0);
     this.opacity = 0;
     this._lines = [];
     this._methods = [];

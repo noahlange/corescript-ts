@@ -11,8 +11,7 @@ Window_ShopBuy.prototype = Object.create(Window_Selectable.prototype);
 Window_ShopBuy.prototype.constructor = Window_ShopBuy;
 
 Window_ShopBuy.prototype.initialize = function(x, y, height, shopGoods) {
-    var width = this.windowWidth();
-    Window_Selectable.call(this, x, y, width, height);
+    Window_Selectable.call(this, x, y, undefined, height);
     this._shopGoods = shopGoods;
     this._money = 0;
     this.refresh();

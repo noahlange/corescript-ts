@@ -11,8 +11,7 @@ Window_ActorCommand.prototype = Object.create(Window_Command.prototype);
 Window_ActorCommand.prototype.constructor = Window_ActorCommand;
 
 Window_ActorCommand.prototype.initialize = function() {
-    var y = Graphics.boxHeight - this.windowHeight();
-    Window_Command.prototype.initialize.call(this, 0, y);
+    Window_Command.prototype.initialize.call(this, 0);
     this.openness = 0;
     this.deactivate();
     this._actor = null;
@@ -21,6 +20,11 @@ Window_ActorCommand.prototype.initialize = function() {
 Window_ActorCommand.prototype.windowWidth = function() {
     return 192;
 };
+
+Window_ActorCommand.prototype.windowY = function() {
+    return Graphics.boxHeight - this.windowHeight();
+};
+
 
 Window_ActorCommand.prototype.numVisibleRows = function() {
     return 4;
