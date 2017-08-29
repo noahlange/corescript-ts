@@ -85,7 +85,7 @@ Window_NameInput.prototype.initialize = function(editWindow) {
 };
 
 Window_NameInput.prototype.windowHeight = function() {
-    return this.fittingHeight(9);
+    return Window_Base.fittingHeight(9);
 };
 
 Window_NameInput.prototype.table = function() {
@@ -124,9 +124,9 @@ Window_NameInput.prototype.isOk = function() {
 Window_NameInput.prototype.itemRect = function(index) {
     return {
         x: index % 10 * 42 + Math.floor(index % 10 / 5) * 24,
-        y: Math.floor(index / 10) * this.lineHeight(),
+        y: Math.floor(index / 10) * Window_Base.lineHeight(),
         width: 42,
-        height: this.lineHeight()
+        height: Window_Base.lineHeight()
     };
 };
 

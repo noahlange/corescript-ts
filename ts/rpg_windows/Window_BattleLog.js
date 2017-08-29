@@ -36,7 +36,7 @@ Window_BattleLog.prototype.windowWidth = function() {
 };
 
 Window_BattleLog.prototype.windowHeight = function() {
-    return this.fittingHeight(this.maxLines());
+    return Window_Base.fittingHeight(this.maxLines());
 };
 
 Window_BattleLog.prototype.maxLines = function() {
@@ -292,7 +292,7 @@ Window_BattleLog.prototype.backRect = function() {
         x: 0,
         y: this.padding,
         width: this.width,
-        height: this.numLines() * this.lineHeight()
+        height: this.numLines() * Window_Base.lineHeight()
     };
 };
 

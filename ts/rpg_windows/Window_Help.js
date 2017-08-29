@@ -12,10 +12,15 @@ Window_Help.prototype.constructor = Window_Help;
 
 Window_Help.prototype.initialize = function(numLines) {
     var width = Graphics.boxWidth;
-    var height = this.fittingHeight(numLines || 2);
-    Window_Base.call(this, 0, 0, width, height);
+    Window_Base.call(this, 0, 0, width);
     this._text = '';
 };
+
+Window_Help.prototype.windowHeight = function(){
+    return Window_Base.fittingHeight(2);
+}
+
+
 
 Window_Help.prototype.setText = function(text) {
     if (this._text !== text) {

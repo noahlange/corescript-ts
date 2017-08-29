@@ -11,9 +11,7 @@ Window_MapName.prototype = Object.create(Window_Base.prototype);
 Window_MapName.prototype.constructor = Window_MapName;
 
 Window_MapName.prototype.initialize = function() {
-    var wight = this.windowWidth();
-    var height = this.windowHeight();
-    Window_Base.call(this, 0, 0, wight, height);
+    Window_Base.call(this, 0, 0);
     this.opacity = 0;
     this.contentsOpacity = 0;
     this._showCount = 0;
@@ -25,7 +23,7 @@ Window_MapName.prototype.windowWidth = function() {
 };
 
 Window_MapName.prototype.windowHeight = function() {
-    return this.fittingHeight(1);
+    return Window_Base.fittingHeight(1);
 };
 
 Window_MapName.prototype.update = function() {
@@ -59,7 +57,7 @@ Window_MapName.prototype.refresh = function() {
     this.contents.clear();
     if ($gameMap.displayName()) {
         var width = this.contentsWidth();
-        this.drawBackground(0, 0, width, this.lineHeight());
+        this.drawBackground(0, 0, width, Window_Base.lineHeight());
         this.drawText($gameMap.displayName(), 0, 0, width, 'center');
     }
 };

@@ -52,7 +52,7 @@ Window_NumberInput.prototype.windowWidth = function() {
 };
 
 Window_NumberInput.prototype.windowHeight = function() {
-    return this.fittingHeight(1);
+    return Window_Base.fittingHeight(1);
 };
 
 Window_NumberInput.prototype.maxCols = function() {

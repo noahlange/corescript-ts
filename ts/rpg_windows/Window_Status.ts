@@ -25,7 +25,7 @@ class Window_Status extends Window_Selectable {
     refresh() {
         this.contents.clear();
         if (this._actor) {
-            var lineHeight = this.lineHeight();
+            var lineHeight = Window_Base.lineHeight();
             this.drawBlock1(lineHeight * 0);
             this.drawHorzLine(lineHeight * 1);
             this.drawBlock2(lineHeight * 2);
@@ -58,7 +58,7 @@ class Window_Status extends Window_Selectable {
     };
     
     drawHorzLine(y) {
-        var lineY = y + this.lineHeight() / 2 - 1;
+        var lineY = y + Window_Base.lineHeight() / 2 - 1;
         this.contents.paintOpacity = 48;
         this.contents.fillRect(0, lineY, this.contentsWidth(), 2, this.lineColor());
         this.contents.paintOpacity = 255;
@@ -69,7 +69,7 @@ class Window_Status extends Window_Selectable {
     };
     
     drawBasicInfo(x, y) {
-        var lineHeight = this.lineHeight();
+        var lineHeight = Window_Base.lineHeight();
         this.drawActorLevel(this._actor, x, y + lineHeight * 0);
         this.drawActorIcons(this._actor, x, y + lineHeight * 1);
         this.drawActorHp(this._actor, x, y + lineHeight * 2);
@@ -77,7 +77,7 @@ class Window_Status extends Window_Selectable {
     };
     
     drawParameters(x, y) {
-        var lineHeight = this.lineHeight();
+        var lineHeight = Window_Base.lineHeight();
         for (var i = 0; i < 6; i++) {
             var paramId = i + 2;
             var y2 = y + lineHeight * i;
@@ -89,7 +89,7 @@ class Window_Status extends Window_Selectable {
     };
     
     drawExpInfo(x, y) {
-        var lineHeight = this.lineHeight();
+        var lineHeight = Window_Base.lineHeight();
         var expTotal = TextManager.expTotal.format(TextManager.exp);
         var expNext = TextManager.expNext.format(TextManager.level);
         var value1 = this._actor.currentExp();
@@ -110,7 +110,7 @@ class Window_Status extends Window_Selectable {
         var equips = this._actor.equips();
         var count = Math.min(equips.length, this.maxEquipmentLines());
         for (var i = 0; i < count; i++) {
-            this.drawItemName(equips[i], x, y + this.lineHeight() * i);
+            this.drawItemName(equips[i], x, y + Window_Base.lineHeight() * i);
         }
     };
     

@@ -25,7 +25,7 @@ Window_BattleStatus.prototype.windowWidth = function() {
 };
 
 Window_BattleStatus.prototype.windowHeight = function() {
-    return this.fittingHeight(this.numVisibleRows());
+    return Window_Base.fittingHeight(this.numVisibleRows());
 };
 
 Window_BattleStatus.prototype.numVisibleRows = function() {

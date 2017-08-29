@@ -21,7 +21,7 @@ class Window_ShopStatus extends Window_Base {
             var x = this.textPadding();
             this.drawPossession(x, 0);
             if (this.isEquipItem()) {
-                this.drawEquipInfo(x, this.lineHeight() * 2);
+                this.drawEquipInfo(x, Window_Base.lineHeight() * 2);
             }
         }
     };
@@ -47,7 +47,7 @@ class Window_ShopStatus extends Window_Base {
     drawEquipInfo(x, y) {
         var members = this.statusMembers();
         for (var i = 0; i < members.length; i++) {
-            this.drawActorEquipInfo(x, y + this.lineHeight() * (i * 2.4), members[i]);
+            this.drawActorEquipInfo(x, y + Window_Base.lineHeight() * (i * 2.4), members[i]);
         }
     };
     
@@ -74,7 +74,7 @@ class Window_ShopStatus extends Window_Base {
         if (enabled) {
             this.drawActorParamChange(x, y, actor, item1);
         }
-        this.drawItemName(item1, x, y + this.lineHeight());
+        this.drawItemName(item1, x, y + Window_Base.lineHeight());
         this.changePaintOpacity(true);
     };
     

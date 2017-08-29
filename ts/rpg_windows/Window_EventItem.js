@@ -22,7 +22,7 @@ Window_EventItem.prototype.initialize = function(messageWindow) {
 };
 
 Window_EventItem.prototype.windowHeight = function() {
-    return this.fittingHeight(this.numVisibleRows());
+    return Window_Base.fittingHeight(this.numVisibleRows());
 };
 
 Window_EventItem.prototype.numVisibleRows = function() {

@@ -24,7 +24,7 @@ Window_BattleEnemy.prototype.windowWidth = function() {
 };
 
 Window_BattleEnemy.prototype.windowHeight = function() {
-    return this.fittingHeight(this.numVisibleRows());
+    return Window_Base.fittingHeight(this.numVisibleRows());
 };
 
 Window_BattleEnemy.prototype.numVisibleRows = function() {

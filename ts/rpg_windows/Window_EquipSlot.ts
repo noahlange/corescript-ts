@@ -41,7 +41,7 @@ class Window_EquipSlot extends Window_Selectable {
             var rect = this.itemRectForText(index);
             this.changeTextColor(this.systemColor());
             this.changePaintOpacity(this.isEnabled(index));
-            this.drawText(this.slotName(index), rect.x, rect.y, 138, this.lineHeight());
+            this.drawText(this.slotName(index), rect.x, rect.y, 138, Window_Base.lineHeight());
             this.drawItemName(this._actor.equips()[index], rect.x + 138, rect.y);
             this.changePaintOpacity(true);
         }

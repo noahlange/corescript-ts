@@ -11,11 +11,7 @@ Window_NameEdit.prototype = Object.create(Window_Base.prototype);
 Window_NameEdit.prototype.constructor = Window_NameEdit;
 
 Window_NameEdit.prototype.initialize = function(actor, maxLength) {
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    var x = (Graphics.boxWidth - width) / 2;
-    var y = (Graphics.boxHeight - (height + this.fittingHeight(9) + 8)) / 2;
-    Window_Base.call(this, x, y, width, height);
+    Window_Base.call(this);
     this._actor = actor;
     this._name = actor.name().slice(0, this._maxLength);
     this._index = this._name.length;
@@ -31,8 +27,17 @@ Window_NameEdit.prototype.windowWidth = function() {
 };
 
 Window_NameEdit.prototype.windowHeight = function() {
-    return this.fittingHeight(4);
+    return Window_Base.fittingHeight(4);
 };
+
+Window_NameEdit.prototype.windowX = function(){
+    return (Graphics.boxWidth - this.windowWidth()) / 2;
+}
+
+Window_NameEdit.prototype.windowY = function(){
+    return (Graphics.boxHeight - (this.windowHeight() + Window_Base.fittingHeight(9) + 8)) / 2;
+}
+
 
 Window_NameEdit.prototype.name = function() {
     return this._name;
@@ -87,7 +92,7 @@ Window_NameEdit.prototype.itemRect = function(index) {
         x: this.left() + index * this.charWidth(),
         y: 54,
         width: this.charWidth(),
-        height: this.lineHeight()
+        height: Window_Base.lineHeight()
     };
 };
 

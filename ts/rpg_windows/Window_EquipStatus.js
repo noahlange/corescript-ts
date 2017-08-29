@@ -24,7 +24,7 @@ Window_EquipStatus.prototype.windowWidth = function() {
 };
 
 Window_EquipStatus.prototype.windowHeight = function() {
-    return this.fittingHeight(this.numVisibleRows());
+    return Window_Base.fittingHeight(this.numVisibleRows());
 };
 
 Window_EquipStatus.prototype.numVisibleRows = function() {
@@ -43,7 +43,7 @@ Window_EquipStatus.prototype.refresh = function() {
     if (this._actor) {
         this.drawActorName(this._actor, this.textPadding(), 0);
         for (var i = 0; i < 6; i++) {
-            this.drawItem(0, this.lineHeight() * (1 + i), 2 + i);
+            this.drawItem(0, Window_Base.lineHeight() * (1 + i), 2 + i);
         }
     }
 };

@@ -11,10 +11,7 @@ Window_Message.prototype = Object.create(Window_Base.prototype);
 Window_Message.prototype.constructor = Window_Message;
 
 Window_Message.prototype.initialize = function() {
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    var x = (Graphics.boxWidth - width) / 2;
-    Window_Base.call(this, x, 0, width, height);
+    Window_Base.call(this);
     this.openness = 0;
     this.initMembers();
     this.createSubWindows();
@@ -50,8 +47,12 @@ Window_Message.prototype.windowWidth = function() {
 };
 
 Window_Message.prototype.windowHeight = function() {
-    return this.fittingHeight(this.numVisibleRows());
+    return Window_Base.fittingHeight(this.numVisibleRows());
 };
+
+Window_Message.prototype.windowX = function() {
+    return (Graphics.boxWidth - this.windowWidth) / 2;
+}
 
 Window_Message.prototype.clearFlags = function() {
     this._showFast = false;

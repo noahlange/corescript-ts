@@ -26,7 +26,7 @@ Window_Command.prototype.windowWidth = function() {
 };
 
 Window_Command.prototype.windowHeight = function() {
-    return this.fittingHeight(this.numVisibleRows());
+    return Window_Base.fittingHeight(this.numVisibleRows());
 };
 
 Window_Command.prototype.numVisibleRows = function() {

@@ -66,7 +66,7 @@ class Window_Selectable extends Window_Base {
     };
     
     itemHeight() {
-        return this.lineHeight();
+        return Window_Base.lineHeight();
     };
     
     maxRows() {

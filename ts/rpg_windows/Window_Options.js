@@ -20,7 +20,7 @@ Window_Options.prototype.windowWidth = function() {
 };
 
 Window_Options.prototype.windowHeight = function() {
-    return this.fittingHeight(Math.min(this.numVisibleRows(), 12));
+    return Window_Base.fittingHeight(Math.min(this.numVisibleRows(), 12));
 };
 
 Window_Options.prototype.updatePlacement = function() {

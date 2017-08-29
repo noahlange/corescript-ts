@@ -8,10 +8,27 @@ class Window_Base extends CoreWindow {
     protected _closing;
     protected _dimmerSprite;
 
-    constructor(x, y, width, height) {
+    constructor(x?, y?, width?, height?) {
         super();
 
         this.loadWindowskin();
+
+        if(x === undefined){
+            x = this.windowX();
+        }
+
+        if(y === undefined){
+            y = this.windowY();
+        }
+
+        if(width === undefined){
+            width = this.windowWidth();
+        }
+
+        if(height === undefined){
+            height = this.windowHeight()
+        }
+
         this.move(x, y, width, height);
         this.updatePadding();
         this.updateBackOpacity();
@@ -27,7 +44,14 @@ class Window_Base extends CoreWindow {
     protected static _faceWidth = 144;
     protected static _faceHeight = 144;
 
-    lineHeight() {
+    /// bungcip: this two function added to workaround typescript
+    ///          limitation around super() in counstructor
+    windowWidth(){ return Graphics.boxWidth;}
+    windowHeight(){ return Graphics.boxHeight;}
+    windowX(){ return 0; }
+    windowY(){ return 0; }
+
+    static lineHeight() {
         return 36;
     };
 
@@ -45,7 +69,7 @@ class Window_Base extends CoreWindow {
         return 28;
     };
 
-    standardPadding() {
+    static standardPadding() {
         return 18;
     };
 
@@ -62,7 +86,7 @@ class Window_Base extends CoreWindow {
     };
 
     updatePadding() {
-        this.padding = this.standardPadding();
+        this.padding = Window_Base.standardPadding();
     };
 
     updateBackOpacity() {
@@ -70,15 +94,15 @@ class Window_Base extends CoreWindow {
     };
 
     contentsWidth() {
-        return this.width - this.standardPadding() * 2;
+        return this.width - Window_Base.standardPadding() * 2;
     };
 
     contentsHeight() {
-        return this.height - this.standardPadding() * 2;
+        return this.height - Window_Base.standardPadding() * 2;
     };
 
-    fittingHeight(numLines) {
-        return numLines * this.lineHeight() + this.standardPadding() * 2;
+    static fittingHeight(numLines) {
+        return numLines * Window_Base.lineHeight() + this.standardPadding() * 2;
     };
 
     updateTone() {
@@ -248,7 +272,7 @@ class Window_Base extends CoreWindow {
     };
 
     drawText(text, x, y, maxWidth, align?) {
-        this.contents.drawText(text, x, y, maxWidth, this.lineHeight(), align);
+        this.contents.drawText(text, x, y, maxWidth, Window_Base.lineHeight(), align);
     };
 
     textWidth(text) {
@@ -459,7 +483,7 @@ class Window_Base extends CoreWindow {
 
     drawGauge(x, y, width, rate, color1, color2) {
         var fillW = Math.floor(width * rate);
-        var gaugeY = y + this.lineHeight() - 8;
+        var gaugeY = y + Window_Base.lineHeight() - 8;
         this.contents.fillRect(x, gaugeY, width, 6, this.gaugeBackColor());
         this.contents.gradientFillRect(x, gaugeY, fillW, 6, color1, color2);
     };
@@ -569,7 +593,7 @@ class Window_Base extends CoreWindow {
     };
 
     drawActorSimpleStatus(actor, x, y, width) {
-        var lineHeight = this.lineHeight();
+        var lineHeight = Window_Base.lineHeight();
         var x2 = x + 180;
         var width2 = Math.min(200, width - 180 - this.textPadding());
         this.drawActorName(actor, x, y);

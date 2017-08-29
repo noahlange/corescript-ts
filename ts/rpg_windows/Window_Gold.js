@@ -11,9 +11,7 @@ Window_Gold.prototype = Object.create(Window_Base.prototype);
 Window_Gold.prototype.constructor = Window_Gold;
 
 Window_Gold.prototype.initialize = function(x, y) {
-    var width = this.windowWidth();
-    var height = this.windowHeight();
-    Window_Base.call(this, x, y, width, height);
+    Window_Base.call(this, x, y);
     this.refresh();
 };
 
@@ -22,7 +20,7 @@ Window_Gold.prototype.windowWidth = function() {
 };
 
 Window_Gold.prototype.windowHeight = function() {
-    return this.fittingHeight(1);
+    return Window_Base.fittingHeight(1);
 };
 
 Window_Gold.prototype.refresh = function() {

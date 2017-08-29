@@ -58,7 +58,7 @@ class Window_SavefileList extends Window_Selectable {
                 this.drawPartyCharacters(info, rect.x + 220, bottom - 4);
             }
         }
-        var lineHeight = this.lineHeight();
+        var lineHeight = Window_Base.lineHeight();
         var y2 = bottom - lineHeight;
         if (y2 >= lineHeight) {
             this.drawPlaytime(info, rect.x, y2, rect.width);

@@ -11,7 +11,7 @@ Window_DebugEdit.prototype = Object.create(Window_Selectable.prototype);
 Window_DebugEdit.prototype.constructor = Window_DebugEdit;
 
 Window_DebugEdit.prototype.initialize = function(x, y, width) {
-    var height = this.fittingHeight(10);
+    var height = Window_Base.fittingHeight(10);
     Window_Selectable.call(this, x, y, width, height);
     this._mode = 'switch';
     this._topId = 1;

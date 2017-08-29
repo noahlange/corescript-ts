@@ -136,15 +136,15 @@ Window_ShopNumber.prototype.drawTotalPrice = function() {
 };
 
 Window_ShopNumber.prototype.itemY = function() {
-    return Math.round(this.contentsHeight() / 2 - this.lineHeight() * 1.5);
+    return Math.round(this.contentsHeight() / 2 - Window_Base.lineHeight() * 1.5);
 };
 
 Window_ShopNumber.prototype.priceY = function() {
-    return Math.round(this.contentsHeight() / 2 + this.lineHeight() / 2);
+    return Math.round(this.contentsHeight() / 2 + Window_Base.lineHeight() / 2);
 };
 
 Window_ShopNumber.prototype.buttonY = function() {
-    return Math.round(this.priceY() + this.lineHeight() * 2.5);
+    return Math.round(this.priceY() + Window_Base.lineHeight() * 2.5);
 };
 
 Window_ShopNumber.prototype.cursorWidth = function() {
@@ -200,7 +200,7 @@ Window_ShopNumber.prototype.changeNumber = function(amount) {
 
 Window_ShopNumber.prototype.updateCursor = function() {
     this.setCursorRect(this.cursorX(), this.itemY(),
-                       this.cursorWidth(), this.lineHeight());
+                       this.cursorWidth(), Window_Base.lineHeight());
 };
 
 Window_ShopNumber.prototype.onButtonUp = function() {

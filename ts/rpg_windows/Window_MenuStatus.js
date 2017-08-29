@@ -74,7 +74,7 @@ Window_MenuStatus.prototype.drawItemStatus = function(index) {
     var actor = $gameParty.members()[index];
     var rect = this.itemRect(index);
     var x = rect.x + 162;
-    var y = rect.y + rect.height / 2 - this.lineHeight() * 1.5;
+    var y = rect.y + rect.height / 2 - Window_Base.lineHeight() * 1.5;
     var width = rect.width - x - this.textPadding();
     this.drawActorSimpleStatus(actor, x, y, width);
 };
