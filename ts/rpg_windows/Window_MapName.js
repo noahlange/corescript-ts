@@ -13,7 +13,7 @@ Window_MapName.prototype.constructor = Window_MapName;
 Window_MapName.prototype.initialize = function() {
     var wight = this.windowWidth();
     var height = this.windowHeight();
-    Window_Base.prototype.initialize.call(this, 0, 0, wight, height);
+    Window_Base.call(this, 0, 0, wight, height);
     this.opacity = 0;
     this.contentsOpacity = 0;
     this._showCount = 0;

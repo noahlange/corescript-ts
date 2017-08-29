@@ -11,7 +11,7 @@ Window_Selectable.prototype = Object.create(Window_Base.prototype);
 Window_Selectable.prototype.constructor = Window_Selectable;
 
 Window_Selectable.prototype.initialize = function(x, y, width, height) {
-    Window_Base.prototype.initialize.call(this, x, y, width, height);
+    Window_Base.call(this, x, y, width, height);
     this._index = -1;
     this._cursorFixed = false;
     this._cursorAll = false;

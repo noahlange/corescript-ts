@@ -14,7 +14,7 @@ Window_ScrollText.prototype.constructor = Window_ScrollText;
 Window_ScrollText.prototype.initialize = function() {
     var width = Graphics.boxWidth;
     var height = Graphics.boxHeight;
-    Window_Base.prototype.initialize.call(this, 0, 0, width, height);
+    Window_Base.call(this, 0, 0, width, height);
     this.opacity = 0;
     this.hide();
     this._text = '';

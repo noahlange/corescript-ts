@@ -12,7 +12,7 @@ Window_ShopStatus.prototype = Object.create(Window_Base.prototype);
 Window_ShopStatus.prototype.constructor = Window_ShopStatus;
 
 Window_ShopStatus.prototype.initialize = function(x, y, width, height) {
-    Window_Base.prototype.initialize.call(this, x, y, width, height);
+    Window_Base.call(this, x, y, width, height);
     this._item = null;
     this._pageIndex = 0;
     this.refresh();

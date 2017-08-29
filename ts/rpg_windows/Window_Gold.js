@@ -13,7 +13,7 @@ Window_Gold.prototype.constructor = Window_Gold;
 Window_Gold.prototype.initialize = function(x, y) {
     var width = this.windowWidth();
     var height = this.windowHeight();
-    Window_Base.prototype.initialize.call(this, x, y, width, height);
+    Window_Base.call(this, x, y, width, height);
     this.refresh();
 };
 

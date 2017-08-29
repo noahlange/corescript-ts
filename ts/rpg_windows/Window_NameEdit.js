@@ -15,7 +15,7 @@ Window_NameEdit.prototype.initialize = function(actor, maxLength) {
     var height = this.windowHeight();
     var x = (Graphics.boxWidth - width) / 2;
     var y = (Graphics.boxHeight - (height + this.fittingHeight(9) + 8)) / 2;
-    Window_Base.prototype.initialize.call(this, x, y, width, height);
+    Window_Base.call(this, x, y, width, height);
     this._actor = actor;
     this._name = actor.name().slice(0, this._maxLength);
     this._index = this._name.length;
