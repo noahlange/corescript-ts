@@ -97,7 +97,7 @@ class Game_Vehicle extends Game_Character {
     
     pos(x, y) {
         if (this._mapId === $gameMap.mapId()) {
-            return super.pos.call(x, y);
+            return super.pos(x, y);
         } else {
             return false;
         }

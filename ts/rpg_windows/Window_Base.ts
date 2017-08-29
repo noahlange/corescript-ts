@@ -102,7 +102,7 @@ class Window_Base extends CoreWindow {
     };
 
     update() {
-        CoreWindow.prototype.update.call(this);
+        super.update();
         this.updateTone();
         this.updateOpen();
         this.updateClose();

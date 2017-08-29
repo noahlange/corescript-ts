@@ -335,12 +335,12 @@ class Game_Event extends Game_Character {
     };
     
     locate(x, y) {
-        super.locate.call(x, y);
+        super.locate(x, y);
         this._prelockDirection = 0;
     };
     
     forceMoveRoute(moveRoute) {
-        super.forceMoveRoute.call(moveRoute);
+        super.forceMoveRoute(moveRoute);
         this._prelockDirection = 0;
     };
         

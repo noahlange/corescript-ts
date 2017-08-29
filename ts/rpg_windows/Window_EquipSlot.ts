@@ -22,7 +22,7 @@ class Window_EquipSlot extends Window_Selectable {
     };
     
     update() {
-        Window_Selectable.prototype.update.call(this);
+        super.update();
         if (this._itemWindow) {
             this._itemWindow.setSlotId(this.index());
         }
@@ -71,7 +71,7 @@ class Window_EquipSlot extends Window_Selectable {
     };
     
     updateHelp() {
-        Window_Selectable.prototype.updateHelp.call(this);
+        super.updateHelp();
         this.setHelpWindowItem(this.item());
         if (this._statusWindow) {
             this._statusWindow.setTempActor(null);

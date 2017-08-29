@@ -74,12 +74,12 @@ class Window_Selectable extends Window_Base {
     };
     
     activate() {
-        Window_Base.prototype.activate.call(this);
+        super.activate();
         this.reselect();
     };
     
     deactivate() {
-        Window_Base.prototype.deactivate.call(this);
+        super.deactivate();
         this.reselect();
     };
     
@@ -272,7 +272,7 @@ class Window_Selectable extends Window_Base {
     };
     
     update() {
-        Window_Base.prototype.update.call(this);
+        super.update();
         this.updateArrows();
         this.processCursorMove();
         this.processHandling();
