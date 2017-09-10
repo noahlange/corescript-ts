@@ -14,8 +14,19 @@ class Window_Selectable extends Window_Base {
     protected _scrollX;
     protected _scrollY;
 
-    constructor(x?, y?, width?, height?) {
+    constructor(x?, y?, width?, height?, callback?) {
         super(x, y, width, height);
+
+        /// NOTE: workaround for: 
+        ///     - Window_BattleEnemy
+        ///     - Window_DebugRange
+        ///     - Window_NumberInput
+        ///     - Window_Command
+        ///     - Window_ChoiceList
+        if(callback != undefined){
+            callback();
+        }
+
         this._index = -1;
         this._cursorFixed = false;
         this._cursorAll = false;

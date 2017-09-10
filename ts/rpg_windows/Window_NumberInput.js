@@ -11,8 +11,9 @@ Window_NumberInput.prototype = Object.create(Window_Selectable.prototype);
 Window_NumberInput.prototype.constructor = Window_NumberInput;
 
 Window_NumberInput.prototype.initialize = function(messageWindow) {
-    this._messageWindow = messageWindow;
-    Window_Selectable.call(this, 0, 0, 0, 0);
+    Window_Selectable.call(this, 0, 0, 0, 0, () => {
+        this._messageWindow = messageWindow;
+    });
     this._number = 0;
     this._maxDigits = 1;
     this.openness = 0;

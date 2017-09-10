@@ -11,9 +11,10 @@ Window_ShopCommand.prototype = Object.create(Window_HorzCommand.prototype);
 Window_ShopCommand.prototype.constructor = Window_ShopCommand;
 
 Window_ShopCommand.prototype.initialize = function(width, purchaseOnly) {
-    this._windowWidth = width;
-    this._purchaseOnly = purchaseOnly;
-    Window_HorzCommand.prototype.initialize.call(this, 0, 0);
+    Window_HorzCommand.prototype.initialize.call(this, 0, 0, () => {
+        this._windowWidth = width;
+        this._purchaseOnly = purchaseOnly;
+    });
 };
 
 Window_ShopCommand.prototype.windowWidth = function() {

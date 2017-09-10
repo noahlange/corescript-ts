@@ -11,9 +11,10 @@ Window_EventItem.prototype = Object.create(Window_ItemList.prototype);
 Window_EventItem.prototype.constructor = Window_EventItem;
 
 Window_EventItem.prototype.initialize = function(messageWindow) {
-    this._messageWindow = messageWindow;
     var width = Graphics.boxWidth;
-    Window_ItemList.call(this, 0, 0, width);
+    Window_ItemList.call(this, 0, 0, width, undefined, () => {
+        this._messageWindow = messageWindow;
+    });
     this.openness = 0;
     this.deactivate();
     this.setHandler('ok',     this.onOk.bind(this));

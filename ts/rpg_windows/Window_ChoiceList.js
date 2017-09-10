@@ -11,8 +11,9 @@ Window_ChoiceList.prototype = Object.create(Window_Command.prototype);
 Window_ChoiceList.prototype.constructor = Window_ChoiceList;
 
 Window_ChoiceList.prototype.initialize = function(messageWindow) {
-    this._messageWindow = messageWindow;
-    Window_Command.prototype.initialize.call(this, 0, 0);
+    Window_Command.prototype.initialize.call(this, 0, 0, () => {
+        this._messageWindow = messageWindow;
+    });
     this.openness = 0;
     this.deactivate();
     this._background = 0;

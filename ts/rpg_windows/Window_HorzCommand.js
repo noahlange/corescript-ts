@@ -10,8 +10,8 @@ function Window_HorzCommand() {
 Window_HorzCommand.prototype = Object.create(Window_Command.prototype);
 Window_HorzCommand.prototype.constructor = Window_HorzCommand;
 
-Window_HorzCommand.prototype.initialize = function(x, y) {
-    Window_Command.prototype.initialize.call(this, x, y);
+Window_HorzCommand.prototype.initialize = function(x, y, callback) {
+    Window_Command.prototype.initialize.call(this, x, y, callback);
 };
 
 Window_HorzCommand.prototype.numVisibleRows = function() {

@@ -10,10 +10,15 @@ function Window_Command() {
 Window_Command.prototype = Object.create(Window_Selectable.prototype);
 Window_Command.prototype.constructor = Window_Command;
 
-Window_Command.prototype.initialize = function(x, y) {
-    this.clearCommandList();
-    this.makeCommandList();
-    Window_Selectable.call(this, x, y);
+Window_Command.prototype.initialize = function(x, y, callback) {
+    Window_Selectable.call(this, x, y, undefined, undefined, () => {
+        if(callback !== undefined){
+            callback();
+        }
+
+        this.clearCommandList();
+        this.makeCommandList();
+    });
     this.refresh();
     this.select(0);
     this.activate();

@@ -11,8 +11,9 @@ Window_BattleEnemy.prototype = Object.create(Window_Selectable.prototype);
 Window_BattleEnemy.prototype.constructor = Window_BattleEnemy;
 
 Window_BattleEnemy.prototype.initialize = function(x, y) {
-    this._enemies = [];
-    Window_Selectable.call(this, x, y);
+    Window_Selectable.call(this, x, y, undefined, undefined, () => {
+        this._enemies = [];
+    });
     this.refresh();
     this.hide();
 };

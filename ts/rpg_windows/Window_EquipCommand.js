@@ -11,8 +11,9 @@ Window_EquipCommand.prototype = Object.create(Window_HorzCommand.prototype);
 Window_EquipCommand.prototype.constructor = Window_EquipCommand;
 
 Window_EquipCommand.prototype.initialize = function(x, y, width) {
-    this._windowWidth = width;
-    Window_HorzCommand.prototype.initialize.call(this, x, y);
+    Window_HorzCommand.prototype.initialize.call(this, x, y, () => {
+        this._windowWidth = width;
+    });
 };
 
 Window_EquipCommand.prototype.windowWidth = function() {
