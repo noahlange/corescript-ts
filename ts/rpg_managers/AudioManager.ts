@@ -4,25 +4,25 @@
 // The static class that handles BGM, BGS, ME and SE.
 
 class AudioManager {
-    protected static _masterVolume   = 1;   // (min: 0, max: 1)
-    public static _bgmVolume      = 100; /// bungcip: karena dipakai oleh ConfigManager
-    protected static _bgsVolume      = 100;
-    protected static _meVolume       = 100;
-    protected static _seVolume       = 100;
-    protected static _currentBgm     = null;
-    protected static _currentBgs     = null;
-    protected static _bgmBuffer      = null;
-    protected static _bgsBuffer      = null;
-    protected static _meBuffer       = null;
-    protected static _seBuffers      = [];
-    protected static _staticBuffers  = [];
+    protected static _masterVolume = 1;   // (min: 0, max: 1)
+    public static _bgmVolume = 100; /// bungcip: karena dipakai oleh ConfigManager
+    protected static _bgsVolume = 100;
+    protected static _meVolume = 100;
+    protected static _seVolume = 100;
+    protected static _currentBgm = null;
+    protected static _currentBgs = null;
+    protected static _bgmBuffer = null;
+    protected static _bgsBuffer = null;
+    protected static _meBuffer = null;
+    protected static _seBuffers = [];
+    protected static _staticBuffers = [];
     protected static _replayFadeTime = 0.5;
-    protected static _path           = 'audio/';
-    protected static _blobUrl        = null;
-    
+    protected static _path = 'audio/';
+    protected static _blobUrl = null;
+
     protected static _currentMe;
 
-    static get masterVolume () {
+    static get masterVolume() {
         return this._masterVolume;
     }
     static set masterVolume(value) {
@@ -62,13 +62,13 @@ class AudioManager {
         this._seVolume = value;
     }
 
-    static playBgm (bgm, pos?) {
+    static playBgm(bgm, pos?) {
         if (this.isCurrentBgm(bgm)) {
             this.updateBgmParameters(bgm);
         } else {
             this.stopBgm();
-            if (bgm.name) { 
-                if(Decrypter.hasEncryptedAudio && this.shouldUseHtml5Audio()){
+            if (bgm.name) {
+                if (Decrypter.hasEncryptedAudio && this.shouldUseHtml5Audio()) {
                     this.playEncryptedBgm(bgm, pos);
                 }
                 else {
@@ -82,15 +82,15 @@ class AudioManager {
         }
         this.updateCurrentBgm(bgm, pos);
     };
-    
-    static playEncryptedBgm (bgm, pos) {
+
+    static playEncryptedBgm(bgm, pos) {
         var ext = this.audioFileExt();
         var url = this._path + 'bgm/' + encodeURIComponent(bgm.name) + ext;
         url = Decrypter.extToEncryptExt(url);
         Decrypter.decryptHTML5Audio(url, bgm, pos);
     };
-    
-    static createDecryptBuffer (url, bgm, pos){
+
+    static createDecryptBuffer(url, bgm, pos) {
         this._blobUrl = url;
         this._bgmBuffer = this.createBuffer('bgm', bgm.name);
         this.updateBgmParameters(bgm);
@@ -99,8 +99,8 @@ class AudioManager {
         }
         this.updateCurrentBgm(bgm, pos);
     };
-    
-    static replayBgm (bgm) {
+
+    static replayBgm(bgm) {
         if (this.isCurrentBgm(bgm)) {
             this.updateBgmParameters(bgm);
         } else {
@@ -110,17 +110,17 @@ class AudioManager {
             }
         }
     };
-    
-    static isCurrentBgm (bgm) {
+
+    static isCurrentBgm(bgm) {
         return (this._currentBgm && this._bgmBuffer &&
-                this._currentBgm.name === bgm.name);
+            this._currentBgm.name === bgm.name);
     };
-    
-    static updateBgmParameters (bgm) {
+
+    static updateBgmParameters(bgm) {
         this.updateBufferParameters(this._bgmBuffer, this._bgmVolume, bgm);
     };
-    
-    static updateCurrentBgm (bgm, pos) {
+
+    static updateCurrentBgm(bgm, pos) {
         this._currentBgm = {
             name: bgm.name,
             volume: bgm.volume,
@@ -129,29 +129,29 @@ class AudioManager {
             pos: pos
         };
     };
-    
-    static stopBgm () {
+
+    static stopBgm() {
         if (this._bgmBuffer) {
             this._bgmBuffer.stop();
             this._bgmBuffer = null;
             this._currentBgm = null;
         }
     };
-    
-    static fadeOutBgm (duration) {
+
+    static fadeOutBgm(duration) {
         if (this._bgmBuffer && this._currentBgm) {
             this._bgmBuffer.fadeOut(duration);
             this._currentBgm = null;
         }
     };
-    
-    static fadeInBgm (duration) {
+
+    static fadeInBgm(duration) {
         if (this._bgmBuffer && this._currentBgm) {
             this._bgmBuffer.fadeIn(duration);
         }
     };
-    
-    static playBgs (bgs, pos?) {
+
+    static playBgs(bgs, pos?) {
         if (this.isCurrentBgs(bgs)) {
             this.updateBgsParameters(bgs);
         } else {
@@ -164,8 +164,8 @@ class AudioManager {
         }
         this.updateCurrentBgs(bgs, pos);
     };
-    
-    static replayBgs (bgs) {
+
+    static replayBgs(bgs) {
         if (this.isCurrentBgs(bgs)) {
             this.updateBgsParameters(bgs);
         } else {
@@ -175,17 +175,17 @@ class AudioManager {
             }
         }
     };
-    
-    static isCurrentBgs (bgs) {
+
+    static isCurrentBgs(bgs) {
         return (this._currentBgs && this._bgsBuffer &&
-                this._currentBgs.name === bgs.name);
+            this._currentBgs.name === bgs.name);
     };
-    
-    static updateBgsParameters (bgs) {
+
+    static updateBgsParameters(bgs) {
         this.updateBufferParameters(this._bgsBuffer, this._bgsVolume, bgs);
     };
-    
-    static updateCurrentBgs (bgs, pos) {
+
+    static updateCurrentBgs(bgs, pos) {
         this._currentBgs = {
             name: bgs.name,
             volume: bgs.volume,
@@ -194,29 +194,29 @@ class AudioManager {
             pos: pos
         };
     };
-    
-    static stopBgs () {
+
+    static stopBgs() {
         if (this._bgsBuffer) {
             this._bgsBuffer.stop();
             this._bgsBuffer = null;
             this._currentBgs = null;
         }
     };
-    
-    static fadeOutBgs (duration) {
+
+    static fadeOutBgs(duration) {
         if (this._bgsBuffer && this._currentBgs) {
             this._bgsBuffer.fadeOut(duration);
             this._currentBgs = null;
         }
     };
-    
-    static fadeInBgs (duration) {
+
+    static fadeInBgs(duration) {
         if (this._bgsBuffer && this._currentBgs) {
             this._bgsBuffer.fadeIn(duration);
         }
     };
-    
-    static playMe (me) {
+
+    static playMe(me) {
         this.stopMe();
         if (me.name) {
             if (this._bgmBuffer && this._currentBgm) {
@@ -229,18 +229,18 @@ class AudioManager {
             this._meBuffer.addStopListener(this.stopMe.bind(this));
         }
     };
-    
-    static updateMeParameters (me) {
+
+    static updateMeParameters(me) {
         this.updateBufferParameters(this._meBuffer, this._meVolume, me);
     };
-    
-    static fadeOutMe (duration) {
+
+    static fadeOutMe(duration) {
         if (this._meBuffer) {
             this._meBuffer.fadeOut(duration);
         }
     };
-    
-    static stopMe () {
+
+    static stopMe() {
         if (this._meBuffer) {
             this._meBuffer.stop();
             this._meBuffer = null;
@@ -250,10 +250,10 @@ class AudioManager {
             }
         }
     };
-    
-    static playSe (se) {
+
+    static playSe(se) {
         if (se.name) {
-            this._seBuffers = this._seBuffers.filter(function(audio) {
+            this._seBuffers = this._seBuffers.filter(function (audio) {
                 return audio.isPlaying();
             });
             var buffer = this.createBuffer('se', se.name);
@@ -262,19 +262,19 @@ class AudioManager {
             this._seBuffers.push(buffer);
         }
     };
-    
-    static updateSeParameters (buffer, se) {
+
+    static updateSeParameters(buffer, se) {
         this.updateBufferParameters(buffer, this._seVolume, se);
     };
-    
-    static stopSe () {
-        this._seBuffers.forEach(function(buffer) {
+
+    static stopSe() {
+        this._seBuffers.forEach(function (buffer) {
             buffer.stop();
         });
         this._seBuffers = [];
     };
-    
-    static playStaticSe (se) {
+
+    static playStaticSe(se) {
         if (se.name) {
             this.loadStaticSe(se);
             for (var i = 0; i < this._staticBuffers.length; i++) {
@@ -288,8 +288,8 @@ class AudioManager {
             }
         }
     };
-    
-    static loadStaticSe (se) {
+
+    static loadStaticSe(se) {
         if (se.name && !this.isStaticSe(se)) {
             var buffer = this.createBuffer('se', se.name);
             buffer['_reservedSeName'] = se.name;
@@ -299,8 +299,8 @@ class AudioManager {
             }
         }
     };
-    
-    static isStaticSe (se) {
+
+    static isStaticSe(se) {
         for (var i = 0; i < this._staticBuffers.length; i++) {
             var buffer = this._staticBuffers[i];
             if (buffer._reservedSeName === se.name) {
@@ -309,15 +309,15 @@ class AudioManager {
         }
         return false;
     };
-    
-    static stopAll () {
+
+    static stopAll() {
         this.stopMe();
         this.stopBgm();
         this.stopBgs();
         this.stopSe();
     };
-    
-    static saveBgm () {
+
+    static saveBgm() {
         if (this._currentBgm) {
             var bgm = this._currentBgm;
             return {
@@ -331,8 +331,8 @@ class AudioManager {
             return this.makeEmptyAudioObject();
         }
     };
-    
-    static saveBgs () {
+
+    static saveBgs() {
         if (this._currentBgs) {
             var bgs = this._currentBgs;
             return {
@@ -346,63 +346,63 @@ class AudioManager {
             return this.makeEmptyAudioObject();
         }
     };
-    
-    static makeEmptyAudioObject () {
+
+    static makeEmptyAudioObject() {
         return { name: '', volume: 0, pitch: 0 };
     };
-    
-    static createBuffer (folder, name) {
+
+    static createBuffer(folder, name) {
         var ext = this.audioFileExt();
         var url = this._path + folder + '/' + encodeURIComponent(name) + ext;
         if (this.shouldUseHtml5Audio() && folder === 'bgm') {
-            if(this._blobUrl) Html5Audio.setup(this._blobUrl);
+            if (this._blobUrl) Html5Audio.setup(this._blobUrl);
             else Html5Audio.setup(url);
             return Html5Audio;
         } else {
             return new WebAudio(url);
         }
     };
-    
-    static updateBufferParameters (buffer, configVolume, audio) {
+
+    static updateBufferParameters(buffer, configVolume, audio) {
         if (buffer && audio) {
             buffer.volume = configVolume * (audio.volume || 0) / 10000;
             buffer.pitch = (audio.pitch || 0) / 100;
             buffer.pan = (audio.pan || 0) / 100;
         }
     };
-    
-    static audioFileExt () {
+
+    static audioFileExt() {
         if (WebAudio.canPlayOgg() && !Utils.isMobileDevice()) {
             return '.ogg';
         } else {
             return '.m4a';
         }
     };
-    
-    static shouldUseHtml5Audio () {
+
+    static shouldUseHtml5Audio() {
         // The only case where we wanted html5audio was android/ no encrypt
         // Atsuma-ru asked to force webaudio there too, so just return false for ALL    // return Utils.isAndroidChrome() && !Decrypter.hasEncryptedAudio;
-     return false;
+        return false;
     };
-    
-    static checkErrors () {
+
+    static checkErrors() {
         this.checkWebAudioError(this._bgmBuffer);
         this.checkWebAudioError(this._bgsBuffer);
         this.checkWebAudioError(this._meBuffer);
-        this._seBuffers.forEach(function(buffer) {
+        this._seBuffers.forEach(function (buffer) {
             this.checkWebAudioError(buffer);
         }.bind(this));
-        this._staticBuffers.forEach(function(buffer) {
+        this._staticBuffers.forEach(function (buffer) {
             this.checkWebAudioError(buffer);
         }.bind(this));
     };
-    
-    static checkWebAudioError (webAudio) {
+
+    static checkWebAudioError(webAudio) {
         if (webAudio && webAudio.isError()) {
             throw new Error('Failed to load: ' + webAudio.url);
         }
     };
-    
+
 }
 
 
