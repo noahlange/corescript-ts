@@ -138,7 +138,7 @@ class Window_NumberInput extends Window_Selectable {
     };
     
     update() {
-        Window_Selectable.prototype.update.call(this);
+        super.update();
         this.processDigitChange();
     };
     

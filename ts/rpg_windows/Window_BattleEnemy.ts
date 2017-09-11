@@ -53,21 +53,21 @@ class Window_BattleEnemy extends Window_Selectable {
     show() {
         this.refresh();
         this.select(0);
-        Window_Selectable.prototype.show.call(this);
+        super.show();
     };
     
     hide() {
-        Window_Selectable.prototype.hide.call(this);
+        super.hide();
         $gameTroop.select(null);
     };
     
     refresh() {
         this._enemies = $gameTroop.aliveMembers();
-        Window_Selectable.prototype.refresh.call(this);
+        super.refresh();
     };
     
     select(index) {
-        Window_Selectable.prototype.select.call(this, index);
+        super.select( index);
         $gameTroop.select(this.enemy());
     };
     

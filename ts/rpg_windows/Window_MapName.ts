@@ -23,7 +23,7 @@ class Window_MapName extends Window_Base {
     };
     
     update() {
-        Window_Base.prototype.update.call(this);
+        super.update();
         if (this._showCount > 0 && $gameMap.isNameDisplayEnabled()) {
             this.updateFadeIn();
             this._showCount--;

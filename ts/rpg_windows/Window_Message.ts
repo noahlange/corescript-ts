@@ -75,7 +75,7 @@ class Window_Message extends Window_Base {
     
     update() {
         this.checkToNotClose();
-        Window_Base.prototype.update.call(this);
+        super.update();
         while (!this.isOpening() && !this.isClosing()) {
             if (this.updateWait()) {
                 return;
@@ -276,14 +276,14 @@ class Window_Message extends Window_Base {
     
     processNewLine(textState) {
         this._lineShowFast = false;
-        Window_Base.prototype.processNewLine.call(this, textState);
+        super.processNewLine( textState);
         if (this.needsNewPage(textState)) {
             this.startPause();
         }
     };
     
     processNewPage(textState) {
-        Window_Base.prototype.processNewPage.call(this, textState);
+        super.processNewPage( textState);
         if (textState.text[textState.index] === '\n') {
             textState.index++;
         }
@@ -324,7 +324,7 @@ class Window_Message extends Window_Base {
             this._pauseSkip = true;
             break;
         default:
-            Window_Base.prototype.processEscapeCharacter.call(this, code, textState);
+            super.processEscapeCharacter( code, textState);
             break;
         }
     };

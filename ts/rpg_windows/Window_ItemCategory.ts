@@ -19,7 +19,7 @@ class Window_ItemCategory extends Window_HorzCommand {
     };
     
     update() {
-        Window_HorzCommand.prototype.update.call(this);
+        super.update();
         if (this._itemWindow) {
             this._itemWindow.setCategory(this.currentSymbol());
         }

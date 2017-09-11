@@ -35,7 +35,7 @@ class Window_Gold extends Window_Base {
     
     open() {
         this.refresh();
-        Window_Base.prototype.open.call(this);
+        super.open();
     };
     
 }

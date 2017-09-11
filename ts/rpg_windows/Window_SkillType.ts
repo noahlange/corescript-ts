@@ -42,7 +42,7 @@ class Window_SkillType extends Window_Command {
     };
     
     update() {
-        Window_Command.prototype.update.call(this);
+        super.update();
         if (this._skillWindow) {
             this._skillWindow.setStypeId(this.currentExt());
         }

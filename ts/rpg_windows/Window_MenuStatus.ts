@@ -75,7 +75,7 @@ class Window_MenuStatus extends Window_Selectable {
     };
     
     processOk() {
-        Window_Selectable.prototype.processOk.call(this);
+        super.processOk();
         $gameParty.setMenuActor($gameParty.members()[this.index()]);
     };
     

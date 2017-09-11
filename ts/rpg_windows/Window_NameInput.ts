@@ -191,7 +191,7 @@ class Window_NameInput extends Window_Selectable {
 
     processCursorMove() {
         var lastPage = this._page;
-        Window_Selectable.prototype.processCursorMove.call(this);
+        super.processCursorMove();
         this.updateCursor();
         if (this._page !== lastPage) {
             SoundManager.playCursor();

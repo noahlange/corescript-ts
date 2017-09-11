@@ -120,7 +120,7 @@ class Window_MenuCommand extends Window_Command {
     
     processOk() {
         Window_MenuCommand._lastCommandSymbol = this.currentSymbol();
-        Window_Command.prototype.processOk.call(this);
+        super.processOk()
     };
     
     selectLast() {

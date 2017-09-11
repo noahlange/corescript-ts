@@ -75,7 +75,7 @@ class Window_DebugEdit extends Window_Selectable {
     };
 
     update() {
-        Window_Selectable.prototype.update.call(this);
+        super.update();
         if (this.active) {
             if (this._mode === 'switch') {
                 this.updateSwitch();

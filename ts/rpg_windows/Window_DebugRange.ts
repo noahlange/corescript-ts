@@ -36,7 +36,7 @@ class Window_DebugRange extends Window_Selectable {
     };
     
     update() {
-        Window_Selectable.prototype.update.call(this);
+        super.update();
         if (this._editWindow) {
             this._editWindow.setMode(this.mode());
             this._editWindow.setTopId(this.topId());
@@ -83,7 +83,7 @@ class Window_DebugRange extends Window_Selectable {
     };
     
     processCancel() {
-        Window_Selectable.prototype.processCancel.call(this);
+        super.processCancel();
         Window_DebugRange.lastTopRow = this.topRow();
         Window_DebugRange.lastIndex = this.index();
     };
