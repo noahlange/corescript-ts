@@ -5,12 +5,13 @@
 
 
 class Window_Command extends Window_Selectable {
-    protected _list;
+    protected _list = [];
 
     constructor(x, y?, callback?) {
-        super(x, y, undefined, undefined, () => {
+        super(x, y, undefined, undefined, function(){
             if (callback !== undefined) {
-                callback();
+                let cb = callback.bind(this);
+                cb();
             }
 
             this.clearCommandList();

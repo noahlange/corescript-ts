@@ -8,8 +8,20 @@ class Window_Base extends CoreWindow {
     protected _closing;
     protected _dimmerSprite;
 
-    constructor(x?, y?, width?, height?) {
+    constructor(x?, y?, width?, height?, callback?) {
         super();
+
+        /// NOTE: workaround for: 
+        ///     - Window_BattleEnemy
+        ///     - Window_DebugRange
+        ///     - Window_NumberInput
+        ///     - Window_Command
+        ///     - Window_ChoiceList
+        if(callback != undefined){
+            let cb = callback.bind(this);
+            cb();
+        }
+
 
         this.loadWindowskin();
 
@@ -271,7 +283,7 @@ class Window_Base extends CoreWindow {
         this.contents.paintOpacity = enabled ? 255 : this.translucentOpacity();
     };
 
-    drawText(text, x, y, maxWidth, align?) {
+    drawText(text, x, y, maxWidth?, align?) {
         this.contents.drawText(text, x, y, maxWidth, Window_Base.lineHeight(), align);
     };
 

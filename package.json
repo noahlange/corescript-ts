@@ -12,7 +12,7 @@
     "build:sprites": "node ./concat.js rpg_sprites",
     "build:windows": "node ./concat.js rpg_windows",
     "watch": "node ./watch.js",
-    "build": "run-p build:*",
+    "build": "tsc && run-p build:*",
     "copy:corescripts": "cpx ./dist/*.js ./game/js/",
     "copy:libs": "cpx ./js/libs/*.js ./game/js/libs/",
     "copy:main": "cpx ./js/main.js ./game/js/",

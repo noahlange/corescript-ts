@@ -15,18 +15,8 @@ class Window_Selectable extends Window_Base {
     protected _scrollY;
 
     constructor(x?, y?, width?, height?, callback?) {
-        super(x, y, width, height);
-
-        /// NOTE: workaround for: 
-        ///     - Window_BattleEnemy
-        ///     - Window_DebugRange
-        ///     - Window_NumberInput
-        ///     - Window_Command
-        ///     - Window_ChoiceList
-        if(callback != undefined){
-            callback();
-        }
-
+        super(x, y, width, height, callback);
+        
         this._index = -1;
         this._cursorFixed = false;
         this._cursorAll = false;
@@ -160,7 +150,7 @@ class Window_Selectable extends Window_Base {
         return this.topRow() * this.maxCols();
     };
     
-    itemRect(index) {
+    itemRect(index) : Rectangle {
         var rect = new Rectangle();
         var maxCols = this.maxCols();
         rect.width = this.itemWidth();

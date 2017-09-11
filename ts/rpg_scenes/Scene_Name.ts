@@ -42,7 +42,7 @@ class Scene_Name extends Scene_MenuBase {
     };
 
     onInputOk() {
-        this._actor.setName(this._editWindow.name());
+        this._actor.setName(this._editWindow.name);
         this.popScene();
     };
 }
