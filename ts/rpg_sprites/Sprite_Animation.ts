@@ -11,20 +11,20 @@ class Sprite_Animation extends Sprite {
     protected _target;
     protected _animation;
     protected _mirror;
-    protected _delay;
-    protected _rate;
-    protected _duration;
+    protected _delay: number;
+    protected _rate: number;
+    protected _duration: number;
     protected _flashColor;
-    protected _flashDuration;
-    protected _screenFlashDuration;
-    protected _hidingDuration;
+    protected _flashDuration: number;
+    protected _screenFlashDuration: number;
+    protected _hidingDuration: number;
     protected _bitmap1;
     protected _bitmap2;
     protected _cellSprites;
     protected _screenFlashSprite;
     protected _duplicated;
 
-    public z;
+    public z: number;
 
     constructor() {
         super();
@@ -51,7 +51,7 @@ class Sprite_Animation extends Sprite {
         this.z = 8;
     };
 
-    setup(target, animation, mirror, delay) {
+    setup(target, animation, mirror, delay: number) {
         this._target = target;
         this._animation = animation;
         this._mirror = mirror;
@@ -302,12 +302,12 @@ class Sprite_Animation extends Sprite {
         }
     };
 
-    startFlash(color, duration) {
+    startFlash(color, duration: number) {
         this._flashColor = color.clone();
         this._flashDuration = duration;
     };
 
-    startScreenFlash(color, duration) {
+    startScreenFlash(color, duration: number) {
         this._screenFlashDuration = duration;
         if (this._screenFlashSprite) {
             this._screenFlashSprite.setColor(color[0], color[1], color[2]);
@@ -315,7 +315,7 @@ class Sprite_Animation extends Sprite {
         }
     };
 
-    startHiding(duration) {
+    startHiding(duration: number) {
         this._hidingDuration = duration;
         this._target.hide();
     };

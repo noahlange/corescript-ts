@@ -5,7 +5,7 @@
 
 class Window_MenuCommand extends Window_Command {
 
-    constructor(x, y) {
+    constructor(x: number, y: number) {
         super(x, y);
         this.selectLast();
     };
@@ -15,11 +15,11 @@ class Window_MenuCommand extends Window_Command {
         this._lastCommandSymbol = null;
     };
     
-    windowWidth() {
+    windowWidth() : number{
         return 240;
     };
     
-    numVisibleRows() {
+    numVisibleRows(): number {
         return this.maxItems();
     };
     

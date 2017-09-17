@@ -6,7 +6,7 @@
 class Window_SkillStatus extends Window_Base {
     protected _actor;
 
-    constructor(x, y, width, height) {
+    constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
         this._actor = null;
     };

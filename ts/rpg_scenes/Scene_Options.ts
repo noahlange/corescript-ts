@@ -6,10 +6,6 @@
 class Scene_Options extends Scene_MenuBase {
     protected _optionsWindow;
 
-    // initialize() {
-    //     super.initialize();
-    // };
-
     create() {
         super.create();
         this.createOptionsWindow();

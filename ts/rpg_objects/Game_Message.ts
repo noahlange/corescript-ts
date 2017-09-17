@@ -8,17 +8,17 @@ class Game_Message {
     protected _texts;
     protected _choices;
     protected _faceName;
-    protected _faceIndex;
-    protected _background;
-    protected _positionType;
-    protected _choiceDefaultType;
-    protected _choiceCancelType;
-    protected _choiceBackground;
-    protected _choicePositionType;
-    protected _numInputVariableId;
-    protected _numInputMaxDigits;
-    protected _itemChoiceVariableId;
-    protected _itemChoiceItypeId;
+    protected _faceIndex: number;
+    protected _background: number;
+    protected _positionType: number;
+    protected _choiceDefaultType: number;
+    protected _choiceCancelType: number;
+    protected _choiceBackground: number;
+    protected _choicePositionType: number;
+    protected _numInputVariableId: number;
+    protected _numInputMaxDigits: number;
+    protected _itemChoiceVariableId: number;
+    protected _itemChoiceItypeId: number;
     protected _scrollMode;
     protected _scrollSpeed;
     protected _scrollNoFast;
@@ -117,16 +117,16 @@ class Game_Message {
         this._texts.push(text);
     };
     
-    setFaceImage(faceName, faceIndex) {
+    setFaceImage(faceName, faceIndex: number) {
         this._faceName = faceName;
         this._faceIndex = faceIndex;
     };
     
-    setBackground(background) {
+    setBackground(background: number) {
         this._background = background;
     };
     
-    setPositionType(positionType) {
+    setPositionType(positionType: number) {
         this._positionType = positionType;
     };
     

@@ -11,8 +11,8 @@
         "strict": false,
         "outDir": "out",
 
-        "suppressExcessPropertyErrors": true,
-        "suppressImplicitAnyIndexErrors": true,
+        "suppressExcessPropertyErrors": false,
+        "suppressImplicitAnyIndexErrors": false,
 
         "lib": [
             "dom", "es6"

@@ -4,9 +4,9 @@
 // The sprite for displaying a popup damage.
 
 class Sprite_Damage extends Sprite {
-    protected _duration;
+    protected _duration: number;
     protected _flashColor;
-    protected _flashDuration;
+    protected _flashDuration: number;
     protected _damageBitmap;
 
     constructor() {
@@ -36,11 +36,11 @@ class Sprite_Damage extends Sprite {
         this._flashDuration = 60;
     };
     
-    digitWidth() {
+    digitWidth(): number {
         return this._damageBitmap ? this._damageBitmap.width / 10 : 0;
     };
     
-    digitHeight() {
+    digitHeight(): number {
         return this._damageBitmap ? this._damageBitmap.height / 5 : 0;
     };
     

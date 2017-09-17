@@ -5,23 +5,23 @@
 
 class Game_Picture {
     protected _name;
-    protected _origin;
-    protected _x;
-    protected _y;
-    protected _scaleX;
-    protected _scaleY;
-    protected _opacity;
-    protected _blendMode;
+    protected _origin: number;
+    protected _x: number;
+    protected _y: number;
+    protected _scaleX: number;
+    protected _scaleY: number;
+    protected _opacity: number;
+    protected _blendMode: number;
     protected _tone;
     protected _angle;
-    protected _targetX;
-    protected _targetY;
-    protected _targetScaleX;
-    protected _targetScaleY;
-    protected _targetOpacity;
-    protected _duration;
+    protected _targetX: number;
+    protected _targetY: number;
+    protected _targetScaleX: number;
+    protected _targetScaleY: number;
+    protected _targetOpacity: number;
+    protected _duration: number;
     protected _toneTarget;
-    protected _toneDuration;
+    protected _toneDuration: number;
     protected _rotationSpeed;
 
     constructor() {
@@ -102,8 +102,7 @@ class Game_Picture {
         this._rotationSpeed = 0;
     };
 
-    show(name, origin, x, y, scaleX,
-        scaleY, opacity, blendMode) {
+    show(name, origin, x: number, y: number, scaleX: number, scaleY: number, opacity: number, blendMode: number) {
         this._name = name;
         this._origin = origin;
         this._x = x;
@@ -117,8 +116,7 @@ class Game_Picture {
         this.initRotation();
     };
 
-    move(origin, x, y, scaleX, scaleY,
-        opacity, blendMode, duration) {
+    move(origin, x: number, y: number, scaleX: number, scaleY: number, opacity: number, blendMode: number, duration: number) {
         this._origin = origin;
         this._targetX = x;
         this._targetY = y;
@@ -129,11 +127,11 @@ class Game_Picture {
         this._duration = duration;
     };
 
-    rotate(speed) {
+    rotate(speed: number) {
         this._rotationSpeed = speed;
     };
 
-    tint(tone, duration) {
+    tint(tone, duration: number) {
         if (!this._tone) {
             this._tone = [0, 0, 0, 0];
         }

@@ -6,14 +6,14 @@
 
 class Window_DebugRange extends Window_Selectable {
     static lastTopRow = 0;
-    static lastIndex  = 0;
+    static lastIndex = 0;
 
-    protected _maxSwitches;
-    protected _maxVariables;
+    protected _maxSwitches: number;
+    protected _maxVariables: number;
     protected _editWindow;
-    
-    constructor(x, y) {
-        super(x, y, undefined, undefined, function() {
+
+    constructor(x: number, y: number) {
+        super(x, y, undefined, undefined, function () {
             this._maxSwitches = Math.ceil(($dataSystem.switches.length - 1) / 10);
             this._maxVariables = Math.ceil(($dataSystem.variables.length - 1) / 10);
         });
@@ -22,19 +22,19 @@ class Window_DebugRange extends Window_Selectable {
         this.select(Window_DebugRange.lastIndex);
         this.activate();
     };
-    
+
     windowWidth() {
         return 246;
     };
-    
+
     windowHeight() {
         return Graphics.boxHeight;
     };
-    
+
     maxItems() {
         return this._maxSwitches + this._maxVariables;
     };
-    
+
     update() {
         super.update();
         if (this._editWindow) {
@@ -42,11 +42,11 @@ class Window_DebugRange extends Window_Selectable {
             this._editWindow.setTopId(this.topId());
         }
     };
-    
+
     mode() {
         return this.index() < this._maxSwitches ? 'switch' : 'variable';
     };
-    
+
     topId() {
         var index = this.index();
         if (index < this._maxSwitches) {
@@ -55,13 +55,13 @@ class Window_DebugRange extends Window_Selectable {
             return (index - this._maxSwitches) * 10 + 1;
         }
     };
-    
+
     refresh() {
         this.createContents();
         this.drawAllItems();
     };
-    
-    drawItem(index) {
+
+    drawItem(index: number) {
         var rect = this.itemRectForText(index);
         var start;
         var text;
@@ -76,22 +76,22 @@ class Window_DebugRange extends Window_Selectable {
         text += ' [' + start.padZero(4) + '-' + end.padZero(4) + ']';
         this.drawText(text, rect.x, rect.y, rect.width);
     };
-    
+
     isCancelTriggered() {
         return (Window_Selectable.prototype.isCancelTriggered() ||
-                Input.isTriggered('debug'));
+            Input.isTriggered('debug'));
     };
-    
+
     processCancel() {
         super.processCancel();
         Window_DebugRange.lastTopRow = this.topRow();
         Window_DebugRange.lastIndex = this.index();
     };
-    
+
     setEditWindow(editWindow) {
         this._editWindow = editWindow;
         this.update();
     };
-    
+
 }
 

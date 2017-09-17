@@ -29,7 +29,7 @@ class Game_Followers {
         this._visible = false;
     };
     
-    follower(index) {
+    follower(index: number) {
         return this._data[index];
     };
     
@@ -81,7 +81,7 @@ class Game_Followers {
         }
     };
     
-    synchronize(x, y, d) {
+    synchronize(x: number, y: number, d: number) {
         this.forEach(function(follower) {
             follower.locate(x, y);
             follower.setDirection(d);
@@ -114,7 +114,7 @@ class Game_Followers {
         }, this);
     };
     
-    isSomeoneCollided(x, y) {
+    isSomeoneCollided(x: number, y: number) {
         return this.visibleFollowers().some(function(follower) {
             return follower.pos(x, y);
         }, this);

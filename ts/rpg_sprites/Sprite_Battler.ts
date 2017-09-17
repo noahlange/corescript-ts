@@ -6,14 +6,14 @@
 class Sprite_Battler extends Sprite_Base {
     protected _battler;
     protected _damages;
-    protected _homeX;
-    protected _homeY;
-    protected _offsetX;
-    protected _offsetY;
-    protected _targetOffsetX;
-    protected _targetOffsetY;
-    protected _movementDuration;
-    protected _selectionEffectCount;
+    protected _homeX: number;
+    protected _homeY: number;
+    protected _offsetX: number;
+    protected _offsetY: number;
+    protected _targetOffsetX: number;
+    protected _targetOffsetY: number;
+    protected _movementDuration: number;
+    protected _selectionEffectCount: number;
 
     constructor(battler) {
         super();
@@ -40,7 +40,7 @@ class Sprite_Battler extends Sprite_Base {
         this._battler = battler;
     };
     
-    setHome(x, y) {
+    setHome(x: number, y: number) {
         this._homeX = x;
         this._homeY = y;
         this.updatePosition();
@@ -166,7 +166,7 @@ class Sprite_Battler extends Sprite_Base {
         return 0;
     };
     
-    startMove(x, y, duration) {
+    startMove(x: number, y: number, duration: number) {
         if (this._targetOffsetX !== x || this._targetOffsetY !== y) {
             this._targetOffsetX = x;
             this._targetOffsetY = y;

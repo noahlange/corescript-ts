@@ -35,7 +35,7 @@ class Utils {
      * @param {String} name The option name
      * @return {Boolean} True if the option is in the query string
      */
-    static isOptionValid(name) {
+    static isOptionValid(name: string) {
         return location.search.slice(1).split('&').contains(name);
     };
 
@@ -130,7 +130,7 @@ class Utils {
         return Utils._id++;
     };
 
-    static _supportPassiveEvent = null;
+    static _supportPassiveEvent : boolean | null = null;
     /**
      * Test this browser support passive event feature
      * 

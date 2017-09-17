@@ -8,9 +8,6 @@ class Scene_Item extends Scene_ItemBase {
     protected _itemWindow;
     protected _helpWindow;
     
-    // initialize() {
-    //     super.initialize();
-    // };
     
     create() {
         super.create();

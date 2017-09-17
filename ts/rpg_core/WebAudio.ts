@@ -16,7 +16,7 @@ class WebAudio {
     })(window);
 
 
-    constructor(url) {
+    constructor(url: string) {
         if (!WebAudio._initialized) {
             WebAudio.initialize();
         }
@@ -48,7 +48,7 @@ class WebAudio {
      * @param {Boolean} noAudio Flag for the no-audio mode
      * @return {Boolean} True if the audio system is available
      */
-    static initialize(noAudio?) {
+    static initialize(noAudio?: boolean): boolean {
         if (!this._initialized) {
             if (!noAudio) {
                 this._createContext();
@@ -61,6 +61,9 @@ class WebAudio {
         return !!this._context;
     };
 
+    static _canPlayOgg: string;
+    static _canPlayM4a: string;
+
     /**
      * Checks whether the browser can play ogg files.
      *
@@ -68,8 +71,7 @@ class WebAudio {
      * @method canPlayOgg
      * @return {Boolean} True if the browser can play ogg files
      */
-    static _canPlayOgg;
-    static canPlayOgg() {
+    static canPlayOgg(): boolean {
         if (!this._initialized) {
             this.initialize();
         }
@@ -83,8 +85,7 @@ class WebAudio {
      * @method canPlayM4a
      * @return {Boolean} True if the browser can play m4a files
      */
-    static _canPlayM4a;
-    static canPlayM4a() {
+    static canPlayM4a(): boolean {
         if (!this._initialized) {
             this.initialize();
         }
@@ -98,7 +99,7 @@ class WebAudio {
      * @method setMasterVolume
      * @param {Number} value Master volume (min: 0, max: 1)
      */
-    static setMasterVolume(value) {
+    static setMasterVolume(value: number) {
         this._masterVolume = value;
         if (this._masterGainNode) {
             this._masterGainNode.gain.setValueAtTime(this._masterVolume, this._context.currentTime);
@@ -234,7 +235,7 @@ class WebAudio {
      * @param {Number} duration
      * @private
      */
-    protected static _fadeIn(duration) {
+    protected static _fadeIn(duration: number) {
         if (this._masterGainNode) {
             var gain = this._masterGainNode.gain;
             var currentTime = this._context.currentTime;
@@ -249,7 +250,7 @@ class WebAudio {
      * @param {Number} duration
      * @private
      */
-    protected static _fadeOut(duration) {
+    protected static _fadeOut(duration: number) {
         if (this._masterGainNode) {
             var gain = this._masterGainNode.gain;
             var currentTime = this._context.currentTime;
@@ -396,7 +397,7 @@ class WebAudio {
      * @param {Boolean} loop Whether the audio data play in a loop
      * @param {Number} offset The start position to play in seconds
      */
-    play(loop, offset) {
+    play(loop, offset: number) {
         if (this.isReady()) {
             offset = offset || 0;
             this._startPlaying(loop, offset);
@@ -433,7 +434,7 @@ class WebAudio {
      * @method fadeIn
      * @param {Number} duration Fade-in time in seconds
      */
-    fadeIn(duration) {
+    fadeIn(duration: number) {
         if (this.isReady()) {
             if (this._gainNode) {
                 var gain = this._gainNode.gain;
@@ -454,7 +455,7 @@ class WebAudio {
      * @method fadeOut
      * @param {Number} duration Fade-out time in seconds
      */
-    fadeOut(duration) {
+    fadeOut(duration: number) {
         if (this._gainNode) {
             var gain = this._gainNode.gain;
             var currentTime = WebAudio._context.currentTime;
@@ -553,7 +554,7 @@ class WebAudio {
      * @param {Number} offset
      * @private
      */
-    protected _startPlaying(loop, offset) {
+    protected _startPlaying(loop, offset: number) {
         this._removeEndTimer();
         this._removeNodes();
         this._createNodes();
@@ -736,7 +737,7 @@ class WebAudio {
      * @param {Number} size
      * @private
      */
-    protected _readMetaData(array, index, size) {
+    protected _readMetaData(array, index: number, size: number) {
         for (var i = index; i < index + size - 10; i++) {
             if (this._readFourCharacters(array, i) === 'LOOP') {
                 var text = '';
@@ -771,7 +772,7 @@ class WebAudio {
      * @param {Number} index
      * @private
      */
-    protected _readLittleEndian(array, index) {
+    protected _readLittleEndian(array, index: number) {
         return (array[index + 3] * 0x1000000 + array[index + 2] * 0x10000 +
             array[index + 1] * 0x100 + array[index + 0]);
     };
@@ -782,7 +783,7 @@ class WebAudio {
      * @param {Number} index
      * @private
      */
-    protected _readBigEndian(array, index) {
+    protected _readBigEndian(array, index: number) {
         return (array[index + 0] * 0x1000000 + array[index + 1] * 0x10000 +
             array[index + 2] * 0x100 + array[index + 3]);
     };
@@ -793,7 +794,7 @@ class WebAudio {
      * @param {Number} index
      * @private
      */
-    protected _readFourCharacters(array, index) {
+    protected _readFourCharacters(array, index: number) {
         var string = '';
         for (var i = 0; i < 4; i++) {
             string += String.fromCharCode(array[index + i]);

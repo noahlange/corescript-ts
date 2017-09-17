@@ -8,10 +8,6 @@ class Scene_MenuBase extends Scene_Base {
     protected _backgroundSprite;
     protected _helpWindow;
     
-    // initialize() {
-    //     super.initialize();
-    // };
-
     create() {
         super.create();
         this.createBackground();

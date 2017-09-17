@@ -25,6 +25,11 @@ class Html5Audio {
     protected static _hasError: boolean;
     protected static _autoPlay: boolean;
 
+
+    /// NOTE(bungcip): ignored for now
+    public static pitch: number;
+    public static pan: number;
+
     /**
      * Sets up the Html5 Audio.
      *
@@ -32,7 +37,7 @@ class Html5Audio {
      * @method setup
      * @param {String} url The url of the audio file
      */
-    static setup(url) {
+    static setup(url: string) {
         if (!this._initialized) {
             this.initialize();
         }
@@ -185,7 +190,7 @@ class Html5Audio {
      * @static
      * @param {String} url
      */
-    static setStaticSe(url) {
+    static setStaticSe(url: string) {
         if (!this._initialized) {
             this.initialize();
             this.clear();
@@ -199,7 +204,7 @@ class Html5Audio {
      * @property url
      * @type String
      */
-    static get url() {
+    static get url(): string {
         return this._url;
     }
 
@@ -209,11 +214,11 @@ class Html5Audio {
      * @property volume
      * @type Number
      */
-    static get volume() {
+    static get volume(): number {
         return this._volume;
     }
 
-    static set volumne(value) {
+    static set volumne(value: number) {
         this._volume = value;
         if (this._audioElement) {
             this._audioElement.volume = this._volume;
@@ -227,7 +232,7 @@ class Html5Audio {
      * @method isReady
      * @return {Boolean} True if the audio data is ready to play
      */
-    static isReady() {
+    static isReady(): boolean {
         return this._buffered;
     };
 
@@ -238,7 +243,7 @@ class Html5Audio {
      * @method isError
      * @return {Boolean} True if a loading error has occurred
      */
-    static isError() {
+    static isError(): boolean {
         return this._hasError;
     };
 
@@ -249,7 +254,7 @@ class Html5Audio {
      * @method isPlaying
      * @return {Boolean} True if the audio is playing
      */
-    static isPlaying() {
+    static isPlaying() : boolean{
         return !this._audioElement.paused;
     };
 
@@ -261,9 +266,9 @@ class Html5Audio {
      * @param {Boolean} loop Whether the audio data play in a loop
      * @param {Number} offset The start position to play in seconds
      */
-    static play(loop, offset) {
+    static play(loop: boolean, offset: number = 0) {
         if (this.isReady()) {
-            offset = offset || 0;
+            offset = offset;
             this._startPlaying(loop, offset);
         } else if (this._audioElement) {
             this._autoPlay = true;
@@ -304,7 +309,7 @@ class Html5Audio {
      * @method fadeIn
      * @param {Number} duration Fade-in time in seconds
      */
-    static fadeIn(duration) {
+    static fadeIn(duration: number) {
         if (this.isReady()) {
             if (this._audioElement) {
                 this._tweenTargetGain = this._volume;
@@ -325,7 +330,7 @@ class Html5Audio {
      * @method fadeOut
      * @param {Number} duration Fade-out time in seconds
      */
-    static fadeOut(duration) {
+    static fadeOut(duration: number) {
         if (this._audioElement) {
             this._tweenTargetGain = 0;
             this._tweenGain = this._volume;
@@ -339,7 +344,7 @@ class Html5Audio {
      * @static
      * @method seek
      */
-    static seek() {
+    static seek(): number {
         if (this._audioElement) {
             return this._audioElement.currentTime;
         } else {
@@ -379,7 +384,7 @@ class Html5Audio {
      * @param {Number} offset
      * @private
      */
-    protected static _startPlaying(loop, offset) {
+    protected static _startPlaying(loop: boolean, offset: number) {
         this._audioElement.loop = loop;
         if (this._gainTweenInterval) {
             clearInterval(this._gainTweenInterval);
@@ -411,7 +416,7 @@ class Html5Audio {
      * @params {Number} duration
      * @private
      */
-    protected static _startGainTween(duration) {
+    protected static _startGainTween(duration: number) {
         this._audioElement.volume = this._tweenGain;
         if (this._gainTweenInterval) {
             clearInterval(this._gainTweenInterval);
@@ -429,7 +434,7 @@ class Html5Audio {
      * @param {Number} volume
      * @private
      */
-    protected static applyTweenValue(volume) {
+    protected static applyTweenValue(volume: number) {
         this._tweenGain += this._tweenGainStep;
         if (this._tweenGain < 0 && this._tweenGainStep < 0) {
             this._tweenGain = 0;

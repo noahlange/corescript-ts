@@ -6,7 +6,7 @@
 
 class Window_BattleActor extends Window_BattleStatus {
 
-    constructor(x, y) {
+    constructor(x: number, y: number) {
         super();
         this.x = x;
         this.y = y;

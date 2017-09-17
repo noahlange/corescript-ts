@@ -14,14 +14,14 @@ class Decrypter {
     static VER = "000301";
     static REMAIN = "0000000000";
     
-    static checkImgIgnore = function(url){
+    static checkImgIgnore(url: string){
         for(var cnt = 0; cnt < this._ignoreList.length; cnt++) {
             if(url === this._ignoreList[cnt]) return true;
         }
         return false;
     };
     
-    static decryptImg = function(url, bitmap) {
+    static decryptImg(url: string, bitmap: Bitmap) {
         url = this.extToEncryptExt(url);
     
         var requestFile = new XMLHttpRequest();
@@ -32,6 +32,7 @@ class Decrypter {
         requestFile.onload = function () {
             if(this['status'] < Decrypter._xhrOk) {
                 var arrayBuffer = Decrypter.decryptArrayBuffer(requestFile.response);
+                /// NOTE(bungcip): _image is protected, but accessed by Decripter
                 bitmap._image.src = Decrypter.createBlobUrl(arrayBuffer);
                 bitmap._image.addEventListener('load', bitmap._loadListener = Bitmap.prototype._onLoad.bind(bitmap));
                 bitmap._image.addEventListener('error', bitmap._errorListener = bitmap._loader || Bitmap.prototype._onError.bind(bitmap));
@@ -47,7 +48,7 @@ class Decrypter {
         };
     };
     
-    static decryptHTML5Audio = function(url, bgm, pos) {
+    static decryptHTML5Audio = function(url: string, bgm: AudioProp, pos: number) {
         var requestFile = new XMLHttpRequest();
         requestFile.open("GET", url);
         requestFile.responseType = "arraybuffer";
@@ -62,7 +63,7 @@ class Decrypter {
         };
     };
     
-    static cutArrayHeader = function(arrayBuffer, length) {
+    static cutArrayHeader = function(arrayBuffer, length: number) {
         return arrayBuffer.slice(length);
     };
     
@@ -101,7 +102,7 @@ class Decrypter {
         return window.URL.createObjectURL(blob);
     };
     
-    static extToEncryptExt = function(url) {
+    static extToEncryptExt = function(url: string) {
         var ext = url.split('.').pop();
         var encryptedExt = ext;
     

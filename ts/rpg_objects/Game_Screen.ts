@@ -10,9 +10,9 @@ class Game_Screen {
     protected _flashColor;
     protected _flashDuration;
     protected _shake;
-    protected _zoomX;
-    protected _zoomY;
-    protected _zoomDuration;
+    protected _zoomX: number;
+    protected _zoomY: number;
+    protected _zoomDuration: number;
     protected _zoomScale;
     protected _zoomScaleTarget;
     protected _zoomScaleDuration;
@@ -21,14 +21,14 @@ class Game_Screen {
     protected _weatherPowerTarget;
     protected _weatherDuration;
 
-    protected _fadeOutDuration;
-    protected _fadeInDuration;
+    protected _fadeOutDuration: number;
+    protected _fadeInDuration: number;
     protected _toneTarget
-    protected _toneDuration;
-    protected _shakePower;
-    protected _shakeSpeed;
-    protected _shakeDuration;
-    protected _shakeDirection;
+    protected _toneDuration: number;
+    protected _shakePower: number;
+    protected _shakeSpeed: number;
+    protected _shakeDuration: number;
+    protected _shakeDirection: number;
 
     protected _pictures;
 
@@ -95,7 +95,7 @@ class Game_Screen {
         return this._pictures[realPictureId];
     };
 
-    realPictureId(pictureId) {
+    realPictureId(pictureId: number) {
         if ($gameParty.inBattle()) {
             return pictureId + this.maxPictures();
         } else {
@@ -304,37 +304,37 @@ class Game_Screen {
         this.startFlash([255, 0, 0, 128], 8);
     };
 
-    showPicture(pictureId, name, origin, x, y,
-        scaleX, scaleY, opacity, blendMode) {
+    showPicture(pictureId: number, name, origin, x: number, y: number,
+        scaleX: number, scaleY: number, opacity: number, blendMode: number) {
         var realPictureId = this.realPictureId(pictureId);
         var picture = new Game_Picture();
         picture.show(name, origin, x, y, scaleX, scaleY, opacity, blendMode);
         this._pictures[realPictureId] = picture;
     };
 
-    movePicture(pictureId, origin, x, y, scaleX,
-        scaleY, opacity, blendMode, duration) {
+    movePicture(pictureId: number, origin, x: number, y: number, scaleX: number,
+        scaleY: number, opacity: number, blendMode: number, duration: number) {
         var picture = this.picture(pictureId);
         if (picture) {
             picture.move(origin, x, y, scaleX, scaleY, opacity, blendMode, duration);
         }
     };
 
-    rotatePicture(pictureId, speed) {
+    rotatePicture(pictureId: number, speed: number) {
         var picture = this.picture(pictureId);
         if (picture) {
             picture.rotate(speed);
         }
     };
 
-    tintPicture(pictureId, tone, duration) {
+    tintPicture(pictureId: number, tone, duration: number) {
         var picture = this.picture(pictureId);
         if (picture) {
             picture.tint(tone, duration);
         }
     };
 
-    erasePicture(pictureId) {
+    erasePicture(pictureId: number) {
         var realPictureId = this.realPictureId(pictureId);
         this._pictures[realPictureId] = null;
     };

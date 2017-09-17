@@ -7,11 +7,6 @@ class Scene_Skill extends Scene_ItemBase {
     protected _skillTypeWindow;
     protected _statusWindow;
     
-
-    // initialize() {
-    //     super.initialize();
-    // };
-    
     create() {
         super.create();
         this.createHelpWindow();

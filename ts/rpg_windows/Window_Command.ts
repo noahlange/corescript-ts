@@ -7,7 +7,7 @@
 class Window_Command extends Window_Selectable {
     protected _list = [];
 
-    constructor(x, y?, callback?) {
+    constructor(x: number, y?: number, callback?) {
         super(x, y, undefined, undefined, function(){
             if (callback !== undefined) {
                 let cb = callback.bind(this);
@@ -49,15 +49,15 @@ class Window_Command extends Window_Selectable {
         this._list.push({ name: name, symbol: symbol, enabled: enabled, ext: ext });
     };
 
-    commandName(index) {
+    commandName(index: number) {
         return this._list[index].name;
     };
 
-    commandSymbol(index) {
+    commandSymbol(index: number) {
         return this._list[index].symbol;
     };
 
-    isCommandEnabled(index) {
+    isCommandEnabled(index: number) {
         return this._list[index].enabled;
     };
 

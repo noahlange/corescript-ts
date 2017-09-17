@@ -6,14 +6,14 @@
  */
 
 class ResourceHandler {
-    static _reloaders = [];
+    static _reloaders: Function[] = [];
     static _defaultRetryInterval = [500, 1000, 3000];
-    
-    static createLoader(url, retryMethod, resignMethod?, retryInterval?) {
+
+    static createLoader(url: string, retryMethod: Function, resignMethod?: Function, retryInterval?: number[]) {
         retryInterval = retryInterval || this._defaultRetryInterval;
         var reloaders = this._reloaders;
         var retryCount = 0;
-        return function() {
+        return function () {
             if (retryCount < retryInterval.length) {
                 setTimeout(retryMethod, retryInterval[retryCount]);
                 retryCount++;
@@ -26,7 +26,7 @@ class ResourceHandler {
                         Graphics.printLoadingError(url);
                         SceneManager.stop();
                     }
-                    reloaders.push(function() {
+                    reloaders.push(function () {
                         retryCount = 0;
                         retryMethod();
                     });
@@ -34,20 +34,20 @@ class ResourceHandler {
             }
         };
     };
-    
+
     static exists() {
         return this._reloaders.length > 0;
     };
-    
+
     static retry() {
         if (this._reloaders.length > 0) {
             Graphics.eraseLoadingError();
             SceneManager.resume();
-            this._reloaders.forEach(function(reloader) {
+            this._reloaders.forEach(function (reloader) {
                 reloader();
             });
             this._reloaders.length = 0;
         }
-    };    
+    };
 }
 

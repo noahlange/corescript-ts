@@ -4,16 +4,12 @@
 // The scene class of the name input screen.
 
 class Scene_Name extends Scene_MenuBase {
-    protected _actorId;
-    protected _maxLength;
+    protected _actorId: number;
+    protected _maxLength: number;
     protected _editWindow;
     protected _inputWindow;
 
-    // initialize() {
-    //     super.initialize();
-    // };
-
-    prepare(actorId, maxLength) {
+    prepare(actorId: number, maxLength: number) {
         this._actorId = actorId;
         this._maxLength = maxLength;
     };

@@ -16,13 +16,13 @@ class Sprite_Button extends Sprite {
         this._hotFrame = null;
         this._clickHandler = null;
     };
-    
+
     update() {
         super.update();
         this.updateFrame();
         this.processTouch();
     };
-    
+
     updateFrame() {
         var frame;
         if (this._touching) {
@@ -34,25 +34,25 @@ class Sprite_Button extends Sprite {
             this.setFrame(frame.x, frame.y, frame.width, frame.height);
         }
     };
-    
-    setColdFrame(x, y, width, height) {
+
+    setColdFrame(x: number, y: number, width: number, height: number) {
         this._coldFrame = new Rectangle(x, y, width, height);
     };
-    
-    setHotFrame(x, y, width, height) {
+
+    setHotFrame(x: number, y: number, width: number, height: number) {
         this._hotFrame = new Rectangle(x, y, width, height);
     };
-    
+
     setClickHandler(method) {
         this._clickHandler = method;
     };
-    
+
     callClickHandler() {
         if (this._clickHandler) {
             this._clickHandler();
         }
     };
-    
+
     processTouch() {
         if (this.isActive()) {
             if (TouchInput.isTriggered() && this.isButtonTouched()) {
@@ -70,7 +70,7 @@ class Sprite_Button extends Sprite {
             this._touching = false;
         }
     };
-    
+
     isActive() {
         var node = this as any;
         while (node) {
@@ -81,14 +81,14 @@ class Sprite_Button extends Sprite {
         }
         return true;
     };
-    
+
     isButtonTouched() {
         var x = this.canvasToLocalX(TouchInput.x);
         var y = this.canvasToLocalY(TouchInput.y);
         return x >= 0 && y >= 0 && x < this.width && y < this.height;
     };
-    
-    canvasToLocalX(x) {
+
+    canvasToLocalX(x: number): number {
         var node = this as any;
         while (node) {
             x -= node.x;
@@ -96,8 +96,8 @@ class Sprite_Button extends Sprite {
         }
         return x;
     };
-    
-    canvasToLocalY(y) {
+
+    canvasToLocalY(y: number): number {
         var node = this as any;
         while (node) {
             y -= node.y;
@@ -105,7 +105,7 @@ class Sprite_Button extends Sprite {
         }
         return y;
     };
-        
+
 }
 
 

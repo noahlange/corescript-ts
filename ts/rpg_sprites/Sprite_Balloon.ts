@@ -4,10 +4,10 @@
 // The sprite for displaying a balloon icon.
 
 class Sprite_Balloon extends Sprite_Base {
-    protected _balloonId;
-    protected _duration;
+    protected _balloonId: number;
+    protected _duration: number;
 
-    public z;
+    public z: number;
 
     constructor() {
         super();
@@ -28,7 +28,7 @@ class Sprite_Balloon extends Sprite_Base {
         this.setFrame(0, 0, 0, 0);
     };
 
-    setup(balloonId) {
+    setup(balloonId: number) {
         this._balloonId = balloonId;
         this._duration = 8 * this.speed() + this.waitTime();
     };
@@ -51,15 +51,15 @@ class Sprite_Balloon extends Sprite_Base {
         this.setFrame(sx, sy, w, h);
     };
 
-    speed() {
+    speed(): number {
         return 8;
     };
 
-    waitTime() {
+    waitTime(): number {
         return 12;
     };
 
-    frameIndex() {
+    frameIndex(): number {
         var index = (this._duration - this.waitTime()) / this.speed();
         return 7 - Math.max(Math.floor(index), 0);
     };

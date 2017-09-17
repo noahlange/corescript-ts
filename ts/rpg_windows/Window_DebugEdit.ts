@@ -7,7 +7,7 @@ class Window_DebugEdit extends Window_Selectable {
     protected _mode;
     protected _topId;
 
-    constructor(x, y, width) {
+    constructor(x: number, y: number, width: number) {
         var height = Window_Base.fittingHeight(10);
         super(x, y, width, height);
         this._mode = 'switch';
@@ -40,7 +40,7 @@ class Window_DebugEdit extends Window_Selectable {
         this.drawText(status, rect.x + rect.width, rect.y, statusWidth, 'right');
     };
 
-    itemName(dataId) {
+    itemName(dataId: number) {
         if (this._mode === 'switch') {
             return $dataSystem.switches[dataId];
         } else {
@@ -48,7 +48,7 @@ class Window_DebugEdit extends Window_Selectable {
         }
     };
 
-    itemStatus(dataId) {
+    itemStatus(dataId: number) {
         if (this._mode === 'switch') {
             return $gameSwitches.value(dataId) ? '[ON]' : '[OFF]';
         } else {
@@ -63,14 +63,14 @@ class Window_DebugEdit extends Window_Selectable {
         }
     };
 
-    setTopId(id) {
+    setTopId(id: number) {
         if (this._topId !== id) {
             this._topId = id;
             this.refresh();
         }
     };
 
-    currentId() {
+    currentId() : number{
         return this._topId + this.index();
     };
 

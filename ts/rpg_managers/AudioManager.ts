@@ -3,24 +3,51 @@
 //
 // The static class that handles BGM, BGS, ME and SE.
 
+interface CoreAudioBuffer {
+    play: (loop: boolean, offset?: number) => void;
+    fadeIn: (duration: number) => void;
+    fadeOut: (duration: number) => void;
+    seek: () => number;
+    stop: () => void;
+    isError: () => boolean;
+    isPlaying: () => boolean;
+    addLoadListener: (listener: Function) => void;
+    addStopListener?: (listener: Function) => void;
+
+    url: string;
+    volume: number;
+    pitch: number;
+    pan: number;
+}
+
+interface AudioProp {
+    name: string;
+    volume: number;
+    pitch: number;
+    pan: number;
+    pos: number;
+};
+
 class AudioManager {
     protected static _masterVolume = 1;   // (min: 0, max: 1)
     public static _bgmVolume = 100; /// bungcip: karena dipakai oleh ConfigManager
     protected static _bgsVolume = 100;
     protected static _meVolume = 100;
     protected static _seVolume = 100;
-    protected static _currentBgm = null;
-    protected static _currentBgs = null;
-    protected static _bgmBuffer = null;
-    protected static _bgsBuffer = null;
-    protected static _meBuffer = null;
-    protected static _seBuffers = [];
-    protected static _staticBuffers = [];
+    
+    protected static _currentBgm: AudioProp | null = null;
+    protected static _currentBgs: AudioProp | null = null;
+    protected static _currentMe: AudioProp | null;
+
+    protected static _bgmBuffer: CoreAudioBuffer | null = null;
+    protected static _bgsBuffer: CoreAudioBuffer | null = null;
+    protected static _meBuffer: CoreAudioBuffer | null = null;
+    protected static _seBuffers: CoreAudioBuffer[] = [];
+    protected static _staticBuffers: CoreAudioBuffer[] = [];
     protected static _replayFadeTime = 0.5;
     protected static _path = 'audio/';
-    protected static _blobUrl = null;
+    protected static _blobUrl: string | null = null;
 
-    protected static _currentMe;
 
     static get masterVolume() {
         return this._masterVolume;
@@ -55,14 +82,14 @@ class AudioManager {
         this.updateMeParameters(this._currentMe);
     }
 
-    static get seVolume() {
+    static get seVolume(): number {
         return this._seVolume;
     }
     static set seVolume(value) {
         this._seVolume = value;
     }
 
-    static playBgm(bgm, pos?) {
+    static playBgm(bgm: AudioProp, pos?: number) {
         if (this.isCurrentBgm(bgm)) {
             this.updateBgmParameters(bgm);
         } else {
@@ -83,14 +110,14 @@ class AudioManager {
         this.updateCurrentBgm(bgm, pos);
     };
 
-    static playEncryptedBgm(bgm, pos) {
+    static playEncryptedBgm(bgm: AudioProp, pos: number) {
         var ext = this.audioFileExt();
         var url = this._path + 'bgm/' + encodeURIComponent(bgm.name) + ext;
         url = Decrypter.extToEncryptExt(url);
         Decrypter.decryptHTML5Audio(url, bgm, pos);
     };
 
-    static createDecryptBuffer(url, bgm, pos) {
+    static createDecryptBuffer(url: string, bgm: AudioProp, pos: number) {
         this._blobUrl = url;
         this._bgmBuffer = this.createBuffer('bgm', bgm.name);
         this.updateBgmParameters(bgm);
@@ -100,7 +127,7 @@ class AudioManager {
         this.updateCurrentBgm(bgm, pos);
     };
 
-    static replayBgm(bgm) {
+    static replayBgm(bgm: AudioProp) {
         if (this.isCurrentBgm(bgm)) {
             this.updateBgmParameters(bgm);
         } else {
@@ -111,16 +138,16 @@ class AudioManager {
         }
     };
 
-    static isCurrentBgm(bgm) {
+    static isCurrentBgm(bgm: AudioProp) {
         return (this._currentBgm && this._bgmBuffer &&
             this._currentBgm.name === bgm.name);
     };
 
-    static updateBgmParameters(bgm) {
+    static updateBgmParameters(bgm: AudioProp) {
         this.updateBufferParameters(this._bgmBuffer, this._bgmVolume, bgm);
     };
 
-    static updateCurrentBgm(bgm, pos) {
+    static updateCurrentBgm(bgm: AudioProp, pos: number) {
         this._currentBgm = {
             name: bgm.name,
             volume: bgm.volume,
@@ -138,20 +165,20 @@ class AudioManager {
         }
     };
 
-    static fadeOutBgm(duration) {
+    static fadeOutBgm(duration: number) {
         if (this._bgmBuffer && this._currentBgm) {
             this._bgmBuffer.fadeOut(duration);
             this._currentBgm = null;
         }
     };
 
-    static fadeInBgm(duration) {
+    static fadeInBgm(duration: number) {
         if (this._bgmBuffer && this._currentBgm) {
             this._bgmBuffer.fadeIn(duration);
         }
     };
 
-    static playBgs(bgs, pos?) {
+    static playBgs(bgs: AudioProp, pos?: number) {
         if (this.isCurrentBgs(bgs)) {
             this.updateBgsParameters(bgs);
         } else {
@@ -165,7 +192,7 @@ class AudioManager {
         this.updateCurrentBgs(bgs, pos);
     };
 
-    static replayBgs(bgs) {
+    static replayBgs(bgs: AudioProp) {
         if (this.isCurrentBgs(bgs)) {
             this.updateBgsParameters(bgs);
         } else {
@@ -176,16 +203,16 @@ class AudioManager {
         }
     };
 
-    static isCurrentBgs(bgs) {
+    static isCurrentBgs(bgs: AudioProp) {
         return (this._currentBgs && this._bgsBuffer &&
             this._currentBgs.name === bgs.name);
     };
 
-    static updateBgsParameters(bgs) {
+    static updateBgsParameters(bgs: AudioProp) {
         this.updateBufferParameters(this._bgsBuffer, this._bgsVolume, bgs);
     };
 
-    static updateCurrentBgs(bgs, pos) {
+    static updateCurrentBgs(bgs: AudioProp, pos: number) {
         this._currentBgs = {
             name: bgs.name,
             volume: bgs.volume,
@@ -203,20 +230,20 @@ class AudioManager {
         }
     };
 
-    static fadeOutBgs(duration) {
+    static fadeOutBgs(duration: number) {
         if (this._bgsBuffer && this._currentBgs) {
             this._bgsBuffer.fadeOut(duration);
             this._currentBgs = null;
         }
     };
 
-    static fadeInBgs(duration) {
+    static fadeInBgs(duration: number) {
         if (this._bgsBuffer && this._currentBgs) {
             this._bgsBuffer.fadeIn(duration);
         }
     };
 
-    static playMe(me) {
+    static playMe(me: AudioProp) {
         this.stopMe();
         if (me.name) {
             if (this._bgmBuffer && this._currentBgm) {
@@ -230,11 +257,11 @@ class AudioManager {
         }
     };
 
-    static updateMeParameters(me) {
+    static updateMeParameters(me: AudioProp) {
         this.updateBufferParameters(this._meBuffer, this._meVolume, me);
     };
 
-    static fadeOutMe(duration) {
+    static fadeOutMe(duration: number) {
         if (this._meBuffer) {
             this._meBuffer.fadeOut(duration);
         }
@@ -251,7 +278,7 @@ class AudioManager {
         }
     };
 
-    static playSe(se) {
+    static playSe(se: AudioProp) {
         if (se.name) {
             this._seBuffers = this._seBuffers.filter(function (audio) {
                 return audio.isPlaying();
@@ -263,7 +290,7 @@ class AudioManager {
         }
     };
 
-    static updateSeParameters(buffer, se) {
+    static updateSeParameters(buffer: CoreAudioBuffer, se: AudioProp) {
         this.updateBufferParameters(buffer, this._seVolume, se);
     };
 
@@ -274,12 +301,12 @@ class AudioManager {
         this._seBuffers = [];
     };
 
-    static playStaticSe(se) {
+    static playStaticSe(se: AudioProp) {
         if (se.name) {
             this.loadStaticSe(se);
             for (var i = 0; i < this._staticBuffers.length; i++) {
                 var buffer = this._staticBuffers[i];
-                if (buffer._reservedSeName === se.name) {
+                if (buffer['_reservedSeName'] === se.name) {
                     buffer.stop();
                     this.updateSeParameters(buffer, se);
                     buffer.play(false);
@@ -289,21 +316,21 @@ class AudioManager {
         }
     };
 
-    static loadStaticSe(se) {
+    static loadStaticSe(se: AudioProp) {
         if (se.name && !this.isStaticSe(se)) {
             var buffer = this.createBuffer('se', se.name);
             buffer['_reservedSeName'] = se.name;
             this._staticBuffers.push(buffer);
             if (this.shouldUseHtml5Audio()) {
-                Html5Audio.setStaticSe(buffer['_url']);
+                Html5Audio.setStaticSe(buffer.url);
             }
         }
     };
 
-    static isStaticSe(se) {
+    static isStaticSe(se: AudioProp) {
         for (var i = 0; i < this._staticBuffers.length; i++) {
             var buffer = this._staticBuffers[i];
-            if (buffer._reservedSeName === se.name) {
+            if (buffer['_reservedSeName'] === se.name) {
                 return true;
             }
         }
@@ -351,7 +378,7 @@ class AudioManager {
         return { name: '', volume: 0, pitch: 0 };
     };
 
-    static createBuffer(folder, name) {
+    static createBuffer(folder: string, name: string): CoreAudioBuffer {
         var ext = this.audioFileExt();
         var url = this._path + folder + '/' + encodeURIComponent(name) + ext;
         if (this.shouldUseHtml5Audio() && folder === 'bgm') {
@@ -363,7 +390,7 @@ class AudioManager {
         }
     };
 
-    static updateBufferParameters(buffer, configVolume, audio) {
+    static updateBufferParameters(buffer: CoreAudioBuffer, configVolume: number, audio: AudioProp) {
         if (buffer && audio) {
             buffer.volume = configVolume * (audio.volume || 0) / 10000;
             buffer.pitch = (audio.pitch || 0) / 100;
@@ -371,7 +398,7 @@ class AudioManager {
         }
     };
 
-    static audioFileExt() {
+    static audioFileExt(): string {
         if (WebAudio.canPlayOgg() && !Utils.isMobileDevice()) {
             return '.ogg';
         } else {
@@ -379,7 +406,7 @@ class AudioManager {
         }
     };
 
-    static shouldUseHtml5Audio() {
+    static shouldUseHtml5Audio(): boolean {
         // The only case where we wanted html5audio was android/ no encrypt
         // Atsuma-ru asked to force webaudio there too, so just return false for ALL    // return Utils.isAndroidChrome() && !Decrypter.hasEncryptedAudio;
         return false;
@@ -389,15 +416,15 @@ class AudioManager {
         this.checkWebAudioError(this._bgmBuffer);
         this.checkWebAudioError(this._bgsBuffer);
         this.checkWebAudioError(this._meBuffer);
-        this._seBuffers.forEach(function (buffer) {
+        this._seBuffers.forEach(function (buffer: CoreAudioBuffer) {
             this.checkWebAudioError(buffer);
         }.bind(this));
-        this._staticBuffers.forEach(function (buffer) {
+        this._staticBuffers.forEach(function (buffer: CoreAudioBuffer) {
             this.checkWebAudioError(buffer);
         }.bind(this));
     };
 
-    static checkWebAudioError(webAudio) {
+    static checkWebAudioError(webAudio: CoreAudioBuffer | null) {
         if (webAudio && webAudio.isError()) {
             throw new Error('Failed to load: ' + webAudio.url);
         }

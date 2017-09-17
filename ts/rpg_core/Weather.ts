@@ -146,7 +146,7 @@ class Weather extends PIXI.Container {
      * @param {Sprite} sprite
      * @private
      */
-    protected _updateSprite(sprite) {
+    protected _updateSprite(sprite: Sprite) {
         switch (this.type) {
             case 'rain':
                 this._updateRainSprite(sprite);

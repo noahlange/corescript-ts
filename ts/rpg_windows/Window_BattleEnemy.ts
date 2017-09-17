@@ -6,7 +6,7 @@
 class Window_BattleEnemy extends Window_Selectable {
     protected _enemies;
 
-    constructor(x, y) {
+    constructor(x: number, y: number) {
         super(x, y, undefined, undefined, function() {
             this._enemies = [];
         });

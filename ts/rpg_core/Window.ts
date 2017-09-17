@@ -9,13 +9,13 @@
 class CoreWindow extends PIXI.Container {
     protected _isWindow;
     protected _windowskin;
-    protected _width;
-    protected _height;
+    protected _width: number;
+    protected _height: number;
     protected _cursorRect;
     protected _openness;
     protected _animationCount;
     protected _padding;
-    protected _margin;
+    protected _margin: number;
     protected _colorTone;
     protected _windowSpriteContainer;
     protected _windowBackSprite;
@@ -263,7 +263,7 @@ class CoreWindow extends PIXI.Container {
      * @param {Number} width The width of the window
      * @param {Number} height The height of the window
      */
-    move(x, y, width, height) {
+    move(x: number, y: number, width: number, height: number) {
         this.x = x || 0;
         this.y = y || 0;
         if (this._width !== width || this._height !== height) {
@@ -300,7 +300,7 @@ class CoreWindow extends PIXI.Container {
      * @param {Number} width The width of the cursor
      * @param {Number} height The height of the cursor
      */
-    setCursorRect(x, y, width, height) {
+    setCursorRect(x: number, y: number, width: number, height: number) {
         var cx = Math.floor(x || 0);
         var cy = Math.floor(y || 0);
         var cw = Math.floor(width || 0);
@@ -323,7 +323,7 @@ class CoreWindow extends PIXI.Container {
      * @param {Number} g The green value in the range (-255, 255)
      * @param {Number} b The blue value in the range (-255, 255)
      */
-    setTone(r, g, b) {
+    setTone(r: number, g: number, b: number) {
         var tone = this._colorTone;
         if (r !== tone[0] || g !== tone[1] || b !== tone[2]) {
             this._colorTone = [r, g, b];

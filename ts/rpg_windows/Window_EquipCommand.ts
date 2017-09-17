@@ -4,19 +4,19 @@
 // The window for selecting a command on the equipment screen.
 
 class Window_EquipCommand extends Window_HorzCommand {
-    protected _windowWidth;
+    protected _windowWidth: number;
     
-    constructor(x, y, width) {
+    constructor(x: number, y: number, width: number) {
         super(x, y, function() {
             this._windowWidth = width;
         });
     };
     
-    windowWidth() {
+    windowWidth(): number {
         return this._windowWidth;
     };
     
-    maxCols() {
+    maxCols(): number {
         return 3;
     };
     

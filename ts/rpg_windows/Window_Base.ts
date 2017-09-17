@@ -4,11 +4,11 @@
 // The superclass of all windows within the game.
 
 class Window_Base extends CoreWindow {
-    protected _opening;
-    protected _closing;
+    protected _opening: boolean;
+    protected _closing: boolean;
     protected _dimmerSprite;
 
-    constructor(x?, y?, width?, height?, callback?) {
+    constructor(x?: number, y?: number, width?: number, height?: number, callback?) {
         super();
 
         /// NOTE: workaround for: 
@@ -17,7 +17,7 @@ class Window_Base extends CoreWindow {
         ///     - Window_NumberInput
         ///     - Window_Command
         ///     - Window_ChoiceList
-        if(callback != undefined){
+        if (callback != undefined) {
             let cb = callback.bind(this);
             cb();
         }
@@ -25,19 +25,19 @@ class Window_Base extends CoreWindow {
 
         this.loadWindowskin();
 
-        if(x === undefined){
+        if (x === undefined) {
             x = this.windowX();
         }
 
-        if(y === undefined){
+        if (y === undefined) {
             y = this.windowY();
         }
 
-        if(width === undefined){
+        if (width === undefined) {
             width = this.windowWidth();
         }
 
-        if(height === undefined){
+        if (height === undefined) {
             height = this.windowHeight()
         }
 
@@ -58,10 +58,10 @@ class Window_Base extends CoreWindow {
 
     /// bungcip: this two function added to workaround typescript
     ///          limitation around super() in counstructor
-    windowWidth(){ return Graphics.boxWidth;}
-    windowHeight(){ return Graphics.boxHeight;}
-    windowX(){ return 0; }
-    windowY(){ return 0; }
+    windowWidth() { return Graphics.boxWidth; }
+    windowHeight() { return Graphics.boxHeight; }
+    windowX() { return 0; }
+    windowY() { return 0; }
 
     static lineHeight() {
         return 36;
@@ -77,19 +77,19 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    standardFontSize() {
+    standardFontSize(): number {
         return 28;
     };
 
-    static standardPadding() {
+    static standardPadding(): number {
         return 18;
     };
 
-    textPadding() {
+    textPadding(): number {
         return 6;
     };
 
-    standardBackOpacity() {
+    standardBackOpacity(): number {
         return 192;
     };
 
@@ -105,15 +105,15 @@ class Window_Base extends CoreWindow {
         this.backOpacity = this.standardBackOpacity();
     };
 
-    contentsWidth() {
+    contentsWidth(): number {
         return this.width - Window_Base.standardPadding() * 2;
     };
 
-    contentsHeight() {
+    contentsHeight(): number {
         return this.height - Window_Base.standardPadding() * 2;
     };
 
-    static fittingHeight(numLines) {
+    static fittingHeight(numLines: number) {
         return numLines * Window_Base.lineHeight() + this.standardPadding() * 2;
     };
 
@@ -201,7 +201,7 @@ class Window_Base extends CoreWindow {
         this.active = false;
     };
 
-    textColor(n) {
+    textColor(n: number) {
         var px = 96 + (n % 8) * 12 + 6;
         var py = 144 + Math.floor(n / 8) * 12 + 6;
         return this.windowskin.getPixel(px, py);
@@ -283,15 +283,15 @@ class Window_Base extends CoreWindow {
         this.contents.paintOpacity = enabled ? 255 : this.translucentOpacity();
     };
 
-    drawText(text, x, y, maxWidth?, align?) {
+    drawText(text: string | number, x: number, y: number, maxWidth?, align?) {
         this.contents.drawText(text, x, y, maxWidth, Window_Base.lineHeight(), align);
     };
 
-    textWidth(text) {
+    textWidth(text: string) {
         return this.contents.measureTextWidth(text);
     };
 
-    drawTextEx(text, x, y) {
+    drawTextEx(text: string, x: number, y: number) {
         if (text) {
             var textState = { index: 0, x: x, y: y, left: x };
             textState['text'] = this.convertEscapeCharacters(text);
@@ -306,7 +306,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    convertEscapeCharacters(text) {
+    convertEscapeCharacters(text: string) {
         text = text.replace(/\\/g, '\x1b');
         text = text.replace(/\x1b\x1b/g, '\\');
         text = text.replace(/\x1bV\[(\d+)\]/gi, function () {
@@ -325,12 +325,12 @@ class Window_Base extends CoreWindow {
         return text;
     };
 
-    actorName(n) {
+    actorName(n: number) {
         var actor = n >= 1 ? $gameActors.actor(n) : null;
         return actor ? actor.name() : '';
     };
 
-    partyMemberName(n) {
+    partyMemberName(n: number) {
         var actor = n >= 1 ? $gameParty.members()[n - 1] : null;
         return actor ? actor.name() : '';
     };
@@ -382,17 +382,18 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    obtainEscapeParam(textState) {
+    obtainEscapeParam(textState): number {
         var arr = /^\[\d+\]/.exec(textState.text.slice(textState.index));
         if (arr) {
             textState.index += arr[0].length;
             return parseInt(arr[0].slice(1));
         } else {
-            return '';
+            return 0; /// (bungcip: changed to compiled)
+            // return '';
         }
     };
 
-    processEscapeCharacter(code, textState) {
+    processEscapeCharacter(code: string, textState) {
         switch (code) {
             case 'C':
                 this.changeTextColor(this.textColor(this.obtainEscapeParam(textState)));
@@ -409,7 +410,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    processDrawIcon(iconIndex, textState) {
+    processDrawIcon(iconIndex: number, textState) {
         this.drawIcon(iconIndex, textState.x + 2, textState.y + 2);
         textState.x += Window_Base._iconWidth + 4;
     };
@@ -467,7 +468,7 @@ class Window_Base extends CoreWindow {
         this.contents.blt(bitmap, sx, sy, pw, ph, x, y);
     };
 
-    drawFace(faceName, faceIndex, x, y, width?, height?) {
+    drawFace(faceName: string, faceIndex, x, y, width?, height?) {
         width = width || Window_Base._faceWidth;
         height = height || Window_Base._faceHeight;
         var bitmap = ImageManager.loadFace(faceName);
@@ -482,7 +483,7 @@ class Window_Base extends CoreWindow {
         this.contents.blt(bitmap, sx, sy, sw, sh, dx, dy);
     };
 
-    drawCharacter(characterName, characterIndex, x, y) {
+    drawCharacter(characterName: string, characterIndex, x, y) {
         var bitmap = ImageManager.loadCharacter(characterName);
         var big = ImageManager.isBigCharacter(characterName);
         var pw = bitmap.width / (big ? 3 : 12);
@@ -518,44 +519,44 @@ class Window_Base extends CoreWindow {
         return this.normalColor();
     };
 
-    drawActorCharacter(actor, x, y) {
+    drawActorCharacter(actor, x: number, y: number) {
         this.drawCharacter(actor.characterName(), actor.characterIndex(), x, y);
     };
 
-    drawActorFace(actor, x, y, width?, height?) {
+    drawActorFace(actor, x: number, y: number, width?: number, height?: number) {
         this.drawFace(actor.faceName(), actor.faceIndex(), x, y, width, height);
     };
 
-    drawActorName(actor, x, y, width = 168) {
+    drawActorName(actor, x: number, y: number, width: number = 168) {
         this.changeTextColor(this.hpColor(actor));
         this.drawText(actor.name(), x, y, width);
     };
 
-    drawActorClass(actor, x, y, width = 168) {
+    drawActorClass(actor, x: number, y: number, width: number = 168) {
         this.resetTextColor();
         this.drawText(actor.currentClass().name, x, y, width);
     };
 
-    drawActorNickname(actor, x, y, width = 270) {
+    drawActorNickname(actor, x: number, y: number, width: number = 270) {
         this.resetTextColor();
         this.drawText(actor.nickname(), x, y, width);
     };
 
-    drawActorLevel(actor, x, y) {
+    drawActorLevel(actor, x: number, y: number) {
         this.changeTextColor(this.systemColor());
         this.drawText(TextManager.levelA, x, y, 48);
         this.resetTextColor();
         this.drawText(actor.level, x + 84, y, 36, 'right');
     };
 
-    drawActorIcons(actor, x, y, width = 144) {
+    drawActorIcons(actor, x: number, y: number, width: number = 144) {
         var icons = actor.allIcons().slice(0, Math.floor(width / Window_Base._iconWidth));
         for (var i = 0; i < icons.length; i++) {
             this.drawIcon(icons[i], x + Window_Base._iconWidth * i, y + 2);
         }
     };
 
-    drawCurrentAndMax(current, max, x, y, width, color1, color2) {
+    drawCurrentAndMax(current, max, x: number, y: number, width: number, color1, color2) {
         var labelWidth = this.textWidth('HP');
         var valueWidth = this.textWidth('0000');
         var slashWidth = this.textWidth('/');
@@ -574,7 +575,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    drawActorHp(actor, x, y, width = 186) {
+    drawActorHp(actor, x: number, y: number, width: number = 186) {
         var color1 = this.hpGaugeColor1();
         var color2 = this.hpGaugeColor2();
         this.drawGauge(x, y, width, actor.hpRate(), color1, color2);
@@ -584,7 +585,7 @@ class Window_Base extends CoreWindow {
             this.hpColor(actor), this.normalColor());
     };
 
-    drawActorMp(actor, x, y, width = 186) {
+    drawActorMp(actor, x: number, y: number, width: number = 186) {
         var color1 = this.mpGaugeColor1();
         var color2 = this.mpGaugeColor2();
         this.drawGauge(x, y, width, actor.mpRate(), color1, color2);
@@ -594,7 +595,7 @@ class Window_Base extends CoreWindow {
             this.mpColor(actor), this.normalColor());
     };
 
-    drawActorTp(actor, x, y, width = 96) {
+    drawActorTp(actor, x: number, y: number, width: number = 96) {
         var color1 = this.tpGaugeColor1();
         var color2 = this.tpGaugeColor2();
         this.drawGauge(x, y, width, actor.tpRate(), color1, color2);
@@ -604,7 +605,7 @@ class Window_Base extends CoreWindow {
         this.drawText(actor.tp, x + width - 64, y, 64, 'right');
     };
 
-    drawActorSimpleStatus(actor, x, y, width) {
+    drawActorSimpleStatus(actor, x: number, y: number, width: number) {
         var lineHeight = Window_Base.lineHeight();
         var x2 = x + 180;
         var width2 = Math.min(200, width - 180 - this.textPadding());
@@ -616,7 +617,7 @@ class Window_Base extends CoreWindow {
         this.drawActorMp(actor, x2, y + lineHeight * 2, width2);
     };
 
-    drawItemName(item, x, y, width = 312) {
+    drawItemName(item, x: number, y: number, width: number = 312) {
         if (item) {
             var iconBoxWidth = Window_Base._iconWidth + 4;
             this.resetTextColor();
@@ -643,7 +644,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    setBackgroundType(type) {
+    setBackgroundType(type: number) {
         if (type === 0) {
             this.opacity = 255;
         } else {
@@ -706,7 +707,7 @@ class Window_Base extends CoreWindow {
         return 'rgba(0, 0, 0, 0)';
     };
 
-    canvasToLocalX(x) {
+    canvasToLocalX(x: number): number {
         var node = this as any;
         while (node) {
             x -= node.x;
@@ -715,7 +716,7 @@ class Window_Base extends CoreWindow {
         return x;
     };
 
-    canvasToLocalY(y) {
+    canvasToLocalY(y: number): number {
         var node = this as any;
         while (node) {
             y -= node.y;

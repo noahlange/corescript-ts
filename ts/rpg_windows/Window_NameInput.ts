@@ -119,7 +119,7 @@ class Window_NameInput extends Window_Selectable {
         return this._index === 89;
     };
 
-    itemRect(index) : Rectangle {
+    itemRect(index: number) : Rectangle {
         /// NOTE (bungcip): changed to make it compile
         const rect = new Rectangle(
             index % 10 * 42 + Math.floor(index % 10 / 5) * 24,

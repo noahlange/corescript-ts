@@ -7,8 +7,8 @@
  * @constructor 
  * @extends Stage
  */
-class Scene_Base extends Stage {
-    protected _active;
+abstract class Scene_Base extends Stage {
+    protected _active: boolean;
     protected _fadeSign;
     protected _fadeDuration;
     protected _fadeSprite;
@@ -185,7 +185,7 @@ class Scene_Base extends Stage {
      * @instance 
      * @memberof Scene_Base
      */
-    startFadeIn(duration, white) {
+    startFadeIn(duration: number, white) {
         this.createFadeSprite(white);
         this._fadeSign = 1;
         this._fadeDuration = duration || 30;
@@ -311,7 +311,7 @@ class Scene_Base extends Stage {
      * @memberof Scene_Base
      * @return {Number} Return the fade speed
      */
-    fadeSpeed() {
+    fadeSpeed(): number {
         return 24;
     };
 
@@ -323,7 +323,7 @@ class Scene_Base extends Stage {
      * @memberof Scene_Base
      * @return {Number} Return the fade speed
      */
-    slowFadeSpeed() {
+    slowFadeSpeed(): number {
         return this.fadeSpeed() * 2;
     };
 

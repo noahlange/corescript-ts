@@ -5,9 +5,6 @@
 
 class Scene_GameEnd extends Scene_MenuBase {
     protected _commandWindow;
-    // initialize() {
-    //     super.initialize();
-    // };
     
     create() {
         super.create();

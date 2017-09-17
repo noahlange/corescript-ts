@@ -16,7 +16,7 @@ class Sprite_Character extends Sprite_Base {
     protected _bushDepth;
     protected _balloonSprite;
 
-    public z;
+    public z: number;
 
     constructor(character) {
         super();
@@ -59,7 +59,7 @@ class Sprite_Character extends Sprite_Base {
         return this._character.tileId > 0;
     };
     
-    tilesetBitmap(tileId) {
+    tilesetBitmap(tileId: number) {
         var tileset = $gameMap.tileset();
         var setNumber = 5 + Math.floor(tileId / 256);
         return ImageManager.loadTileset(tileset.tilesetNames[setNumber]);

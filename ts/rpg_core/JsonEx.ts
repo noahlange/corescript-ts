@@ -114,7 +114,7 @@ class JsonEx {
      * @return {Object}
      * @private
      */
-    static _encode(value, circular, depth) {
+    static _encode(value, circular, depth: number) {
         depth = depth || 0;
         if (++depth >= this.maxDepth) {
             throw new Error('Object too deep');

@@ -4,12 +4,12 @@
 // The game object class for a troop and the battle-related data.
 
 class Game_Troop extends Game_Unit {
-    protected _interpreter;
-    protected _troopId;
-    protected _eventFlags;
+    protected _interpreter: Game_Interpreter;
+    protected _troopId: number;
+    protected _eventFlags: Object;
     protected _enemies;
-    protected _turnCount;
-    protected _namesCount;
+    protected _turnCount: number;
+    protected _namesCount: Object;
 
 
     static LETTER_TABLE_HALF = [
@@ -56,7 +56,7 @@ class Game_Troop extends Game_Unit {
         return $dataTroops[this._troopId];
     };
 
-    setup(troopId) {
+    setup(troopId: number) {
         this.clear();
         this._troopId = troopId;
         this._enemies = [];

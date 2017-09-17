@@ -4,14 +4,14 @@
 // The game object class for an enemy.
 
 class Game_Enemy extends Game_Battler {
-    protected _enemyId;
+    protected _enemyId: number;
     protected _letter;
     protected _plural;
-    protected _screenX;
-    protected _screenY;
+    protected _screenX: number;
+    protected _screenY: number;
 
 
-    constructor(enemyId, x, y) {
+    constructor(enemyId: number, x: number, y: number) {
         super();
         this.setup(enemyId, x, y);
     };
@@ -25,7 +25,7 @@ class Game_Enemy extends Game_Battler {
         this._screenY = 0;
     };
     
-    setup(enemyId, x, y) {
+    setup(enemyId: number, x: number, y: number) {
         this._enemyId = enemyId;
         this._screenX = x;
         this._screenY = y;
@@ -64,7 +64,7 @@ class Game_Enemy extends Game_Battler {
         return super.traitObjects().concat(this.enemy());
     };
     
-    paramBase(paramId) {
+    paramBase(paramId: number) {
         return this.enemy().params[paramId];
     };
     
@@ -90,7 +90,7 @@ class Game_Enemy extends Game_Battler {
         return $gameParty.hasDropItemDouble() ? 2 : 1;
     };
     
-    itemObject(kind, dataId) {
+    itemObject(kind: number, dataId: number) {
         if (kind === 1) {
             return $dataItems[dataId];
         } else if (kind === 2) {
@@ -106,11 +106,11 @@ class Game_Enemy extends Game_Battler {
         return true;
     };
     
-    screenX() {
+    screenX(): number {
         return this._screenX;
     };
     
-    screenY() {
+    screenY() : number{
         return this._screenY;
     };
     

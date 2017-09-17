@@ -8,10 +8,6 @@ class Scene_Menu extends Scene_MenuBase {
     protected _commandWindow;
     protected _goldWindow;
     
-    // initialize() {
-    //     super.initialize();
-    // };
-
     create() {
         super.create();
         this.createCommandWindow();

@@ -7,31 +7,31 @@ class ConfigManager {
     static alwaysDash = false;
     static commandRemember = false;
 
-    static get bgmVolume() {
+    static get bgmVolume(): number {
         return AudioManager._bgmVolume;
     }
-    static set bgmVolume(value) {
+    static set bgmVolume(value: number) {
         AudioManager.bgmVolume = value;
     }
 
-    static get bgsVolume() {
+    static get bgsVolume(): number {
         return AudioManager.bgsVolume;
     }
-    static set bgsVolume(value) {
+    static set bgsVolume(value: number) {
         AudioManager.bgsVolume = value;
     }
 
-    static get meVolume() {
+    static get meVolume(): number {
         return AudioManager.meVolume;
     }
-    static set meVolume(value) {
+    static set meVolume(value: number) {
         AudioManager.meVolume = value;
     }
 
-    static get seVolume() {
+    static get seVolume(): number {
         return AudioManager.seVolume;
     }
-    static set seVolume(value) {
+    static set seVolume(value: number) {
         AudioManager.seVolume = value;
     }
 

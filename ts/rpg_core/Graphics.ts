@@ -5,42 +5,42 @@
  * @class Graphics
  */
 class Graphics {
-    protected static _cssFontLoading =  document.fonts && document.fonts.ready;
+    protected static _cssFontLoading = document.fonts && document.fonts.ready;
     protected static _fontLoaded = null;
     protected static _videoVolume = 1;
-    
 
-    protected static  _width: number;
-    protected static  _height: number;
-    protected static  _rendererType: string;
-    protected static  _boxWidth: number;
-    protected static  _boxHeight: number;
-    protected static  _scale: number;
-    protected static  _realScale: number;
-    protected static  _errorShowed: boolean;
-    protected static  _errorPrinter : any;
-    protected static  _canvas : any;
-    protected static  _video : any;
-    protected static  _videoUnlocked: boolean;
-    protected static  _videoLoading : boolean;
-    protected static  _upperCanvas : any;
-    
+
+    protected static _width: number;
+    protected static _height: number;
+    protected static _rendererType: string;
+    protected static _boxWidth: number;
+    protected static _boxHeight: number;
+    protected static _scale: number;
+    protected static _realScale: number;
+    protected static _errorShowed: boolean;
+    protected static _errorPrinter: any;
+    protected static _canvas: any;
+    protected static _video: any;
+    protected static _videoUnlocked: boolean;
+    protected static _videoLoading: boolean;
+    protected static _upperCanvas: any;
+
     /// bungcip: mesti public karena diakses oleh kelas Bitmap, nantinya harus dibetulkan itu
-    public static  _renderer : any;
+    public static _renderer: any;
 
-    protected static  _fpsMeter : any;
-    protected static  _modeBox : any;
-    protected static  _skipCount : number;
-    protected static  _maxSkip : number;
-    protected static  _rendered : boolean;
-    protected static  _loadingImage : any;
-    protected static  _loadingCount : number;
-    protected static  _fpsMeterToggled : boolean;
-    protected static  _stretchEnabled : boolean;
+    protected static _fpsMeter: any;
+    protected static _modeBox: any;
+    protected static _skipCount: number;
+    protected static _maxSkip: number;
+    protected static _rendered: boolean;
+    protected static _loadingImage: any;
+    protected static _loadingCount: number;
+    protected static _fpsMeterToggled: boolean;
+    protected static _stretchEnabled: boolean;
 
-    protected static  _canUseDifferenceBlend : boolean;
-    protected static  _canUseSaturationBlend : boolean;
-    protected static  _hiddenCanvas : any;
+    protected static _canUseDifferenceBlend: boolean;
+    protected static _canUseSaturationBlend: boolean;
+    protected static _hiddenCanvas: any;
 
     /**
      * Initializes the graphics system.
@@ -94,20 +94,20 @@ class Graphics {
         this._setupCssFontLoading();
     };
 
-    protected static _setupCssFontLoading(){
-        if(Graphics._cssFontLoading){
-            document.fonts.ready.then(function(fonts){
+    protected static _setupCssFontLoading() {
+        if (Graphics._cssFontLoading) {
+            document.fonts.ready.then(function (fonts) {
                 Graphics._fontLoaded = fonts;
-            }).catch(function(error){
+            }).catch(function (error) {
                 SceneManager.onError(error);
             });
         }
     };
-    
-    static canUseCssFontLoading(){
+
+    static canUseCssFontLoading() {
         return !!this._cssFontLoading;
     };
-    
+
     /**
      * The total frame count of the game screen.
      *
@@ -115,8 +115,8 @@ class Graphics {
      * @property frameCount
      * @type Number
      */
-    static frameCount     = 0;
-    
+    static frameCount = 0;
+
     /**
      * The alias of PIXI.blendModes.NORMAL.
      *
@@ -125,8 +125,8 @@ class Graphics {
      * @type Number
      * @final
      */
-    static BLEND_NORMAL   = 0;
-    
+    static BLEND_NORMAL = 0;
+
     /**
      * The alias of PIXI.blendModes.ADD.
      *
@@ -135,8 +135,8 @@ class Graphics {
      * @type Number
      * @final
      */
-    static BLEND_ADD      = 1;
-    
+    static BLEND_ADD = 1;
+
     /**
      * The alias of PIXI.blendModes.MULTIPLY.
      *
@@ -146,7 +146,7 @@ class Graphics {
      * @final
      */
     static BLEND_MULTIPLY = 2;
-    
+
     /**
      * The alias of PIXI.blendModes.SCREEN.
      *
@@ -155,8 +155,8 @@ class Graphics {
      * @type Number
      * @final
      */
-    static BLEND_SCREEN   = 3;
-    
+    static BLEND_SCREEN = 3;
+
     /**
      * Marks the beginning of each frame for FPSMeter.
      *
@@ -168,7 +168,7 @@ class Graphics {
             this._fpsMeter.tickStart();
         }
     };
-    
+
     /**
      * Marks the end of each frame for FPSMeter.
      *
@@ -180,7 +180,7 @@ class Graphics {
             this._fpsMeter.tick();
         }
     };
-    
+
     /**
      * Renders the stage to the game screen.
      *
@@ -188,7 +188,7 @@ class Graphics {
      * @method render
      * @param {Stage} stage The stage object to be rendered
      */
-    static render(stage) {
+    static render(stage: Stage) {
         if (this._skipCount === 0) {
             var startTime = Date.now();
             if (stage) {
@@ -207,7 +207,7 @@ class Graphics {
         }
         this.frameCount++;
     };
-    
+
     /**
      * Checks whether the renderer type is WebGL.
      *
@@ -218,7 +218,7 @@ class Graphics {
     static isWebGL() {
         return this._renderer && this._renderer.type === PIXI.RENDERER_TYPE.WEBGL;
     };
-    
+
     /**
      * Checks whether the current browser supports WebGL.
      *
@@ -234,7 +234,7 @@ class Graphics {
             return false;
         }
     };
-    
+
     /**
      * Checks whether the canvas blend mode 'difference' is supported.
      *
@@ -245,7 +245,7 @@ class Graphics {
     static canUseDifferenceBlend() {
         return this._canUseDifferenceBlend;
     };
-    
+
     /**
      * Checks whether the canvas blend mode 'saturation' is supported.
      *
@@ -256,18 +256,18 @@ class Graphics {
     static canUseSaturationBlend() {
         return this._canUseSaturationBlend;
     };
-    
+
     /**
      * Sets the source of the "Now Loading" image.
      *
      * @static
      * @method setLoadingImage
      */
-    static setLoadingImage(src) {
+    static setLoadingImage(src: string) {
         this._loadingImage = new Image();
         this._loadingImage.src = src;
     };
-    
+
     /**
      * Initializes the counter for displaying the "Now Loading" image.
      *
@@ -277,7 +277,7 @@ class Graphics {
     static startLoading() {
         this._loadingCount = 0;
     };
-    
+
     /**
      * Increments the loading counter and displays the "Now Loading" image if necessary.
      *
@@ -289,7 +289,7 @@ class Graphics {
         this._paintUpperCanvas();
         this._upperCanvas.style.opacity = 1;
     };
-    
+
     /**
      * Erases the "Now Loading" image.
      *
@@ -300,7 +300,7 @@ class Graphics {
         this._clearUpperCanvas();
         this._upperCanvas.style.opacity = 0;
     };
-    
+
     /**
      * Displays the loading error text to the screen.
      *
@@ -308,7 +308,7 @@ class Graphics {
      * @method printLoadingError
      * @param {String} url The url of the resource failed to load
      */
-    static printLoadingError(url) {
+    static printLoadingError(url: string) {
         if (this._errorPrinter && !this._errorShowed) {
             this._errorPrinter.innerHTML = this._makeErrorHtml('Loading Error', 'Failed to load: ' + url);
             var button = document.createElement('button');
@@ -316,7 +316,7 @@ class Graphics {
             button.style.fontSize = '24px';
             button.style.color = '#ffffff';
             button.style.backgroundColor = '#000000';
-            button.onmousedown = button.ontouchstart = function(event: TouchEvent | Event) {
+            button.onmousedown = button.ontouchstart = function (event: TouchEvent | Event) {
                 ResourceHandler.retry();
                 event.stopPropagation();
             };
@@ -324,7 +324,7 @@ class Graphics {
             this._loadingCount = -Infinity;
         }
     };
-    
+
     /**
      * Erases the loading error text.
      *
@@ -337,7 +337,7 @@ class Graphics {
             this.startLoading();
         }
     };
-    
+
     /**
      * Displays the error text to the screen.
      *
@@ -346,7 +346,7 @@ class Graphics {
      * @param {String} name The name of the error
      * @param {String} message The message of the error
      */
-    static printError(name, message) {
+    static printError(name: string, message: string) {
         this._errorShowed = true;
         if (this._errorPrinter) {
             this._errorPrinter.innerHTML = this._makeErrorHtml(name, message);
@@ -354,7 +354,7 @@ class Graphics {
         this._applyCanvasFilter();
         this._clearUpperCanvas();
     };
-    
+
     /**
      * Shows the FPSMeter element.
      *
@@ -367,7 +367,7 @@ class Graphics {
             this._modeBox.style.opacity = 1;
         }
     };
-    
+
     /**
      * Hides the FPSMeter element.
      *
@@ -380,7 +380,7 @@ class Graphics {
             this._modeBox.style.opacity = 0;
         }
     };
-    
+
     /**
      * Loads a font file.
      *
@@ -389,7 +389,7 @@ class Graphics {
      * @param {String} name The face name of the font
      * @param {String} url The url of the font file
      */
-    static loadFont(name, url) {
+    static loadFont(name: string, url: string) {
         var style = document.createElement('style');
         var head = document.getElementsByTagName('head');
         var rule = '@font-face { font-family: "' + name + '"; src: url("' + url + '"); }';
@@ -398,7 +398,7 @@ class Graphics {
         style.sheet.insertRule(rule, 0);
         this._createFontLoader(name);
     };
-    
+
     /**
      * Checks whether the font file is loaded.
      *
@@ -407,12 +407,12 @@ class Graphics {
      * @param {String} name The face name of the font
      * @return {Boolean} True if the font file is loaded
      */
-    static isFontLoaded(name) {
+    static isFontLoaded(name: string): boolean {
         if (Graphics._cssFontLoading) {
-            if(Graphics._fontLoaded){
-                return Graphics._fontLoaded.check('10px "'+name+'"');
+            if (Graphics._fontLoaded) {
+                return Graphics._fontLoaded.check('10px "' + name + '"');
             }
-    
+
             return false;
         } else {
             if (!this._hiddenCanvas) {
@@ -428,7 +428,7 @@ class Graphics {
             return width1 !== width2;
         }
     };
-    
+
     /**
      * Starts playback of a video.
      *
@@ -437,18 +437,18 @@ class Graphics {
      * @param {String} src
      */
     static _videoLoader = null;
-    static playVideo(src) {
+    static playVideo(src: string) {
         this._videoLoader = ResourceHandler.createLoader(null, this._playVideo.bind(this, src), this._onVideoError.bind(this));
         this._playVideo(src);
     };
-    
+
     /**
      * @static
      * @method _playVideo
      * @param {String} src
      * @private
      */
-    protected static _playVideo(src) {
+    protected static _playVideo(src: string) {
         this._video.src = src;
         this._video.onloadeddata = this._onVideoLoad.bind(this);
         this._video.onerror = this._videoLoader;
@@ -456,7 +456,7 @@ class Graphics {
         this._video.load();
         this._videoLoading = true;
     };
-    
+
     /**
      * Checks whether the video is playing.
      *
@@ -464,10 +464,10 @@ class Graphics {
      * @method isVideoPlaying
      * @return {Boolean} True if the video is playing
      */
-    static isVideoPlaying() {
+    static isVideoPlaying(): boolean {
         return this._videoLoading || this._isVideoVisible();
     };
-    
+
     /**
      * Checks whether the browser can play the specified video type.
      *
@@ -476,10 +476,10 @@ class Graphics {
      * @param {String} type The video type to test support for
      * @return {Boolean} True if the browser can play the specified video type
      */
-    static canPlayVideoType(type) {
+    static canPlayVideoType(type: string) {
         return this._video && this._video.canPlayType(type);
     };
-    
+
     /**
      * Sets volume of a video.
      *
@@ -487,13 +487,13 @@ class Graphics {
      * @method setVideoVolume
      * @param {Number} value
      */
-    static setVideoVolume(value) {
+    static setVideoVolume(value: number) {
         this._videoVolume = value;
         if (this._video) {
             this._video.volume = this._videoVolume;
         }
     };
-    
+
     /**
      * Converts an x coordinate on the page to the corresponding
      * x coordinate on the canvas area.
@@ -503,7 +503,7 @@ class Graphics {
      * @param {Number} x The x coordinate on the page to be converted
      * @return {Number} The x coordinate on the canvas area
      */
-    static pageToCanvasX(x) {
+    static pageToCanvasX(x: number): number {
         if (this._canvas) {
             var left = this._canvas.offsetLeft;
             return Math.round((x - left) / this._realScale);
@@ -511,7 +511,7 @@ class Graphics {
             return 0;
         }
     };
-    
+
     /**
      * Converts a y coordinate on the page to the corresponding
      * y coordinate on the canvas area.
@@ -521,7 +521,7 @@ class Graphics {
      * @param {Number} y The y coordinate on the page to be converted
      * @return {Number} The y coordinate on the canvas area
      */
-    static pageToCanvasY(y) {
+    static pageToCanvasY(y: number): number {
         if (this._canvas) {
             var top = this._canvas.offsetTop;
             return Math.round((y - top) / this._realScale);
@@ -529,7 +529,7 @@ class Graphics {
             return 0;
         }
     };
-    
+
     /**
      * Checks whether the specified point is inside the game canvas area.
      *
@@ -539,10 +539,10 @@ class Graphics {
      * @param {Number} y The y coordinate on the canvas area
      * @return {Boolean} True if the specified point is inside the game canvas area
      */
-    static isInsideCanvas(x, y) {
+    static isInsideCanvas(x: number, y: number): boolean {
         return (x >= 0 && x < this._width && y >= 0 && y < this._height);
     };
-    
+
     /**
      * Calls pixi.js garbage collector
      */
@@ -551,8 +551,8 @@ class Graphics {
             Graphics._renderer.textureGC.run();
         }
     };
-    
-    
+
+
     /**
      * The width of the game screen.
      *
@@ -560,16 +560,16 @@ class Graphics {
      * @property width
      * @type Number
      */
-        static get width() {
-            return this._width;
+    static get width(): number {
+        return this._width;
+    }
+    static set width(value: number) {
+        if (this._width !== value) {
+            this._width = value;
+            this._updateAllElements();
         }
-        static set width(value) {
-            if (this._width !== value) {
-                this._width = value;
-                this._updateAllElements();
-            }
-        }
-    
+    }
+
     /**
      * The height of the game screen.
      *
@@ -577,16 +577,16 @@ class Graphics {
      * @property height
      * @type Number
      */
-        static get height() {
-            return this._height;
+    static get height(): number {
+        return this._height;
+    }
+    static set height(value: number) {
+        if (this._height !== value) {
+            this._height = value;
+            this._updateAllElements();
         }
-        static set height(value) {
-            if (this._height !== value) {
-                this._height = value;
-                this._updateAllElements();
-            }
-        }
-    
+    }
+
     /**
      * The width of the window display area.
      *
@@ -594,13 +594,13 @@ class Graphics {
      * @property boxWidth
      * @type Number
      */
-        static get boxWidth() {
-            return this._boxWidth;
-        }
-        static set boxWidth(value) {
-            this._boxWidth = value;
-        }
-    
+    static get boxWidth() : number{
+        return this._boxWidth;
+    }
+    static set boxWidth(value: number) {
+        this._boxWidth = value;
+    }
+
     /**
      * The height of the window display area.
      *
@@ -608,13 +608,13 @@ class Graphics {
      * @property boxHeight
      * @type Number
      */
-        static get boxHeight() {
-            return this._boxHeight;
-        }
-        static set boxHeight(value) {
-            this._boxHeight = value;
-        }
-    
+    static get boxHeight() : number{
+        return this._boxHeight;
+    }
+    static set boxHeight(value: number) {
+        this._boxHeight = value;
+    }
+
     /**
      * The zoom scale of the game screen.
      *
@@ -622,16 +622,16 @@ class Graphics {
      * @property scale
      * @type Number
      */
-        static get scale() {
-            return this._scale;
+    static get scale() : number{
+        return this._scale;
+    }
+    static set scale(value: number) {
+        if (this._scale !== value) {
+            this._scale = value;
+            this._updateAllElements();
         }
-        static set scale(value) {
-            if (this._scale !== value) {
-                this._scale = value;
-                this._updateAllElements();
-            }
-        }
-    
+    }
+
     /**
      * @static
      * @method _createAllElements
@@ -647,7 +647,7 @@ class Graphics {
         this._createModeBox();
         this._createGameFontLoader();
     };
-    
+
     /**
      * @static
      * @method _updateAllElements
@@ -662,7 +662,7 @@ class Graphics {
         this._updateRenderer();
         this._paintUpperCanvas();
     };
-    
+
     /**
      * @static
      * @method _updateRealScale
@@ -677,7 +677,7 @@ class Graphics {
             this._realScale = this._scale;
         }
     };
-    
+
     /**
      * @static
      * @method _makeErrorHtml
@@ -686,11 +686,11 @@ class Graphics {
      * @return {String}
      * @private
      */
-    protected static _makeErrorHtml(name, message) {
+    protected static _makeErrorHtml(name: string, message: string): string {
         return ('<font color="yellow"><b>' + name + '</b></font><br>' +
-                '<font color="white">' + message + '</font><br>');
+            '<font color="white">' + message + '</font><br>');
     };
-    
+
     /**
      * @static
      * @method _defaultStretchMode
@@ -699,7 +699,7 @@ class Graphics {
     protected static _defaultStretchMode() {
         return Utils.isNwjs() || Utils.isMobileDevice();
     };
-    
+
     /**
      * @static
      * @method _testCanvasBlendModes
@@ -728,7 +728,7 @@ class Graphics {
         this._canUseDifferenceBlend = imageData1.data[0] === 0;
         this._canUseSaturationBlend = imageData2.data[0] === 0;
     };
-    
+
     /**
      * @static
      * @method _modifyExistingElements
@@ -743,7 +743,7 @@ class Graphics {
             }
         }
     };
-    
+
     /**
      * @static
      * @method _createErrorPrinter
@@ -755,7 +755,7 @@ class Graphics {
         this._updateErrorPrinter();
         document.body.appendChild(this._errorPrinter);
     };
-    
+
     /**
      * @static
      * @method _updateErrorPrinter
@@ -770,7 +770,7 @@ class Graphics {
         this._errorPrinter.style.zIndex = 99;
         this._centerElement(this._errorPrinter);
     };
-    
+
     /**
      * @static
      * @method _createCanvas
@@ -782,7 +782,7 @@ class Graphics {
         this._updateCanvas();
         document.body.appendChild(this._canvas);
     };
-    
+
     /**
      * @static
      * @method _updateCanvas
@@ -794,7 +794,7 @@ class Graphics {
         this._canvas.style.zIndex = 1;
         this._centerElement(this._canvas);
     };
-    
+
     /**
      * @static
      * @method _createVideo
@@ -810,7 +810,7 @@ class Graphics {
         makeVideoPlayableInline(this._video);
         document.body.appendChild(this._video);
     };
-    
+
     /**
      * @static
      * @method _updateVideo
@@ -822,7 +822,7 @@ class Graphics {
         this._video.style.zIndex = 2;
         this._centerElement(this._video);
     };
-    
+
     /**
      * @static
      * @method _createUpperCanvas
@@ -834,7 +834,7 @@ class Graphics {
         this._updateUpperCanvas();
         document.body.appendChild(this._upperCanvas);
     };
-    
+
     /**
      * @static
      * @method _updateUpperCanvas
@@ -846,7 +846,7 @@ class Graphics {
         this._upperCanvas.style.zIndex = 3;
         this._centerElement(this._upperCanvas);
     };
-    
+
     /**
      * @static
      * @method _clearUpperCanvas
@@ -856,7 +856,7 @@ class Graphics {
         var context = this._upperCanvas.getContext('2d');
         context.clearRect(0, 0, this._width, this._height);
     };
-    
+
     /**
      * @static
      * @method _paintUpperCanvas
@@ -875,7 +875,7 @@ class Graphics {
             context.restore();
         }
     };
-    
+
     /**
      * @static
      * @method _createRenderer
@@ -888,25 +888,25 @@ class Graphics {
         var options = { view: this._canvas };
         try {
             switch (this._rendererType) {
-            case 'canvas':
-                this._renderer = new PIXI.CanvasRenderer(width, height, options);
-                break;
-            case 'webgl':
-                this._renderer = new PIXI.WebGLRenderer(width, height, options);
-                break;
-            default:
-                this._renderer = PIXI.autoDetectRenderer(width, height, options);
-                break;
+                case 'canvas':
+                    this._renderer = new PIXI.CanvasRenderer(width, height, options);
+                    break;
+                case 'webgl':
+                    this._renderer = new PIXI.WebGLRenderer(width, height, options);
+                    break;
+                default:
+                    this._renderer = PIXI.autoDetectRenderer(width, height, options);
+                    break;
             }
-    
-            if(this._renderer && this._renderer.textureGC)
+
+            if (this._renderer && this._renderer.textureGC)
                 this._renderer.textureGC.maxIdle = 1;
-    
+
         } catch (e) {
             this._renderer = null;
         }
     };
-    
+
     /**
      * @static
      * @method _updateRenderer
@@ -917,7 +917,7 @@ class Graphics {
             this._renderer.resize(this._width, this._height);
         }
     };
-    
+
     /**
      * @static
      * @method _createFPSMeter
@@ -928,7 +928,7 @@ class Graphics {
         this._fpsMeter = new FPSMeter(options);
         this._fpsMeter.hide();
     };
-    
+
     /**
      * @static
      * @method _createModeBox
@@ -945,7 +945,7 @@ class Graphics {
         box.style.background = 'rgba(0,0,0,0.2)';
         box.style.zIndex = '9';
         box.style.opacity = '0';
-    
+
         var text = document.createElement('div');
         text.id = 'modeText';
         text.style.position = 'absolute';
@@ -958,13 +958,13 @@ class Graphics {
         text.style.textAlign = 'center';
         text.style.textShadow = '1px 1px 0 rgba(0,0,0,0.5)';
         text.innerHTML = this.isWebGL() ? 'WebGL mode' : 'Canvas mode';
-    
+
         document.body.appendChild(box);
         box.appendChild(text);
-    
+
         this._modeBox = box;
     };
-    
+
     /**
      * @static
      * @method _createGameFontLoader
@@ -973,7 +973,7 @@ class Graphics {
     protected static _createGameFontLoader() {
         this._createFontLoader('GameFont');
     };
-    
+
     /**
      * @static
      * @method _createFontLoader
@@ -995,7 +995,7 @@ class Graphics {
         div.appendChild(text);
         document.body.appendChild(div);
     };
-    
+
     /**
      * @static
      * @method _centerElement
@@ -1014,7 +1014,7 @@ class Graphics {
         element.style.width = width + 'px';
         element.style.height = height + 'px';
     };
-    
+
     /**
      * @static
      * @method _disableTextSelection
@@ -1027,7 +1027,7 @@ class Graphics {
         body.style.msUserSelect = 'none';
         // body.style.mozUserSelect = 'none';
     };
-    
+
     /**
      * @static
      * @method _disableContextMenu
@@ -1040,7 +1040,7 @@ class Graphics {
             elements[i]['oncontextmenu'] = oncontextmenu;
         }
     };
-    
+
     /**
      * @static
      * @method _applyCanvasFilter
@@ -1053,7 +1053,7 @@ class Graphics {
             this._canvas.style.webkitFilter = 'blur(8px)';
         }
     };
-    
+
     /**
      * @static
      * @method _onVideoLoad
@@ -1064,7 +1064,7 @@ class Graphics {
         this._updateVisibility(true);
         this._videoLoading = false;
     };
-    
+
     /**
      * @static
      * @method _onVideoError
@@ -1074,7 +1074,7 @@ class Graphics {
         this._updateVisibility(false);
         this._videoLoading = false;
     };
-    
+
     /**
      * @static
      * @method _onVideoEnd
@@ -1083,7 +1083,7 @@ class Graphics {
     protected static _onVideoEnd() {
         this._updateVisibility(false);
     };
-    
+
     /**
      * @static
      * @method _updateVisibility
@@ -1094,7 +1094,7 @@ class Graphics {
         this._video.style.opacity = videoVisible ? 1 : 0;
         this._canvas.style.opacity = videoVisible ? 0 : 1;
     };
-    
+
     /**
      * @static
      * @method _isVideoVisible
@@ -1104,7 +1104,7 @@ class Graphics {
     protected static _isVideoVisible() {
         return this._video.style.opacity > 0;
     };
-    
+
     /**
      * @static
      * @method _setupEventHandlers
@@ -1115,7 +1115,7 @@ class Graphics {
         document.addEventListener('keydown', this._onKeyDown.bind(this));
         document.addEventListener('touchend', this._onTouchEnd.bind(this));
     };
-    
+
     /**
      * @static
      * @method _onWindowResize
@@ -1124,7 +1124,7 @@ class Graphics {
     protected static _onWindowResize() {
         this._updateAllElements();
     };
-    
+
     /**
      * @static
      * @method _onKeyDown
@@ -1134,22 +1134,22 @@ class Graphics {
     protected static _onKeyDown(event) {
         if (!event.ctrlKey && !event.altKey) {
             switch (event.keyCode) {
-            case 113:   // F2
-                event.preventDefault();
-                this._switchFPSMeter();
-                break;
-            case 114:   // F3
-                event.preventDefault();
-                this._switchStretchMode();
-                break;
-            case 115:   // F4
-                event.preventDefault();
-                this._switchFullScreen();
-                break;
+                case 113:   // F2
+                    event.preventDefault();
+                    this._switchFPSMeter();
+                    break;
+                case 114:   // F3
+                    event.preventDefault();
+                    this._switchStretchMode();
+                    break;
+                case 115:   // F4
+                    event.preventDefault();
+                    this._switchFullScreen();
+                    break;
             }
         }
     };
-    
+
     /**
      * @static
      * @method _onTouchEnd
@@ -1165,7 +1165,7 @@ class Graphics {
             this._video.play();
         }
     };
-    
+
     /**
      * @static
      * @method _switchFPSMeter
@@ -1183,7 +1183,7 @@ class Graphics {
             this.hideFps();
         }
     };
-    
+
     /**
      * @static
      * @method _switchStretchMode
@@ -1194,7 +1194,7 @@ class Graphics {
         this._stretchEnabled = !this._stretchEnabled;
         this._updateAllElements();
     };
-    
+
     /**
      * @static
      * @method _switchFullScreen
@@ -1207,7 +1207,7 @@ class Graphics {
             this._cancelFullScreen();
         }
     };
-    
+
     /**
      * @static
      * @method _isFullScreen
@@ -1218,7 +1218,7 @@ class Graphics {
         /// bungcip: edited for compile
         return (document.fullscreenElement && document.fullscreenElement !== null);
     };
-    
+
     /**
      * @static
      * @method _requestFullScreen
@@ -1231,7 +1231,7 @@ class Graphics {
             element.requestFullscreen();
         }
     };
-    
+
     /**
      * @static
      * @method _cancelFullScreen
@@ -1243,6 +1243,6 @@ class Graphics {
             document.exitFullscreen();
         }
     };
-        
+
 
 }

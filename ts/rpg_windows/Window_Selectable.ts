@@ -14,7 +14,7 @@ class Window_Selectable extends Window_Base {
     protected _scrollX;
     protected _scrollY;
 
-    constructor(x?, y?, width?, height?, callback?) {
+    constructor(x?: number, y?: number, width?: number, height?: number, callback?) {
         super(x, y, width, height, callback);
         
         this._index = -1;
@@ -84,7 +84,7 @@ class Window_Selectable extends Window_Base {
         this.reselect();
     };
     
-    select(index) {
+    select(index: number) {
         this._index = index;
         this._stayCount = 0;
         this.ensureCursorVisible();
@@ -112,7 +112,7 @@ class Window_Selectable extends Window_Base {
         return Math.max(0, this.maxRows() - this.maxPageRows());
     };
     
-    setTopRow(row) {
+    setTopRow(row: number) {
         var scrollY = row.clamp(0, this.maxTopRow()) * this.itemHeight();
         if (this._scrollY !== scrollY) {
             this._scrollY = scrollY;
@@ -415,7 +415,7 @@ class Window_Selectable extends Window_Base {
         return -1;
     };
     
-    isContentsArea(x, y) {
+    isContentsArea(x: number, y: number) {
         var left = this.padding;
         var top = this.padding;
         var right = this.width - this.padding;
@@ -553,15 +553,15 @@ class Window_Selectable extends Window_Base {
         }
     };
     
-    drawItem(index) {
+    drawItem(index: number) {
     };
     
-    clearItem(index) {
+    clearItem(index: number) {
         var rect = this.itemRect(index);
         this.contents.clearRect(rect.x, rect.y, rect.width, rect.height);
     };
     
-    redrawItem(index) {
+    redrawItem(index: number) {
         if (index >= 0) {
             this.clearItem(index);
             this.drawItem(index);

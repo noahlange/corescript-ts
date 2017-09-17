@@ -11,13 +11,13 @@ class Game_Player extends Game_Character {
     protected _dashing;
     protected _needsMapReload;
     protected _transferring;
-    protected _newMapId;
-    protected _newX;
-    protected _newY;
-    protected _newDirection;
-    protected _fadeType;
+    protected _newMapId: number;
+    protected _newX: number;
+    protected _newY: number;
+    protected _newDirection: number;
+    protected _fadeType: number;
     protected _followers;
-    protected _encounterCount;
+    protected _encounterCount: number;
 
 
     constructor() {
@@ -69,7 +69,7 @@ class Game_Player extends Game_Character {
         return super.isStopping();
     };
     
-    reserveTransfer(mapId, x, y, d, fadeType) {
+    reserveTransfer(mapId: number, x: number, y: number, d: number, fadeType: number) {
         this._transferring = true;
         this._newMapId = mapId;
         this._newX = x;
@@ -86,11 +86,11 @@ class Game_Player extends Game_Character {
         return this._transferring;
     };
     
-    newMapId() {
+    newMapId(): number {
         return this._newMapId;
     };
     
-    fadeType() {
+    fadeType() : number{
         return this._fadeType;
     };
     
@@ -107,7 +107,7 @@ class Game_Player extends Game_Character {
         }
     };
     
-    isMapPassable(x, y, d) {
+    isMapPassable(x: number, y: number, d: number) {
         var vehicle = this.vehicle();
         if (vehicle) {
             return vehicle.isMapPassable(x, y, d);
@@ -156,19 +156,19 @@ class Game_Player extends Game_Character {
         }
     };
     
-    centerX() {
+    centerX() : number{
         return (Graphics.width / $gameMap.tileWidth() - 1) / 2.0;
     };
     
-    centerY() {
+    centerY() : number{
         return (Graphics.height / $gameMap.tileHeight() - 1) / 2.0;
     };
     
-    center(x, y) {
+    center(x: number, y: number) {
         return $gameMap.setDisplayPos(x - this.centerX(), y - this.centerY());
     };
     
-    locate(x, y) {
+    locate(x: number, y: number) {
         super.locate(x, y);
         this.center(x, y);
         this.makeEncounterCount();
@@ -232,7 +232,7 @@ class Game_Player extends Game_Character {
         }
     };
     
-    startMapEvent(x, y, triggers, normal) {
+    startMapEvent(x: number, y: number, triggers, normal) {
         if (!$gameMap.isEventRunning()) {
             $gameMap.eventsXy(x, y).forEach(function(event) {
                 if (event.isTriggerIn(triggers) && event.isNormalPriority() === normal) {
@@ -444,7 +444,7 @@ class Game_Player extends Game_Character {
         return false;
     };
     
-    triggerTouchActionD1(x1, y1) {
+    triggerTouchActionD1(x1: number, y1: number) {
         if ($gameMap.airship().pos(x1, y1)) {
             if (TouchInput.isTriggered() && this.getOnOffVehicle()) {
                 return true;
@@ -454,7 +454,7 @@ class Game_Player extends Game_Character {
         return $gameMap.setupStartingEvent();
     };
     
-    triggerTouchActionD2(x2, y2) {
+    triggerTouchActionD2(x2: number, y2: number) {
         if ($gameMap.boat().pos(x2, y2) || $gameMap.ship().pos(x2, y2)) {
             if (TouchInput.isTriggered() && this.getOnVehicle()) {
                 return true;
@@ -469,7 +469,7 @@ class Game_Player extends Game_Character {
         return $gameMap.setupStartingEvent();
     };
     
-    triggerTouchActionD3(x2, y2) {
+    triggerTouchActionD3(x2: number, y2: number) {
         if ($gameMap.isCounter(x2, y2)) {
             this.checkEventTriggerThere([0,1,2]);
         }
@@ -520,7 +520,7 @@ class Game_Player extends Game_Character {
         }
     };
     
-    checkEventTriggerTouch(x, y) {
+    checkEventTriggerTouch(x: number, y: number) {
         if (this.canStartLocalEvents()) {
             this.startMapEvent(x, y, [1,2], true);
         }
@@ -605,7 +605,7 @@ class Game_Player extends Game_Character {
         super.moveDiagonally(horz, vert);
     };
     
-    jump(xPlus, yPlus) {
+    jump(xPlus: number, yPlus: number) {
         super.jump(xPlus, yPlus);
         this._followers.jumpAll();
     };

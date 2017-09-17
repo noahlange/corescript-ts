@@ -6,15 +6,15 @@
 
 class Window_ShopStatus extends Window_Base {
     protected _item;
-    protected _pageIndex;
+    protected _pageIndex: number;
 
-    constructor(x, y, width, height) {
+    constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
         this._item = null;
         this._pageIndex = 0;
         this.refresh();
     };
-    
+
     refresh() {
         this.contents.clear();
         if (this._item) {
@@ -25,17 +25,17 @@ class Window_ShopStatus extends Window_Base {
             }
         }
     };
-    
-    setItem(item) {
+
+    setItem(item: Game_Item) {
         this._item = item;
         this.refresh();
     };
-    
+
     isEquipItem() {
         return DataManager.isWeapon(this._item) || DataManager.isArmor(this._item);
     };
-    
-    drawPossession(x, y) {
+
+    drawPossession(x: number, y: number) {
         var width = this.contents.width - this.textPadding() - x;
         var possessionWidth = this.textWidth('0000');
         this.changeTextColor(this.systemColor());
@@ -43,29 +43,29 @@ class Window_ShopStatus extends Window_Base {
         this.resetTextColor();
         this.drawText($gameParty.numItems(this._item), x, y, width, 'right');
     };
-    
-    drawEquipInfo(x, y) {
+
+    drawEquipInfo(x: number, y: number) {
         var members = this.statusMembers();
         for (var i = 0; i < members.length; i++) {
             this.drawActorEquipInfo(x, y + Window_Base.lineHeight() * (i * 2.4), members[i]);
         }
     };
-    
+
     statusMembers() {
         var start = this._pageIndex * this.pageSize();
         var end = start + this.pageSize();
         return $gameParty.members().slice(start, end);
     };
-    
+
     pageSize() {
         return 4;
     };
-    
+
     maxPages() {
         return Math.floor(($gameParty.size() + this.pageSize() - 1) / this.pageSize());
     };
-    
-    drawActorEquipInfo(x, y, actor) {
+
+    drawActorEquipInfo(x: number, y: number, actor: Game_Actor) {
         var enabled = actor.canEquip(this._item);
         this.changePaintOpacity(enabled);
         this.resetTextColor();
@@ -77,20 +77,20 @@ class Window_ShopStatus extends Window_Base {
         this.drawItemName(item1, x, y + Window_Base.lineHeight());
         this.changePaintOpacity(true);
     };
-    
-    drawActorParamChange(x, y, actor, item1) {
+
+    drawActorParamChange(x: number, y: number, actor: Game_Actor, item1) {
         var width = this.contents.width - this.textPadding() - x;
         var paramId = this.paramId();
         var change = this._item.params[paramId] - (item1 ? item1.params[paramId] : 0);
         this.changeTextColor(this.paramchangeTextColor(change));
         this.drawText((change > 0 ? '+' : '') + change, x, y, width, 'right');
     };
-    
-    paramId() {
+
+    paramId(): number {
         return DataManager.isWeapon(this._item) ? 2 : 3;
     };
-    
-    currentEquippedItem(actor, etypeId) {
+
+    currentEquippedItem(actor: Game_Actor, etypeId: number) {
         var list = [];
         var equips = actor.equips();
         var slots = actor.equipSlots();
@@ -110,22 +110,22 @@ class Window_ShopStatus extends Window_Base {
         }
         return worstItem;
     };
-    
+
     update() {
         super.update();
         this.updatePage();
     };
-    
+
     updatePage() {
         if (this.isPageChangeEnabled() && this.isPageChangeRequested()) {
             this.changePage();
         }
     };
-    
+
     isPageChangeEnabled() {
         return this.visible && this.maxPages() >= 2;
     };
-    
+
     isPageChangeRequested() {
         if (Input.isTriggered('shift')) {
             return true;
@@ -135,17 +135,17 @@ class Window_ShopStatus extends Window_Base {
         }
         return false;
     };
-    
+
     isTouchedInsideFrame() {
         var x = this.canvasToLocalX(TouchInput.x);
         var y = this.canvasToLocalY(TouchInput.y);
         return x >= 0 && y >= 0 && x < this.width && y < this.height;
     };
-    
+
     changePage() {
         this._pageIndex = (this._pageIndex + 1) % this.maxPages();
         this.refresh();
         SoundManager.playCursor();
     };
-    
+
 }

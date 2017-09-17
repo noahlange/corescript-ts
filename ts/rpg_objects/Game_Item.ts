@@ -6,7 +6,7 @@
 
 class Game_Item {
     protected _dataClass;
-    protected _itemId;
+    protected _itemId: number;
 
     constructor(item?) {
         this._dataClass = '';
@@ -44,7 +44,7 @@ class Game_Item {
         return this._dataClass === '';
     };
     
-    itemId() {
+    itemId(): number {
         return this._itemId;
     };
     
@@ -77,7 +77,7 @@ class Game_Item {
         this._itemId = item ? item.id : 0;
     };
     
-    setEquip(isWeapon, itemId) {
+    setEquip(isWeapon, itemId: number) {
         this._dataClass = isWeapon ? 'weapon' : 'armor';
         this._itemId = itemId;
     };

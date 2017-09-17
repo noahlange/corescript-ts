@@ -5,10 +5,10 @@
 // running parallel process events.
 
 class Game_CommonEvent {
-    protected _commonEventId;
-    protected _interpreter;
+    protected _commonEventId: number;
+    protected _interpreter: Game_Interpreter;
 
-    constructor(commonEventId) {
+    constructor(commonEventId: number) {
         this._commonEventId = commonEventId;
         this.refresh();
     };

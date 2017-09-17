@@ -10,10 +10,6 @@ class Scene_Equip extends Scene_MenuBase {
     protected _slotWindow;
     protected _itemWindow;
 
-    // initialize() {
-    //     super.initialize();
-    // };
-
     create() {
         super.create();
         this.createHelpWindow();

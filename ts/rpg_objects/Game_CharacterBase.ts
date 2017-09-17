@@ -5,38 +5,38 @@
 // coordinates and images, shared by all characters.
 
 class Game_CharacterBase {
-    get x(){ return this._x; }
-    get y(){ return this._y; }
+    get x() { return this._x; }
+    get y() { return this._y; }
 
-    protected _x;
-    protected _y;
-    protected _realX;
-    protected _realY;
-    protected _moveSpeed;
-    protected _moveFrequency;
-    protected _opacity;
-    protected _blendMode;
-    protected _direction;
-    protected _pattern;
-    protected _priorityType;
-    protected _tileId;
+    protected _x: number;
+    protected _y: number;
+    protected _realX: number;
+    protected _realY: number;
+    protected _moveSpeed: number;
+    protected _moveFrequency: number;
+    protected _opacity: number;
+    protected _blendMode: number;
+    protected _direction: number;
+    protected _pattern: number;
+    protected _priorityType: number;
+    protected _tileId: number;
     protected _characterName;
-    protected _characterIndex;
+    protected _characterIndex: number;
     protected _isObjectCharacter;
     protected _walkAnime;
     protected _stepAnime;
     protected _directionFix;
     protected _through;
     protected _transparent;
-    protected _bushDepth;
-    protected _animationId;
-    protected _balloonId;
+    protected _bushDepth: number;
+    protected _animationId: number;
+    protected _balloonId: number;
     protected _animationPlaying;
     protected _balloonPlaying;
-    protected _animationCount;
-    protected _stopCount;
-    protected _jumpCount;
-    protected _jumpPeak;
+    protected _animationCount: number;
+    protected _stopCount: number;
+    protected _jumpCount: number;
+    protected _jumpPeak: number;
     protected _movementSuccess;
 
 
@@ -44,7 +44,7 @@ class Game_CharacterBase {
     constructor() {
         this.initMembers();
     };
-    
+
     initMembers() {
         this._x = 0;
         this._y = 0;
@@ -77,109 +77,109 @@ class Game_CharacterBase {
         this._jumpPeak = 0;
         this._movementSuccess = true;
     };
-    
-    pos(x, y) {
+
+    pos(x: number, y: number) {
         return this._x === x && this._y === y;
     };
-    
-    posNt(x, y) {
+
+    posNt(x: number, y: number) {
         // No through
         return this.pos(x, y) && !this.isThrough();
     };
-    
-    moveSpeed() {
+
+    moveSpeed(): number {
         return this._moveSpeed;
     };
-    
-    setMoveSpeed(moveSpeed) {
+
+    setMoveSpeed(moveSpeed: number) {
         this._moveSpeed = moveSpeed;
     };
-    
-    moveFrequency() {
+
+    moveFrequency(): number {
         return this._moveFrequency;
     };
-    
-    setMoveFrequency(moveFrequency) {
+
+    setMoveFrequency(moveFrequency: number) {
         this._moveFrequency = moveFrequency;
     };
-    
-    opacity() {
+
+    opacity(): number {
         return this._opacity;
     };
-    
-    setOpacity(opacity) {
+
+    setOpacity(opacity: number) {
         this._opacity = opacity;
     };
-    
-    blendMode() {
+
+    blendMode(): number {
         return this._blendMode;
     };
-    
-    setBlendMode(blendMode) {
+
+    setBlendMode(blendMode: number) {
         this._blendMode = blendMode;
     };
-    
+
     isNormalPriority() {
         return this._priorityType === 1;
     };
-    
-    setPriorityType(priorityType) {
+
+    setPriorityType(priorityType: number) {
         this._priorityType = priorityType;
     };
-    
+
     isMoving() {
         return this._realX !== this._x || this._realY !== this._y;
     };
-    
+
     isJumping() {
         return this._jumpCount > 0;
     };
-    
+
     jumpHeight() {
         return (this._jumpPeak * this._jumpPeak -
-                Math.pow(Math.abs(this._jumpCount - this._jumpPeak), 2)) / 2;
+            Math.pow(Math.abs(this._jumpCount - this._jumpPeak), 2)) / 2;
     };
-    
+
     isStopping() {
         return !this.isMoving() && !this.isJumping();
     };
-    
-    checkStop(threshold) {
+
+    checkStop(threshold: number) {
         return this._stopCount > threshold;
     };
-    
+
     resetStopCount() {
         this._stopCount = 0;
     };
-    
-    realMoveSpeed() {
+
+    realMoveSpeed(): number {
         return this._moveSpeed + (this.isDashing() ? 1 : 0);
     };
-    
-    distancePerFrame() {
+
+    distancePerFrame(): number {
         return Math.pow(2, this.realMoveSpeed()) / 256;
     };
-    
+
     isDashing() {
         return false;
     };
-    
+
     isDebugThrough() {
         return false;
     };
-    
+
     straighten() {
         if (this.hasWalkAnime() || this.hasStepAnime()) {
             this._pattern = 1;
         }
         this._animationCount = 0;
     };
-    
-    reverseDir(d) {
+
+    reverseDir(d: number): number {
         return 10 - d;
     };
-    
-    canPass(x, y, d) {
+
+    canPass(x: number, y: number, d: number) {
         var x2 = $gameMap.roundXWithDirection(x, d);
         var y2 = $gameMap.roundYWithDirection(y, d);
         if (!$gameMap.isValid(x2, y2)) {
@@ -196,8 +196,8 @@ class Game_CharacterBase {
         }
         return true;
     };
-    
-    canPassDiagonally(x, y, horz, vert) {
+
+    canPassDiagonally(x: number, y: number, horz: number, vert: number) {
         var x2 = $gameMap.roundXWithDirection(x, horz);
         var y2 = $gameMap.roundYWithDirection(y, vert);
         if (this.canPass(x, y, vert) && this.canPass(x, y2, horz)) {
@@ -208,36 +208,36 @@ class Game_CharacterBase {
         }
         return false;
     };
-    
-    isMapPassable(x, y, d) {
+
+    isMapPassable(x: number, y: number, d: number) {
         var x2 = $gameMap.roundXWithDirection(x, d);
         var y2 = $gameMap.roundYWithDirection(y, d);
         var d2 = this.reverseDir(d);
         return $gameMap.isPassable(x, y, d) && $gameMap.isPassable(x2, y2, d2);
     };
-    
-    isCollidedWithCharacters(x, y) {
+
+    isCollidedWithCharacters(x: number, y: number) {
         return this.isCollidedWithEvents(x, y) || this.isCollidedWithVehicles(x, y);
     };
-    
-    isCollidedWithEvents(x, y) {
+
+    isCollidedWithEvents(x: number, y: number) {
         var events = $gameMap.eventsXyNt(x, y);
-        return events.some(function(event) {
+        return events.some(function (event) {
             return event.isNormalPriority();
         });
     };
-    
-    isCollidedWithVehicles(x, y) {
+
+    isCollidedWithVehicles(x: number, y: number) {
         return $gameMap.boat().posNt(x, y) || $gameMap.ship().posNt(x, y);
     };
-    
-    setPosition(x, y) {
+
+    setPosition(x: number, y: number) {
         this._x = Math.round(x);
         this._y = Math.round(y);
         this._realX = x;
         this._realY = y;
     };
-    
+
     copyPosition(character) {
         this._x = character._x;
         this._y = character._y;
@@ -245,59 +245,59 @@ class Game_CharacterBase {
         this._realY = character._realY;
         this._direction = character._direction;
     };
-    
-    locate(x, y) {
+
+    locate(x: number, y: number) {
         this.setPosition(x, y);
         this.straighten();
         this.refreshBushDepth();
     };
-    
-    direction() {
+
+    direction(): number {
         return this._direction;
     };
-    
-    setDirection(d) {
+
+    setDirection(d: number) {
         if (!this.isDirectionFixed() && d) {
             this._direction = d;
         }
         this.resetStopCount();
     };
-    
+
     isTile() {
         return this._tileId > 0 && this._priorityType === 0;
     };
-    
+
     isObjectCharacter() {
         return this._isObjectCharacter;
     };
-    
+
     shiftY() {
         return this.isObjectCharacter() ? 0 : 6;
     };
-    
+
     scrolledX() {
         return $gameMap.adjustX(this._realX);
     };
-    
+
     scrolledY() {
         return $gameMap.adjustY(this._realY);
     };
-    
+
     screenX() {
         var tw = $gameMap.tileWidth();
         return Math.round(this.scrolledX() * tw + tw / 2);
     };
-    
+
     screenY() {
         var th = $gameMap.tileHeight();
         return Math.round(this.scrolledY() * th + th -
-                          this.shiftY() - this.jumpHeight());
+            this.shiftY() - this.jumpHeight());
     };
-    
+
     screenZ() {
         return this._priorityType * 2 + 1;
     };
-    
+
     isNearTheScreen() {
         var gw = Graphics.width;
         var gh = Graphics.height;
@@ -307,7 +307,7 @@ class Game_CharacterBase {
         var py = this.scrolledY() * th + th / 2 - gh / 2;
         return px >= -gw && px <= gw && py >= -gh && py <= gh;
     };
-    
+
     update() {
         if (this.isStopping()) {
             this.updateStop();
@@ -319,11 +319,11 @@ class Game_CharacterBase {
         }
         this.updateAnimation();
     };
-    
+
     updateStop() {
         this._stopCount++;
     };
-    
+
     updateJump() {
         this._jumpCount--;
         this._realX = (this._realX * this._jumpCount + this._x) / (this._jumpCount + 1.0);
@@ -334,7 +334,7 @@ class Game_CharacterBase {
             this._realY = this._y = $gameMap.roundY(this._y);
         }
     };
-    
+
     updateMove() {
         if (this._x < this._realX) {
             this._realX = Math.max(this._realX - this.distancePerFrame(), this._x);
@@ -352,7 +352,7 @@ class Game_CharacterBase {
             this.refreshBushDepth();
         }
     };
-    
+
     updateAnimation() {
         this.updateAnimationCount();
         if (this._animationCount >= this.animationWait()) {
@@ -360,11 +360,11 @@ class Game_CharacterBase {
             this._animationCount = 0;
         }
     };
-    
+
     animationWait() {
         return (9 - this.realMoveSpeed()) * 3;
     };
-    
+
     updateAnimationCount() {
         if (this.isMoving() && this.hasWalkAnime()) {
             this._animationCount += 1.5;
@@ -372,7 +372,7 @@ class Game_CharacterBase {
             this._animationCount++;
         }
     };
-    
+
     updatePattern() {
         if (!this.hasStepAnime() && this._stopCount > 0) {
             this.resetPattern();
@@ -380,30 +380,30 @@ class Game_CharacterBase {
             this._pattern = (this._pattern + 1) % this.maxPattern();
         }
     };
-    
-    maxPattern() {
+
+    maxPattern(): number {
         return 4;
     };
-    
-    pattern() {
+
+    pattern(): number {
         return this._pattern < 3 ? this._pattern : 1;
     };
-    
-    setPattern(pattern) {
+
+    setPattern(pattern: number) {
         this._pattern = pattern;
     };
-    
+
     isOriginalPattern() {
         return this.pattern() === 1;
     };
-    
+
     resetPattern() {
         this.setPattern(1);
     };
-    
+
     refreshBushDepth() {
         if (this.isNormalPriority() && !this.isObjectCharacter() &&
-                this.isOnBush() && !this.isJumping()) {
+            this.isOnBush() && !this.isJumping()) {
             if (!this.isMoving()) {
                 this._bushDepth = 12;
             }
@@ -411,23 +411,23 @@ class Game_CharacterBase {
             this._bushDepth = 0;
         }
     };
-    
+
     isOnLadder() {
         return $gameMap.isLadder(this._x, this._y);
     };
-    
+
     isOnBush() {
         return $gameMap.isBush(this._x, this._y);
     };
-    
+
     terrainTag() {
         return $gameMap.terrainTag(this._x, this._y);
     };
-    
+
     regionId() {
         return $gameMap.regionId(this._x, this._y);
     };
-    
+
     increaseSteps() {
         if (this.isOnLadder()) {
             this.setDirection(8);
@@ -435,53 +435,53 @@ class Game_CharacterBase {
         this.resetStopCount();
         this.refreshBushDepth();
     };
-    
-    tileId() {
+
+    tileId(): number {
         return this._tileId;
     };
-    
+
     characterName() {
         return this._characterName;
     };
-    
-    characterIndex() {
+
+    characterIndex(): number {
         return this._characterIndex;
     };
-    
-    setImage(characterName, characterIndex) {
+
+    setImage(characterName, characterIndex: number) {
         this._tileId = 0;
         this._characterName = characterName;
         this._characterIndex = characterIndex;
         this._isObjectCharacter = ImageManager.isObjectCharacter(characterName);
     };
-    
-    setTileImage(tileId) {
+
+    setTileImage(tileId: number) {
         this._tileId = tileId;
         this._characterName = '';
         this._characterIndex = 0;
         this._isObjectCharacter = true;
     };
-    
-    checkEventTriggerTouchFront(d) {
+
+    checkEventTriggerTouchFront(d: number) {
         var x2 = $gameMap.roundXWithDirection(this._x, d);
         var y2 = $gameMap.roundYWithDirection(this._y, d);
         this.checkEventTriggerTouch(x2, y2);
     };
-    
-    checkEventTriggerTouch(x, y) : void {
+
+    checkEventTriggerTouch(x: number, y: number): void {
         // return false;
     };
-    
+
     /// bungcip: x & y harusnya tidak perlu....
-    isMovementSucceeded(x?, y?) {
+    isMovementSucceeded(x?: number, y?: number) {
         return this._movementSuccess;
     };
-    
+
     setMovementSuccess(success) {
         this._movementSuccess = success;
     };
-    
-    moveStraight(d) {
+
+    moveStraight(d: number) {
         this.setMovementSuccess(this.canPass(this._x, this._y, d));
         if (this.isMovementSucceeded()) {
             this.setDirection(d);
@@ -495,8 +495,8 @@ class Game_CharacterBase {
             this.checkEventTriggerTouchFront(d);
         }
     };
-    
-    moveDiagonally(horz, vert) {
+
+    moveDiagonally(horz: number, vert: number) {
         this.setMovementSuccess(this.canPassDiagonally(this._x, this._y, horz, vert));
         if (this.isMovementSucceeded()) {
             this._x = $gameMap.roundXWithDirection(this._x, horz);
@@ -512,8 +512,8 @@ class Game_CharacterBase {
             this.setDirection(vert);
         }
     };
-    
-    jump(xPlus, yPlus) {
+
+    jump(xPlus: number, yPlus: number) {
         if (Math.abs(xPlus) > Math.abs(yPlus)) {
             if (xPlus !== 0) {
                 this.setDirection(xPlus < 0 ? 4 : 6);
@@ -531,93 +531,93 @@ class Game_CharacterBase {
         this.resetStopCount();
         this.straighten();
     };
-    
+
     hasWalkAnime() {
         return this._walkAnime;
     };
-    
+
     setWalkAnime(walkAnime) {
         this._walkAnime = walkAnime;
     };
-    
+
     hasStepAnime() {
         return this._stepAnime;
     };
-    
+
     setStepAnime(stepAnime) {
         this._stepAnime = stepAnime;
     };
-    
+
     isDirectionFixed() {
         return this._directionFix;
     };
-    
+
     setDirectionFix(directionFix) {
         this._directionFix = directionFix;
     };
-    
+
     isThrough() {
         return this._through;
     };
-    
+
     setThrough(through) {
         this._through = through;
     };
-    
+
     isTransparent() {
         return this._transparent;
     };
-    
+
     bushDepth() {
         return this._bushDepth;
     };
-    
+
     setTransparent(transparent) {
         this._transparent = transparent;
     };
-    
-    requestAnimation(animationId) {
+
+    requestAnimation(animationId: number) {
         this._animationId = animationId;
     };
-    
-    requestBalloon(balloonId) {
+
+    requestBalloon(balloonId: number) {
         this._balloonId = balloonId;
     };
-    
-    animationId() {
+
+    animationId(): number {
         return this._animationId;
     };
-    
-    balloonId() {
+
+    balloonId(): number {
         return this._balloonId;
     };
-    
+
     startAnimation() {
         this._animationId = 0;
         this._animationPlaying = true;
     };
-    
+
     startBalloon() {
         this._balloonId = 0;
         this._balloonPlaying = true;
     };
-    
+
     isAnimationPlaying() {
         return this._animationId > 0 || this._animationPlaying;
     };
-    
+
     isBalloonPlaying() {
         return this._balloonId > 0 || this._balloonPlaying;
     };
-    
+
     endAnimation() {
         this._animationPlaying = false;
     };
-    
+
     endBalloon() {
         this._balloonPlaying = false;
     };
-        
+
 
 }
 

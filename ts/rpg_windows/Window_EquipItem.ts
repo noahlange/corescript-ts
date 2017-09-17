@@ -5,10 +5,10 @@
 
 class Window_EquipItem extends Window_ItemList {
     protected _actor;
-    protected _slotId;
+    protected _slotId: number;
     protected _statusWindow;
 
-    constructor(x, y, width, height) {
+    constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
         this._actor = null;
         this._slotId = 0;
@@ -22,7 +22,7 @@ class Window_EquipItem extends Window_ItemList {
         }
     };
 
-    setSlotId(slotId) {
+    setSlotId(slotId: number) {
         if (this._slotId !== slotId) {
             this._slotId = slotId;
             this.refresh();

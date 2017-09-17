@@ -8,14 +8,20 @@
  */
 class Sprite extends PIXI.Sprite {
     protected _bitmap;
-    protected _frame;
-    protected _realFrame;
+    protected _frame: Rectangle;
+    protected _realFrame: Rectangle;
     protected _blendColor;
     protected _colorTone;
     protected _canvas;
     protected _context;
     protected _tintTexture;
-    protected _isPicture;
+    /**
+     * use heavy renderer that will reduce border artifacts and apply advanced blendModes
+     * @type {boolean}
+     * @private
+     */
+    protected _isPicture: boolean;
+
     protected _refreshFrame;
 
     public spriteId;
@@ -34,11 +40,6 @@ class Sprite extends PIXI.Sprite {
         this._context = null;
         this._tintTexture = null;
 
-        /**
-         * use heavy renderer that will reduce border artifacts and apply advanced blendModes
-         * @type {boolean}
-         * @private
-         */
         this._isPicture = false;
 
         this.spriteId = Sprite._counter++;
@@ -149,7 +150,7 @@ class Sprite extends PIXI.Sprite {
      * @param {Number} width The width of the frame
      * @param {Number} height The height of the frame
      */
-    setFrame(x, y, width, height) {
+    setFrame(x:number, y:number, width:number, height:number) {
         this._refreshFrame = false;
         var frame = this._frame;
         if (x !== frame.x || y !== frame.y ||
@@ -286,7 +287,7 @@ class Sprite extends PIXI.Sprite {
      * @return {Boolean}
      * @private
      */
-    protected _isInBitmapRect(x, y, w, h) {
+    protected _isInBitmapRect(x:number, y:number, w:number, h:number) {
         return (this._bitmap && x + w > 0 && y + h > 0 &&
             x < this._bitmap.width && y < this._bitmap.height);
     };
@@ -307,7 +308,7 @@ class Sprite extends PIXI.Sprite {
      * @param {Number} h
      * @private
      */
-    protected _createTinter(w, h) {
+    protected _createTinter(w:number, h:number) {
         if (!this._canvas) {
             this._canvas = document.createElement('canvas');
             this._context = this._canvas.getContext('2d');
@@ -333,7 +334,7 @@ class Sprite extends PIXI.Sprite {
      * @param {Number} h
      * @private
      */
-    protected _executeTint(x, y, w, h) {
+    protected _executeTint(x:number, y:number, w:number, h:number) {
         var context = this._context;
         var tone = this._colorTone;
         var color = this._blendColor;

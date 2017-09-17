@@ -13,10 +13,6 @@ class Spriteset_Map extends Spriteset_Base {
     protected _parallaxName;
     protected _weather;
 
-    // initialize() {
-    //     super.initialize();
-    // };
-
     createLowerLayer() {
         super.createLowerLayer();
         this.createParallax();

@@ -9,24 +9,24 @@
 declare interface Number {
     clamp(min: number, b: number): number;
     mod(n: number): number;
-    padZero(n: number) : string;
+    padZero(n: number): string;
 }
 
 declare interface String {
-    padZero(n: number) : string;
-    format(...args): string;
-    contains(n: string) : boolean;
+    padZero(n: number): string;
+    format(...args: any[]): string;
+    contains(n: string): boolean;
 }
 
 
 declare interface Array<T> {
-    contains(n: T) : boolean;
-    equals(n: T[]) : boolean;
+    contains(n: T): boolean;
+    equals(n: T[]): boolean;
     clone(): T[];
 }
 
 interface Math {
-    randomInt(number): number;
+    randomInt(number: number): number;
 }
 
 
@@ -38,7 +38,7 @@ interface Math {
  * @param {Number} max The upper boundary
  * @return {Number} A number in the range (min, max)
  */
-Number.prototype.clamp = function(min, max) {
+Number.prototype.clamp = function (min, max) {
     return Math.min(Math.max(this, min), max);
 }
 
@@ -50,7 +50,7 @@ Number.prototype.clamp = function(min, max) {
  * @param {Number} n The divisor
  * @return {Number} A modulo value
  */
-Number.prototype.mod = function(n) {
+Number.prototype.mod = function (n) {
     return ((this % n) + n) % n;
 };
 
@@ -61,9 +61,9 @@ Number.prototype.mod = function(n) {
  * @param {Any} ...args The objects to format
  * @return {String} A formatted string
  */
-String.prototype.format = function() {
+String.prototype.format = function () {
     var args = arguments;
-    return this.replace(/%([0-9]+)/g, function(s, n) {
+    return this.replace(/%([0-9]+)/g, function (s: any, n: string) {
         return args[Number(n) - 1];
     });
 };
@@ -75,7 +75,7 @@ String.prototype.format = function() {
  * @param {Number} length The length of the output string
  * @return {String} A string with leading zeros
  */
-String.prototype.padZero = function(length){
+String.prototype.padZero = function (length: number) {
     var s = this;
     while (s.length < length) {
         s = '0' + s;
@@ -90,7 +90,7 @@ String.prototype.padZero = function(length){
  * @param {Number} length The length of the output string
  * @return {String} A string with leading zeros
  */
-Number.prototype.padZero = function(length){
+Number.prototype.padZero = function (length: number) {
     return String(this).padZero(length);
 };
 
@@ -104,7 +104,7 @@ Object.defineProperties(Array.prototype, {
      */
     equals: {
         enumerable: false,
-        value: function(array) {
+        value: function (array) {
             if (!array || this.length !== array.length) {
                 return false;
             }
@@ -128,7 +128,7 @@ Object.defineProperties(Array.prototype, {
      */
     clone: {
         enumerable: false,
-        value: function() {
+        value: function () {
             return this.slice(0);
         }
     },
@@ -139,9 +139,9 @@ Object.defineProperties(Array.prototype, {
      * @param {Any} element The element to search for
      * @return {Boolean} True if the array contains a given element
      */
-    contains : {
+    contains: {
         enumerable: false,
-        value: function(element) {
+        value: function (element) {
             return this.indexOf(element) >= 0;
         }
     }
@@ -154,7 +154,7 @@ Object.defineProperties(Array.prototype, {
  * @param {String} string The string to search for
  * @return {Boolean} True if the string contains a given string
  */
-String.prototype.contains = function(string) {
+String.prototype.contains = function (string) {
     return this.indexOf(string) >= 0;
 };
 
@@ -166,6 +166,6 @@ String.prototype.contains = function(string) {
  * @param {Number} max The upper boundary (excluded)
  * @return {Number} A random integer
  */
-Math.randomInt = function(max) {
+Math.randomInt = function (max) {
     return Math.floor(max * Math.random());
 };

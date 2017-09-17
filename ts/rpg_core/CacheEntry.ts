@@ -19,7 +19,7 @@ class CacheEntry {
     public ttlTicks: number;
     public freedByTTL: boolean;
 
-    constructor(cache, key, item) {
+    constructor(cache: any, key: string, item: string) {
         this.cache = cache;
         this.key = key;
         this.item = item;
@@ -34,8 +34,8 @@ class CacheEntry {
     /**
      * frees the resource
      */
-    free(byTTL) {
-        this.freedByTTL = byTTL || false;
+    free(byTTL: boolean = false) {
+        this.freedByTTL = byTTL;
         if (this.cached) {
             this.cached = false;
             delete this.cache._inner[this.key];
@@ -61,14 +61,14 @@ class CacheEntry {
      * @param {number} time TTL in seconds, 0 if not set
      * @returns {CacheEntry}
      */
-    setTimeToLive(ticks, seconds) {
-        this.ttlTicks = ticks || 0;
-        this.ttlSeconds = seconds || 0;
+    setTimeToLive(ticks: number = 0, seconds: number = 0) {
+        this.ttlTicks = ticks;
+        this.ttlSeconds = seconds;
         return this;
     };
 
     isStillAlive() {
-        var cache = this.cache;
+        const cache = this.cache;
         return ((this.ttlTicks == 0) || (this.touchTicks + this.ttlTicks < cache.updateTicks)) &&
             ((this.ttlSeconds == 0) || (this.touchSeconds + this.ttlSeconds < cache.updateSeconds));
     };
@@ -78,7 +78,7 @@ class CacheEntry {
      * if resource was already freed by TTL, put it in cache again
      */
     touch() {
-        var cache = this.cache;
+        const cache = this.cache;
         if (this.cached) {
             this.touchTicks = cache.updateTicks;
             this.touchSeconds = cache.updateSeconds;

@@ -5,9 +5,9 @@
 
 class Window_Message extends Window_Base {
     protected _imageReservationId;
-    protected _background;
-    protected _positionType;
-    protected _waitCount;
+    protected _background: number;
+    protected _positionType: number;
+    protected _waitCount: number;
     protected _faceBitmap;
     protected _textState;
     protected _goldWindow;
@@ -26,7 +26,7 @@ class Window_Message extends Window_Base {
         this.createSubWindows();
         this.updatePlacement();
     };
-    
+
     initMembers() {
         this._imageReservationId = Utils.generateRuntimeId();
         this._background = 0;
@@ -36,12 +36,12 @@ class Window_Message extends Window_Base {
         this._textState = null;
         this.clearFlags();
     };
-    
+
     subWindows() {
         return [this._goldWindow, this._choiceWindow,
-                this._numberWindow, this._itemWindow];
+        this._numberWindow, this._itemWindow];
     };
-    
+
     createSubWindows() {
         this._goldWindow = new Window_Gold(0, 0);
         this._goldWindow.x = Graphics.boxWidth - this._goldWindow.width;
@@ -50,29 +50,29 @@ class Window_Message extends Window_Base {
         this._numberWindow = new Window_NumberInput(this);
         this._itemWindow = new Window_EventItem(this);
     };
-    
-    windowWidth() {
+
+    windowWidth(): number {
         return Graphics.boxWidth;
     };
-    
-    windowHeight() {
+
+    windowHeight(): number {
         return Window_Base.fittingHeight(this.numVisibleRows());
     };
-    
-    windowX() {
+
+    windowX(): number {
         return (Graphics.boxWidth - this.windowWidth()) / 2;
     }
-    
+
     clearFlags() {
         this._showFast = false;
         this._lineShowFast = false;
         this._pauseSkip = false;
     };
-    
-    numVisibleRows() {
+
+    numVisibleRows(): number {
         return 4;
     };
-    
+
     update() {
         this.checkToNotClose();
         super.update();
@@ -93,7 +93,7 @@ class Window_Message extends Window_Base {
             }
         }
     };
-    
+
     checkToNotClose() {
         if (this.isClosing() && this.isOpen()) {
             if (this.doesContinue()) {
@@ -101,11 +101,11 @@ class Window_Message extends Window_Base {
             }
         }
     };
-    
+
     canStart() {
         return $gameMessage.hasText() && !$gameMessage.scrollMode();
     };
-    
+
     startMessage() {
         this._textState = {};
         this._textState.index = 0;
@@ -115,24 +115,24 @@ class Window_Message extends Window_Base {
         this.updateBackground();
         this.open();
     };
-    
+
     updatePlacement() {
         this._positionType = $gameMessage.positionType();
         this.y = this._positionType * (Graphics.boxHeight - this.height) / 2;
         this._goldWindow.y = this.y > 0 ? 0 : Graphics.boxHeight - this._goldWindow.height;
     };
-    
+
     updateBackground() {
         this._background = $gameMessage.background();
         this.setBackgroundType(this._background);
     };
-    
+
     terminateMessage() {
         this.close();
         this._goldWindow.close();
         $gameMessage.clear();
     };
-    
+
     updateWait() {
         if (this._waitCount > 0) {
             this._waitCount--;
@@ -141,7 +141,7 @@ class Window_Message extends Window_Base {
             return false;
         }
     };
-    
+
     updateLoading() {
         if (this._faceBitmap) {
             if (this._faceBitmap.isReady()) {
@@ -155,7 +155,7 @@ class Window_Message extends Window_Base {
             return false;
         }
     };
-    
+
     updateInput() {
         if (this.isAnySubWindowActive()) {
             return true;
@@ -172,13 +172,13 @@ class Window_Message extends Window_Base {
         }
         return false;
     };
-    
+
     isAnySubWindowActive() {
         return (this._choiceWindow.active ||
-                this._numberWindow.active ||
-                this._itemWindow.active);
+            this._numberWindow.active ||
+            this._itemWindow.active);
     };
-    
+
     updateMessage() {
         if (this._textState) {
             while (!this.isEndOfText(this._textState)) {
@@ -202,7 +202,7 @@ class Window_Message extends Window_Base {
             return false;
         }
     };
-    
+
     onEndOfText() {
         if (!this.startInput()) {
             if (!this._pauseSkip) {
@@ -213,7 +213,7 @@ class Window_Message extends Window_Base {
         }
         this._textState = null;
     };
-    
+
     startInput() {
         if ($gameMessage.isChoice()) {
             this._choiceWindow.start();
@@ -228,28 +228,28 @@ class Window_Message extends Window_Base {
             return false;
         }
     };
-    
+
     isTriggered() {
         return (Input.isRepeated('ok') || Input.isRepeated('cancel') ||
-                TouchInput.isRepeated());
+            TouchInput.isRepeated());
     };
-    
+
     doesContinue() {
         return ($gameMessage.hasText() && !$gameMessage.scrollMode() &&
-                !this.areSettingsChanged());
+            !this.areSettingsChanged());
     };
-    
+
     areSettingsChanged() {
         return (this._background !== $gameMessage.background() ||
-                this._positionType !== $gameMessage.positionType());
+            this._positionType !== $gameMessage.positionType());
     };
-    
+
     updateShowFast() {
         if (this.isTriggered()) {
             this._showFast = true;
         }
     };
-    
+
     newPage(textState) {
         this.contents.clear();
         this.resetFontSettings();
@@ -260,83 +260,83 @@ class Window_Message extends Window_Base {
         textState.left = this.newLineX();
         textState.height = this.calcTextHeight(textState, false);
     };
-    
+
     loadMessageFace() {
         this._faceBitmap = ImageManager.reserveFace($gameMessage.faceName(), 0, this._imageReservationId);
     };
-    
+
     drawMessageFace() {
         this.drawFace($gameMessage.faceName(), $gameMessage.faceIndex(), 0, 0);
         ImageManager.releaseReservation(this._imageReservationId);
     };
-    
+
     newLineX() {
         return $gameMessage.faceName() === '' ? 0 : 168;
     };
-    
+
     processNewLine(textState) {
         this._lineShowFast = false;
-        super.processNewLine( textState);
+        super.processNewLine(textState);
         if (this.needsNewPage(textState)) {
             this.startPause();
         }
     };
-    
+
     processNewPage(textState) {
-        super.processNewPage( textState);
+        super.processNewPage(textState);
         if (textState.text[textState.index] === '\n') {
             textState.index++;
         }
         textState.y = this.contents.height;
         this.startPause();
     };
-    
+
     isEndOfText(textState) {
         return textState.index >= textState.text.length;
     };
-    
+
     needsNewPage(textState) {
         return (!this.isEndOfText(textState) &&
-                textState.y + textState.height > this.contents.height);
+            textState.y + textState.height > this.contents.height);
     };
-    
+
     processEscapeCharacter(code, textState) {
         switch (code) {
-        case '$':
-            this._goldWindow.open();
-            break;
-        case '.':
-            this.startWait(15);
-            break;
-        case '|':
-            this.startWait(60);
-            break;
-        case '!':
-            this.startPause();
-            break;
-        case '>':
-            this._lineShowFast = true;
-            break;
-        case '<':
-            this._lineShowFast = false;
-            break;
-        case '^':
-            this._pauseSkip = true;
-            break;
-        default:
-            super.processEscapeCharacter( code, textState);
-            break;
+            case '$':
+                this._goldWindow.open();
+                break;
+            case '.':
+                this.startWait(15);
+                break;
+            case '|':
+                this.startWait(60);
+                break;
+            case '!':
+                this.startPause();
+                break;
+            case '>':
+                this._lineShowFast = true;
+                break;
+            case '<':
+                this._lineShowFast = false;
+                break;
+            case '^':
+                this._pauseSkip = true;
+                break;
+            default:
+                super.processEscapeCharacter(code, textState);
+                break;
         }
     };
-    
-    startWait(count) {
+
+    startWait(count: number) {
         this._waitCount = count;
     };
-    
+
     startPause() {
         this.startWait(10);
         this.pause = true;
     };
-    
+
 }
 

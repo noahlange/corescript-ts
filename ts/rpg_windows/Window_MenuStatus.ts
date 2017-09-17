@@ -5,49 +5,49 @@
 
 class Window_MenuStatus extends Window_Selectable {
     protected _formationMode;
-    protected _pendingIndex;
-    
-    constructor(x, y) {
+    protected _pendingIndex: number;
+
+    constructor(x: number, y: number) {
         super(x, y);
         this._formationMode = false;
         this._pendingIndex = -1;
         this.refresh();
     };
-    
-    windowWidth() {
+
+    windowWidth(): number {
         return Graphics.boxWidth - 240;
     };
-    
-    windowHeight() {
+
+    windowHeight(): number {
         return Graphics.boxHeight;
     };
-    
-    maxItems() {
+
+    maxItems(): number {
         return $gameParty.size();
     };
-    
-    itemHeight() {
+
+    itemHeight(): number {
         var clientHeight = this.height - this.padding * 2;
         return Math.floor(clientHeight / this.numVisibleRows());
     };
-    
-    numVisibleRows() {
+
+    numVisibleRows(): number {
         return 4;
     };
-    
+
     loadImages() {
-        $gameParty.members().forEach(function(actor) {
+        $gameParty.members().forEach(function (actor) {
             ImageManager.reserveFace(actor.faceName());
         }, this);
     };
-    
-    drawItem(index) {
+
+    drawItem(index: number) {
         this.drawItemBackground(index);
         this.drawItemImage(index);
         this.drawItemStatus(index);
     };
-    
-    drawItemBackground(index) {
+
+    drawItemBackground(index: number) {
         if (index === this._pendingIndex) {
             var rect = this.itemRect(index);
             var color = this.pendingColor();
@@ -56,15 +56,15 @@ class Window_MenuStatus extends Window_Selectable {
             this.changePaintOpacity(true);
         }
     };
-    
-    drawItemImage(index) {
+
+    drawItemImage(index: number) {
         var actor = $gameParty.members()[index];
         var rect = this.itemRect(index);
         this.changePaintOpacity(actor.isBattleMember());
         this.drawActorFace(actor, rect.x + 1, rect.y + 1, Window_Base._faceWidth, Window_Base._faceHeight);
         this.changePaintOpacity(true);
     };
-    
+
     drawItemStatus(index) {
         var actor = $gameParty.members()[index];
         var rect = this.itemRect(index);
@@ -73,12 +73,12 @@ class Window_MenuStatus extends Window_Selectable {
         var width = rect.width - x - this.textPadding();
         this.drawActorSimpleStatus(actor, x, y, width);
     };
-    
+
     processOk() {
         super.processOk();
         $gameParty.setMenuActor($gameParty.members()[this.index()]);
     };
-    
+
     isCurrentItemEnabled() {
         if (this._formationMode) {
             var actor = $gameParty.members()[this.index()];
@@ -87,28 +87,28 @@ class Window_MenuStatus extends Window_Selectable {
             return true;
         }
     };
-    
+
     selectLast() {
         this.select($gameParty.menuActor().index() || 0);
     };
-    
+
     formationMode() {
         return this._formationMode;
     };
-    
+
     setFormationMode(formationMode) {
         this._formationMode = formationMode;
     };
-    
-    pendingIndex() {
+
+    pendingIndex(): number {
         return this._pendingIndex;
     };
-    
-    setPendingIndex(index) {
+
+    setPendingIndex(index: number) {
         var lastPendingIndex = this._pendingIndex;
         this._pendingIndex = index;
         this.redrawItem(this._pendingIndex);
         this.redrawItem(lastPendingIndex);
     };
-    
+
 }

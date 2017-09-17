@@ -97,7 +97,7 @@ class Sprite_Actor extends Sprite_Battler {
         this.startMove(300, 0, 0);
     };
 
-    setActorHome(index) {
+    setActorHome(index: number) {
         this.setHome(600 + index * 32, 280 + index * 48);
     };
 

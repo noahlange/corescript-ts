@@ -12,7 +12,7 @@ class CacheMap {
     public delayCheckTTL: number;
     public updateSeconds: number;
 
-    constructor(manager) {
+    constructor(manager: any) {
         this.manager = manager;
         this._inner = {};
         this._lastRemovedEntries = {};
@@ -50,7 +50,7 @@ class CacheMap {
      * @param key url of cache element
      * @returns {*|null}
      */
-    getItem(key) {
+    getItem(key: string): any {
         var entry = this._inner[key];
         if (entry) {
             return entry.item;
@@ -65,11 +65,11 @@ class CacheMap {
         }
     };
 
-    setItem(key, item) {
+    setItem(key: string, item: any) {
         return new CacheEntry(this, key, item).allocate();
     };
 
-    update(ticks, delta) {
+    update(ticks: number, delta: number) {
         this.updateTicks += ticks;
         this.updateSeconds += delta;
         if (this.updateSeconds >= this.delayCheckTTL + this.lastCheckTTL) {

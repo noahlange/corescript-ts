@@ -18,9 +18,9 @@ class Game_Battler extends Game_BattlerBase {
     protected _motionRefresh;
     protected _selected;
 
-    constructor(){
-        super();        
-    }
+    // constructor(){
+    //     super();        
+    // }
 
     initMembers() {
         super.initMembers();
@@ -123,7 +123,7 @@ class Game_Battler extends Game_BattlerBase {
         return this._animations.shift();
     };
     
-    startAnimation(animationId, mirror, delay) {
+    startAnimation(animationId: number, mirror, delay) {
         var data = { animationId: animationId, mirror: mirror, delay: delay };
         this._animations.push(data);
     };
@@ -132,19 +132,19 @@ class Game_Battler extends Game_BattlerBase {
         this._damagePopup = true;
     };
     
-    startWeaponAnimation(weaponImageId) {
+    startWeaponAnimation(weaponImageId: number) {
         this._weaponImageId = weaponImageId;
     };
     
-    action(index) {
+    action(index: number) {
         return this._actions[index];
     };
     
-    setAction(index, action) {
+    setAction(index: number, action) {
         this._actions[index] = action;
     };
     
-    numActions() {
+    numActions(): number {
         return this._actions.length;
     };
     
@@ -169,7 +169,7 @@ class Game_Battler extends Game_BattlerBase {
         }
     };
     
-    addState(stateId) {
+    addState(stateId: number) {
         if (this.isStateAddable(stateId)) {
             if (!this.isStateAffected(stateId)) {
                 this.addNewState(stateId);
@@ -180,14 +180,14 @@ class Game_Battler extends Game_BattlerBase {
         }
     };
     
-    isStateAddable(stateId) {
+    isStateAddable(stateId: number) {
         return (this.isAlive() && $dataStates[stateId] &&
                 !this.isStateResist(stateId) &&
                 !this._result.isStateRemoved(stateId) &&
                 !this.isStateRestrict(stateId));
     };
     
-    isStateRestrict(stateId) {
+    isStateRestrict(stateId: number) {
         return $dataStates[stateId].removeByRestriction && this.isRestricted();
     };
     
@@ -201,7 +201,7 @@ class Game_Battler extends Game_BattlerBase {
         }, this);
     };
     
-    removeState(stateId) {
+    removeState(stateId: number) {
         if (this.isStateAffected(stateId)) {
             if (stateId === this.deathStateId()) {
                 this.revive();
@@ -221,7 +221,7 @@ class Game_Battler extends Game_BattlerBase {
         SoundManager.playEscape();
     };
     
-    addBuff(paramId, turns) {
+    addBuff(paramId: number, turns) {
         if (this.isAlive()) {
             this.increaseBuff(paramId);
             if (this.isBuffAffected(paramId)) {
@@ -232,7 +232,7 @@ class Game_Battler extends Game_BattlerBase {
         }
     };
     
-    addDebuff(paramId, turns) {
+    addDebuff(paramId: number, turns) {
         if (this.isAlive()) {
             this.decreaseBuff(paramId);
             if (this.isDebuffAffected(paramId)) {
@@ -243,7 +243,7 @@ class Game_Battler extends Game_BattlerBase {
         }
     };
     
-    removeBuff(paramId) {
+    removeBuff(paramId: number) {
         if (this.isAlive() && this.isBuffOrDebuffAffected(paramId)) {
             this.eraseBuff(paramId);
             this._result.pushRemovedBuff(paramId);
@@ -332,7 +332,7 @@ class Game_Battler extends Game_BattlerBase {
         }
     };
     
-    forceAction(skillId, targetIndex) {
+    forceAction(skillId: number, targetIndex) {
         this.clearActions();
         var action = new Game_Action(this, true);
         action.setSkill(skillId);
@@ -358,23 +358,23 @@ class Game_Battler extends Game_BattlerBase {
         $gameParty.consumeItem(item);
     };
     
-    gainHp(value) {
+    gainHp(value: number) {
         this._result.hpDamage = -value;
         this._result.hpAffected = true;
         this.setHp(this.hp + value);
     };
     
-    gainMp(value) {
+    gainMp(value: number) {
         this._result.mpDamage = -value;
         this.setMp(this.mp + value);
     };
     
-    gainTp(value) {
+    gainTp(value: number) {
         this._result.tpDamage = -value;
         this.setTp(this.tp + value);
     };
     
-    gainSilentTp(value) {
+    gainSilentTp(value: number) {
         this.setTp(this.tp + value);
     };
     
@@ -386,7 +386,7 @@ class Game_Battler extends Game_BattlerBase {
         this.setTp(0);
     };
     
-    chargeTpByDamage(damageRate) {
+    chargeTpByDamage(damageRate: number) {
         var value = Math.floor(50 * damageRate * this.tcr);
         this.gainSilentTp(value);
     };
@@ -456,7 +456,7 @@ class Game_Battler extends Game_BattlerBase {
         this.appear();
     };
     
-    onDamage(value) {
+    onDamage(value: number) {
         this.removeStatesByDamage();
         this.chargeTpByDamage(value / this.mhp);
     };

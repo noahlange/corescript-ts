@@ -5,8 +5,8 @@
 
 class Game_Vehicle extends Game_Character {
     protected _type;
-    protected _mapId;
-    protected _altitude;
+    protected _mapId: number;
+    protected _altitude: number;
     protected _driving;
     protected _bgm;
 
@@ -17,7 +17,7 @@ class Game_Vehicle extends Game_Character {
         this.initMoveSpeed();
         this.loadSystemSettings();
     };
-    
+
     initMembers() {
         super.initMembers();
         this._type = '';
@@ -26,23 +26,23 @@ class Game_Vehicle extends Game_Character {
         this._driving = false;
         this._bgm = null;
     };
-    
+
     isBoat() {
         return this._type === 'boat';
     };
-    
+
     isShip() {
         return this._type === 'ship';
     };
-    
+
     isAirship() {
         return this._type === 'airship';
     };
-    
+
     resetDirection() {
         this.setDirection(4);
     };
-    
+
     initMoveSpeed() {
         if (this.isBoat()) {
             this.setMoveSpeed(4);
@@ -52,7 +52,7 @@ class Game_Vehicle extends Game_Character {
             this.setMoveSpeed(6);
         }
     };
-    
+
     vehicle() {
         if (this.isBoat()) {
             return $dataSystem.boat;
@@ -64,14 +64,14 @@ class Game_Vehicle extends Game_Character {
             return null;
         }
     };
-    
+
     loadSystemSettings() {
         var vehicle = this.vehicle();
         this._mapId = vehicle.startMapId;
         this.setPosition(vehicle.startX, vehicle.startY);
         this.setImage(vehicle.characterName, vehicle.characterIndex);
     };
-    
+
     refresh() {
         if (this._driving) {
             this._mapId = $gameMap.mapId();
@@ -88,22 +88,22 @@ class Game_Vehicle extends Game_Character {
         this.setStepAnime(this._driving);
         this.setTransparent(this._mapId !== $gameMap.mapId());
     };
-    
-    setLocation(mapId, x, y) {
+
+    setLocation(mapId: number, x: number, y: number) {
         this._mapId = mapId;
         this.setPosition(x, y);
         this.refresh();
     };
-    
-    pos(x, y) {
+
+    pos(x: number, y: number) {
         if (this._mapId === $gameMap.mapId()) {
             return super.pos(x, y);
         } else {
             return false;
         }
     };
-    
-    isMapPassable(x, y, d) {
+
+    isMapPassable(x: number, y: number, d: number) {
         var x2 = $gameMap.roundXWithDirection(x, d);
         var y2 = $gameMap.roundYWithDirection(y, d);
         if (this.isBoat()) {
@@ -116,7 +116,7 @@ class Game_Vehicle extends Game_Character {
             return false;
         }
     };
-    
+
     getOn() {
         this._driving = true;
         this.setWalkAnime(true);
@@ -124,7 +124,7 @@ class Game_Vehicle extends Game_Character {
         $gameSystem.saveWalkingBgm();
         this.playBgm();
     };
-    
+
     getOff() {
         this._driving = false;
         this.setWalkAnime(false);
@@ -132,36 +132,36 @@ class Game_Vehicle extends Game_Character {
         this.resetDirection();
         $gameSystem.replayWalkingBgm();
     };
-    
+
     setBgm(bgm) {
         this._bgm = bgm;
     };
-    
+
     playBgm() {
         AudioManager.playBgm(this._bgm || this.vehicle().bgm);
     };
-    
+
     syncWithPlayer() {
         this.copyPosition($gamePlayer);
         this.refreshBushDepth();
     };
-    
+
     screenY() {
         return super.screenY() - this._altitude;
     };
-    
+
     shadowX() {
         return this.screenX();
     };
-    
+
     shadowY() {
         return this.screenY() + this._altitude;
     };
-    
+
     shadowOpacity() {
         return 255 * this._altitude / this.maxAltitude();
     };
-    
+
     canMove() {
         if (this.isAirship()) {
             return this.isHighest();
@@ -169,20 +169,20 @@ class Game_Vehicle extends Game_Character {
             return true;
         }
     };
-    
+
     update() {
         super.update();
         if (this.isAirship()) {
             this.updateAirship();
         }
     };
-    
+
     updateAirship() {
         this.updateAirshipAltitude();
         this.setStepAnime(this.isHighest());
         this.setPriorityType(this.isLowest() ? 0 : 2);
     };
-    
+
     updateAirshipAltitude() {
         if (this._driving && !this.isHighest()) {
             this._altitude++;
@@ -191,24 +191,24 @@ class Game_Vehicle extends Game_Character {
             this._altitude--;
         }
     };
-    
-    maxAltitude() {
+
+    maxAltitude(): number {
         return 48;
     };
-    
+
     isLowest() {
         return this._altitude <= 0;
     };
-    
+
     isHighest() {
         return this._altitude >= this.maxAltitude();
     };
-    
+
     isTakeoffOk() {
         return $gamePlayer.areFollowersGathered();
     };
-    
-    isLandOk(x, y, d) {
+
+    isLandOk(x: number, y: number, d: number) {
         if (this.isAirship()) {
             if (!$gameMap.isAirshipLandOk(x, y)) {
                 return false;
@@ -231,7 +231,7 @@ class Game_Vehicle extends Game_Character {
         }
         return true;
     };
-    
+
 }
 
 

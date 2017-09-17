@@ -37,7 +37,7 @@ class ToneSprite extends PIXI.Container {
      * @param {Number} b The blue strength in the range (-255, 255)
      * @param {Number} gray The grayscale level in the range (0, 255)
      */
-    setTone(r, g, b, gray) {
+    setTone(r: number, g: number, b: number, gray: number) {
         this._red = Math.round(r || 0).clamp(-255, 255);
         this._green = Math.round(g || 0).clamp(-255, 255);
         this._blue = Math.round(b || 0).clamp(-255, 255);
@@ -98,7 +98,7 @@ class ToneSprite extends PIXI.Container {
      * @param {Object} renderSession
      * @private
      */
-    _renderWebGL(renderer) {
+    _renderWebGL(renderer: Object) {
         // Not supported
     };
 

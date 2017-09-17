@@ -6,30 +6,30 @@
 class Window_SavefileList extends Window_Selectable {
     protected _mode;
 
-    constructor(x, y, width, height) {
+    constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
         this.activate();
         this._mode = null;
     };
-    
+
     setMode(mode) {
         this._mode = mode;
     };
-    
-    maxItems() {
+
+    maxItems(): number {
         return DataManager.maxSavefiles();
     };
-    
+
     maxVisibleItems() {
         return 5;
     };
-    
+
     itemHeight() {
         var innerHeight = this.height - this.padding * 2;
         return Math.floor(innerHeight / this.maxVisibleItems());
     };
-    
-    drawItem(index) {
+
+    drawItem(index: number) {
         var id = index + 1;
         var valid = DataManager.isThisGameFile(id);
         var info = DataManager.loadSavefileInfo(id);
@@ -45,11 +45,11 @@ class Window_SavefileList extends Window_Selectable {
             this.changePaintOpacity(true);
         }
     };
-    
-    drawFileId(id, x, y) {
+
+    drawFileId(id: number, x: number, y: number) {
         this.drawText(TextManager.file + ' ' + id, x, y, 180);
     };
-    
+
     drawContents(info, rect, valid) {
         var bottom = rect.y + rect.height;
         if (rect.width >= 420) {
@@ -64,14 +64,14 @@ class Window_SavefileList extends Window_Selectable {
             this.drawPlaytime(info, rect.x, y2, rect.width);
         }
     };
-    
-    drawGameTitle(info, x, y, width) {
+
+    drawGameTitle(info, x: number, y: number, width: number) {
         if (info.title) {
             this.drawText(info.title, x, y, width);
         }
     };
-    
-    drawPartyCharacters(info, x, y) {
+
+    drawPartyCharacters(info, x: number, y: number) {
         if (info.characters) {
             for (var i = 0; i < info.characters.length; i++) {
                 var data = info.characters[i];
@@ -79,14 +79,14 @@ class Window_SavefileList extends Window_Selectable {
             }
         }
     };
-    
-    drawPlaytime(info, x, y, width) {
+
+    drawPlaytime(info, x: number, y: number, width: number) {
         if (info.playtime) {
             this.drawText(info.playtime, x, y, width, 'right');
         }
     };
-    
+
     playOkSound() {
     };
-    
+
 }

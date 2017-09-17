@@ -49,7 +49,7 @@ class WindowLayer extends PIXI.Container {
      * @property width
      * @type Number
      */
-    get width() {
+    get width(): number {
         return this._width;
     }
     set width(value) {
@@ -62,7 +62,7 @@ class WindowLayer extends PIXI.Container {
      * @property height
      * @type Number
      */
-    get height() {
+    get height(): number {
         return this._height;
     }
     set height(value) {
@@ -78,7 +78,7 @@ class WindowLayer extends PIXI.Container {
      * @param {Number} width The width of the window layer
      * @param {Number} height The height of the window layer
      */
-    move(x, y, width, height) {
+    move(x: number, y: number, width: number, height: number) {
         this.x = x;
         this.y = y;
         this.width = width;

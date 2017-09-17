@@ -46,7 +46,7 @@ class ScreenSprite extends PIXI.Container {
         }
     };
 
-    get anchor() : any {
+    get anchor(): any {
         ScreenSprite.warnYep();
         this.scale.x = 1;
         this.scale.y = 1;
@@ -90,7 +90,7 @@ class ScreenSprite extends PIXI.Container {
      * @param {Number} g The green value in the range (0, 255)
      * @param {Number} b The blue value in the range (0, 255)
      */
-    setColor(r, g, b) {
+    setColor(r: number, g: number, b: number) {
         if (this._red !== r || this._green !== g || this._blue !== b) {
             r = Math.round(r || 0).clamp(0, 255);
             g = Math.round(g || 0).clamp(0, 255);

@@ -9,7 +9,7 @@
  */
 class Bitmap {
     //for iOS. img consumes memory. so reuse it.
-    protected static _reuseImages = [];
+    protected static _reuseImages: HTMLImageElement[] = [];
 
     /**
      * Bitmap states(Bitmap._loadingState):
@@ -42,11 +42,11 @@ class Bitmap {
      * error occurred
      *
      */
-    private _createCanvas(width? : number, height? : number) {
+    private _createCanvas(width: number = 0, height: number = 0) {
         this.__canvas = this.__canvas || document.createElement('canvas');
         this.__context = this.__canvas.getContext('2d');
-        this.__canvas.width = Math.max(width || 0, 1);
-        this.__canvas.height = Math.max(height || 0, 1);
+        this.__canvas.width = Math.max(width, 1);
+        this.__canvas.height = Math.max(height, 1);
         if (this._image) {
             var w = Math.max(this._image.width || 0, 1);
             var h = Math.max(this._image.height || 0, 1);
@@ -59,7 +59,7 @@ class Bitmap {
     }
 
 
-    private _createBaseTexture(source) {
+    private _createBaseTexture(source: HTMLImageElement | HTMLCanvasElement) {
         this.__baseTexture = new PIXI.BaseTexture(source);
         this.__baseTexture.mipmap = false;
         this.__baseTexture.width = source.width;
@@ -108,32 +108,59 @@ class Bitmap {
         }
     };
 
-
+    /**
+     * Cache entry, for images. In all cases _url is the same as cacheEntry.key
+     * @type CacheEntry
+     */
     public cacheEntry: CacheEntry | null;
+
+    /**
+     * The face name of the font.
+     *
+     * @property fontFace
+     * @type String
+     */
     public fontFace: string;
+
+    /**
+     * The size of the font in pixels.
+     *
+     * @property fontSize
+     * @type Number
+     */
     public fontSize: number;
+
+    /**
+     * Whether the font is italic.
+     *
+     * @property fontItalic
+     * @type Boolean
+     */
     public fontItalic: boolean;
+
     public textColor: string;
     public outlineColor: string;
     public outlineWidth: number;
 
-    protected _image : HTMLImageElement | null;
+    /// NOTE(bungcip): became public because decrypter needed it
+    public _image: HTMLImageElement | null;
+    public _errorListener: () => void;
+    public _loadListener: () => void;
+    public _loader: () => void;
+
     protected _url: string;
-    protected _loadListeners: any[];
     protected _loadingState: string;
-    protected _decodeAfterRequest : boolean;
+    protected _decodeAfterRequest: boolean;
 
-    protected _loader: any;
+    protected _loadListeners: ((bitmap: Bitmap) => void)[];
 
-    protected _errorListener: () => any;
-    protected _loadListener: () => any;
 
 
     private __baseTexture: PIXI.BaseTexture;
     private __canvas: HTMLCanvasElement;
     private __context: CanvasRenderingContext2D;
 
-    constructor(width?, height?, defer = false) {
+    constructor(width?: number, height?: number, defer = false) {
         if (!defer) {
             this._createCanvas(width, height);
         }
@@ -144,31 +171,10 @@ class Bitmap {
         this._loadListeners = [];
         this._loadingState = 'none';
         this._decodeAfterRequest = false;
-        /**
-         * Cache entry, for images. In all cases _url is the same as cacheEntry.key
-         * @type CacheEntry
-         */
+
         this.cacheEntry = null;
-        /**
-         * The face name of the font.
-         *
-         * @property fontFace
-         * @type String
-         */
         this.fontFace = 'GameFont';
-        /**
-         * The size of the font in pixels.
-         *
-         * @property fontSize
-         * @type Number
-         */
         this.fontSize = 28;
-        /**
-         * Whether the font is italic.
-         *
-         * @property fontItalic
-         * @type Boolean
-         */
         this.fontItalic = false;
         /**
          * The color of the text in CSS format.
@@ -200,7 +206,7 @@ class Bitmap {
      * @param {String} url The image url of the texture
      * @return Bitmap
      */
-    static load(url) {
+    static load(url: string) {
         let bitmap = new Bitmap(undefined, undefined, true);
         bitmap._decodeAfterRequest = true;
         bitmap._requestImage(url);
@@ -214,7 +220,7 @@ class Bitmap {
      * @param {Stage} stage The stage object
      * @return Bitmap
      */
-    static snap(stage) {
+    static snap(stage: Stage) {
         var width = Graphics.width;
         var height = Graphics.height;
         var bitmap = new Bitmap(width, height);
@@ -275,7 +281,6 @@ class Bitmap {
      */
     get url() {
         return this._url;
-
     }
 
     /**
@@ -324,7 +329,7 @@ class Bitmap {
      * @property height
      * @type Number
      */
-    get height () {
+    get height(): number {
         if (this.isReady()) {
             return this._image ? this._image.height : this._canvas.height;
         }
@@ -336,7 +341,7 @@ class Bitmap {
      * @property rect
      * @type Rectangle
      */
-    get rect() {
+    get rect(): Rectangle {
         return new Rectangle(0, 0, this.width, this.height);
     }
     /**
@@ -346,7 +351,7 @@ class Bitmap {
      * @type Boolean
      */
     private _smooth: boolean;
-    get smooth() {
+    get smooth(): boolean {
         return this._smooth;
     }
     set smooth(value) {
@@ -369,7 +374,7 @@ class Bitmap {
      * @property paintOpacity
      * @type Number
      */
-    private _paintOpacity : number;
+    private _paintOpacity: number;
     get paintOpacity() {
         return this._paintOpacity;
     }
@@ -387,7 +392,7 @@ class Bitmap {
      * @param {Number} width The new width of the bitmap
      * @param {Number} height The new height of the bitmap
      */
-    resize(width, height) {
+    resize(width: number = 0, height: number = 0) {
         width = Math.max(width || 0, 1);
         height = Math.max(height || 0, 1);
         this._canvas.width = width;
@@ -409,7 +414,7 @@ class Bitmap {
      * @param {Number} [dw=sw] The width to draw the image in the destination
      * @param {Number} [dh=sh] The height to draw the image in the destination
      */
-    blt(source, sx, sy, sw, sh, dx, dy, dw, dh) {
+    blt(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number) {
         dw = dw || sw;
         dh = dh || sh;
         if (sx >= 0 && sy >= 0 && sw > 0 && sh > 0 && dw > 0 && dh > 0 &&
@@ -433,7 +438,7 @@ class Bitmap {
      * @param {Number} [dw=sw] The width to draw the image in the destination
      * @param {Number} [dh=sh] The height to draw the image in the destination
      */
-    bltImage(source, sx, sy, sw, sh, dx, dy, dw, dh) {
+    bltImage(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number) {
         dw = dw || sw;
         dh = dh || sh;
         if (sx >= 0 && sy >= 0 && sw > 0 && sh > 0 && dw > 0 && dh > 0 &&
@@ -451,7 +456,7 @@ class Bitmap {
      * @param {Number} y The y coordinate of the pixel in the bitmap
      * @return {String} The pixel color (hex format)
      */
-    getPixel(x, y) {
+    getPixel(x: number, y: number) {
         var data = this._context.getImageData(x, y, 1, 1).data;
         var result = '#';
         for (var i = 0; i < 3; i++) {
@@ -467,7 +472,7 @@ class Bitmap {
      * @param {Number} y The y coordinate of the pixel in the bitmap
      * @return {String} The alpha value
      */
-    getAlphaPixel(x, y) {
+    getAlphaPixel(x: number, y: number) {
         var data = this._context.getImageData(x, y, 1, 1).data;
         return data[3];
     };
@@ -480,7 +485,7 @@ class Bitmap {
      * @param {Number} width The width of the rectangle to clear
      * @param {Number} height The height of the rectangle to clear
      */
-    clearRect(x, y, width, height) {
+    clearRect(x: number, y: number, width: number, height: number) {
         this._context.clearRect(x, y, width, height);
         this._setDirty();
     };
@@ -502,7 +507,7 @@ class Bitmap {
      * @param {Number} height The height of the rectangle to fill
      * @param {String} color The color of the rectangle in CSS format
      */
-    fillRect(x, y, width, height, color) {
+    fillRect(x: number, y: number, width: number, height: number, color: string) {
         var context = this._context;
         context.save();
         context.fillStyle = color;
@@ -516,7 +521,7 @@ class Bitmap {
      * @method fillAll
      * @param {String} color The color of the rectangle in CSS format
      */
-    fillAll(color) {
+    fillAll(color: string) {
         this.fillRect(0, 0, this.width, this.height, color);
     };
     /**
@@ -531,7 +536,7 @@ class Bitmap {
      * @param {String} color2 The gradient ending color
      * @param {Boolean} vertical Wether the gradient should be draw as vertical or not
      */
-    gradientFillRect(x, y, width, height, color1, color2, vertical) {
+    gradientFillRect(x: number, y: number, width: number, height: number, color1: string, color2: string, vertical: boolean) {
         var context = this._context;
         var grad;
         if (vertical) {
@@ -557,7 +562,7 @@ class Bitmap {
      * @param {Number} radius The radius of the circle
      * @param {String} color The color of the circle in CSS format
      */
-    drawCircle(x, y, radius, color) {
+    drawCircle(x: number, y: number, radius: number, color: string) {
         var context = this._context;
         context.save();
         context.fillStyle = color;
@@ -578,7 +583,7 @@ class Bitmap {
      * @param {Number} lineHeight The height of the text line
      * @param {String} align The alignment of the text
      */
-    drawText(text, x, y, maxWidth, lineHeight, align) {
+    drawText(text: string, x: number, y: number, maxWidth: number, lineHeight: number, align: string) {
         // Note: Firefox has a bug with textBaseline: Bug 737852
         //       So we use 'alphabetic' here.
         if (text !== undefined) {
@@ -612,7 +617,7 @@ class Bitmap {
      * @param {String} text The text to be measured
      * @return {Number} The width of the text in pixels
      */
-    measureTextWidth(text) {
+    measureTextWidth(text: string): number {
         var context = this._context;
         context.save();
         context.font = this._makeFontNameText();
@@ -628,7 +633,7 @@ class Bitmap {
      * @param {Number} g The green strength in the range (-255, 255)
      * @param {Number} b The blue strength in the range (-255, 255)
      */
-    adjustTone(r, g, b) {
+    adjustTone(r: number, g: number, b: number) {
         if ((r || g || b) && this.width > 0 && this.height > 0) {
             var context = this._context;
             var imageData = context.getImageData(0, 0, this.width, this.height);
@@ -648,8 +653,8 @@ class Bitmap {
      * @method rotateHue
      * @param {Number} offset The hue offset in 360 degrees
      */
-    rotateHue(offset) {
-        function rgbToHsl(r, g, b) {
+    rotateHue(offset: number) {
+        function rgbToHsl(r: number, g: number, b: number) {
             var cmin = Math.min(r, g, b);
             var cmax = Math.max(r, g, b);
             var h = 0;
@@ -670,7 +675,7 @@ class Bitmap {
             }
             return [h, s, l];
         }
-        function hslToRgb(h, s, l) {
+        function hslToRgb(h: number, s: number, l: number) {
             var c = (255 - Math.abs(2 * l - 255)) * s;
             var x = c * (1 - Math.abs((h / 60) % 2 - 1));
             var m = l - c / 2;
@@ -752,14 +757,14 @@ class Bitmap {
      * Add a callback function that will be called when the bitmap is loaded.
      *
      * @method addLoadListener
-     * @param {Function} listner The callback function
+     * @param {Function} listener The callback function
      */
-    addLoadListener(listner) {
+    addLoadListener(listener: (bitmap: Bitmap) => void) {
         if (!this.isReady()) {
-            this._loadListeners.push(listner);
+            this._loadListeners.push(listener);
         }
         else {
-            listner(this);
+            listener(this);
         }
     };
     /**
@@ -778,7 +783,7 @@ class Bitmap {
      * @param {Number} maxWidth
      * @private
      */
-    private _drawTextOutline(text, tx, ty, maxWidth) {
+    private _drawTextOutline(text: string, tx: number, ty: number, maxWidth: number) {
         var context = this._context;
         context.strokeStyle = this.outlineColor;
         context.lineWidth = this.outlineWidth;
@@ -793,7 +798,7 @@ class Bitmap {
      * @param {Number} maxWidth
      * @private
      */
-    private _drawTextBody(text, tx, ty, maxWidth) {
+    private _drawTextBody(text: string, tx: number, ty: number, maxWidth: number) {
         var context = this._context;
         context.fillStyle = this.textColor;
         context.fillText(text, tx, ty, maxWidth);
@@ -879,7 +884,7 @@ class Bitmap {
         this._loadingState = 'error';
     };
 
-    protected _dirty : boolean;
+    protected _dirty: boolean;
 
     /**
      * @method _setDirty
@@ -899,14 +904,14 @@ class Bitmap {
         }
     };
 
-    static request(url) {
+    static request(url: string) {
         let bitmap = new Bitmap(undefined, undefined, true);
         bitmap._url = url;
         bitmap._loadingState = 'pending';
-        return bitmap;  
+        return bitmap;
     };
 
-    private _requestImage(url) {
+    private _requestImage(url: string) {
         if (Bitmap._reuseImages.length !== 0) {
             this._image = Bitmap._reuseImages.pop();
         }

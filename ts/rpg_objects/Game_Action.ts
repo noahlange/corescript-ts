@@ -88,7 +88,7 @@ class Game_Action {
         this._item.setObject($dataSkills[skillId]);
     };
     
-    setItem(itemId) {
+    setItem(itemId: number) {
         this._item.setObject($dataItems[itemId]);
     };
     

@@ -5,9 +5,9 @@
 
 class Sprite_StateIcon extends Sprite {
     protected _battler;
-    protected _iconIndex;
-    protected _animationCount;
-    protected _animationIndex;
+    protected _iconIndex: number;
+    protected _animationCount: number;
+    protected _animationIndex: number;
 
     constructor() {
         super();
@@ -46,7 +46,7 @@ class Sprite_StateIcon extends Sprite {
         }
     };
 
-    animationWait() {
+    animationWait() : number{
         return 40;
     };
 

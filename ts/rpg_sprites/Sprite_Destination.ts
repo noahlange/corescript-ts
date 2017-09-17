@@ -4,7 +4,7 @@
 // The sprite for displaying the destination place of the touch input.
 
 class Sprite_Destination extends Sprite {
-    protected _frameCount;
+    protected _frameCount: number;
 
     constructor() {
         super();

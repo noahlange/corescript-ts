@@ -5,9 +5,9 @@
 // other than the front character, displayed in the party.
 
 class Game_Follower extends Game_Character {
-    protected _memberIndex;
+    protected _memberIndex: number;
 
-    constructor(memberIndex) {
+    constructor(memberIndex: number) {
         super();
         this._memberIndex = memberIndex;
         this.setTransparent($dataSystem.optTransparent);

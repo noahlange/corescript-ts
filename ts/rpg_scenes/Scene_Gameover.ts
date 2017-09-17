@@ -6,10 +6,6 @@
 class Scene_Gameover extends Scene_Base {
     protected _backSprite;
 
-    // initialize() {
-    //     super.initialize();
-    // };
-    
     create() {
         super.create();
         this.playGameoverMusic();

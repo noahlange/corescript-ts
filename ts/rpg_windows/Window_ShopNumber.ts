@@ -6,13 +6,13 @@
 
 class Window_ShopNumber extends Window_Selectable {
     protected _item;
-    protected _max;
-    protected _price;
-    protected _number;
+    protected _max: number;
+    protected _price: number;
+    protected _number: number;
     protected _currencyUnit;
     protected _buttons;
 
-    constructor(x, y, height) {
+    constructor(x: number, y: number, height: number) {
         super(x, y, undefined, height);
         this._item = null;
         this._max = 1;
@@ -30,7 +30,7 @@ class Window_ShopNumber extends Window_Selectable {
         return this._number;
     };
     
-    setup(item, max, price) {
+    setup(item, max: number, price: number) {
         this._item = item;
         this._max = Math.floor(max);
         this._price = price;
@@ -189,7 +189,7 @@ class Window_ShopNumber extends Window_Selectable {
         }
     };
     
-    changeNumber(amount) {
+    changeNumber(amount: number) {
         var lastNumber = this._number;
         this._number = (this._number + amount).clamp(1, this._max);
         if (this._number !== lastNumber) {

@@ -14,11 +14,11 @@ class Game_Variables {
         this._data = [];
     };
     
-    value(variableId) {
+    value(variableId: number) {
         return this._data[variableId] || 0;
     };
     
-    setValue(variableId, value) {
+    setValue(variableId: number, value: number) {
         if (variableId > 0 && variableId < $dataSystem.variables.length) {
             if (typeof value === 'number') {
                 value = Math.floor(value);

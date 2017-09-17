@@ -8,11 +8,11 @@ class Game_System {
     protected _menuEnabled;
     protected _encounterEnabled;
     protected _formationEnabled;
-    protected _battleCount;
-    protected _winCount;
-    protected _escapeCount;
-    protected _saveCount;
-    protected _versionId;
+    protected _battleCount: number;
+    protected _winCount: number;
+    protected _escapeCount: number;
+    protected _saveCount: number;
+    protected _versionId: number;
     protected _framesOnSave;
     protected _bgmOnSave;
     protected _bgsOnSave;
@@ -116,23 +116,23 @@ class Game_System {
         this._formationEnabled = true;
     };
     
-    battleCount() {
+    battleCount(): number {
         return this._battleCount;
     };
     
-    winCount() {
+    winCount(): number {
         return this._winCount;
     };
     
-    escapeCount() {
+    escapeCount(): number {
         return this._escapeCount;
     };
     
-    saveCount() {
+    saveCount() : number{
         return this._saveCount;
     };
     
-    versionId() {
+    versionId() : number{
         return this._versionId;
     };
     

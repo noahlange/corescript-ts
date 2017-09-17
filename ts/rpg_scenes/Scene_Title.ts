@@ -9,10 +9,6 @@ class Scene_Title extends Scene_Base {
     protected _commandWindow;
     protected _gameTitleSprite;
 
-    // initialize() {
-    //     super.initialize();
-    // };
-
     create() {
         super.create();
         this.createBackground();

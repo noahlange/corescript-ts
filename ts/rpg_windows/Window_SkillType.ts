@@ -7,15 +7,15 @@ class Window_SkillType extends Window_Command {
     protected _actor;
     protected _skillWindow;
 
-    constructor(x, y) {
+    constructor(x: number, y: number) {
         super(x, y);
         this._actor = null;
     };
-    
-    windowWidth() {
+
+    windowWidth(): number {
         return 240;
     };
-    
+
     setActor(actor) {
         if (this._actor !== actor) {
             this._actor = actor;
@@ -23,36 +23,36 @@ class Window_SkillType extends Window_Command {
             this.selectLast();
         }
     };
-    
-    numVisibleRows() {
+
+    numVisibleRows(): number {
         return 4;
     };
-    
+
     makeCommandList() {
         if (this._actor) {
             var skillTypes = this._actor.addedSkillTypes();
-            skillTypes.sort(function(a, b) {
+            skillTypes.sort(function (a, b) {
                 return a - b;
             });
-            skillTypes.forEach(function(stypeId) {
+            skillTypes.forEach(function (stypeId) {
                 var name = $dataSystem.skillTypes[stypeId];
                 this.addCommand(name, 'skill', true, stypeId);
             }, this);
         }
     };
-    
+
     update() {
         super.update();
         if (this._skillWindow) {
             this._skillWindow.setStypeId(this.currentExt());
         }
     };
-    
+
     setSkillWindow(skillWindow) {
         this._skillWindow = skillWindow;
         this.update();
     };
-    
+
     selectLast() {
         var skill = this._actor.lastMenuSkill();
         if (skill) {
@@ -61,6 +61,6 @@ class Window_SkillType extends Window_Command {
             this.select(0);
         }
     };
-    
+
 }
 

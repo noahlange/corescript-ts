@@ -14,11 +14,11 @@ class Game_Switches {
         this._data = [];
     };
     
-    value(switchId) {
+    value(switchId: number) {
         return !!this._data[switchId];
     };
     
-    setValue(switchId, value) {
+    setValue(switchId: number, value) {
         if (switchId > 0 && switchId < $dataSystem.switches.length) {
             this._data[switchId] = value;
             this.onChange();

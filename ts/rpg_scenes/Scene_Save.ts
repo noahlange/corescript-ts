@@ -5,10 +5,6 @@
 
 class Scene_Save extends Scene_File {
 
-    // initialize() {
-    //     super.initialize();
-    // };
-    
     mode() {
         return 'save';
     };

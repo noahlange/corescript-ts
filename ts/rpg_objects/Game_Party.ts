@@ -6,18 +6,18 @@
 
 class Game_Party extends Game_Unit {
 
-    static ABILITY_ENCOUNTER_HALF    = 0;
-    static ABILITY_ENCOUNTER_NONE    = 1;
-    static ABILITY_CANCEL_SURPRISE   = 2;
-    static ABILITY_RAISE_PREEMPTIVE  = 3;
-    static ABILITY_GOLD_DOUBLE       = 4;
-    static ABILITY_DROP_ITEM_DOUBLE  = 5;
-    
-    protected _gold;
-    protected _steps;
+    static ABILITY_ENCOUNTER_HALF = 0;
+    static ABILITY_ENCOUNTER_NONE = 1;
+    static ABILITY_CANCEL_SURPRISE = 2;
+    static ABILITY_RAISE_PREEMPTIVE = 3;
+    static ABILITY_GOLD_DOUBLE = 4;
+    static ABILITY_DROP_ITEM_DOUBLE = 5;
+
+    protected _gold: number;
+    protected _steps: number;
     protected _lastItem;
-    protected _menuActorId;
-    protected _targetActorId;
+    protected _menuActorId: number;
+    protected _targetActorId: number;
     protected _actors;
     protected _items;
     protected _weapons;
@@ -35,57 +35,57 @@ class Game_Party extends Game_Unit {
         this._actors = [];
         this.initAllItems();
     };
-    
+
     initAllItems() {
         this._items = {};
         this._weapons = {};
         this._armors = {};
     };
-    
+
     exists() {
         return this._actors.length > 0;
     };
-    
-    size() {
+
+    size(): number {
         return this.members().length;
     };
-    
+
     isEmpty() {
         return this.size() === 0;
     };
-    
+
     members() {
         return this.inBattle() ? this.battleMembers() : this.allMembers();
     };
-    
+
     allMembers() {
-        return this._actors.map(function(id) {
+        return this._actors.map(function (id) {
             return $gameActors.actor(id);
         });
     };
-    
+
     battleMembers() {
-        return this.allMembers().slice(0, this.maxBattleMembers()).filter(function(actor) {
+        return this.allMembers().slice(0, this.maxBattleMembers()).filter(function (actor) {
             return actor.isAppeared();
         });
     };
-    
-    maxBattleMembers() {
+
+    maxBattleMembers(): number {
         return 4;
     };
-    
+
     leader() {
         return this.battleMembers()[0];
     };
-    
+
     reviveBattleMembers() {
-        this.battleMembers().forEach(function(actor) {
+        this.battleMembers().forEach(function (actor) {
             if (actor.isDead()) {
                 actor.setHp(1);
             }
         });
     };
-    
+
     items() {
         var list = [];
         for (var id in this._items) {
@@ -93,7 +93,7 @@ class Game_Party extends Game_Unit {
         }
         return list;
     };
-    
+
     weapons() {
         var list = [];
         for (var id in this._weapons) {
@@ -101,7 +101,7 @@ class Game_Party extends Game_Unit {
         }
         return list;
     };
-    
+
     armors() {
         var list = [];
         for (var id in this._armors) {
@@ -109,15 +109,15 @@ class Game_Party extends Game_Unit {
         }
         return list;
     };
-    
+
     equipItems() {
         return this.weapons().concat(this.armors());
     };
-    
+
     allItems() {
         return this.items().concat(this.equipItems());
     };
-    
+
     itemContainer(item) {
         if (!item) {
             return null;
@@ -131,16 +131,16 @@ class Game_Party extends Game_Unit {
             return null;
         }
     };
-    
+
     setupStartingMembers() {
         this._actors = [];
-        $dataSystem.partyMembers.forEach(function(actorId) {
+        $dataSystem.partyMembers.forEach(function (actorId) {
             if ($gameActors.actor(actorId)) {
                 this._actors.push(actorId);
             }
         }, this);
     };
-    
+
     name() {
         var numBattleMembers = this.battleMembers().length;
         if (numBattleMembers === 0) {
@@ -151,14 +151,14 @@ class Game_Party extends Game_Unit {
             return TextManager.partyName.format(this.leader().name());
         }
     };
-    
+
     setupBattleTest() {
         this.setupBattleTestMembers();
         this.setupBattleTestItems();
     };
-    
+
     setupBattleTestMembers() {
-        $dataSystem.testBattlers.forEach(function(battler) {
+        $dataSystem.testBattlers.forEach(function (battler) {
             var actor = $gameActors.actor(battler.actorId);
             if (actor) {
                 actor.changeLevel(battler.level, false);
@@ -168,74 +168,74 @@ class Game_Party extends Game_Unit {
             }
         }, this);
     };
-    
+
     setupBattleTestItems() {
-        $dataItems.forEach(function(item) {
+        $dataItems.forEach(function (item) {
             if (item && item.name.length > 0) {
                 this.gainItem(item, this.maxItems(item));
             }
         }, this);
     };
-    
+
     highestLevel() {
-        return Math.max.apply(null, this.members().map(function(actor) {
+        return Math.max.apply(null, this.members().map(function (actor) {
             return actor.level;
         }));
     };
-    
-    addActor(actorId) {
+
+    addActor(actorId: number) {
         if (!this._actors.contains(actorId)) {
             this._actors.push(actorId);
             $gamePlayer.refresh();
             $gameMap.requestRefresh();
         }
     };
-    
-    removeActor(actorId) {
+
+    removeActor(actorId: number) {
         if (this._actors.contains(actorId)) {
             this._actors.splice(this._actors.indexOf(actorId), 1);
             $gamePlayer.refresh();
             $gameMap.requestRefresh();
         }
     };
-    
-    gold() {
+
+    gold(): number {
         return this._gold;
     };
-    
-    gainGold(amount) {
+
+    gainGold(amount: number) {
         this._gold = (this._gold + amount).clamp(0, this.maxGold());
     };
-    
-    loseGold(amount) {
+
+    loseGold(amount: number) {
         this.gainGold(-amount);
     };
-    
-    maxGold() {
+
+    maxGold(): number {
         return 99999999;
     };
-    
-    steps() {
+
+    steps(): number {
         return this._steps;
     };
-    
+
     increaseSteps() {
         this._steps++;
     };
-    
+
     numItems(item) {
         var container = this.itemContainer(item);
         return container ? container[item.id] || 0 : 0;
     };
-    
-    maxItems(item) {
+
+    maxItems(item): number {
         return 99;
     };
-    
+
     hasMaxItems(item) {
         return this.numItems(item) >= this.maxItems(item);
     };
-    
+
     hasItem(item, includeEquip) {
         if (includeEquip === undefined) {
             includeEquip = false;
@@ -248,14 +248,14 @@ class Game_Party extends Game_Unit {
             return false;
         }
     };
-    
+
     isAnyMemberEquipped(item) {
-        return this.members().some(function(actor) {
+        return this.members().some(function (actor) {
             return actor.equips().contains(item);
         });
     };
-    
-    gainItem(item, amount, includeEquip) {
+
+    gainItem(item, amount: number, includeEquip) {
         var container = this.itemContainer(item);
         if (container) {
             var lastNumber = this.numItems(item);
@@ -270,39 +270,39 @@ class Game_Party extends Game_Unit {
             $gameMap.requestRefresh();
         }
     };
-    
-    discardMembersEquip(item, amount) {
+
+    discardMembersEquip(item, amount: number) {
         var n = amount;
-        this.members().forEach(function(actor) {
+        this.members().forEach(function (actor) {
             while (n > 0 && actor.isEquipped(item)) {
                 actor.discardEquip(item);
                 n--;
             }
         });
     };
-    
-    loseItem(item, amount, includeEquip?) {
+
+    loseItem(item, amount: number, includeEquip?) {
         this.gainItem(item, -amount, includeEquip);
     };
-    
+
     consumeItem(item) {
         if (DataManager.isItem(item) && item.consumable) {
             this.loseItem(item, 1);
         }
     };
-    
+
     canUse(item) {
-        return this.members().some(function(actor) {
+        return this.members().some(function (actor) {
             return actor.canUse(item);
         });
     };
-    
+
     canInput() {
-        return this.members().some(function(actor) {
+        return this.members().some(function (actor) {
             return actor.canInput();
         });
     };
-    
+
     isAllDead() {
         if (super.isAllDead()) {
             return this.inBattle() || !this.isEmpty();
@@ -310,13 +310,13 @@ class Game_Party extends Game_Unit {
             return false;
         }
     };
-    
+
     onPlayerWalk() {
-        this.members().forEach(function(actor) {
+        this.members().forEach(function (actor) {
             return actor.onPlayerWalk();
         });
     };
-    
+
     menuActor() {
         var actor = $gameActors.actor(this._menuActorId);
         if (!this.members().contains(actor)) {
@@ -324,11 +324,11 @@ class Game_Party extends Game_Unit {
         }
         return actor;
     };
-    
+
     setMenuActor(actor) {
         this._menuActorId = actor.actorId();
     };
-    
+
     makeMenuActorNext() {
         var index = this.members().indexOf(this.menuActor());
         if (index >= 0) {
@@ -338,7 +338,7 @@ class Game_Party extends Game_Unit {
             this.setMenuActor(this.members()[0]);
         }
     };
-    
+
     makeMenuActorPrevious() {
         var index = this.members().indexOf(this.menuActor());
         if (index >= 0) {
@@ -348,7 +348,7 @@ class Game_Party extends Game_Unit {
             this.setMenuActor(this.members()[0]);
         }
     };
-    
+
     targetActor() {
         var actor = $gameActors.actor(this._targetActorId);
         if (!this.members().contains(actor)) {
@@ -356,107 +356,107 @@ class Game_Party extends Game_Unit {
         }
         return actor;
     };
-    
+
     setTargetActor(actor) {
         this._targetActorId = actor.actorId();
     };
-    
+
     lastItem() {
         return this._lastItem.object();
     };
-    
+
     setLastItem(item) {
         this._lastItem.setObject(item);
     };
-    
-    swapOrder(index1, index2) {
+
+    swapOrder(index1: number, index2: number) {
         var temp = this._actors[index1];
         this._actors[index1] = this._actors[index2];
         this._actors[index2] = temp;
         $gamePlayer.refresh();
     };
-    
+
     charactersForSavefile() {
-        return this.battleMembers().map(function(actor) {
+        return this.battleMembers().map(function (actor) {
             return [actor.characterName(), actor.characterIndex()];
         });
     };
-    
+
     facesForSavefile() {
-        return this.battleMembers().map(function(actor) {
+        return this.battleMembers().map(function (actor) {
             return [actor.faceName(), actor.faceIndex()];
         });
     };
-    
-    partyAbility(abilityId) {
-        return this.battleMembers().some(function(actor) {
+
+    partyAbility(abilityId: number) {
+        return this.battleMembers().some(function (actor) {
             return actor.partyAbility(abilityId);
         });
     };
-    
+
     hasEncounterHalf() {
         return this.partyAbility(Game_Party.ABILITY_ENCOUNTER_HALF);
     };
-    
+
     hasEncounterNone() {
         return this.partyAbility(Game_Party.ABILITY_ENCOUNTER_NONE);
     };
-    
+
     hasCancelSurprise() {
         return this.partyAbility(Game_Party.ABILITY_CANCEL_SURPRISE);
     };
-    
+
     hasRaisePreemptive() {
         return this.partyAbility(Game_Party.ABILITY_RAISE_PREEMPTIVE);
     };
-    
+
     hasGoldDouble() {
         return this.partyAbility(Game_Party.ABILITY_GOLD_DOUBLE);
     };
-    
+
     hasDropItemDouble() {
         return this.partyAbility(Game_Party.ABILITY_DROP_ITEM_DOUBLE);
     };
-    
-    ratePreemptive(troopAgi) {
+
+    ratePreemptive(troopAgi: number) {
         var rate = this.agility() >= troopAgi ? 0.05 : 0.03;
         if (this.hasRaisePreemptive()) {
             rate *= 4;
         }
         return rate;
     };
-    
-    rateSurprise(troopAgi) {
+
+    rateSurprise(troopAgi: number) {
         var rate = this.agility() >= troopAgi ? 0.03 : 0.05;
         if (this.hasCancelSurprise()) {
             rate = 0;
         }
         return rate;
     };
-    
+
     performVictory() {
-        this.members().forEach(function(actor) {
+        this.members().forEach(function (actor) {
             actor.performVictory();
         });
     };
-    
+
     performEscape() {
-        this.members().forEach(function(actor) {
+        this.members().forEach(function (actor) {
             actor.performEscape();
         });
     };
-    
+
     removeBattleStates() {
-        this.members().forEach(function(actor) {
+        this.members().forEach(function (actor) {
             actor.removeBattleStates();
         });
     };
-    
+
     requestMotionRefresh() {
-        this.members().forEach(function(actor) {
+        this.members().forEach(function (actor) {
             actor.requestMotionRefresh();
         });
     };
-        
+
 }
 

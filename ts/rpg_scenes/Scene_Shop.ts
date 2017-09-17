@@ -16,10 +16,6 @@ class Scene_Shop extends Scene_MenuBase {
     protected _categoryWindow;
     protected _sellWindow;
 
-    // initialize() {
-    //     super.initialize();
-    // };
-    
     prepare(goods, purchaseOnly) {
         this._goods = goods;
         this._purchaseOnly = purchaseOnly;

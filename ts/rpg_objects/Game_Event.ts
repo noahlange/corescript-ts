@@ -5,8 +5,8 @@
 // switching and running parallel process events.
 
 class Game_Event extends Game_Character {
-    protected _mapId;
-    protected _eventId;
+    protected _mapId: number;
+    protected _eventId: number;
     protected _moveType;
     protected _trigger;
     protected _starting;
@@ -18,7 +18,7 @@ class Game_Event extends Game_Character {
     protected _locked;
     protected _interpreter;
 
-    constructor(mapId, eventId) {
+    constructor(mapId: number, eventId: number) {
         super();
         this._mapId = mapId;
         this._eventId = eventId;
@@ -55,17 +55,17 @@ class Game_Event extends Game_Character {
         return this.page().list;
     };
     
-    isCollidedWithCharacters(x, y) {
+    isCollidedWithCharacters(x: number, y: number) {
         return (super.isCollidedWithCharacters(x, y) ||
                 this.isCollidedWithPlayerCharacters(x, y));
     };
     
-    isCollidedWithEvents(x, y) {
+    isCollidedWithEvents(x: number, y: number) {
         var events = $gameMap.eventsXyNt(x, y);
         return events.length > 0;
     };
     
-    isCollidedWithPlayerCharacters(x, y) {
+    isCollidedWithPlayerCharacters(x: number, y: number) {
         return this.isNormalPriority() && $gamePlayer.isCollided(x, y);
     };
     
@@ -334,7 +334,7 @@ class Game_Event extends Game_Character {
         }
     };
     
-    locate(x, y) {
+    locate(x: number, y: number) {
         super.locate(x, y);
         this._prelockDirection = 0;
     };

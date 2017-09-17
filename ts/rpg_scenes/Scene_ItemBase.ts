@@ -7,13 +7,6 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
     protected _actorWindow;
     protected _itemWindow;
 
-    // initialize() {
-    //     super.initialize();
-    // };
-    
-    // create() {
-    //     super.create();
-    // };
     
     createActorWindow() {
         this._actorWindow = new Window_MenuActor();

@@ -7,18 +7,18 @@ class Window_ShopCommand extends Window_HorzCommand {
     protected _windowWidth;
     protected _purchaseOnly;
 
-    constructor(width, purchaseOnly) {
+    constructor(width: number, purchaseOnly) {
         super(0, 0, function() {
             this._windowWidth = width;
             this._purchaseOnly = purchaseOnly;
         });
     };
     
-    windowWidth() {
+    windowWidth(): number {
         return this._windowWidth;
     };
     
-    maxCols() {
+    maxCols(): number {
         return 3;
     };
     

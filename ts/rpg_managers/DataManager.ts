@@ -67,7 +67,7 @@ class DataManager {
         return true;
     };
     
-    static loadMapData(mapId) {
+    static loadMapData(mapId: number) {
         if (mapId > 0) {
             var filename = 'Map%1.json'.format(mapId.padZero(3));
             this._mapLoader = ResourceHandler.createLoader('data/' + filename, this.loadDataFile.bind(this, '$dataMap', filename));

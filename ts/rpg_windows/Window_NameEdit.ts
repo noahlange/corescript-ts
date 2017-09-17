@@ -6,11 +6,11 @@
 class Window_NameEdit extends Window_Base {
     protected _actor;
     protected _name;
-    protected _index;
-    protected _maxLength;
+    protected _index: number;
+    protected _maxLength: number;
     protected _defaultName;
 
-    constructor(actor, maxLength) {
+    constructor(actor, maxLength: number) {
         super();
         this._actor = actor;
         this._name = actor.name().slice(0, this._maxLength);
@@ -21,36 +21,36 @@ class Window_NameEdit extends Window_Base {
         this.refresh();
         ImageManager.reserveFace(actor.faceName());
     };
-    
-    windowWidth() {
+
+    windowWidth(): number {
         return 480;
     };
-    
-    windowHeight() {
+
+    windowHeight(): number {
         return Window_Base.fittingHeight(4);
     };
-    
-    windowX(){
+
+    windowX(): number {
         return (Graphics.boxWidth - this.windowWidth()) / 2;
     }
-    
-    windowY(){
+
+    windowY(): number {
         return (Graphics.boxHeight - (this.windowHeight() + Window_Base.fittingHeight(9) + 8)) / 2;
     }
-    
-    
+
+
     get name() {
         return this._name;
     };
-    
+
     restoreDefault() {
         this._name = this._defaultName;
         this._index = this._name.length;
         this.refresh();
         return this._name.length > 0;
     };
-    
-    add(ch) {
+
+    add(ch: number) {
         if (this._index < this._maxLength) {
             this._name += ch;
             this._index++;
@@ -60,7 +60,7 @@ class Window_NameEdit extends Window_Base {
             return false;
         }
     };
-    
+
     back() {
         if (this._index > 0) {
             this._index--;
@@ -71,23 +71,23 @@ class Window_NameEdit extends Window_Base {
             return false;
         }
     };
-    
-    faceWidth() {
+
+    faceWidth(): number {
         return 144;
     };
-    
+
     charWidth() {
         var text = $gameSystem.isJapanese() ? '\uff21' : 'A';
         return this.textWidth(text);
     };
-    
+
     left() {
         var nameCenter = (this.contentsWidth() + this.faceWidth()) / 2;
         var nameWidth = (this._maxLength + 1) * this.charWidth();
         return Math.min(nameCenter - nameWidth / 2, this.contentsWidth() - nameWidth);
     };
-    
-    itemRect(index) {
+
+    itemRect(index: number) {
         return {
             x: this.left() + index * this.charWidth(),
             y: 54,
@@ -95,8 +95,8 @@ class Window_NameEdit extends Window_Base {
             height: Window_Base.lineHeight()
         };
     };
-    
-    underlineRect(index) {
+
+    underlineRect(index: number) {
         var rect = this.itemRect(index);
         rect.x++;
         rect.y += rect.height - 4;
@@ -104,25 +104,25 @@ class Window_NameEdit extends Window_Base {
         rect.height = 2;
         return rect;
     };
-    
+
     underlineColor() {
         return this.normalColor();
     };
-    
-    drawUnderline(index) {
+
+    drawUnderline(index: number) {
         var rect = this.underlineRect(index);
         var color = this.underlineColor();
         this.contents.paintOpacity = 48;
         this.contents.fillRect(rect.x, rect.y, rect.width, rect.height, color);
         this.contents.paintOpacity = 255;
     };
-    
-    drawChar(index) {
+
+    drawChar(index: number) {
         var rect = this.itemRect(index);
         this.resetTextColor();
         this.drawText(this._name[index] || '', rect.x, rect.y);
     };
-    
+
     refresh() {
         this.contents.clear();
         this.drawActorFace(this._actor, 0, 0);
@@ -135,6 +135,6 @@ class Window_NameEdit extends Window_Base {
         var rect = this.itemRect(this._index);
         this.setCursorRect(rect.x, rect.y, rect.width, rect.height);
     };
-    
+
 }
 

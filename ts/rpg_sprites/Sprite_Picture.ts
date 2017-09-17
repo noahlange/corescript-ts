@@ -4,10 +4,10 @@
 // The sprite for displaying a picture.
 
 class Sprite_Picture extends Sprite {
-    protected _pictureId;
+    protected _pictureId: number;
     protected _pictureName;
     
-    constructor(pictureId) {
+    constructor(pictureId: number) {
         super();
         this._pictureId = pictureId;
         this._pictureName = '';

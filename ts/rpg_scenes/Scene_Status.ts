@@ -6,10 +6,6 @@
 class Scene_Status extends Scene_MenuBase {
     protected _statusWindow;
     
-    // initialize() {
-    //     super.initialize();
-    // };
-
     create() {
         super.create();
         this._statusWindow = new Window_Status();

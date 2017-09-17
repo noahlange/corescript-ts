@@ -5,8 +5,8 @@
 
 class Window_NumberInput extends Window_Selectable {
     protected _messageWindow;
-    protected _number;
-    protected _maxDigits;
+    protected _number: number;
+    protected _maxDigits: number;
     protected _buttons;
 
     constructor(messageWindow) {
@@ -192,7 +192,7 @@ class Window_NumberInput extends Window_Selectable {
         this.close();
     };
     
-    drawItem(index) {
+    drawItem(index: number) {
         var rect = this.itemRect(index);
         var align = 'center';
         var s = this._number.padZero(this._maxDigits);

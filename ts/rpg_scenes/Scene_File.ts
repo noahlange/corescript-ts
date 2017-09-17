@@ -7,10 +7,6 @@ class Scene_File extends Scene_MenuBase {
     protected _listWindow;
     protected _helpWindow;
     
-    // initialize() {
-    //     super.initialize();
-    // };
-
     create() {
         super.create();
         DataManager.loadAllSavefileImages();

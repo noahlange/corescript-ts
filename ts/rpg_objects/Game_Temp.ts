@@ -5,7 +5,7 @@
 
 class Game_Temp {
     protected _isPlaytest;
-    protected _commonEventId;
+    protected _commonEventId: number;
     protected _destinationX;
     protected _destinationY;
 
@@ -16,48 +16,48 @@ class Game_Temp {
         this._destinationX = null;
         this._destinationY = null;
     };
-    
+
     isPlaytest() {
         return this._isPlaytest;
     };
-    
-    reserveCommonEvent(commonEventId) {
+
+    reserveCommonEvent(commonEventId: number) {
         this._commonEventId = commonEventId;
     };
-    
+
     clearCommonEvent() {
         this._commonEventId = 0;
     };
-    
+
     isCommonEventReserved() {
         return this._commonEventId > 0;
     };
-    
+
     reservedCommonEvent() {
         return $dataCommonEvents[this._commonEventId];
     };
-    
-    setDestination(x, y) {
+
+    setDestination(x: number, y: number) {
         this._destinationX = x;
         this._destinationY = y;
     };
-    
+
     clearDestination() {
         this._destinationX = null;
         this._destinationY = null;
     };
-    
+
     isDestinationValid() {
         return this._destinationX !== null;
     };
-    
-    destinationX() {
+
+    destinationX(): number {
         return this._destinationX;
     };
-    
-    destinationY() {
+
+    destinationY(): number {
         return this._destinationY;
     };
-        
+
 }
 

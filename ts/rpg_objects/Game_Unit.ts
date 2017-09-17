@@ -4,7 +4,7 @@
 // The superclass of Game_Party and Game_Troop.
 
 class Game_Unit {
-    protected _inBattle;
+    protected _inBattle: boolean;
 
     constructor() {
         this._inBattle = false;
@@ -79,7 +79,7 @@ class Game_Unit {
         return members[Math.floor(Math.random() * members.length)];
     };
     
-    smoothTarget(index) {
+    smoothTarget(index: number) {
         if (index < 0) {
             index = 0;
         }
@@ -87,7 +87,7 @@ class Game_Unit {
         return (member && member.isAlive()) ? member : this.aliveMembers()[0];
     };
     
-    smoothDeadTarget(index) {
+    smoothDeadTarget(index: number) {
         if (index < 0) {
             index = 0;
         }

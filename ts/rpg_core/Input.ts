@@ -10,8 +10,8 @@ class Input {
     protected static _gamepadStates;
     protected static _latestButton;
     protected static _pressedTime;
-    protected static _dir4;
-    protected static _dir8;
+    protected static _dir4: number;
+    protected static _dir8: number;
     protected static _preferredAxis;
     protected static _date;
 
@@ -216,7 +216,7 @@ class Input {
      * @property dir4
      * @type Number
      */
-    static get dir4() {
+    static get dir4(): number {
         return this._dir4;
     }
 
@@ -227,7 +227,7 @@ class Input {
      * @property dir8
      * @type Number
      */
-    static get dir8() {
+    static get dir8(): number {
         return this._dir8;
     }
 
@@ -238,7 +238,7 @@ class Input {
      * @property date
      * @type Number
      */
-    static get date() {
+    static get date(): number {
         return this._date;
     }
 
@@ -466,7 +466,7 @@ class Input {
      * @return {Number}
      * @private
      */
-    protected static _makeNumpadDirection(x, y) {
+    protected static _makeNumpadDirection(x: number, y: number) {
         if (x !== 0 || y !== 0) {
             return 5 - y * 3 + x;
         }

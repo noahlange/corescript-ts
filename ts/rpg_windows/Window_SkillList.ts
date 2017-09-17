@@ -5,10 +5,10 @@
 
 class Window_SkillList extends Window_Selectable {
     protected _actor;
-    protected _stypeId;
+    protected _stypeId: number;
     protected _data;
 
-    constructor(x, y, width, height) {
+    constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
         this._actor = null;
         this._stypeId = 0;
@@ -23,7 +23,7 @@ class Window_SkillList extends Window_Selectable {
         }
     };
     
-    setStypeId(stypeId) {
+    setStypeId(stypeId: number) {
         if (this._stypeId !== stypeId) {
             this._stypeId = stypeId;
             this.refresh();
@@ -31,15 +31,15 @@ class Window_SkillList extends Window_Selectable {
         }
     };
     
-    maxCols() {
+    maxCols(): number {
         return 2;
     };
     
-    spacing() {
+    spacing() : number{
         return 48;
     };
     
-    maxItems() {
+    maxItems() : number{
         return this._data ? this._data.length : 1;
     };
     
@@ -97,7 +97,7 @@ class Window_SkillList extends Window_Selectable {
         return this.textWidth('000');
     };
     
-    drawSkillCost(skill, x, y, width) {
+    drawSkillCost(skill, x: number, y: number, width: number) {
         if (this._actor.skillTpCost(skill) > 0) {
             this.changeTextColor(this.tpCostColor());
             this.drawText(this._actor.skillTpCost(skill), x, y, width, 'right');
