@@ -5,14 +5,14 @@
 
 class Sprite_Character extends Sprite_Base {
     protected _character;
-    protected _balloonDuration;
-    protected _tilesetId;
+    protected _balloonDuration: number;
+    protected _tilesetId: number;
     protected _upperBody;
     protected _lowerBody;
-    protected _tileId;
-    protected _isBigCharacter;
+    protected _tileId: number;
+    protected _isBigCharacter: boolean;
     protected _characterName;
-    protected _characterIndex;
+    protected _characterIndex: number;
     protected _bushDepth;
     protected _balloonSprite;
 

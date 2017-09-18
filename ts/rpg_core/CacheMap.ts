@@ -6,7 +6,7 @@
 class CacheMap {
     public manager: any;
     protected _inner: Object;
-    protected _lastRemovedEntries: Object | any[];
+    protected _lastRemovedEntries: any[];
     public updateTicks: number;
     public lastCheckTTL: number;
     public delayCheckTTL: number;
@@ -14,8 +14,8 @@ class CacheMap {
 
     constructor(manager: any) {
         this.manager = manager;
-        this._inner = {};
-        this._lastRemovedEntries = {};
+        this._inner = new Map();
+        this._lastRemovedEntries = [];
         this.updateTicks = 0;
         this.lastCheckTTL = 0;
         this.delayCheckTTL = 100.0;
@@ -26,15 +26,15 @@ class CacheMap {
      * checks ttl of all elements and removes dead ones
      */
     checkTTL() {
-        var cache = this._inner;
-        var temp = this._lastRemovedEntries as any[];
+        let cache = this._inner;
+        let temp = this._lastRemovedEntries;
         if (!temp) {
             temp = [];
             this._lastRemovedEntries = temp;
         }
 
-        for (var key in cache) {
-            var entry = cache[key];
+        for (const key in cache) {
+            const entry: any = cache[key];
             if (!entry.isStillAlive()) {
                 temp.push(entry);
             }
@@ -51,7 +51,7 @@ class CacheMap {
      * @returns {*|null}
      */
     getItem(key: string): any|null {
-        var entry = this._inner[key];
+        const entry: any = this._inner[key];
         if (entry) {
             return entry.item;
         }
@@ -59,13 +59,13 @@ class CacheMap {
     };
 
     clear() {
-        var keys = Object.keys(this._inner);
+        const keys = Object.keys(this._inner);
         for (var i = 0; i < keys.length; i++) {
             this._inner[keys[i]].free();
         }
     };
 
-    setItem(key: string, item: any) {
+    setItem(key: string, item: any): CacheEntry {
         return new CacheEntry(this, key, item).allocate();
     };
 

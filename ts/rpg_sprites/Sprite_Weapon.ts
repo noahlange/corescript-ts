@@ -22,7 +22,7 @@ class Sprite_Weapon extends Sprite_Base {
         this.x = -16;
     };
 
-    setup(weaponImageId) {
+    setup(weaponImageId: number) {
         this._weaponImageId = weaponImageId;
         this._animationCount = 0;
         this._pattern = 0;

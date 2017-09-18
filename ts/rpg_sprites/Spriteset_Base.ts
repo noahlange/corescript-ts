@@ -3,16 +3,16 @@
 //
 // The superclass of Spriteset_Map and Spriteset_Battle.
 
-class Spriteset_Base extends Sprite {
-    protected _tone;
-    protected _baseSprite;
-    protected _blackScreen;
-    protected _toneFilter;
-    protected _toneSprite;
-    protected _pictureContainer;
-    protected _timerSprite;
-    protected _flashSprite;
-    protected _fadeSprite;
+abstract class Spriteset_Base extends Sprite {
+    protected _tone: number[];
+    protected _baseSprite: Sprite;
+    protected _blackScreen: ScreenSprite;
+    protected _toneFilter: ToneFilter;
+    protected _toneSprite: ToneSprite;
+    protected _pictureContainer: Sprite;
+    protected _timerSprite: Sprite_Timer;
+    protected _flashSprite: ScreenSprite;
+    protected _fadeSprite: ScreenSprite;
 
     constructor() {
         super();

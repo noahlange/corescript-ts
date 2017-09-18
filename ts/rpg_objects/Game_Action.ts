@@ -22,11 +22,11 @@ class Game_Action {
     static HITTYPE_PHYSICAL        = 1;
     static HITTYPE_MAGICAL         = 2;
     
-    protected _subjectActorId;
-    protected _subjectEnemyIndex;
+    protected _subjectActorId: number;
+    protected _subjectEnemyIndex: number;
     protected _forcing;
     protected _item;
-    protected _targetIndex;
+    protected _targetIndex: number;
     protected _reflectionTarget;
 
     constructor(subject, forcing?) {
@@ -84,7 +84,7 @@ class Game_Action {
         this.setSkill(this.subject().guardSkillId());
     };
     
-    setSkill(skillId) {
+    setSkill(skillId: number) {
         this._item.setObject($dataSkills[skillId]);
     };
     
@@ -96,7 +96,7 @@ class Game_Action {
         this._item.setObject(object);
     };
     
-    setTarget(targetIndex) {
+    setTarget(targetIndex: number) {
         this._targetIndex = targetIndex;
     };
     
@@ -250,7 +250,7 @@ class Game_Action {
         return (this._forcing && this.item()) || this.subject().canUse(this.item());
     };
     
-    speed() {
+    speed(): number {
         var agi = this.subject().agi;
         var speed = agi + Math.randomInt(Math.floor(5 + agi / 4));
         if (this.item()) {

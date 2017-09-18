@@ -6,7 +6,7 @@
 
 class Game_Battler extends Game_BattlerBase {
     protected _actions;
-    protected _speed;
+    protected _speed: number;
     protected _result;
     protected _actionState;
     protected _lastTargetIndex;
@@ -14,7 +14,7 @@ class Game_Battler extends Game_BattlerBase {
     protected _damagePopup;
     protected _effectType;
     protected _motionType;
-    protected _weaponImageId;
+    protected _weaponImageId: number;
     protected _motionRefresh;
     protected _selected;
 

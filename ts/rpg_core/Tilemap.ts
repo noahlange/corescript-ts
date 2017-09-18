@@ -100,7 +100,7 @@ class Tilemap extends PIXI.Container {
      * @property width
      * @type Number
      */
-    get width() {
+    get width(): number {
         return this._width;
     }
     set width(value) {
@@ -116,7 +116,7 @@ class Tilemap extends PIXI.Container {
      * @property height
      * @type Number
      */
-    get height() {
+    get height() : number{
         return this._height;
     }
     set height(value) {
@@ -132,7 +132,7 @@ class Tilemap extends PIXI.Container {
      * @property tileWidth
      * @type Number
      */
-    get tileWidth() {
+    get tileWidth(): number {
         return this._tileWidth;
     }
     set tileWidth(value) {
@@ -148,7 +148,7 @@ class Tilemap extends PIXI.Container {
      * @property tileHeight
      * @type Number
      */
-    get tileHeight() {
+    get tileHeight(): number {
         return this._tileHeight;
     }
     set tileHeight(value) {
@@ -166,7 +166,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} height The height of the map in number of tiles
      * @param {Array} data The one dimensional array for the map data
      */
-    setData(width, height, data) {
+    setData(width: number, height: number, data) {
         this._mapWidth = width;
         this._mapHeight = height;
         this._mapData = data;

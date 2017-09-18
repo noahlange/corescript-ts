@@ -8,9 +8,9 @@ class Sprite_Enemy extends Sprite_Battler {
     protected _appeared;
     protected _battlerName;
     protected _effectType;
-    protected _battlerHue;
-    protected _effectDuration;
-    protected _shake;
+    protected _battlerHue: number;
+    protected _effectDuration: number;
+    protected _shake: number;
     protected _stateIconSprite;
     
 

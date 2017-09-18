@@ -7,10 +7,10 @@ class Sprite_Animation extends Sprite {
     protected static _checker1 = {};
     protected static _checker2 = {};
 
-    protected _reduceArtifacts;
+    protected _reduceArtifacts: boolean
     protected _target;
     protected _animation;
-    protected _mirror;
+    protected _mirror: boolean;
     protected _delay: number;
     protected _rate: number;
     protected _duration: number;
@@ -22,7 +22,7 @@ class Sprite_Animation extends Sprite {
     protected _bitmap2;
     protected _cellSprites;
     protected _screenFlashSprite;
-    protected _duplicated;
+    protected _duplicated: boolean;
 
     public z: number;
 
@@ -51,7 +51,7 @@ class Sprite_Animation extends Sprite {
         this.z = 8;
     };
 
-    setup(target, animation, mirror, delay: number) {
+    setup(target, animation, mirror: boolean, delay: number) {
         this._target = target;
         this._animation = animation;
         this._mirror = mirror;

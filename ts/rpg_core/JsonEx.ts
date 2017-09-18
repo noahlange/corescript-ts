@@ -28,7 +28,7 @@ class JsonEx {
      * @param {Object} object The object to be converted
      * @return {String} The JSON string
      */
-    static stringify(object) {
+    static stringify(object): string {
         var circular = [];
         JsonEx._id = 1;
         var json = JSON.stringify(this._encode(object, circular, 0));
@@ -56,7 +56,7 @@ class JsonEx {
      * @param {String} json The JSON string
      * @return {Object} The reconstructed object
      */
-    static parse(json) {
+    static parse(json: string) {
         var circular = [];
         var registry = {};
         var contents = this._decode(JSON.parse(json), circular, registry);
@@ -202,7 +202,7 @@ class JsonEx {
      * @return {String}
      * @private
      */
-    static _getConstructorName(value) {
+    static _getConstructorName(value): string {
         var name = value.constructor.name;
         if (name === undefined) {
             var func = /^\s*function\s*([A-Za-z0-9_$]*)/;

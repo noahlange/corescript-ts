@@ -81,7 +81,7 @@ class Sprite extends PIXI.Sprite {
      * @property width
      * @type Number
      */
-    get width() {
+    get width(): number {
         return this._frame.width;
     }
     set width(value) {
@@ -95,7 +95,7 @@ class Sprite extends PIXI.Sprite {
      * @property height
      * @type Number
      */
-    get height() {
+    get height(): number {
         return this._frame.height;
     }
     set height(value) {
@@ -109,7 +109,7 @@ class Sprite extends PIXI.Sprite {
      * @property opacity
      * @type Number
      */
-    get opacity() {
+    get opacity(): number {
         return this.alpha * 255;
     }
     set opacity(value) {
@@ -395,7 +395,7 @@ class Sprite extends PIXI.Sprite {
      * @param {Object} renderer
      * @private
      */
-    protected _renderCanvas(renderer) {
+    protected _renderCanvas(renderer: PIXI.CanvasRenderer) {
         if (this.bitmap) {
             this.bitmap.touch();
         }
@@ -439,7 +439,7 @@ class Sprite extends PIXI.Sprite {
      * @param {Object} renderer
      * @private
      */
-    protected _renderWebGL(renderer) {
+    protected _renderWebGL(renderer: PIXI.WebGLRenderer) {
         if (this.bitmap) {
             this.bitmap.touch();
         }
@@ -458,12 +458,12 @@ class Sprite extends PIXI.Sprite {
                 // use heavy renderer, which reduces artifacts and applies corrent blendMode,
                 // but does not use multitexture optimization
                 this._speedUpCustomBlendModes(renderer);
-                renderer.setObjectRenderer(renderer.plugins.picture);
-                renderer.plugins.picture.render(this);
+                renderer.setObjectRenderer(renderer.plugins['picture']);
+                renderer.plugins['picture'].render(this);
             } else {
                 // use pixi super-speed renderer
-                renderer.setObjectRenderer(renderer.plugins.sprite);
-                renderer.plugins.sprite.render(this);
+                renderer.setObjectRenderer(renderer.plugins['sprite']);
+                renderer.plugins['sprite'].render(this);
             }
         }
     };

@@ -116,79 +116,79 @@ class ImageManager {
         return this._imageCache.isReady();
     };
     
-    static isObjectCharacter(filename) {
+    static isObjectCharacter(filename: string) {
         var sign = filename.match(/^[\!\$]+/);
         return sign && sign[0].contains('!');
     };
     
-    static isBigCharacter(filename) {
+    static isBigCharacter(filename: string) {
         var sign = filename.match(/^[\!\$]+/);
         return sign && sign[0].contains('$');
     };
     
-    static isZeroParallax(filename) {
+    static isZeroParallax(filename: string) {
         return filename.charAt(0) === '!';
     };
     
     
-    static reserveAnimation(filename, hue, reservationId) {
+    static reserveAnimation(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/animations/', filename, hue, true, reservationId);
     };
     
-    static reserveBattleback1(filename, hue, reservationId) {
+    static reserveBattleback1(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/battlebacks1/', filename, hue, true, reservationId);
     };
     
-    static reserveBattleback2(filename, hue, reservationId) {
+    static reserveBattleback2(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/battlebacks2/', filename, hue, true, reservationId);
     };
     
-    static reserveEnemy(filename, hue, reservationId) {
+    static reserveEnemy(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/enemies/', filename, hue, true, reservationId);
     };
     
-    static reserveCharacter(filename, hue?, reservationId?) {
+    static reserveCharacter(filename: string, hue?, reservationId?) {
         return this.reserveBitmap('img/characters/', filename, hue, false, reservationId);
     };
     
-    static reserveFace(filename, hue?, reservationId?) {
+    static reserveFace(filename: string, hue?, reservationId?) {
         return this.reserveBitmap('img/faces/', filename, hue, true, reservationId);
     };
     
-    static reserveParallax(filename, hue, reservationId) {
+    static reserveParallax(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/parallaxes/', filename, hue, true, reservationId);
     };
     
-    static reservePicture(filename, hue, reservationId) {
+    static reservePicture(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/pictures/', filename, hue, true, reservationId);
     };
     
-    static reserveSvActor(filename, hue, reservationId) {
+    static reserveSvActor(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/sv_actors/', filename, hue, false, reservationId);
     };
     
-    static reserveSvEnemy(filename, hue, reservationId) {
+    static reserveSvEnemy(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/sv_enemies/', filename, hue, true, reservationId);
     };
     
-    static reserveSystem(filename, hue?, reservationId?) {
+    static reserveSystem(filename: string, hue?, reservationId?) {
         return this.reserveBitmap('img/system/', filename, hue, false, reservationId || this._systemReservationId);
     };
     
-    static reserveTileset(filename, hue, reservationId) {
+    static reserveTileset(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/tilesets/', filename, hue, false, reservationId);
     };
     
-    static reserveTitle1(filename, hue, reservationId) {
+    static reserveTitle1(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/titles1/', filename, hue, true, reservationId);
     };
     
-    static reserveTitle2(filename, hue, reservationId) {
+    static reserveTitle2(filename: string, hue, reservationId) {
         return this.reserveBitmap('img/titles2/', filename, hue, true, reservationId);
     };
     
     protected static _defaultReservationId;
-    static reserveBitmap(folder, filename, hue, smooth, reservationId) {
+    static reserveBitmap(folder: string, filename: string, hue, smooth, reservationId) {
         if (filename) {
             var path = folder + encodeURIComponent(filename) + '.png';
             var bitmap = this.reserveNormalBitmap(path, hue || 0, reservationId || this._defaultReservationId);
@@ -199,7 +199,7 @@ class ImageManager {
         }
     };
     
-    static reserveNormalBitmap(path, hue, reservationId){
+    static reserveNormalBitmap(path: string, hue, reservationId){
         var bitmap = this.loadNormalBitmap(path, hue);
         this._imageCache.reserve(this._generateCacheKey(path, hue), bitmap, reservationId);
     
@@ -215,63 +215,63 @@ class ImageManager {
     };
     
     
-    static requestAnimation(filename, hue) {
+    static requestAnimation(filename: string, hue) {
         return this.requestBitmap('img/animations/', filename, hue, true);
     };
     
-    static requestBattleback1(filename, hue?) {
+    static requestBattleback1(filename: string, hue?) {
         return this.requestBitmap('img/battlebacks1/', filename, hue, true);
     };
     
-    static requestBattleback2(filename, hue?) {
+    static requestBattleback2(filename: string, hue?) {
         return this.requestBitmap('img/battlebacks2/', filename, hue, true);
     };
     
-    static requestEnemy(filename, hue?) {
+    static requestEnemy(filename: string, hue?) {
         return this.requestBitmap('img/enemies/', filename, hue, true);
     };
     
-    static requestCharacter(filename, hue?) {
+    static requestCharacter(filename: string, hue?) {
         return this.requestBitmap('img/characters/', filename, hue, false);
     };
     
-    static requestFace(filename, hue?) {
+    static requestFace(filename: string, hue?) {
         return this.requestBitmap('img/faces/', filename, hue, true);
     };
     
-    static requestParallax(filename, hue?) {
+    static requestParallax(filename: string, hue?) {
         return this.requestBitmap('img/parallaxes/', filename, hue, true);
     };
     
-    static requestPicture(filename, hue?) {
+    static requestPicture(filename: string, hue?) {
         return this.requestBitmap('img/pictures/', filename, hue, true);
     };
     
-    static requestSvActor(filename, hue?) {
+    static requestSvActor(filename: string, hue?) {
         return this.requestBitmap('img/sv_actors/', filename, hue, false);
     };
     
-    static requestSvEnemy(filename, hue) {
+    static requestSvEnemy(filename: string, hue) {
         return this.requestBitmap('img/sv_enemies/', filename, hue, true);
     };
     
-    static requestSystem(filename, hue) {
+    static requestSystem(filename: string, hue) {
         return this.requestBitmap('img/system/', filename, hue, false);
     };
     
-    static requestTileset(filename, hue?) {
+    static requestTileset(filename: string, hue?) {
         return this.requestBitmap('img/tilesets/', filename, hue, false);
     };
     
-    static requestTitle1(filename, hue?) {
+    static requestTitle1(filename: string, hue?) {
         return this.requestBitmap('img/titles1/', filename, hue, true);
     };
     
-    static requestTitle2(filename, hue?) {
+    static requestTitle2(filename: string, hue?) {
         return this.requestBitmap('img/titles2/', filename, hue, true);
     };
     
-    static requestBitmap(folder, filename, hue, smooth) {
+    static requestBitmap(folder: string, filename: string, hue, smooth) {
         if (filename) {
             var path = folder + encodeURIComponent(filename) + '.png';
             var bitmap = this.requestNormalBitmap(path, hue || 0);
@@ -282,7 +282,7 @@ class ImageManager {
         }
     };
     
-    static requestNormalBitmap(path, hue){
+    static requestNormalBitmap(path: string, hue){
         var key = this._generateCacheKey(path, hue);
         var bitmap = this._imageCache.get(key);
         if(!bitmap){

@@ -4,9 +4,9 @@
 // The sprite class with a feature which displays animations.
 
 class Sprite_Base extends Sprite {
-    protected _animationSprites;
-    protected _effectTarget;
-    protected _hiding;
+    protected _animationSprites: Sprite_Animation[];
+    protected _effectTarget: Sprite_Base;
+    protected _hiding: boolean;
 
     constructor() {
         super();
@@ -50,7 +50,7 @@ class Sprite_Base extends Sprite {
         }
     };
 
-    startAnimation(animation, mirror, delay) {
+    startAnimation(animation, mirror: boolean, delay: number) {
         var sprite = new Sprite_Animation();
         sprite.setup(this._effectTarget, animation, mirror, delay);
         this.parent.addChild(sprite);

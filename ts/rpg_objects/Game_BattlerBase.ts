@@ -4,9 +4,9 @@
 // The superclass of Game_Battler. It mainly contains parameters calculation.
 
 class Game_BattlerBase {
-    protected _hp;
-    protected _mp;
-    protected _tp;
+    protected _hp: number;
+    protected _mp: number;
+    protected _tp: number;
     protected _stateTurns;
     protected _states;
     protected _hidden;
@@ -131,7 +131,7 @@ class Game_BattlerBase {
         this._stateTurns = {};
     };
 
-    eraseState(stateId) {
+    eraseState(stateId: number) {
         var index = this._states.indexOf(stateId);
         if (index >= 0) {
             this._states.splice(index, 1);
@@ -139,7 +139,7 @@ class Game_BattlerBase {
         delete this._stateTurns[stateId];
     };
 
-    isStateAffected(stateId) {
+    isStateAffected(stateId: number) {
         return this._states.contains(stateId);
     };
 
@@ -151,13 +151,13 @@ class Game_BattlerBase {
         return 1;
     };
 
-    resetStateCounts(stateId) {
+    resetStateCounts(stateId: number) {
         var state = $dataStates[stateId];
         var variance = 1 + Math.max(state.maxTurns - state.minTurns, 0);
         this._stateTurns[stateId] = state.minTurns + Math.randomInt(variance);
     };
 
-    isStateExpired(stateId) {
+    isStateExpired(stateId: number) {
         return this._stateTurns[stateId] === 0;
     };
 
@@ -183,49 +183,49 @@ class Game_BattlerBase {
         return this._buffs.length;
     };
 
-    buff(paramId) {
+    buff(paramId: number) {
         return this._buffs[paramId];
     };
 
-    isBuffAffected(paramId) {
+    isBuffAffected(paramId: number) {
         return this._buffs[paramId] > 0;
     };
 
-    isDebuffAffected(paramId) {
+    isDebuffAffected(paramId: number) {
         return this._buffs[paramId] < 0;
     };
 
-    isBuffOrDebuffAffected(paramId) {
+    isBuffOrDebuffAffected(paramId: number) {
         return this._buffs[paramId] !== 0;
     };
 
-    isMaxBuffAffected(paramId) {
+    isMaxBuffAffected(paramId: number) {
         return this._buffs[paramId] === 2;
     };
 
-    isMaxDebuffAffected(paramId) {
+    isMaxDebuffAffected(paramId: number) {
         return this._buffs[paramId] === -2;
     };
 
-    increaseBuff(paramId) {
+    increaseBuff(paramId: number) {
         if (!this.isMaxBuffAffected(paramId)) {
             this._buffs[paramId]++;
         }
     };
 
-    decreaseBuff(paramId) {
+    decreaseBuff(paramId: number) {
         if (!this.isMaxDebuffAffected(paramId)) {
             this._buffs[paramId]--;
         }
     };
 
-    overwriteBuffTurns(paramId, turns) {
+    overwriteBuffTurns(paramId: number, turns: number) {
         if (this._buffTurns[paramId] < turns) {
             this._buffTurns[paramId] = turns;
         }
     };
 
-    isBuffExpired(paramId) {
+    isBuffExpired(paramId: number) {
         return this._buffTurns[paramId] === 0;
     };
 
@@ -273,7 +273,7 @@ class Game_BattlerBase {
         return icons;
     };
 
-    buffIconIndex(buffLevel, paramId) {
+    buffIconIndex(buffLevel: number, paramId: number) {
         if (buffLevel > 0) {
             return Game_BattlerBase.ICON_BUFF_START + (buffLevel - 1) * 8 + paramId;
         } else if (buffLevel < 0) {
@@ -334,15 +334,15 @@ class Game_BattlerBase {
         }, []);
     };
 
-    paramBase(paramId) {
+    paramBase(paramId: number): number {
         return 0;
     };
 
-    paramPlus(paramId) {
+    paramPlus(paramId: number): number {
         return this._paramPlus[paramId];
     };
 
-    paramMin(paramId) {
+    paramMin(paramId: number) {
         if (paramId === 1) {
             return 0;   // MMP
         } else {
@@ -350,7 +350,7 @@ class Game_BattlerBase {
         }
     };
 
-    paramMax(paramId) {
+    paramMax(paramId: number): number {
         if (paramId === 0) {
             return 999999;  // MHP
         } else if (paramId === 1) {
@@ -360,15 +360,15 @@ class Game_BattlerBase {
         }
     };
 
-    paramRate(paramId) {
+    paramRate(paramId: number) {
         return this.traitsPi(Game_BattlerBase.TRAIT_PARAM, paramId);
     };
 
-    paramBuffRate(paramId) {
+    paramBuffRate(paramId: number) {
         return this._buffs[paramId] * 0.25 + 1.0;
     };
 
-    param(paramId) {
+    param(paramId: number) {
         var value = this.paramBase(paramId) + this.paramPlus(paramId);
         value *= this.paramRate(paramId) * this.paramBuffRate(paramId);
         var maxValue = this.paramMax(paramId);
@@ -376,23 +376,23 @@ class Game_BattlerBase {
         return Math.round(value.clamp(minValue, maxValue));
     };
 
-    xparam(xparamId) {
+    xparam(xparamId: number) {
         return this.traitsSum(Game_BattlerBase.TRAIT_XPARAM, xparamId);
     };
 
-    sparam(sparamId) {
+    sparam(sparamId: number) {
         return this.traitsPi(Game_BattlerBase.TRAIT_SPARAM, sparamId);
     };
 
-    elementRate(elementId) {
+    elementRate(elementId: number) {
         return this.traitsPi(Game_BattlerBase.TRAIT_ELEMENT_RATE, elementId);
     };
 
-    debuffRate(paramId) {
+    debuffRate(paramId: number) {
         return this.traitsPi(Game_BattlerBase.TRAIT_DEBUFF_RATE, paramId);
     };
 
-    stateRate(stateId) {
+    stateRate(stateId: number) {
         return this.traitsPi(Game_BattlerBase.TRAIT_STATE_RATE, stateId);
     };
 
@@ -400,7 +400,7 @@ class Game_BattlerBase {
         return this.traitsSet(Game_BattlerBase.TRAIT_STATE_RESIST);
     };
 
-    isStateResist(stateId) {
+    isStateResist(stateId: number) {
         return this.stateResistSet().contains(stateId);
     };
 
@@ -412,7 +412,7 @@ class Game_BattlerBase {
         return this.traitsSet(Game_BattlerBase.TRAIT_ATTACK_STATE);
     };
 
-    attackStatesRate(stateId) {
+    attackStatesRate(stateId: number) {
         return this.traitsSum(Game_BattlerBase.TRAIT_ATTACK_STATE, stateId);
     };
 
@@ -428,7 +428,7 @@ class Game_BattlerBase {
         return this.traitsSet(Game_BattlerBase.TRAIT_STYPE_ADD);
     };
 
-    isSkillTypeSealed(stypeId) {
+    isSkillTypeSealed(stypeId: number) {
         return this.traitsSet(Game_BattlerBase.TRAIT_STYPE_SEAL).contains(stypeId);
     };
 
@@ -436,23 +436,23 @@ class Game_BattlerBase {
         return this.traitsSet(Game_BattlerBase.TRAIT_SKILL_ADD);
     };
 
-    isSkillSealed(skillId) {
+    isSkillSealed(skillId: number) {
         return this.traitsSet(Game_BattlerBase.TRAIT_SKILL_SEAL).contains(skillId);
     };
 
-    isEquipWtypeOk(wtypeId) {
+    isEquipWtypeOk(wtypeId: number) {
         return this.traitsSet(Game_BattlerBase.TRAIT_EQUIP_WTYPE).contains(wtypeId);
     };
 
-    isEquipAtypeOk(atypeId) {
+    isEquipAtypeOk(atypeId: number) {
         return this.traitsSet(Game_BattlerBase.TRAIT_EQUIP_ATYPE).contains(atypeId);
     };
 
-    isEquipTypeLocked(etypeId) {
+    isEquipTypeLocked(etypeId: number) {
         return this.traitsSet(Game_BattlerBase.TRAIT_EQUIP_LOCK).contains(etypeId);
     };
 
-    isEquipTypeSealed(etypeId) {
+    isEquipTypeSealed(etypeId: number) {
         return this.traitsSet(Game_BattlerBase.TRAIT_EQUIP_SEAL).contains(etypeId);
     };
 
@@ -471,7 +471,7 @@ class Game_BattlerBase {
         });
     };
 
-    specialFlag(flagId) {
+    specialFlag(flagId: number) {
         return this.traits(Game_BattlerBase.TRAIT_SPECIAL_FLAG).some(function (trait) {
             return trait.dataId === flagId;
         });
@@ -482,7 +482,7 @@ class Game_BattlerBase {
         return set.length > 0 ? Math.max.apply(null, set) : 0;
     };
 
-    partyAbility(abilityId) {
+    partyAbility(abilityId: number) {
         return this.traits(Game_BattlerBase.TRAIT_PARTY_ABILITY).some(function (trait) {
             return trait.dataId === abilityId;
         });
@@ -504,27 +504,27 @@ class Game_BattlerBase {
         return this.specialFlag(Game_BattlerBase.FLAG_ID_PRESERVE_TP);
     };
 
-    addParam(paramId, value) {
+    addParam(paramId: number, value: number) {
         this._paramPlus[paramId] += value;
         this.refresh();
     };
 
-    setHp(hp) {
+    setHp(hp: number) {
         this._hp = hp;
         this.refresh();
     };
 
-    setMp(mp) {
+    setMp(mp: number) {
         this._mp = mp;
         this.refresh();
     };
 
-    setTp(tp) {
+    setTp(tp: number) {
         this._tp = tp;
         this.refresh();
     };
 
-    maxTp() {
+    maxTp(): number {
         return 100;
     };
 
@@ -543,15 +543,15 @@ class Game_BattlerBase {
         this._mp = this.mmp;
     };
 
-    hpRate() {
+    hpRate(): number {
         return this.hp / this.mhp;
     };
 
-    mpRate() {
+    mpRate(): number {
         return this.mmp > 0 ? this.mp / this.mmp : 0;
     };
 
-    tpRate() {
+    tpRate(): number {
         return this.tp / this.maxTp();
     };
 
@@ -628,7 +628,7 @@ class Game_BattlerBase {
         }).concat(0));
     };
 
-    addNewState(stateId) {
+    addNewState(stateId: number) {
         if (stateId === this.deathStateId()) {
             this.die();
         }
@@ -746,11 +746,11 @@ class Game_BattlerBase {
         return this.isEquipAtypeOk(item.atypeId) && !this.isEquipTypeSealed(item.etypeId);
     };
 
-    attackSkillId() {
+    attackSkillId(): number {
         return 1;
     };
 
-    guardSkillId() {
+    guardSkillId(): number {
         return 2;
     };
 

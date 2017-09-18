@@ -13,16 +13,16 @@ class Window_ActorCommand extends Window_Command {
         this._actor = null;
     };
     
-    windowWidth() {
+    windowWidth(): number {
         return 192;
     };
 
 
-    windowY() {
+    windowY(): number {
         return Graphics.boxHeight - this.windowHeight();
     };
     
-    numVisibleRows() {
+    numVisibleRows(): number {
         return 4;
     };
     

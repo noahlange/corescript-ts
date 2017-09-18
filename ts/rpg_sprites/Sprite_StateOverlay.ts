@@ -5,9 +5,9 @@
 
 class Sprite_StateOverlay extends Sprite_Base {
     protected _battler;
-    protected _overlayIndex;
-    protected _animationCount;
-    protected _pattern;
+    protected _overlayIndex: number;
+    protected _animationCount: number;
+    protected _pattern: number;
 
     constructor() {
         super();
@@ -43,7 +43,7 @@ class Sprite_StateOverlay extends Sprite_Base {
         }
     };
 
-    animationWait() {
+    animationWait() : number{
         return 8;
     };
 

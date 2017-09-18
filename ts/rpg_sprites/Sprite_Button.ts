@@ -4,7 +4,7 @@
 // The sprite for displaying a button.
 
 class Sprite_Button extends Sprite {
-    protected _touching;
+    protected _touching: boolean;
     protected _coldFrame;
     protected _hotFrame;
     protected _clickHandler;

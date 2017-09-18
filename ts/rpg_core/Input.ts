@@ -480,7 +480,7 @@ class Input {
      * @return {Boolean}
      * @private
      */
-    protected static _isEscapeCompatible(keyName) {
+    protected static _isEscapeCompatible(keyName: string) {
         return keyName === 'cancel' || keyName === 'menu';
     };
 

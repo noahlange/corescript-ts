@@ -5,7 +5,7 @@
 
 class Sprite_Picture extends Sprite {
     protected _pictureId: number;
-    protected _pictureName;
+    protected _pictureName: string;
     
     constructor(pictureId: number) {
         super();

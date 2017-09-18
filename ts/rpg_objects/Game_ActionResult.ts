@@ -13,9 +13,9 @@ class Game_ActionResult {
     public critical;
     public success;
     public hpAffected;
-    public hpDamage;
-    public mpDamage;
-    public tpDamage;
+    public hpDamage: number;
+    public mpDamage: number;
+    public tpDamage: number;
     public addedStates;
     public removedStates;
     public addedBuffs;

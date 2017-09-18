@@ -269,11 +269,11 @@ class Game_Character extends Game_CharacterBase {
         }
     };
 
-    deltaXFrom(x) {
+    deltaXFrom(x: number) {
         return $gameMap.deltaX(this.x, x);
     };
 
-    deltaYFrom(y) {
+    deltaYFrom(y: number) {
         return $gameMap.deltaY(this.y, y);
     };
 
@@ -556,7 +556,7 @@ class Game_Character extends Game_CharacterBase {
         return 0;
     };
 
-    searchLimit() {
+    searchLimit(): number {
         return 12;
     };
 
