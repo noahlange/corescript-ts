@@ -50,7 +50,7 @@ Number.prototype.clamp = function (min, max) {
  * @param {Number} n The divisor
  * @return {Number} A modulo value
  */
-Number.prototype.mod = function (n) {
+Number.prototype.mod = function (n: number): number {
     return ((this % n) + n) % n;
 };
 
@@ -61,7 +61,7 @@ Number.prototype.mod = function (n) {
  * @param {Any} ...args The objects to format
  * @return {String} A formatted string
  */
-String.prototype.format = function () {
+String.prototype.format = function (): string {
     var args = arguments;
     return this.replace(/%([0-9]+)/g, function (s: any, n: string) {
         return args[Number(n) - 1];
@@ -75,7 +75,7 @@ String.prototype.format = function () {
  * @param {Number} length The length of the output string
  * @return {String} A string with leading zeros
  */
-String.prototype.padZero = function (length: number) {
+String.prototype.padZero = function (length: number): string {
     var s = this;
     while (s.length < length) {
         s = '0' + s;
@@ -90,7 +90,7 @@ String.prototype.padZero = function (length: number) {
  * @param {Number} length The length of the output string
  * @return {String} A string with leading zeros
  */
-Number.prototype.padZero = function (length: number) {
+Number.prototype.padZero = function (length: number): string {
     return String(this).padZero(length);
 };
 
@@ -154,7 +154,7 @@ Object.defineProperties(Array.prototype, {
  * @param {String} string The string to search for
  * @return {Boolean} True if the string contains a given string
  */
-String.prototype.contains = function (string) {
+String.prototype.contains = function (string: string): boolean {
     return this.indexOf(string) >= 0;
 };
 
@@ -166,6 +166,6 @@ String.prototype.contains = function (string) {
  * @param {Number} max The upper boundary (excluded)
  * @return {Number} A random integer
  */
-Math.randomInt = function (max) {
+Math.randomInt = function (max: number): number {
     return Math.floor(max * Math.random());
 };

@@ -41,35 +41,35 @@ class AudioManager {
     protected static _blobUrl: string | null = null;
 
 
-    static get masterVolume() {
+    static get masterVolume(): number {
         return this._masterVolume;
     }
-    static set masterVolume(value) {
+    static set masterVolume(value: number) {
         this._masterVolume = value;
         WebAudio.setMasterVolume(this._masterVolume);
         Graphics.setVideoVolume(this._masterVolume);
     }
 
-    static get bgmVolume() {
+    static get bgmVolume(): number {
         return this._bgmVolume;
     }
-    static set bgmVolume(value) {
+    static set bgmVolume(value: number) {
         this._bgmVolume = value;
         this.updateBgmParameters(this._currentBgm);
     }
 
-    static get bgsVolume() {
+    static get bgsVolume(): number {
         return this._bgsVolume;
     }
-    static set bgsVolume(value) {
+    static set bgsVolume(value: number) {
         this._bgsVolume = value;
         this.updateBgsParameters(this._currentBgs);
     }
 
-    static get meVolume() {
+    static get meVolume(): number {
         return this._meVolume;
     }
-    static set meVolume(value) {
+    static set meVolume(value: number) {
         this._meVolume = value;
         this.updateMeParameters(this._currentMe);
     }
@@ -77,7 +77,7 @@ class AudioManager {
     static get seVolume(): number {
         return this._seVolume;
     }
-    static set seVolume(value) {
+    static set seVolume(value: number) {
         this._seVolume = value;
     }
 
@@ -336,7 +336,7 @@ class AudioManager {
         this.stopSe();
     };
 
-    static saveBgm() {
+    static saveBgm(): DB.Audio {
         if (this._currentBgm) {
             var bgm = this._currentBgm;
             return {
@@ -351,7 +351,7 @@ class AudioManager {
         }
     };
 
-    static saveBgs() {
+    static saveBgs(): DB.Audio {
         if (this._currentBgs) {
             var bgs = this._currentBgs;
             return {
@@ -366,7 +366,7 @@ class AudioManager {
         }
     };
 
-    static makeEmptyAudioObject() {
+    static makeEmptyAudioObject(): DB.Audio {
         return { name: '', volume: 0, pitch: 0 };
     };
 

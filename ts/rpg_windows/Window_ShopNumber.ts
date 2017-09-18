@@ -126,7 +126,7 @@ class Window_ShopNumber extends Window_Selectable {
         var y = this.itemY();
         var width = this.cursorWidth() - this.textPadding();
         this.resetTextColor();
-        this.drawText(this._number, x, y, width, 'right');
+        this.drawText(this._number.toString(), x, y, width, 'right');
     };
     
     drawTotalPrice() {

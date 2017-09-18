@@ -169,19 +169,19 @@ class DataManager {
         return Utils.isOptionValid('etest');
     };
 
-    static isSkill(item): boolean {
+    static isSkill(item: any): item is DB.Skill {
         return item && $dataSkills.contains(item);
     };
 
-    static isItem(item): boolean {
+    static isItem(item: any): item is DB.Item {
         return item && $dataItems.contains(item);
     };
 
-    static isWeapon(item): boolean {
+    static isWeapon(item: any): item is DB.Weapon {
         return item && $dataWeapons.contains(item);
     };
 
-    static isArmor(item): boolean {
+    static isArmor(item: any): item is DB.Weapon {
         return item && $dataArmors.contains(item);
     };
 
@@ -459,20 +459,20 @@ interface SaveContents {
 }
 
 
-var $dataActors = null;
-var $dataClasses = null;
-var $dataSkills: any[] = null;
-var $dataItems = null;
-var $dataWeapons = null;
-var $dataArmors = null;
-var $dataEnemies = null;
-var $dataTroops = null;
-var $dataStates = null;
-var $dataAnimations = null;
-var $dataTilesets = null;
-var $dataCommonEvents = null;
+var $dataActors: DB.Actor[] = null;
+var $dataClasses: DB.Class[] = null;
+var $dataSkills: DB.Skill[] = null;
+var $dataItems: DB.Item[] = null;
+var $dataWeapons: DB.Weapon[] = null;
+var $dataArmors: DB.Armor[] = null;
+var $dataEnemies: DB.Enemy[] = null;
+var $dataTroops: DB.Troop[] = null;
+var $dataStates: DB.State[] = null;
+var $dataAnimations: DB.Animation[] = null;
+var $dataTilesets: DB.Tileset[] = null;
+var $dataCommonEvents: DB.CommonEvent[] = null;
 var $dataSystem: DB.System = null;
-var $dataMapInfos = null;
+var $dataMapInfos: DB.MapInfo[] = null;
 var $dataMap: DB.Map = null;
 var $gameTemp: Game_Temp = null;
 var $gameSystem: Game_System = null;

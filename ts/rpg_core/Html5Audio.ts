@@ -359,7 +359,7 @@ class Html5Audio {
      * @method addLoadListener
      * @param {Function} listner The callback function
      */
-    static addLoadListener(listner) {
+    static addLoadListener(listner: Function) {
         this._loadListeners.push(listner);
     };
 
@@ -369,7 +369,7 @@ class Html5Audio {
      * @param {String} url
      * @private
      */
-    protected static _load(url) {
+    protected static _load(url: string) {
         if (this._audioElement) {
             this._isLoading = true;
             this._audioElement.src = url;

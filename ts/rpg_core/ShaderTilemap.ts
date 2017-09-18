@@ -249,7 +249,7 @@ class ShaderTilemap extends Tilemap {
      * @param {Number} dy
      * @private
      */
-    protected _drawTile(layer, tileId: number, dx: number, dy: number) {
+    protected _drawTile(layer: any, tileId: number, dx: number, dy: number) {
         if (Tilemap.isVisibleTile(tileId)) {
             if (Tilemap.isAutotile(tileId)) {
                 this._drawAutotile(layer, tileId, dx, dy);
@@ -267,7 +267,7 @@ class ShaderTilemap extends Tilemap {
      * @param {Number} dy
      * @private
      */
-    protected _drawNormalTile(layer, tileId: number, dx: number, dy: number) {
+    protected _drawNormalTile(layer: any, tileId: number, dx: number, dy: number) {
         var setNumber = 0;
 
         if (Tilemap.isTileA5(tileId)) {
@@ -292,7 +292,7 @@ class ShaderTilemap extends Tilemap {
      * @param {Number} dy
      * @private
      */
-    protected _drawAutotile(layer, tileId: number, dx: number, dy: number) {
+    protected _drawAutotile(layer: any, tileId: number, dx: number, dy: number) {
         var autotileTable = Tilemap.FLOOR_AUTOTILE_TABLE;
         var kind = Tilemap.getAutotileKind(tileId);
         var shape = Tilemap.getAutotileShape(tileId);

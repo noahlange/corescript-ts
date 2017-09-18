@@ -7,23 +7,23 @@
  */
 /// bungcip: direname karena bentrok dengan Window dari DOM
 class CoreWindow extends PIXI.Container {
-    protected _isWindow;
-    protected _windowskin;
+    protected _isWindow: boolean;
+    protected _windowskin: Bitmap;
     protected _width: number;
     protected _height: number;
-    protected _cursorRect;
-    protected _openness;
-    protected _animationCount;
-    protected _padding;
+    protected _cursorRect: Rectangle;
+    protected _openness: number;
+    protected _animationCount: number;
+    protected _padding: number;
     protected _margin: number;
-    protected _colorTone;
-    protected _windowSpriteContainer;
-    protected _windowBackSprite;
-    protected _windowCursorSprite;
-    protected _windowFrameSprite;
-    protected _windowContentsSprite;
-    protected _windowArrowSprites;
-    protected _windowPauseSignSprite;
+    protected _colorTone: number[];
+    protected _windowSpriteContainer: PIXI.Container;
+    protected _windowBackSprite: Sprite;
+    protected _windowCursorSprite: Sprite;
+    protected _windowFrameSprite: Sprite;
+    protected _windowContentsSprite: Sprite;
+    protected _windowArrowSprites: Sprite[];
+    protected _windowPauseSignSprite: Sprite;
 
     public origin: Point;
     public active: boolean;
@@ -103,10 +103,10 @@ class CoreWindow extends PIXI.Container {
      * @property windowskin
      * @type Bitmap
      */
-    get windowskin() {
+    get windowskin(): Bitmap {
         return this._windowskin;
     }
-    set windowskin(value) {
+    set windowskin(value: Bitmap) {
         if (this._windowskin !== value) {
             this._windowskin = value;
             this._windowskin.addLoadListener(this._onWindowskinLoad.bind(this));
@@ -119,10 +119,10 @@ class CoreWindow extends PIXI.Container {
      * @property contents
      * @type Bitmap
      */
-    get contents() {
+    get contents(): Bitmap {
         return this._windowContentsSprite.bitmap;
     }
-    set contents(value) {
+    set contents(value: Bitmap) {
         this._windowContentsSprite.bitmap = value;
     }
 
@@ -132,10 +132,10 @@ class CoreWindow extends PIXI.Container {
      * @property width
      * @type Number
      */
-    get width() {
+    get width(): number {
         return this._width;
     }
-    set width(value) {
+    set width(value: number) {
         this._width = value;
         this._refreshAllParts();
     }
@@ -146,10 +146,10 @@ class CoreWindow extends PIXI.Container {
      * @property height
      * @type Number
      */
-    get height() {
+    get height(): number {
         return this._height;
     }
-    set height(value) {
+    set height(value: number) {
         this._height = value;
         this._refreshAllParts();
     }
@@ -160,10 +160,10 @@ class CoreWindow extends PIXI.Container {
      * @property padding
      * @type Number
      */
-    get padding() {
+    get padding(): number {
         return this._padding;
     }
-    set padding(value) {
+    set padding(value: number) {
         this._padding = value;
         this._refreshAllParts();
     }
@@ -177,7 +177,7 @@ class CoreWindow extends PIXI.Container {
     get margin() {
         return this._margin;
     }
-    set margin(value) {
+    set margin(value: number) {
         this._margin = value;
         this._refreshAllParts();
     }
@@ -188,10 +188,10 @@ class CoreWindow extends PIXI.Container {
      * @property opacity
      * @type Number
      */
-    get opacity() {
+    get opacity(): number {
         return this._windowSpriteContainer.alpha * 255;
     }
-    set opacity(value) {
+    set opacity(value: number) {
         this._windowSpriteContainer.alpha = value.clamp(0, 255) / 255;
     }
 
@@ -201,10 +201,10 @@ class CoreWindow extends PIXI.Container {
      * @property backOpacity
      * @type Number
      */
-    get backOpacity() {
+    get backOpacity(): number {
         return this._windowBackSprite.alpha * 255;
     }
-    set backOpacity(value) {
+    set backOpacity(value: number) {
         this._windowBackSprite.alpha = value.clamp(0, 255) / 255;
     }
 
@@ -214,10 +214,10 @@ class CoreWindow extends PIXI.Container {
      * @property contentsOpacity
      * @type Number
      */
-    get contentsOpacity() {
+    get contentsOpacity(): number {
         return this._windowContentsSprite.alpha * 255;
     }
-    set contentsOpacity(value) {
+    set contentsOpacity(value: number) {
         this._windowContentsSprite.alpha = value.clamp(0, 255) / 255;
     }
 
@@ -227,10 +227,10 @@ class CoreWindow extends PIXI.Container {
      * @property openness
      * @type Number
      */
-    get openness() {
+    get openness(): number {
         return this._openness;
     }
-    set openness(value) {
+    set openness(value: number) {
         if (this._openness !== value) {
             this._openness = value.clamp(0, 255);
             this._windowSpriteContainer.scale.y = this._openness / 255;
@@ -278,7 +278,7 @@ class CoreWindow extends PIXI.Container {
      *
      * @method isOpen
      */
-    isOpen() {
+    isOpen() : boolean{
         return this._openness >= 255;
     };
 
@@ -287,7 +287,7 @@ class CoreWindow extends PIXI.Container {
      *
      * @method isClosed
      */
-    isClosed() {
+    isClosed() :boolean{
         return this._openness <= 0;
     };
 
@@ -338,7 +338,7 @@ class CoreWindow extends PIXI.Container {
      * @param {Object} child The child to add
      * @return {Object} The child that was added
      */
-    addChildToBack(child) {
+    addChildToBack(child: PIXI.DisplayObject): Object {
         var containerIndex = this.children.indexOf(this._windowSpriteContainer);
         return this.addChildAt(child, containerIndex + 1);
     };

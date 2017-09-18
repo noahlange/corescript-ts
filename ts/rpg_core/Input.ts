@@ -5,15 +5,15 @@
  * @class Input
  */
 class Input {
-    protected static _currentState;
-    protected static _previousState;
-    protected static _gamepadStates;
-    protected static _latestButton;
-    protected static _pressedTime;
+    protected static _currentState: Object;
+    protected static _previousState: Object;
+    protected static _gamepadStates: any[];
+    protected static _latestButton: string;
+    protected static _pressedTime: number;
     protected static _dir4: number;
     protected static _dir8: number;
-    protected static _preferredAxis;
-    protected static _date;
+    protected static _preferredAxis: string;
+    protected static _date: number;
 
     /**
      * Initializes the input system.
@@ -165,7 +165,7 @@ class Input {
      * @param {String} keyName The mapped name of the key
      * @return {Boolean} True if the key is triggered
      */
-    static isTriggered(keyName) {
+    static isTriggered(keyName: string): boolean {
         if (this._isEscapeCompatible(keyName) && this.isTriggered('escape')) {
             return true;
         } else {
@@ -181,7 +181,7 @@ class Input {
      * @param {String} keyName The mapped name of the key
      * @return {Boolean} True if the key is repeated
      */
-    static isRepeated(keyName) {
+    static isRepeated(keyName: string): boolean {
         if (this._isEscapeCompatible(keyName) && this.isRepeated('escape')) {
             return true;
         } else {
@@ -200,7 +200,7 @@ class Input {
      * @param {String} keyName The mapped name of the key
      * @return {Boolean} True if the key is long-pressed
      */
-    static isLongPressed(keyName) {
+    static isLongPressed(keyName: string): boolean {
         if (this._isEscapeCompatible(keyName) && this.isLongPressed('escape')) {
             return true;
         } else {
@@ -278,7 +278,7 @@ class Input {
      * @param {KeyboardEvent} event
      * @private
      */
-    protected static _onKeyDown(event) {
+    protected static _onKeyDown(event: KeyboardEvent) {
         if (this._shouldPreventDefault(event.keyCode)) {
             event.preventDefault();
         }
@@ -299,7 +299,7 @@ class Input {
      * @param {Number} keyCode
      * @private
      */
-    protected static _shouldPreventDefault(keyCode) {
+    protected static _shouldPreventDefault(keyCode: number) {
         switch (keyCode) {
             case 8:     // backspace
             case 33:    // pageup
@@ -319,7 +319,7 @@ class Input {
      * @param {KeyboardEvent} event
      * @private
      */
-    protected static _onKeyUp(event) {
+    protected static _onKeyUp(event: KeyboardEvent) {
         var buttonName = this.keyMapper[event.keyCode];
         if (buttonName) {
             this._currentState[buttonName] = false;
@@ -364,7 +364,7 @@ class Input {
      * @param {Number} index
      * @private
      */
-    protected static _updateGamepadState(gamepad) {
+    protected static _updateGamepadState(gamepad: Gamepad) {
         var lastState = this._gamepadStates[gamepad.index] || [];
         var newState = [];
         var buttons = gamepad.buttons;
@@ -466,7 +466,7 @@ class Input {
      * @return {Number}
      * @private
      */
-    protected static _makeNumpadDirection(x: number, y: number) {
+    protected static _makeNumpadDirection(x: number, y: number): number {
         if (x !== 0 || y !== 0) {
             return 5 - y * 3 + x;
         }
@@ -480,7 +480,7 @@ class Input {
      * @return {Boolean}
      * @private
      */
-    protected static _isEscapeCompatible(keyName: string) {
+    protected static _isEscapeCompatible(keyName: string): boolean {
         return keyName === 'cancel' || keyName === 'menu';
     };
 

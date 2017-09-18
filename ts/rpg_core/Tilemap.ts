@@ -116,7 +116,7 @@ class Tilemap extends PIXI.Container {
      * @property height
      * @type Number
      */
-    get height() : number{
+    get height(): number {
         return this._height;
     }
     set height(value) {
@@ -236,7 +236,7 @@ class Tilemap extends PIXI.Container {
     protected _lastStartX: number;
     protected _lastStartY: number;
     protected _frameUpdated: boolean;
-    protected _lowerBitmap : Bitmap;
+    protected _lowerBitmap: Bitmap;
     protected _upperBitmap: Bitmap;
     protected _lowerLayer: Sprite;
     protected _upperLayer: Sprite;
@@ -314,7 +314,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} startY
      * @private
      */
-    protected _updateLayerPositions(startX, startY) {
+    protected _updateLayerPositions(startX: number, startY: number) {
         var m = this._margin;
         var ox = Math.floor(this.origin.x);
         var oy = Math.floor(this.origin.y);
@@ -349,7 +349,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} startY
      * @private
      */
-    protected _paintAllTiles(startX, startY) {
+    protected _paintAllTiles(startX: number, startY: number) {
         var tileCols = Math.ceil(this._width / this._tileWidth) + 1;
         var tileRows = Math.ceil(this._height / this._tileHeight) + 1;
         for (var y = 0; y < tileRows; y++) {
@@ -367,7 +367,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} y
      * @private
      */
-    protected _paintTiles(startX, startY, x, y) {
+    protected _paintTiles(startX: number, startY: number, x: number, y: number) {
         var tableEdgeVirtualId = 10000;
         var mx = startX + x;
         var my = startY + y;
@@ -453,7 +453,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} y
      * @private
      */
-    protected _readLastTiles(i, x, y) {
+    protected _readLastTiles(i: number, x: number, y: number) {
         var array1 = this._lastTiles[i];
         if (array1) {
             var array2 = array1[y];
@@ -475,7 +475,7 @@ class Tilemap extends PIXI.Container {
      * @param {Array} tiles
      * @private
      */
-    protected _writeLastTiles(i, x, y, tiles) {
+    protected _writeLastTiles(i: number, x: number, y: number, tiles) {
         var array1 = this._lastTiles[i];
         if (!array1) {
             array1 = this._lastTiles[i] = [];
@@ -495,7 +495,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} dy
      * @private
      */
-    protected _drawTile(bitmap, tileId, dx, dy) {
+    protected _drawTile(bitmap: Bitmap, tileId: number, dx: number, dy: number) {
         if (Tilemap.isVisibleTile(tileId)) {
             if (Tilemap.isAutotile(tileId)) {
                 this._drawAutotile(bitmap, tileId, dx, dy);
@@ -513,7 +513,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} dy
      * @private
      */
-    protected _drawNormalTile(bitmap, tileId, dx, dy) {
+    protected _drawNormalTile(bitmap: Bitmap, tileId: number, dx: number, dy: number) {
         var setNumber = 0;
 
         if (Tilemap.isTileA5(tileId)) {
@@ -541,7 +541,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} dy
      * @private
      */
-    protected _drawAutotile(bitmap, tileId, dx, dy) {
+    protected _drawAutotile(bitmap: Bitmap, tileId: number, dx: number, dy: number) {
         var autotileTable = Tilemap.FLOOR_AUTOTILE_TABLE;
         var kind = Tilemap.getAutotileKind(tileId);
         var shape = Tilemap.getAutotileShape(tileId);
@@ -550,7 +550,7 @@ class Tilemap extends PIXI.Container {
         var bx = 0;
         var by = 0;
         var setNumber = 0;
-        var isTable : any  = false;
+        var isTable: any = false;
 
         if (Tilemap.isTileA1(tileId)) {
             var waterSurfaceIndex = [0, 1, 2, 1][this.animationFrame % 4];
@@ -637,7 +637,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} dy
      * @private
      */
-    protected _drawTableEdge(bitmap, tileId, dx, dy) {
+    protected _drawTableEdge(bitmap: Bitmap, tileId: number, dx: number, dy: number) {
         if (Tilemap.isTileA2(tileId)) {
             var autotileTable = Tilemap.FLOOR_AUTOTILE_TABLE;
             var kind = Tilemap.getAutotileKind(tileId);
@@ -674,7 +674,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} dy
      * @private
      */
-    protected _drawShadow(bitmap, shadowBits, dx, dy) {
+    protected _drawShadow(bitmap: Bitmap, shadowBits: number, dx: number, dy: number) {
         if (shadowBits & 0x0f) {
             var w1 = this._tileWidth / 2;
             var h1 = this._tileHeight / 2;
@@ -697,7 +697,7 @@ class Tilemap extends PIXI.Container {
      * @return {Number}
      * @private
      */
-    protected _readMapData(x, y, z) {
+    protected _readMapData(x: number, y: number, z: number): number {
         if (this._mapData) {
             var width = this._mapWidth;
             var height = this._mapHeight;
@@ -723,7 +723,7 @@ class Tilemap extends PIXI.Container {
      * @return {Boolean}
      * @private
      */
-    protected _isHigherTile(tileId) : boolean {
+    protected _isHigherTile(tileId: number): boolean {
         return (this.flags[tileId] & 0x10) != 0;
     };
 
@@ -733,7 +733,7 @@ class Tilemap extends PIXI.Container {
      * @return {Boolean}
      * @private
      */
-    protected _isTableTile(tileId): boolean {
+    protected _isTableTile(tileId: number): boolean {
         return Tilemap.isTileA2(tileId) && ((this.flags[tileId] & 0x80) != 0);
     };
 
@@ -744,7 +744,7 @@ class Tilemap extends PIXI.Container {
      * @return {Boolean}
      * @private
      */
-    protected _isOverpassPosition(mx, my) {
+    protected _isOverpassPosition(mx: number, my: number): boolean {
         return false;
     };
 
@@ -762,7 +762,7 @@ class Tilemap extends PIXI.Container {
      * @param {Object} b
      * @private
      */
-    protected _compareChildOrder(a, b) {
+    protected _compareChildOrder(a: any, b: any) {
         if (a.z !== b.z) {
             return a.z - b.z;
         } else if (a.y !== b.y) {
@@ -785,27 +785,27 @@ class Tilemap extends PIXI.Container {
     static TILE_ID_A4 = 5888;
     static TILE_ID_MAX = 8192;
 
-    static isVisibleTile(tileId): boolean {
+    static isVisibleTile(tileId: number): boolean {
         return tileId > 0 && tileId < this.TILE_ID_MAX;
     };
 
-    static isAutotile(tileId): boolean {
+    static isAutotile(tileId: number): boolean {
         return tileId >= this.TILE_ID_A1;
     };
 
-    static getAutotileKind(tileId) {
+    static getAutotileKind(tileId: number) {
         return Math.floor((tileId - this.TILE_ID_A1) / 48);
     };
 
-    static getAutotileShape(tileId) {
+    static getAutotileShape(tileId: number) {
         return (tileId - this.TILE_ID_A1) % 48;
     };
 
-    static makeAutotileId(kind, shape) {
+    static makeAutotileId(kind: number, shape: number) {
         return this.TILE_ID_A1 + kind * 48 + shape;
     };
 
-    static isSameKindTile(tileID1, tileID2): boolean {
+    static isSameKindTile(tileID1: number, tileID2: number): boolean {
         if (this.isAutotile(tileID1) && this.isAutotile(tileID2)) {
             return this.getAutotileKind(tileID1) === this.getAutotileKind(tileID2);
         } else {
@@ -813,27 +813,27 @@ class Tilemap extends PIXI.Container {
         }
     };
 
-    static isTileA1(tileId): boolean {
+    static isTileA1(tileId: number): boolean {
         return tileId >= this.TILE_ID_A1 && tileId < this.TILE_ID_A2;
     };
 
-    static isTileA2(tileId): boolean {
+    static isTileA2(tileId: number): boolean {
         return tileId >= this.TILE_ID_A2 && tileId < this.TILE_ID_A3;
     };
 
-    static isTileA3(tileId): boolean {
+    static isTileA3(tileId: number): boolean {
         return tileId >= this.TILE_ID_A3 && tileId < this.TILE_ID_A4;
     };
 
-    static isTileA4(tileId): boolean {
+    static isTileA4(tileId: number): boolean {
         return tileId >= this.TILE_ID_A4 && tileId < this.TILE_ID_MAX;
     };
 
-    static isTileA5(tileId): boolean {
+    static isTileA5(tileId: number): boolean {
         return tileId >= this.TILE_ID_A5 && tileId < this.TILE_ID_A1;
     };
 
-    static isWaterTile(tileId): boolean {
+    static isWaterTile(tileId: number): boolean {
         if (this.isTileA1(tileId)) {
             return !(tileId >= this.TILE_ID_A1 + 96 && tileId < this.TILE_ID_A1 + 192);
         } else {
@@ -841,7 +841,7 @@ class Tilemap extends PIXI.Container {
         }
     };
 
-    static isWaterfallTile(tileId): boolean {
+    static isWaterfallTile(tileId: number): boolean {
         if (tileId >= this.TILE_ID_A1 + 192 && tileId < this.TILE_ID_A2) {
             return this.getAutotileKind(tileId) % 2 === 1;
         } else {
@@ -849,41 +849,41 @@ class Tilemap extends PIXI.Container {
         }
     };
 
-    static isGroundTile(tileId): boolean {
+    static isGroundTile(tileId: number): boolean {
         return this.isTileA1(tileId) || this.isTileA2(tileId) || this.isTileA5(tileId);
     };
 
-    static isShadowingTile(tileId): boolean {
+    static isShadowingTile(tileId: number): boolean {
         return this.isTileA3(tileId) || this.isTileA4(tileId);
     };
 
-    static isRoofTile(tileId): boolean {
+    static isRoofTile(tileId: number): boolean {
         return this.isTileA3(tileId) && this.getAutotileKind(tileId) % 16 < 8;
     };
 
-    static isWallTopTile(tileId): boolean {
+    static isWallTopTile(tileId: number): boolean {
         return this.isTileA4(tileId) && this.getAutotileKind(tileId) % 16 < 8;
     };
 
-    static isWallSideTile(tileId): boolean {
+    static isWallSideTile(tileId: number): boolean {
         return (this.isTileA3(tileId) || this.isTileA4(tileId)) &&
             this.getAutotileKind(tileId) % 16 >= 8;
     };
 
-    static isWallTile(tileId) : boolean{
+    static isWallTile(tileId: number): boolean {
         return this.isWallTopTile(tileId) || this.isWallSideTile(tileId);
     };
 
-    static isFloorTypeAutotile(tileId) : boolean{
+    static isFloorTypeAutotile(tileId: number): boolean {
         return (this.isTileA1(tileId) && !this.isWaterfallTile(tileId)) ||
             this.isTileA2(tileId) || this.isWallTopTile(tileId);
     };
 
-    static isWallTypeAutotile(tileId): boolean {
+    static isWallTypeAutotile(tileId: number): boolean {
         return this.isRoofTile(tileId) || this.isWallSideTile(tileId);
     };
 
-    static isWaterfallTypeAutotile(tileId): boolean {
+    static isWaterfallTypeAutotile(tileId: number): boolean {
         return this.isWaterfallTile(tileId);
     };
 

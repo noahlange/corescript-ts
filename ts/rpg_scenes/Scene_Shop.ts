@@ -7,11 +7,11 @@ class Scene_Shop extends Scene_MenuBase {
     protected _goods;
     protected _purchaseOnly;
     protected _item;
-    protected _goldWindow;
-    protected _commandWindow;
+    protected _goldWindow: Window_Gold;
+    protected _commandWindow: Window_ShopCommand;
     protected _dummyWindow;
     protected _numberWindow;
-    protected _statusWindow;
+    protected _statusWindow: Window_ShopStatus;
     protected _buyWindow;
     protected _categoryWindow;
     protected _sellWindow;

@@ -9,14 +9,14 @@ class Game_Event extends Game_Character {
     protected _eventId: number;
     protected _moveType: number;
     protected _trigger: number;
-    protected _starting;
-    protected _erased;
+    protected _starting: boolean;
+    protected _erased: boolean;
     protected _pageIndex: number;
     protected _originalPattern: number;
     protected _originalDirection: number;
     protected _prelockDirection: number;
-    protected _locked;
-    protected _interpreter;
+    protected _locked: boolean;
+    protected _interpreter: Game_Interpreter;
 
     constructor(mapId: number, eventId: number) {
         super();
@@ -43,15 +43,15 @@ class Game_Event extends Game_Character {
         return this._eventId;
     };
     
-    event() {
+    event(): DB.Event {
         return $dataMap.events[this._eventId];
     };
     
-    page() {
+    page(): DB.Page {
         return this.event().pages[this._pageIndex];
     };
     
-    list() {
+    list(): DB.List[] {
         return this.page().list;
     };
     
@@ -203,7 +203,7 @@ class Game_Event extends Game_Character {
         return -1;
     };
     
-    meetsConditions(page) {
+    meetsConditions(page: DB.Page) {
         var c = page.conditions;
         if (c.switch1Valid) {
             if (!$gameSwitches.value(c.switch1Id)) {

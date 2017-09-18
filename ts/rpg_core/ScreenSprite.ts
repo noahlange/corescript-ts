@@ -31,7 +31,7 @@ class ScreenSprite extends PIXI.Container {
      * @property opacity
      * @type Number
      */
-    get opacity() {
+    get opacity(): number {
         return this.alpha * 255;
     }
     set opacity(value: number) {
@@ -57,10 +57,10 @@ class ScreenSprite extends PIXI.Container {
         this.alpha = value.clamp(0, 255) / 255;
     }
 
-    get blendMode() {
+    get blendMode(): number {
         return this._graphics.blendMode;
     }
-    set blendMode(value) {
+    set blendMode(value: number) {
         this._graphics.blendMode = value;
     }
 

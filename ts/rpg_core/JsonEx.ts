@@ -28,7 +28,7 @@ class JsonEx {
      * @param {Object} object The object to be converted
      * @return {String} The JSON string
      */
-    static stringify(object): string {
+    static stringify(object: any): string {
         var circular = [];
         JsonEx._id = 1;
         var json = JSON.stringify(this._encode(object, circular, 0));
@@ -38,7 +38,7 @@ class JsonEx {
         return json;
     };
 
-    static _restoreCircularReference(circulars) {
+    static _restoreCircularReference(circulars: any[]) {
         circulars.forEach(function (circular) {
             var key = circular[0];
             var value = circular[1];
@@ -66,7 +66,7 @@ class JsonEx {
         return contents;
     };
 
-    static _linkCircularReference(contents, circulars, registry) {
+    static _linkCircularReference(contents: any, circulars: any, registry: any) {
         circulars.forEach(function (circular) {
             var key = circular[0];
             var value = circular[1];
@@ -76,7 +76,7 @@ class JsonEx {
         });
     };
 
-    static _cleanMetadata(object) {
+    static _cleanMetadata(object: any) {
         if (!object) return;
 
         delete object['@'];
@@ -101,7 +101,7 @@ class JsonEx {
      * @param {Object} object The object to be copied
      * @return {Object} The copied object
      */
-    static makeDeepCopy(object) {
+    static makeDeepCopy(object: any) {
         return this.parse(this.stringify(object));
     };
 
@@ -114,7 +114,7 @@ class JsonEx {
      * @return {Object}
      * @private
      */
-    static _encode(value, circular, depth: number) {
+    static _encode(value: any, circular: any[], depth: number) {
         depth = depth || 0;
         if (++depth >= this.maxDepth) {
             throw new Error('Object too deep');
@@ -165,7 +165,7 @@ class JsonEx {
      * @return {Object}
      * @private
      */
-    static _decode(value, circular, registry) {
+    static _decode(value: any, circular: any, registry: any) {
         var type = Object.prototype.toString.call(value);
         if (type === '[object Object]' || type === '[object Array]') {
             registry[value['@c']] = value;
@@ -202,7 +202,7 @@ class JsonEx {
      * @return {String}
      * @private
      */
-    static _getConstructorName(value): string {
+    static _getConstructorName(value: any): string {
         var name = value.constructor.name;
         if (name === undefined) {
             var func = /^\s*function\s*([A-Za-z0-9_$]*)/;
@@ -219,7 +219,7 @@ class JsonEx {
      * @return {Object}
      * @private
      */
-    static _resetPrototype(value, prototype) {
+    static _resetPrototype(value: any, prototype: any) {
         if (Object.setPrototypeOf !== undefined) {
             Object.setPrototypeOf(value, prototype);
         } else if ('__proto__' in value) {

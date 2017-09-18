@@ -283,7 +283,7 @@ class Window_Base extends CoreWindow {
         this.contents.paintOpacity = enabled ? 255 : this.translucentOpacity();
     };
 
-    drawText(text: string | number, x: number, y: number, maxWidth?, align?) {
+    drawText(text: string, x: number, y: number, maxWidth?, align?) {
         this.contents.drawText(text, x, y, maxWidth, Window_Base.lineHeight(), align);
     };
 

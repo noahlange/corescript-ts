@@ -22,7 +22,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
 
     public tilingTexture: any;
 
-    constructor(bitmap?) {
+    constructor(bitmap?: Bitmap) {
         super(new PIXI.Texture(new PIXI.BaseTexture()));
 
         this._bitmap = null;
@@ -44,7 +44,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @param {Object} renderer
      * @private
      */
-    _renderCanvas(renderer) {
+    _renderCanvas(renderer: PIXI.CanvasRenderer) {
         if (this._bitmap) {
             this._bitmap.touch();
         }
@@ -77,10 +77,10 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @property bitmap
      * @type Bitmap
      */
-    get bitmap() {
+    get bitmap(): Bitmap {
         return this._bitmap;
     }
-    set bitmap(value) {
+    set bitmap(value: Bitmap) {
         if (this._bitmap !== value) {
             this._bitmap = value;
             if (this._bitmap) {
@@ -97,10 +97,10 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @property opacity
      * @type Number
      */
-    get opacity() {
+    get opacity(): number {
         return this.alpha * 255;
     }
-    set opacity(value) {
+    set opacity(value: number) {
         this.alpha = value.clamp(0, 255) / 255;
     }
 
@@ -127,7 +127,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @param {Number} width The width of the tiling sprite
      * @param {Number} height The height of the tiling sprite
      */
-    move(x, y, width, height) {
+    move(x: number, y: number, width: number, height: number) {
         this.x = x || 0;
         this.y = y || 0;
         this._width = width || 0;
@@ -143,7 +143,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @param {Number} width The width of the frame
      * @param {Number} height The height of the frame
      */
-    setFrame(x, y, width, height) {
+    setFrame(x: number, y: number, width: number, height: number) {
         this._frame.x = x;
         this._frame.y = y;
         this._frame.width = width;
@@ -199,7 +199,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @param {Object} renderer
      * @private
      */
-    _renderWebGL(renderer) {
+    _renderWebGL(renderer: PIXI.WebGLRenderer) {
         if (this._bitmap) {
             this._bitmap.touch();
             this._bitmap.checkDirty();

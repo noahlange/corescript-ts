@@ -168,11 +168,11 @@ class Weather extends PIXI.Container {
      * @param {Sprite} sprite
      * @private
      */
-    protected _updateRainSprite(sprite) {
+    protected _updateRainSprite(sprite: Sprite) {
         sprite.bitmap = this._rainBitmap;
         sprite.rotation = Math.PI / 16;
-        sprite.ax -= 6 * Math.sin(sprite.rotation);
-        sprite.ay += 6 * Math.cos(sprite.rotation);
+        sprite['ax'] -= 6 * Math.sin(sprite.rotation);
+        sprite['ay'] += 6 * Math.cos(sprite.rotation);
         sprite.opacity -= 6;
     };
 
@@ -181,11 +181,11 @@ class Weather extends PIXI.Container {
      * @param {Sprite} sprite
      * @private
      */
-    protected _updateStormSprite(sprite) {
+    protected _updateStormSprite(sprite: Sprite) {
         sprite.bitmap = this._stormBitmap;
         sprite.rotation = Math.PI / 8;
-        sprite.ax -= 8 * Math.sin(sprite.rotation);
-        sprite.ay += 8 * Math.cos(sprite.rotation);
+        sprite['ax'] -= 8 * Math.sin(sprite.rotation);
+        sprite['ay'] += 8 * Math.cos(sprite.rotation);
         sprite.opacity -= 8;
     };
 
@@ -194,11 +194,11 @@ class Weather extends PIXI.Container {
      * @param {Sprite} sprite
      * @private
      */
-    protected _updateSnowSprite(sprite) {
+    protected _updateSnowSprite(sprite: Sprite) {
         sprite.bitmap = this._snowBitmap;
         sprite.rotation = Math.PI / 16;
-        sprite.ax -= 3 * Math.sin(sprite.rotation);
-        sprite.ay += 3 * Math.cos(sprite.rotation);
+        sprite['ax'] -= 3 * Math.sin(sprite.rotation);
+        sprite['ay'] += 3 * Math.cos(sprite.rotation);
         sprite.opacity -= 3;
     };
 
@@ -207,9 +207,9 @@ class Weather extends PIXI.Container {
      * @param {Sprite} sprite
      * @private
      */
-    protected _rebornSprite(sprite) {
-        sprite.ax = Math.randomInt(Graphics.width + 100) - 100 + this.origin.x;
-        sprite.ay = Math.randomInt(Graphics.height + 200) - 200 + this.origin.y;
+    protected _rebornSprite(sprite: Sprite) {
+        sprite['ax'] = Math.randomInt(Graphics.width + 100) - 100 + this.origin.x;
+        sprite['ay'] = Math.randomInt(Graphics.height + 200) - 200 + this.origin.y;
         sprite.opacity = 160 + Math.randomInt(60);
     };
 

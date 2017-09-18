@@ -49,7 +49,7 @@ class ToneSprite extends PIXI.Container {
      * @param {Object} renderSession
      * @private
      */
-    _renderCanvas(renderer) {
+    _renderCanvas(renderer: PIXI.CanvasRenderer) {
         if (this.visible) {
             var context = renderer.context;
             var t = this.worldTransform;

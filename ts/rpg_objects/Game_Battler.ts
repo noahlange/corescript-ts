@@ -5,22 +5,18 @@
 // and actions.
 
 class Game_Battler extends Game_BattlerBase {
-    protected _actions;
+    protected _actions: any[];
     protected _speed: number;
-    protected _result;
+    protected _result: Game_ActionResult;
     protected _actionState;
-    protected _lastTargetIndex;
-    protected _animations;
-    protected _damagePopup;
+    protected _lastTargetIndex: number;
+    protected _animations: any[];
+    protected _damagePopup: boolean;
     protected _effectType;
     protected _motionType;
     protected _weaponImageId: number;
-    protected _motionRefresh;
-    protected _selected;
-
-    // constructor(){
-    //     super();        
-    // }
+    protected _motionRefresh: boolean;
+    protected _selected: boolean;
 
     initMembers() {
         super.initMembers();

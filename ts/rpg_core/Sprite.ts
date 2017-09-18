@@ -58,10 +58,10 @@ class Sprite extends PIXI.Sprite {
      * @property bitmap
      * @type Bitmap
      */
-    get bitmap() {
+    get bitmap(): Bitmap {
         return this._bitmap;
     }
-    set bitmap(value) {
+    set bitmap(value: Bitmap) {
         if (this._bitmap !== value) {
             this._bitmap = value;
 
@@ -84,7 +84,7 @@ class Sprite extends PIXI.Sprite {
     get width(): number {
         return this._frame.width;
     }
-    set width(value) {
+    set width(value: number) {
         this._frame.width = value;
         this._refresh();
     }
@@ -98,7 +98,7 @@ class Sprite extends PIXI.Sprite {
     get height(): number {
         return this._frame.height;
     }
-    set height(value) {
+    set height(value: number) {
         this._frame.height = value;
         this._refresh();
     }
@@ -112,7 +112,7 @@ class Sprite extends PIXI.Sprite {
     get opacity(): number {
         return this.alpha * 255;
     }
-    set opacity(value) {
+    set opacity(value: number) {
         this.alpha = value.clamp(0, 255) / 255;
     }
 
@@ -169,7 +169,7 @@ class Sprite extends PIXI.Sprite {
      * @method getBlendColor
      * @return {Array} The blend color [r, g, b, a]
      */
-    getBlendColor() {
+    getBlendColor(): number[] {
         return this._blendColor.clone();
     };
 
@@ -179,7 +179,7 @@ class Sprite extends PIXI.Sprite {
      * @method setBlendColor
      * @param {Array} color The blend color [r, g, b, a]
      */
-    setBlendColor(color) {
+    setBlendColor(color: number[]) {
         if (!(color instanceof Array)) {
             throw new Error('Argument must be an array');
         }
@@ -414,7 +414,7 @@ class Sprite extends PIXI.Sprite {
      * @private
      */
     /// bungcip: jadi public karena dipakai di TilingSprite
-    public _speedUpCustomBlendModes(renderer) {
+    public _speedUpCustomBlendModes(renderer: any) {
         var picture = renderer.plugins.picture;
         var blend = this.blendMode;
         if (renderer.renderingToScreen && renderer._activeRenderTarget.root) {

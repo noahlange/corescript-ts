@@ -35,7 +35,7 @@ class Utils {
      * @param {String} name The option name
      * @return {Boolean} True if the option is in the query string
      */
-    static isOptionValid(name: string) {
+    static isOptionValid(name: string): boolean {
         return location.search.slice(1).split('&').contains(name);
     };
 
@@ -46,7 +46,7 @@ class Utils {
      * @method isNwjs
      * @return {Boolean} True if the platform is NW.js
      */
-    static isNwjs() {
+    static isNwjs(): boolean {
         return typeof window['require'] === 'function' && typeof window['process'] === 'object';
     };
 
@@ -57,7 +57,7 @@ class Utils {
      * @method isMobileDevice
      * @return {Boolean} True if the platform is a mobile device
      */
-    static isMobileDevice() {
+    static isMobileDevice(): boolean {
         var r = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
         return !!navigator.userAgent.match(r);
     };
@@ -69,7 +69,7 @@ class Utils {
      * @method isMobileSafari
      * @return {Boolean} True if the browser is Mobile Safari
      */
-    static isMobileSafari() {
+    static isMobileSafari(): boolean {
         var agent = navigator.userAgent;
         return !!(agent.match(/iPhone|iPad|iPod/) && agent.match(/AppleWebKit/) &&
             !agent.match('CriOS'));
@@ -82,7 +82,7 @@ class Utils {
      * @method isAndroidChrome
      * @return {Boolean} True if the browser is Android Chrome
      */
-    static isAndroidChrome() {
+    static isAndroidChrome(): boolean {
         var agent = navigator.userAgent;
         return !!(agent.match(/Android/) && agent.match(/Chrome/));
     };
@@ -94,7 +94,7 @@ class Utils {
      * @method canReadGameFiles
      * @return {Boolean} True if the browser can read files in the game folder
      */
-    static canReadGameFiles() {
+    static canReadGameFiles(): boolean {
         var scripts = document.getElementsByTagName('script');
         var lastScript = scripts[scripts.length - 1];
         var xhr = new XMLHttpRequest();
@@ -118,7 +118,7 @@ class Utils {
      * @param {Number} b The blue value in the range (0, 255)
      * @return {String} CSS color string
      */
-    static rgbToCssColor(r, g, b) {
+    static rgbToCssColor(r: number, g: number, b: number): string {
         r = Math.round(r);
         g = Math.round(g);
         b = Math.round(b);
@@ -126,7 +126,7 @@ class Utils {
     };
 
     static _id = 1;
-    static generateRuntimeId() {
+    static generateRuntimeId(): number {
         return Utils._id++;
     };
 
@@ -138,7 +138,7 @@ class Utils {
      * @method isSupportPassiveEvent
      * @return {Boolean} this browser support passive event or not
      */
-    static isSupportPassiveEvent() {
+    static isSupportPassiveEvent() : boolean{
         if (typeof Utils._supportPassiveEvent === "boolean") {
             return Utils._supportPassiveEvent;
         }

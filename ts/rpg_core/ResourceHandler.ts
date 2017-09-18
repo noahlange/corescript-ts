@@ -35,7 +35,7 @@ class ResourceHandler {
         };
     };
 
-    static exists() {
+    static exists(): boolean {
         return this._reloaders.length > 0;
     };
 

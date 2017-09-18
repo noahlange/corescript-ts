@@ -10,6 +10,29 @@ class WebAudio {
     protected _loader;
     protected _url;
     // protected _load;
+    protected _buffer: any;
+    protected _sourceNode: any;
+    protected _gainNode: any;
+    protected _pannerNode: any;
+    protected _totalTime: number;
+    protected _sampleRate: number;
+    protected _loopStart: number;
+    protected _loopLength: number;
+    protected _startTime: number;
+    protected _volume: number;
+    protected _pitch: number;
+    protected _pan: number;
+    protected _endTimer: any;
+    protected _loadListeners: Function[];
+    protected _stopListeners: Function[];
+    protected _hasError: boolean;
+    protected _autoPlay: boolean;
+    protected static _masterVolume = 1;
+    protected static _context = null;
+    protected static _masterGainNode = null;
+    protected static _initialized = false;
+    protected static _unlocked = false;
+
 
     protected static _standAlone = (function (top) {
         return !top['ResourceHandler'];
@@ -30,15 +53,6 @@ class WebAudio {
         this._load(url);
         this._url = url;
     };
-
-    protected static _masterVolume = 1;
-    protected static _context = null;
-    protected static _masterGainNode = null;
-    protected static _initialized = false;
-    protected static _unlocked = false;
-
-
-
 
     /**
      * Initializes the audio system.
@@ -264,23 +278,6 @@ class WebAudio {
      *
      * @method clear
      */
-    protected _buffer;
-    protected _sourceNode;
-    protected _gainNode;
-    protected _pannerNode;
-    protected _totalTime;
-    protected _sampleRate;
-    protected _loopStart;
-    protected _loopLength;
-    protected _startTime;
-    protected _volume;
-    protected _pitch;
-    protected _pan;
-    protected _endTimer;
-    protected _loadListeners;
-    protected _stopListeners;
-    protected _hasError;
-    protected _autoPlay;
     clear() {
         this.stop();
         this._buffer = null;
@@ -308,7 +305,7 @@ class WebAudio {
      * @property url
      * @type String
      */
-    get url() {
+    get url(): string {
         return this._url;
     }
 
@@ -318,10 +315,10 @@ class WebAudio {
      * @property volume
      * @type Number
      */
-    get volume() {
+    get volume(): number {
         return this._volume;
     }
-    set volume(value) {
+    set volume(value: number) {
         this._volume = value;
         if (this._gainNode) {
             this._gainNode.gain.setValueAtTime(this._volume, WebAudio._context.currentTime);
@@ -334,10 +331,10 @@ class WebAudio {
      * @property pitch
      * @type Number
      */
-    get pitch() {
+    get pitch(): number {
         return this._pitch;
     }
-    set pitch(value) {
+    set pitch(value: number) {
         if (this._pitch !== value) {
             this._pitch = value;
             if (this.isPlaying()) {
@@ -352,10 +349,10 @@ class WebAudio {
      * @property pan
      * @type Number
      */
-    get pan() {
+    get pan(): number {
         return this._pan;
     }
-    set pan(value) {
+    set pan(value: number) {
         this._pan = value;
         this._updatePanner();
     }
@@ -366,7 +363,7 @@ class WebAudio {
      * @method isReady
      * @return {Boolean} True if the audio data is ready to play
      */
-    isReady() {
+    isReady(): boolean {
         return !!this._buffer;
     };
 
@@ -376,7 +373,7 @@ class WebAudio {
      * @method isError
      * @return {Boolean} True if a loading error has occurred
      */
-    isError() {
+    isError(): boolean {
         return this._hasError;
     };
 
@@ -386,7 +383,7 @@ class WebAudio {
      * @method isPlaying
      * @return {Boolean} True if the audio is playing
      */
-    isPlaying() {
+    isPlaying(): boolean {
         return !!this._sourceNode;
     };
 
@@ -490,7 +487,7 @@ class WebAudio {
      * @method addLoadListener
      * @param {Function} listner The callback function
      */
-    addLoadListener(listner) {
+    addLoadListener(listner: Function) {
         this._loadListeners.push(listner);
     };
 
@@ -500,7 +497,7 @@ class WebAudio {
      * @method addStopListener
      * @param {Function} listner The callback function
      */
-    addStopListener(listner) {
+    addStopListener(listner: Function) {
         this._stopListeners.push(listner);
     };
 
@@ -509,7 +506,7 @@ class WebAudio {
      * @param {String} url
      * @private
      */
-    protected _load(url) {
+    protected _load(url: string) {
         if (WebAudio._context) {
             var xhr = new XMLHttpRequest();
             if (Decrypter.hasEncryptedAudio) url = Decrypter.extToEncryptExt(url);
@@ -530,7 +527,7 @@ class WebAudio {
      * @param {XMLHttpRequest} xhr
      * @private
      */
-    protected _onXhrLoad(xhr) {
+    protected _onXhrLoad(xhr: XMLHttpRequest) {
         var array = xhr.response;
         if (Decrypter.hasEncryptedAudio) array = Decrypter.decryptArrayBuffer(array);
         this._readLoopComments(new Uint8Array(array));
@@ -659,7 +656,7 @@ class WebAudio {
      * @param {Uint8Array} array
      * @private
      */
-    protected _readLoopComments(array) {
+    protected _readLoopComments(array: Uint8Array) {
         this._readOgg(array);
         this._readMp4(array);
     };
@@ -669,7 +666,7 @@ class WebAudio {
      * @param {Uint8Array} array
      * @private
      */
-    protected _readOgg(array) {
+    protected _readOgg(array: Uint8Array) {
         var index = 0;
         while (index < array.length) {
             if (this._readFourCharacters(array, index) === 'OggS') {
@@ -706,7 +703,7 @@ class WebAudio {
      * @param {Uint8Array} array
      * @private
      */
-    protected _readMp4(array) {
+    protected _readMp4(array: Uint8Array) {
         if (this._readFourCharacters(array, 4) === 'ftyp') {
             var index = 0;
             while (index < array.length) {
@@ -737,7 +734,7 @@ class WebAudio {
      * @param {Number} size
      * @private
      */
-    protected _readMetaData(array, index: number, size: number) {
+    protected _readMetaData(array: Uint8Array, index: number, size: number) {
         for (var i = index; i < index + size - 10; i++) {
             if (this._readFourCharacters(array, i) === 'LOOP') {
                 var text = '';
@@ -772,7 +769,7 @@ class WebAudio {
      * @param {Number} index
      * @private
      */
-    protected _readLittleEndian(array, index: number) {
+    protected _readLittleEndian(array: Uint8Array, index: number) {
         return (array[index + 3] * 0x1000000 + array[index + 2] * 0x10000 +
             array[index + 1] * 0x100 + array[index + 0]);
     };
@@ -783,7 +780,7 @@ class WebAudio {
      * @param {Number} index
      * @private
      */
-    protected _readBigEndian(array, index: number) {
+    protected _readBigEndian(array: Uint8Array, index: number) {
         return (array[index + 0] * 0x1000000 + array[index + 1] * 0x10000 +
             array[index + 2] * 0x100 + array[index + 3]);
     };
@@ -794,7 +791,7 @@ class WebAudio {
      * @param {Number} index
      * @private
      */
-    protected _readFourCharacters(array, index: number) {
+    protected _readFourCharacters(array: Uint8Array, index: number) {
         var string = '';
         for (var i = 0; i < 4; i++) {
             string += String.fromCharCode(array[index + i]);

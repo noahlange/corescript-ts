@@ -26,12 +26,12 @@ class Window_ShopStatus extends Window_Base {
         }
     };
 
-    setItem(item: Game_Item) {
+    setItem(item) {
         this._item = item;
         this.refresh();
     };
 
-    isEquipItem() {
+    isEquipItem(): boolean {
         return DataManager.isWeapon(this._item) || DataManager.isArmor(this._item);
     };
 
@@ -41,7 +41,7 @@ class Window_ShopStatus extends Window_Base {
         this.changeTextColor(this.systemColor());
         this.drawText(TextManager.possession, x, y, width - possessionWidth);
         this.resetTextColor();
-        this.drawText($gameParty.numItems(this._item), x, y, width, 'right');
+        this.drawText($gameParty.numItems(this._item).toString(), x, y, width, 'right');
     };
 
     drawEquipInfo(x: number, y: number) {
@@ -57,11 +57,11 @@ class Window_ShopStatus extends Window_Base {
         return $gameParty.members().slice(start, end);
     };
 
-    pageSize() {
+    pageSize(): number {
         return 4;
     };
 
-    maxPages() {
+    maxPages(): number {
         return Math.floor(($gameParty.size() + this.pageSize() - 1) / this.pageSize());
     };
 

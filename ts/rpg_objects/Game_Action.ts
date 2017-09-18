@@ -24,15 +24,15 @@ class Game_Action {
     
     protected _subjectActorId: number;
     protected _subjectEnemyIndex: number;
-    protected _forcing;
-    protected _item;
+    protected _forcing: boolean;
+    protected _item: Game_Item;
     protected _targetIndex: number;
     protected _reflectionTarget;
 
-    constructor(subject, forcing?) {
+    constructor(subject: Game_Battler, forcing: boolean = false) {
         this._subjectActorId = 0;
         this._subjectEnemyIndex = -1;
-        this._forcing = forcing || false;
+        this._forcing = forcing;
         this.setSubject(subject);
         this.clear();
     };
@@ -42,17 +42,17 @@ class Game_Action {
         this._targetIndex = -1;
     };
     
-    setSubject(subject) {
+    setSubject(subject: Game_Battler) {
         if (subject.isActor()) {
             this._subjectActorId = subject.actorId();
             this._subjectEnemyIndex = -1;
-        } else {
+        } else if(subject.isEnemy()) {
             this._subjectEnemyIndex = subject.index();
             this._subjectActorId = 0;
         }
     };
     
-    subject() {
+    subject(): Game_Actor {
         if (this._subjectActorId > 0) {
             return $gameActors.actor(this._subjectActorId);
         } else {
@@ -68,7 +68,7 @@ class Game_Action {
         return this.subject().opponentsUnit();
     };
     
-    setEnemyAction(action) {
+    setEnemyAction(action: DB.Action) {
         if (action) {
             this.setSkill(action.skillId);
         } else {
@@ -92,7 +92,7 @@ class Game_Action {
         this._item.setObject($dataItems[itemId]);
     };
     
-    setItemObject(object) {
+    setItemObject(object: DB.Item | DB.Skill | DB.Weapon | DB.Armor) {
         this._item.setObject(object);
     };
     
@@ -112,8 +112,8 @@ class Game_Action {
         return this._item.isItem();
     };
     
-    numRepeats() {
-        var repeats = this.item().repeats;
+    numRepeats(): number {
+        var repeats = (this.item() as DB.Item).repeats;
         if (this.isAttack()) {
             repeats += this.subject().attackTimesAdd();
         }
@@ -121,7 +121,8 @@ class Game_Action {
     };
     
     checkItemScope(list) {
-        return list.contains(this.item().scope);
+        let scope = (this.item() as DB.Item).scope;
+        return list.contains(scope);
     };
     
     isForOpponent() {
@@ -157,11 +158,11 @@ class Game_Action {
     };
     
     numTargets() {
-        return this.isForRandom() ? this.item().scope - 2 : 0;
+        return this.isForRandom() ? (this.item() as DB.Item).scope - 2 : 0;
     };
     
     checkDamageType(list) {
-        return list.contains(this.item().damage.type);
+        return list.contains((this.item() as DB.Item).damage.type);
     };
     
     isHpEffect() {
@@ -193,15 +194,15 @@ class Game_Action {
     };
     
     isCertainHit() {
-        return this.item().hitType === Game_Action.HITTYPE_CERTAIN;
+        return (this.item() as DB.Item).hitType === Game_Action.HITTYPE_CERTAIN;
     };
     
     isPhysical() {
-        return this.item().hitType === Game_Action.HITTYPE_PHYSICAL;
+        return (this.item() as DB.Item).hitType === Game_Action.HITTYPE_PHYSICAL;
     };
     
     isMagical() {
-        return this.item().hitType === Game_Action.HITTYPE_MAGICAL;
+        return (this.item() as DB.Item).hitType === Game_Action.HITTYPE_MAGICAL;
     };
     
     isAttack() {
@@ -214,7 +215,7 @@ class Game_Action {
     
     isMagicSkill() {
         if (this.isSkill()) {
-            return $dataSystem.magicSkills.contains(this.item().stypeId);
+            return $dataSystem.magicSkills.contains((this.item() as DB.Skill).stypeId);
         } else {
             return false;
         }
@@ -254,7 +255,7 @@ class Game_Action {
         var agi = this.subject().agi;
         var speed = agi + Math.randomInt(Math.floor(5 + agi / 4));
         if (this.item()) {
-            speed += this.item().speed;
+            speed += (this.item() as DB.Item).speed;
         }
         if (this.isAttack()) {
             speed += this.subject().attackSpeed();
@@ -397,7 +398,7 @@ class Game_Action {
     };
     
     hasItemAnyValidEffects(target) {
-        return this.item().effects.some(function(effect) {
+        return (this.item() as DB.Item).effects.some(function(effect) {
             return this.testItemEffect(target, effect);
         }, this);
     };
@@ -445,9 +446,9 @@ class Game_Action {
     
     itemHit(target) {
         if (this.isPhysical()) {
-            return this.item().successRate * 0.01 * this.subject().hit;
+            return (this.item() as DB.Item).successRate * 0.01 * this.subject().hit;
         } else {
-            return this.item().successRate * 0.01;
+            return (this.item() as DB.Item).successRate * 0.01;
         }
     };
     
@@ -462,7 +463,7 @@ class Game_Action {
     };
     
     itemCri(target) {
-        return this.item().damage.critical ? this.subject().cri * (1 - target.cev) : 0;
+        return (this.item() as DB.Item).damage.critical ? this.subject().cri * (1 - target.cev) : 0;
     };
     
     apply(target) {
@@ -475,12 +476,12 @@ class Game_Action {
         result.physical = this.isPhysical();
         result.drain = this.isDrain();
         if (result.isHit()) {
-            if (this.item().damage.type > 0) {
+            if ((this.item() as DB.Item).damage.type > 0) {
                 result.critical = (Math.random() < this.itemCri(target));
                 var value = this.makeDamageValue(target, result.critical);
                 this.executeDamage(target, value);
             }
-            this.item().effects.forEach(function(effect) {
+            (this.item() as DB.Item).effects.forEach(function(effect) {
                 this.applyItemEffect(target, effect);
             }, this);
             this.applyItemUserEffect(target);
@@ -488,7 +489,7 @@ class Game_Action {
     };
     
     makeDamageValue(target, critical) {
-        var item = this.item();
+        var item = this.item() as DB.Item;
         var baseValue = this.evalDamageFormula(target);
         var value = baseValue * this.calcElementRate(target);
         if (this.isPhysical()) {
@@ -511,7 +512,7 @@ class Game_Action {
     
     evalDamageFormula(target) {
         try {
-            var item = this.item();
+            var item = this.item() as DB.Item;
             var a = this.subject();
             var b = target;
             var v = $gameVariables._data;
@@ -525,10 +526,10 @@ class Game_Action {
     };
     
     calcElementRate(target) {
-        if (this.item().damage.elementId < 0) {
+        if ((this.item() as DB.Item).damage.elementId < 0) {
             return this.elementsMaxRate(target, this.subject().attackElements());
         } else {
-            return target.elementRate(this.item().damage.elementId);
+            return target.elementRate((this.item() as DB.Item).damage.elementId);
         }
     };
     
@@ -542,21 +543,21 @@ class Game_Action {
         }
     };
     
-    applyCritical(damage) {
+    applyCritical(damage: number) {
         return damage * 3;
     };
     
-    applyVariance(damage, variance) {
+    applyVariance(damage: number, variance: number) {
         var amp = Math.floor(Math.max(Math.abs(damage) * variance / 100, 0));
         var v = Math.randomInt(amp + 1) + Math.randomInt(amp + 1) - amp;
         return damage >= 0 ? damage + v : damage - v;
     };
     
-    applyGuard(damage, target) {
+    applyGuard(damage: number, target: Game_Actor) {
         return damage / (damage > 0 && target.isGuard() ? 2 * target.grd : 1);
     };
     
-    executeDamage(target, value) {
+    executeDamage(target: Game_Actor, value: number) {
         var result = target.result();
         if (value === 0) {
             result.critical = false;
@@ -569,7 +570,7 @@ class Game_Action {
         }
     };
     
-    executeHpDamage(target, value) {
+    executeHpDamage(target: Game_Actor, value: number) {
         if (this.isDrain()) {
             value = Math.min(target.hp, value);
         }
@@ -581,7 +582,7 @@ class Game_Action {
         this.gainDrainedHp(value);
     };
     
-    executeMpDamage(target, value) {
+    executeMpDamage(target: Game_Actor, value: number) {
         if (!this.isMpRecover()) {
             value = Math.min(target.mp, value);
         }
@@ -783,7 +784,7 @@ class Game_Action {
     };
     
     applyItemUserEffect(target) {
-        var value = Math.floor(this.item().tpGain * this.subject().tcr);
+        var value = Math.floor((this.item() as DB.Item).tpGain * this.subject().tcr);
         this.subject().gainSilentTp(value);
     };
     
@@ -792,7 +793,7 @@ class Game_Action {
     };
     
     applyGlobal() {
-        this.item().effects.forEach(function(effect) {
+        (this.item() as DB.Item).effects.forEach(function(effect) {
             if (effect.code === Game_Action.EFFECT_COMMON_EVENT) {
                 $gameTemp.reserveCommonEvent(effect.dataId);
             }

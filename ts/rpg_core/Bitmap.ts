@@ -354,7 +354,7 @@ class Bitmap {
     get smooth(): boolean {
         return this._smooth;
     }
-    set smooth(value) {
+    set smooth(value: boolean) {
         if (this._smooth !== value) {
             this._smooth = value;
             if (this.__baseTexture) {
@@ -378,7 +378,7 @@ class Bitmap {
     get paintOpacity() {
         return this._paintOpacity;
     }
-    set paintOpacity(value) {
+    set paintOpacity(value: number) {
         if (this._paintOpacity !== value) {
             this._paintOpacity = value;
             this._context.globalAlpha = this._paintOpacity / 255;
@@ -414,9 +414,11 @@ class Bitmap {
      * @param {Number} [dw=sw] The width to draw the image in the destination
      * @param {Number} [dh=sh] The height to draw the image in the destination
      */
-    blt(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number) {
-        dw = dw || sw;
-        dh = dh || sh;
+    blt(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, 
+        dw: number = sw, dh: number = sh) 
+    {
+        // dw = dw || sw;
+        // dh = dh || sh;
         if (sx >= 0 && sy >= 0 && sw > 0 && sh > 0 && dw > 0 && dh > 0 &&
             sx + sw <= source.width && sy + sh <= source.height) {
             this._context.globalCompositeOperation = 'source-over';
@@ -438,9 +440,11 @@ class Bitmap {
      * @param {Number} [dw=sw] The width to draw the image in the destination
      * @param {Number} [dh=sh] The height to draw the image in the destination
      */
-    bltImage(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number) {
-        dw = dw || sw;
-        dh = dh || sh;
+    bltImage(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, 
+        dw: number = sw, dh: number = sh) 
+    {
+        // dw = dw || sw;
+        // dh = dh || sh;
         if (sx >= 0 && sy >= 0 && sw > 0 && sh > 0 && dw > 0 && dh > 0 &&
             sx + sw <= source.width && sy + sh <= source.height) {
             this._context.globalCompositeOperation = 'source-over';
@@ -456,7 +460,7 @@ class Bitmap {
      * @param {Number} y The y coordinate of the pixel in the bitmap
      * @return {String} The pixel color (hex format)
      */
-    getPixel(x: number, y: number) {
+    getPixel(x: number, y: number): string {
         var data = this._context.getImageData(x, y, 1, 1).data;
         var result = '#';
         for (var i = 0; i < 3; i++) {
@@ -536,7 +540,9 @@ class Bitmap {
      * @param {String} color2 The gradient ending color
      * @param {Boolean} vertical Wether the gradient should be draw as vertical or not
      */
-    gradientFillRect(x: number, y: number, width: number, height: number, color1: string, color2: string, vertical: boolean) {
+    gradientFillRect(x: number, y: number, width: number, height: number, color1: string, color2: string,
+        vertical: boolean = false)
+    {
         var context = this._context;
         var grad;
         if (vertical) {
@@ -583,7 +589,7 @@ class Bitmap {
      * @param {Number} lineHeight The height of the text line
      * @param {String} align The alignment of the text
      */
-    drawText(text: string, x: number, y: number, maxWidth: number, lineHeight: number, align: string) {
+    drawText(text: string, x: number, y: number, maxWidth: number, lineHeight: number, align?: string) {
         // Note: Firefox has a bug with textBaseline: Bug 737852
         //       So we use 'alphabetic' here.
         if (text !== undefined) {
@@ -935,10 +941,10 @@ class Bitmap {
         }
     };
 
-    isRequestOnly() {
+    isRequestOnly(): boolean {
         return !(this._decodeAfterRequest || this.isReady());
     };
-    isRequestReady() {
+    isRequestReady(): boolean {
         return this._loadingState !== 'pending' &&
             this._loadingState !== 'requesting' &&
             this._loadingState !== 'decrypting';

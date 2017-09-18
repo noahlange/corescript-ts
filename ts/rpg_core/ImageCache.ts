@@ -1,13 +1,25 @@
+interface ImageCacheItem {
+    bitmap: Bitmap;
+    touch: number;
+    key: string;
+    reservationId?: number;
+}
+
+interface ImageCacheItems {
+    [key: string] : ImageCacheItem;
+}
+
+
 class ImageCache {
     static limit = 10 * 1000 * 1000;
 
-    protected _items: Object;
+    protected _items: ImageCacheItems = {};
 
-    constructor() {
-        this._items = {};
-    };
+    // constructor() {
+    //     this._items = {};
+    // };
 
-    add(key, value) {
+    add(key: string, value: Bitmap) {
         this._items[key] = {
             bitmap: value,
             touch: Date.now(),
@@ -17,7 +29,7 @@ class ImageCache {
         this._truncateCache();
     };
 
-    get(key) {
+    get(key: string) {
         if (this._items[key]) {
             var item = this._items[key];
             item.touch = Date.now();
@@ -27,7 +39,7 @@ class ImageCache {
         return null;
     };
 
-    reserve(key, value, reservationId) {
+    reserve(key: string, value: Bitmap, reservationId: number) {
         if (!this._items[key]) {
             this._items[key] = {
                 bitmap: value,
@@ -39,7 +51,7 @@ class ImageCache {
         this._items[key].reservationId = reservationId;
     };
 
-    releaseReservation(reservationId) {
+    releaseReservation(reservationId: number) {
         var items = this._items;
 
         Object.keys(items)
@@ -69,7 +81,7 @@ class ImageCache {
         }.bind(this));
     };
 
-    _mustBeHeld(item) {
+    _mustBeHeld(item: ImageCacheItem) {
         // request only is weak so It's purgeable
         if (item.bitmap.isRequestOnly()) return false;
         // reserved item must be held
@@ -80,7 +92,7 @@ class ImageCache {
         return false;
     };
 
-    isReady() {
+    isReady(): boolean {
         var items = this._items;
         return !Object.keys(items).some(function (key) {
             return !items[key].bitmap.isRequestOnly() && !items[key].bitmap.isReady();

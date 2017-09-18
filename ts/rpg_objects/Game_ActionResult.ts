@@ -5,22 +5,22 @@
 // member variables in this class are public.
 
 class Game_ActionResult {
-    public used;
-    public missed;
-    public evaded;
-    public physical;
-    public drain;
-    public critical;
-    public success;
-    public hpAffected;
+    public used: boolean;
+    public missed: boolean;
+    public evaded: boolean;
+    public physical: boolean;
+    public drain: boolean;
+    public critical: boolean;
+    public success: boolean;
+    public hpAffected: boolean;
     public hpDamage: number;
     public mpDamage: number;
     public tpDamage: number;
-    public addedStates;
-    public removedStates;
-    public addedBuffs;
-    public addedDebuffs;
-    public removedBuffs;
+    public addedStates: any[];
+    public removedStates: any[];
+    public addedBuffs: any[];
+    public addedDebuffs: any[];
+    public removedBuffs: any[];
 
     constructor(){
         this.clear();
@@ -57,61 +57,61 @@ class Game_ActionResult {
         });
     };
     
-    isStatusAffected() {
+    isStatusAffected(): boolean {
         return (this.addedStates.length > 0 || this.removedStates.length > 0 ||
                 this.addedBuffs.length > 0 || this.addedDebuffs.length > 0 ||
                 this.removedBuffs.length > 0);
     };
     
-    isHit() {
+    isHit(): boolean {
         return this.used && !this.missed && !this.evaded;
     };
     
-    isStateAdded(stateId) {
+    isStateAdded(stateId: number) {
         return this.addedStates.contains(stateId);
     };
     
-    pushAddedState(stateId) {
+    pushAddedState(stateId: number) {
         if (!this.isStateAdded(stateId)) {
             this.addedStates.push(stateId);
         }
     };
     
-    isStateRemoved(stateId) {
+    isStateRemoved(stateId: number) {
         return this.removedStates.contains(stateId);
     };
     
-    pushRemovedState(stateId) {
+    pushRemovedState(stateId: number) {
         if (!this.isStateRemoved(stateId)) {
             this.removedStates.push(stateId);
         }
     };
     
-    isBuffAdded(paramId) {
+    isBuffAdded(paramId: number) {
         return this.addedBuffs.contains(paramId);
     };
     
-    pushAddedBuff(paramId) {
+    pushAddedBuff(paramId: number) {
         if (!this.isBuffAdded(paramId)) {
             this.addedBuffs.push(paramId);
         }
     };
     
-    isDebuffAdded(paramId) {
+    isDebuffAdded(paramId: number) {
         return this.addedDebuffs.contains(paramId);
     };
     
-    pushAddedDebuff(paramId) {
+    pushAddedDebuff(paramId: number) {
         if (!this.isDebuffAdded(paramId)) {
             this.addedDebuffs.push(paramId);
         }
     };
     
-    isBuffRemoved(paramId) {
+    isBuffRemoved(paramId: number) {
         return this.removedBuffs.contains(paramId);
     };
     
-    pushRemovedBuff(paramId) {
+    pushRemovedBuff(paramId: number) {
         if (!this.isBuffRemoved(paramId)) {
             this.removedBuffs.push(paramId);
         }

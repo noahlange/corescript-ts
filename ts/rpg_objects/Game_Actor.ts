@@ -5,22 +5,22 @@
 
 class Game_Actor extends Game_Battler {
     protected _actorId: number;
-    protected _name;
-    protected _nickname;
+    protected _name: string;
+    protected _nickname: string;
     protected _classId: number;
     protected _level: number;
-    protected _characterName;
-    protected _characterIndex;
-    protected _faceName;
-    protected _faceIndex;
-    protected _battlerName;
+    protected _characterName: string;
+    protected _characterIndex: number;
+    protected _faceName: string;
+    protected _faceIndex: number;
+    protected _battlerName: string;
     protected _exp: Object;
-    protected _skills;
-    protected _equips;
-    protected _actionInputIndex;
-    protected _lastMenuSkill;
-    protected _lastBattleSkill;
-    protected _lastCommandSymbol;
+    protected _skills: any[];
+    protected _equips: any[];
+    protected _actionInputIndex: number;
+    protected _lastMenuSkill: Game_Item;
+    protected _lastBattleSkill: Game_Item;
+    protected _lastCommandSymbol: string;
     protected _profile;
     protected _stateSteps;
 
@@ -70,7 +70,7 @@ class Game_Actor extends Game_Battler {
         this.recoverAll();
     };
 
-    actorId() {
+    actorId(): number {
         return this._actorId;
     };
 
@@ -82,7 +82,7 @@ class Game_Actor extends Game_Battler {
         return this._name;
     };
 
-    setName(name) {
+    setName(name: string) {
         this._name = name;
     };
 
@@ -90,7 +90,7 @@ class Game_Actor extends Game_Battler {
         return this._nickname;
     };
 
-    setNickname(nickname) {
+    setNickname(nickname: string) {
         this._nickname = nickname;
     };
 
@@ -102,7 +102,7 @@ class Game_Actor extends Game_Battler {
         this._profile = profile;
     };
 
-    characterName() {
+    characterName(): string {
         return this._characterName;
     };
 
@@ -110,7 +110,7 @@ class Game_Actor extends Game_Battler {
         return this._characterIndex;
     };
 
-    faceName() {
+    faceName(): string {
         return this._faceName;
     };
 
@@ -118,7 +118,7 @@ class Game_Actor extends Game_Battler {
         return this._faceIndex;
     };
 
-    battlerName() {
+    battlerName(): string {
         return this._battlerName;
     };
 
@@ -127,12 +127,12 @@ class Game_Actor extends Game_Battler {
         this._stateSteps = {};
     };
 
-    eraseState(stateId) {
+    eraseState(stateId: number) {
         super.eraseState(stateId);
         delete this._stateSteps[stateId];
     };
 
-    resetStateCounts(stateId) {
+    resetStateCounts(stateId: number) {
         super.resetStateCounts(stateId);
         this._stateSteps[stateId] = $dataStates[stateId].stepsToRemove;
     };
@@ -146,7 +146,7 @@ class Game_Actor extends Game_Battler {
         this._battlerName = actor.battlerName;
     };
 
-    expForLevel(level) {
+    expForLevel(level: number) {
         var c = this.currentClass();
         var basis = c.expParams[0];
         var extra = c.expParams[1];
@@ -193,7 +193,7 @@ class Game_Actor extends Game_Battler {
         }, this);
     };
 
-    initEquips(equips) {
+    initEquips(equips: any[]) {
         var slots = this.equipSlots();
         var maxSlots = slots.length;
         this._equips = [];
@@ -335,7 +335,7 @@ class Game_Actor extends Game_Battler {
         }
     };
 
-    bestEquipItem(slotId) {
+    bestEquipItem(slotId: number) {
         var etypeId = this.equipSlots()[slotId];
         var items = $gameParty.equipItems().filter(function (item) {
             return item.etypeId === etypeId && this.canEquip(item);
@@ -381,7 +381,7 @@ class Game_Actor extends Game_Battler {
         super.refresh();
     };
 
-    isActor() {
+    isActor(): this is Game_Actor {
         return true;
     };
 
@@ -603,12 +603,12 @@ class Game_Actor extends Game_Battler {
         this.refresh();
     };
 
-    setCharacterImage(characterName, characterIndex) {
+    setCharacterImage(characterName, characterIndex: number) {
         this._characterName = characterName;
         this._characterIndex = characterIndex;
     };
 
-    setFaceImage(faceName, faceIndex) {
+    setFaceImage(faceName, faceIndex: number) {
         this._faceName = faceName;
         this._faceIndex = faceIndex;
     };
@@ -621,7 +621,7 @@ class Game_Actor extends Game_Battler {
         return $gameSystem.isSideView();
     };
 
-    startAnimation(animationId, mirror, delay) {
+    startAnimation(animationId: number, mirror, delay) {
         mirror = !mirror;
         super.startAnimation(animationId, mirror, delay);
     };

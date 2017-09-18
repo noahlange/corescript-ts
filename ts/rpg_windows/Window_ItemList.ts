@@ -99,7 +99,7 @@ class Window_ItemList extends Window_Selectable {
     drawItemNumber(item, x, y, width) {
         if (this.needsNumber()) {
             this.drawText(':', x, y, width - this.textWidth('00'), 'right');
-            this.drawText($gameParty.numItems(item), x, y, width, 'right');
+            this.drawText($gameParty.numItems(item).toString(), x, y, width, 'right');
         }
     };
     

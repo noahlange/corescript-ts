@@ -5,7 +5,7 @@
 // required because save data should not include the database object itself.
 
 class Game_Item {
-    protected _dataClass;
+    protected _dataClass: string;
     protected _itemId: number;
 
     constructor(item?) {
@@ -16,31 +16,31 @@ class Game_Item {
         }
     };
     
-    isSkill() {
+    isSkill(): boolean {
         return this._dataClass === 'skill';
     };
     
-    isItem() {
+    isItem(): boolean {
         return this._dataClass === 'item';
     };
     
-    isUsableItem() {
+    isUsableItem(): boolean {
         return this.isSkill() || this.isItem();
     };
     
-    isWeapon() {
+    isWeapon(): boolean {
         return this._dataClass === 'weapon';
     };
     
-    isArmor() {
+    isArmor(): boolean {
         return this._dataClass === 'armor';
     };
     
-    isEquipItem() {
+    isEquipItem(): boolean {
         return this.isWeapon() || this.isArmor();
     };
     
-    isNull() {
+    isNull(): boolean {
         return this._dataClass === '';
     };
     
@@ -48,7 +48,7 @@ class Game_Item {
         return this._itemId;
     };
     
-    object() {
+    object(): DB.Skill | DB.Item | DB.Weapon | DB.Armor | null {
         if (this.isSkill()) {
             return $dataSkills[this._itemId];
         } else if (this.isItem()) {
@@ -62,7 +62,7 @@ class Game_Item {
         }
     };
     
-    setObject(item) {
+    setObject(item: DB.Item | DB.Skill | DB.Weapon | DB.Armor) {
         if (DataManager.isSkill(item)) {
             this._dataClass = 'skill';
         } else if (DataManager.isItem(item)) {
@@ -77,7 +77,7 @@ class Game_Item {
         this._itemId = item ? item.id : 0;
     };
     
-    setEquip(isWeapon, itemId: number) {
+    setEquip(isWeapon: boolean, itemId: number) {
         this._dataClass = isWeapon ? 'weapon' : 'armor';
         this._itemId = itemId;
     };

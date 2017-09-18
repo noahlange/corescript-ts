@@ -40,7 +40,7 @@ class Graphics {
 
     protected static _canUseDifferenceBlend: boolean;
     protected static _canUseSaturationBlend: boolean;
-    protected static _hiddenCanvas: any;
+    protected static _hiddenCanvas: HTMLCanvasElement | null;
 
     /**
      * Initializes the graphics system.
@@ -52,10 +52,10 @@ class Graphics {
      * @param {String} type The type of the renderer.
      *                 'canvas', 'webgl', or 'auto'.
      */
-    static initialize(width, height, type) {
-        this._width = width || 800;
-        this._height = height || 600;
-        this._rendererType = type || 'auto';
+    static initialize(width = 800, height = 800, type = 'auto') {
+        this._width = width;
+        this._height = height;
+        this._rendererType = type;
         this._boxWidth = this._width;
         this._boxHeight = this._height;
 
@@ -104,7 +104,7 @@ class Graphics {
         }
     };
 
-    static canUseCssFontLoading() {
+    static canUseCssFontLoading(): boolean {
         return !!this._cssFontLoading;
     };
 
@@ -215,7 +215,7 @@ class Graphics {
      * @method isWebGL
      * @return {Boolean} True if the renderer type is WebGL
      */
-    static isWebGL() {
+    static isWebGL(): boolean {
         return this._renderer && this._renderer.type === PIXI.RENDERER_TYPE.WEBGL;
     };
 
@@ -242,7 +242,7 @@ class Graphics {
      * @method canUseDifferenceBlend
      * @return {Boolean} True if the canvas blend mode 'difference' is supported
      */
-    static canUseDifferenceBlend() {
+    static canUseDifferenceBlend(): boolean {
         return this._canUseDifferenceBlend;
     };
 
@@ -253,7 +253,7 @@ class Graphics {
      * @method canUseSaturationBlend
      * @return {Boolean} True if the canvas blend mode 'saturation' is supported
      */
-    static canUseSaturationBlend() {
+    static canUseSaturationBlend(): boolean {
         return this._canUseSaturationBlend;
     };
 
@@ -594,7 +594,7 @@ class Graphics {
      * @property boxWidth
      * @type Number
      */
-    static get boxWidth() : number{
+    static get boxWidth(): number {
         return this._boxWidth;
     }
     static set boxWidth(value: number) {
@@ -608,7 +608,7 @@ class Graphics {
      * @property boxHeight
      * @type Number
      */
-    static get boxHeight() : number{
+    static get boxHeight(): number {
         return this._boxHeight;
     }
     static set boxHeight(value: number) {
@@ -622,7 +622,7 @@ class Graphics {
      * @property scale
      * @type Number
      */
-    static get scale() : number{
+    static get scale(): number {
         return this._scale;
     }
     static set scale(value: number) {
@@ -1002,15 +1002,15 @@ class Graphics {
      * @param {HTMLElement} element
      * @private
      */
-    protected static _centerElement(element) {
-        var width = element.width * this._realScale;
-        var height = element.height * this._realScale;
+    protected static _centerElement(element: HTMLElement) {
+        var width = element['width'] * this._realScale;
+        var height = element['height'] * this._realScale;
         element.style.position = 'absolute';
         element.style.margin = 'auto';
-        element.style.top = 0;
-        element.style.left = 0;
-        element.style.right = 0;
-        element.style.bottom = 0;
+        element.style.top = '0';
+        element.style.left = '0';
+        element.style.right = '0';
+        element.style.bottom = '0';
         element.style.width = width + 'px';
         element.style.height = height + 'px';
     };
@@ -1090,7 +1090,7 @@ class Graphics {
      * @param {Boolean} videoVisible
      * @private
      */
-    protected static _updateVisibility(videoVisible) {
+    protected static _updateVisibility(videoVisible: boolean) {
         this._video.style.opacity = videoVisible ? 1 : 0;
         this._canvas.style.opacity = videoVisible ? 0 : 1;
     };
@@ -1101,7 +1101,7 @@ class Graphics {
      * @return {Boolean}
      * @private
      */
-    protected static _isVideoVisible() {
+    protected static _isVideoVisible(): boolean {
         return this._video.style.opacity > 0;
     };
 
@@ -1131,7 +1131,7 @@ class Graphics {
      * @param {KeyboardEvent} event
      * @private
      */
-    protected static _onKeyDown(event) {
+    protected static _onKeyDown(event: KeyboardEvent) {
         if (!event.ctrlKey && !event.altKey) {
             switch (event.keyCode) {
                 case 113:   // F2
@@ -1156,7 +1156,7 @@ class Graphics {
      * @param {TouchEvent} event
      * @private
      */
-    protected static _onTouchEnd(event) {
+    protected static _onTouchEnd(event: TouchEvent) {
         if (!this._videoUnlocked) {
             this._video.play();
             this._videoUnlocked = true;
@@ -1187,7 +1187,6 @@ class Graphics {
     /**
      * @static
      * @method _switchStretchMode
-     * @return {Boolean}
      * @private
      */
     protected static _switchStretchMode() {
@@ -1214,7 +1213,7 @@ class Graphics {
      * @return {Boolean}
      * @private
      */
-    protected static _isFullScreen() {
+    protected static _isFullScreen(): boolean {
         /// bungcip: edited for compile
         return (document.fullscreenElement && document.fullscreenElement !== null);
     };

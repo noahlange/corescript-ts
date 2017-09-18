@@ -9,7 +9,7 @@ class Game_BattlerBase {
     protected _tp: number;
     protected _stateTurns;
     protected _states;
-    protected _hidden;
+    protected _hidden: boolean;
     protected _buffs;
     protected _buffTurns;
     protected _paramPlus;
@@ -603,11 +603,11 @@ class Game_BattlerBase {
         return this.isConfused() ? this.restriction() : 0;
     };
 
-    isActor() {
+    isActor(): this is Game_Actor {
         return false;
     };
 
-    isEnemy() {
+    isEnemy(): this is Game_Enemy {
         return false;
     };
 

@@ -108,7 +108,7 @@ class TouchInput {
      * @method isPressed
      * @return {Boolean} True if the mouse button or touchscreen is pressed
      */
-    static isPressed() {
+    static isPressed(): boolean {
         return this._mousePressed || this._screenPressed;
     };
 
@@ -119,7 +119,7 @@ class TouchInput {
      * @method isTriggered
      * @return {Boolean} True if the mouse button or touchscreen is triggered
      */
-    static isTriggered() {
+    static isTriggered(): boolean {
         return this._triggered;
     };
 
@@ -131,7 +131,7 @@ class TouchInput {
      * @method isRepeated
      * @return {Boolean} True if the mouse button or touchscreen is repeated
      */
-    static isRepeated() {
+    static isRepeated(): boolean {
         return (this.isPressed() &&
             (this._triggered ||
                 (this._pressedTime >= this.keyRepeatWait &&
@@ -145,7 +145,7 @@ class TouchInput {
      * @method isLongPressed
      * @return {Boolean} True if the left mouse button or touchscreen is long-pressed
      */
-    static isLongPressed() {
+    static isLongPressed(): boolean {
         return this.isPressed() && this._pressedTime >= this.keyRepeatWait;
     };
 
@@ -156,7 +156,7 @@ class TouchInput {
      * @method isCancelled
      * @return {Boolean} True if the right mouse button is just pressed
      */
-    static isCancelled() {
+    static isCancelled(): boolean {
         return this._cancelled;
     };
 
@@ -167,7 +167,7 @@ class TouchInput {
      * @method isMoved
      * @return {Boolean} True if the mouse or a finger on the touchscreen is moved
      */
-    static isMoved() {
+    static isMoved(): boolean {
         return this._moved;
     };
 
@@ -178,7 +178,7 @@ class TouchInput {
      * @method isReleased
      * @return {Boolean} True if the mouse button or touchscreen is released
      */
-    static isReleased() {
+    static isReleased(): boolean {
         return this._released;
     };
 
@@ -189,7 +189,7 @@ class TouchInput {
      * @property wheelX
      * @type Number
      */
-    static get wheelX() {
+    static get wheelX(): number {
         return this._wheelX;
     }
 
@@ -200,7 +200,7 @@ class TouchInput {
      * @property wheelY
      * @type Number
      */
-    static get wheelY() {
+    static get wheelY(): number {
         return this._wheelY;
     }
 
@@ -211,7 +211,7 @@ class TouchInput {
      * @property x
      * @type Number
      */
-    static get x() {
+    static get x(): number {
         return this._x;
     }
 
@@ -222,7 +222,7 @@ class TouchInput {
      * @property y
      * @type Number
      */
-    static get y() {
+    static get y(): number {
         return this._y;
     }
 
@@ -233,7 +233,7 @@ class TouchInput {
      * @property date
      * @type Number
      */
-    static get date() {
+    static get date(): number {
         return this._date;
     }
 
@@ -249,8 +249,8 @@ class TouchInput {
         document.addEventListener('mouseup', this._onMouseUp.bind(this));
         document.addEventListener('wheel', this._onWheel.bind(this));
         /// bungcip: biar bisa dicompile
-        document.addEventListener('touchstart', this._onTouchStart.bind(this), isSupportPassive ? {passive: false} as any : false);
-        document.addEventListener('touchmove', this._onTouchMove.bind(this), isSupportPassive ? {passive: false} as any : false);
+        document.addEventListener('touchstart', this._onTouchStart.bind(this), isSupportPassive ? { passive: false } as any : false);
+        document.addEventListener('touchmove', this._onTouchMove.bind(this), isSupportPassive ? { passive: false } as any : false);
         document.addEventListener('touchend', this._onTouchEnd.bind(this));
         document.addEventListener('touchcancel', this._onTouchCancel.bind(this));
         document.addEventListener('pointerdown', this._onPointerDown.bind(this));
@@ -262,7 +262,7 @@ class TouchInput {
      * @param {MouseEvent} event
      * @private
      */
-    protected static _onMouseDown(event) {
+    protected static _onMouseDown(event: MouseEvent) {
         if (event.button === 0) {
             this._onLeftButtonDown(event);
         } else if (event.button === 1) {
@@ -278,7 +278,7 @@ class TouchInput {
      * @param {MouseEvent} event
      * @private
      */
-    protected static _onLeftButtonDown(event) {
+    protected static _onLeftButtonDown(event: MouseEvent) {
         var x = Graphics.pageToCanvasX(event.pageX);
         var y = Graphics.pageToCanvasY(event.pageY);
         if (Graphics.isInsideCanvas(x, y)) {
@@ -294,7 +294,7 @@ class TouchInput {
      * @param {MouseEvent} event
      * @private
      */
-    protected static _onMiddleButtonDown(event) {
+    protected static _onMiddleButtonDown(event: MouseEvent) {
     };
 
     /**
@@ -303,7 +303,7 @@ class TouchInput {
      * @param {MouseEvent} event
      * @private
      */
-    protected static _onRightButtonDown(event) {
+    protected static _onRightButtonDown(event: MouseEvent) {
         var x = Graphics.pageToCanvasX(event.pageX);
         var y = Graphics.pageToCanvasY(event.pageY);
         if (Graphics.isInsideCanvas(x, y)) {
@@ -317,7 +317,7 @@ class TouchInput {
      * @param {MouseEvent} event
      * @private
      */
-    protected static _onMouseMove(event) {
+    protected static _onMouseMove(event: MouseEvent) {
         if (this._mousePressed) {
             var x = Graphics.pageToCanvasX(event.pageX);
             var y = Graphics.pageToCanvasY(event.pageY);
@@ -331,7 +331,7 @@ class TouchInput {
      * @param {MouseEvent} event
      * @private
      */
-    protected static _onMouseUp(event) {
+    protected static _onMouseUp(event: MouseEvent) {
         if (event.button === 0) {
             var x = Graphics.pageToCanvasX(event.pageX);
             var y = Graphics.pageToCanvasY(event.pageY);
@@ -346,7 +346,7 @@ class TouchInput {
      * @param {WheelEvent} event
      * @private
      */
-    protected static _onWheel(event) {
+    protected static _onWheel(event: WheelEvent) {
         this._events.wheelX += event.deltaX;
         this._events.wheelY += event.deltaY;
         event.preventDefault();
@@ -358,7 +358,7 @@ class TouchInput {
      * @param {TouchEvent} event
      * @private
      */
-    protected static _onTouchStart(event) {
+    protected static _onTouchStart(event: TouchEvent) {
         for (var i = 0; i < event.changedTouches.length; i++) {
             var touch = event.changedTouches[i];
             var x = Graphics.pageToCanvasX(touch.pageX);
@@ -385,7 +385,7 @@ class TouchInput {
      * @param {TouchEvent} event
      * @private
      */
-    protected static _onTouchMove(event) {
+    protected static _onTouchMove(event: TouchEvent) {
         for (var i = 0; i < event.changedTouches.length; i++) {
             var touch = event.changedTouches[i];
             var x = Graphics.pageToCanvasX(touch.pageX);
@@ -400,7 +400,7 @@ class TouchInput {
      * @param {TouchEvent} event
      * @private
      */
-    protected static _onTouchEnd(event) {
+    protected static _onTouchEnd(event: TouchEvent) {
         for (var i = 0; i < event.changedTouches.length; i++) {
             var touch = event.changedTouches[i];
             var x = Graphics.pageToCanvasX(touch.pageX);
@@ -416,7 +416,7 @@ class TouchInput {
      * @param {TouchEvent} event
      * @private
      */
-    protected static _onTouchCancel(event) {
+    protected static _onTouchCancel(event: TouchEvent) {
         this._screenPressed = false;
     };
 
@@ -426,7 +426,7 @@ class TouchInput {
      * @param {PointerEvent} event
      * @private
      */
-    protected static _onPointerDown(event) {
+    protected static _onPointerDown(event: PointerEvent) {
         if (event.pointerType === 'touch' && !event.isPrimary) {
             var x = Graphics.pageToCanvasX(event.pageX);
             var y = Graphics.pageToCanvasY(event.pageY);
@@ -445,7 +445,7 @@ class TouchInput {
      * @param {Number} y
      * @private
      */
-    protected static _onTrigger(x, y) {
+    protected static _onTrigger(x: number, y: number) {
         this._events.triggered = true;
         this._x = x;
         this._y = y;
@@ -459,7 +459,7 @@ class TouchInput {
      * @param {Number} y
      * @private
      */
-    protected static _onCancel(x, y) {
+    protected static _onCancel(x: number, y: number) {
         this._events.cancelled = true;
         this._x = x;
         this._y = y;
@@ -472,7 +472,7 @@ class TouchInput {
      * @param {Number} y
      * @private
      */
-    protected static _onMove(x, y) {
+    protected static _onMove(x: number, y: number) {
         this._events.moved = true;
         this._x = x;
         this._y = y;
@@ -485,7 +485,7 @@ class TouchInput {
      * @param {Number} y
      * @private
      */
-    protected static _onRelease(x, y) {
+    protected static _onRelease(x: number, y: number) {
         this._events.released = true;
         this._x = x;
         this._y = y;

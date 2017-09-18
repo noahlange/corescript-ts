@@ -1869,7 +1869,7 @@ class Game_Interpreter {
                 // Enemy Transform
                 case 336:
                     var enemy = $dataEnemies[params[1]];
-                    var name = enemy.battlerName;
+                    var name: string = enemy.battlerName;
                     var hue = enemy.battlerHue;
                     if ($gameSystem.isSideView()) {
                         ImageManager.requestSvEnemy(name, hue);

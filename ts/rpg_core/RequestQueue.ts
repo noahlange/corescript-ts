@@ -6,7 +6,7 @@ class RequestQueue {
         this._queue = [];
     }    
 
-    enqueue(key, value){
+    enqueue(key: string, value: any){
         this._queue.push({
             key: key,
             value: value,
@@ -27,7 +27,7 @@ class RequestQueue {
         }
     };
     
-    raisePriority(key){
+    raisePriority(key: string){
         for(var n = 0; n < this._queue.length; n++){
             var item = this._queue[n];
             if(item.key === key){

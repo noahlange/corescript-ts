@@ -4,30 +4,30 @@
 // The static class that manages battle progress.
 
 class BattleManager {
-    protected static _phase;
-    protected static _canEscape;
-    protected static _canLose;
-    protected static _battleTest;
-    protected static _eventCallback;
-    protected static _preemptive;
-    protected static _surprise;
-    protected static _actorIndex;
+    protected static _phase: string;
+    protected static _canEscape: boolean;
+    protected static _canLose: boolean;
+    protected static _battleTest: boolean;
+    protected static _eventCallback: Function;
+    protected static _preemptive: boolean;
+    protected static _surprise: boolean;
+    protected static _actorIndex: number;
     protected static _actionForcedBattler;
-    protected static _mapBgm;
-    protected static _mapBgs;
-    protected static _actionBattlers;
+    protected static _mapBgm: DB.Audio;
+    protected static _mapBgs: DB.Audio;
+    protected static _actionBattlers: any[];
     protected static _subject;
     protected static _action;
     protected static _targets;
     protected static _logWindow;
     protected static _statusWindow;
     protected static _spriteset;
-    protected static _escapeRatio;
-    protected static _escaped;
+    protected static _escapeRatio: number;
+    protected static _escaped: boolean;
     protected static _rewards;
 
 
-    static setup(troopId: number, canEscape, canLose) {
+    static setup(troopId: number, canEscape: boolean, canLose: boolean) {
         this.initMembers();
         this._canEscape = canEscape;
         this._canLose = canLose;

@@ -63,11 +63,11 @@ class Decrypter {
         };
     };
     
-    static cutArrayHeader = function(arrayBuffer, length: number) {
+    static cutArrayHeader = function(arrayBuffer: ArrayBuffer, length: number) {
         return arrayBuffer.slice(length);
     };
     
-    static decryptArrayBuffer = function(arrayBuffer) {
+    static decryptArrayBuffer = function(arrayBuffer: ArrayBuffer) {
         if (!arrayBuffer) return null;
         var header = new Uint8Array(arrayBuffer, 0, this._headerlength);
     
@@ -97,7 +97,7 @@ class Decrypter {
         return arrayBuffer;
     };
     
-    static createBlobUrl = function(arrayBuffer){
+    static createBlobUrl = function(arrayBuffer: ArrayBuffer){
         var blob = new Blob([arrayBuffer]);
         return window.URL.createObjectURL(blob);
     };
