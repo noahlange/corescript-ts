@@ -5,14 +5,14 @@
 
 class Game_Timer {
     protected _frames: number;
-    protected _working;
+    protected _working: boolean;
 
     constructor() {
         this._frames = 0;
         this._working = false;
     };
 
-    update(sceneActive) {
+    update(sceneActive: boolean) {
         if (sceneActive && this._working && this._frames > 0) {
             this._frames--;
             if (this._frames === 0) {
@@ -30,7 +30,7 @@ class Game_Timer {
         this._working = false;
     };
 
-    isWorking() {
+    isWorking(): boolean{
         return this._working;
     };
 

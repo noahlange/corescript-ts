@@ -15,7 +15,7 @@ class Game_Party extends Game_Unit {
 
     protected _gold: number;
     protected _steps: number;
-    protected _lastItem;
+    protected _lastItem: Game_Item;
     protected _menuActorId: number;
     protected _targetActorId: number;
     protected _actors;
@@ -223,7 +223,7 @@ class Game_Party extends Game_Unit {
         this._steps++;
     };
 
-    numItems(item) {
+    numItems(item): number {
         var container = this.itemContainer(item);
         return container ? container[item.id] || 0 : 0;
     };
@@ -236,10 +236,7 @@ class Game_Party extends Game_Unit {
         return this.numItems(item) >= this.maxItems(item);
     };
 
-    hasItem(item, includeEquip) {
-        if (includeEquip === undefined) {
-            includeEquip = false;
-        }
+    hasItem(item, includeEquip: boolean = false) {
         if (this.numItems(item) > 0) {
             return true;
         } else if (includeEquip && this.isAnyMemberEquipped(item)) {
@@ -255,7 +252,7 @@ class Game_Party extends Game_Unit {
         });
     };
 
-    gainItem(item, amount: number, includeEquip) {
+    gainItem(item, amount: number, includeEquip: boolean = false) {
         var container = this.itemContainer(item);
         if (container) {
             var lastNumber = this.numItems(item);
@@ -281,7 +278,7 @@ class Game_Party extends Game_Unit {
         });
     };
 
-    loseItem(item, amount: number, includeEquip?) {
+    loseItem(item, amount: number, includeEquip?: boolean) {
         this.gainItem(item, -amount, includeEquip);
     };
 
@@ -418,7 +415,7 @@ class Game_Party extends Game_Unit {
         return this.partyAbility(Game_Party.ABILITY_DROP_ITEM_DOUBLE);
     };
 
-    ratePreemptive(troopAgi: number) {
+    ratePreemptive(troopAgi: number): number {
         var rate = this.agility() >= troopAgi ? 0.05 : 0.03;
         if (this.hasRaisePreemptive()) {
             rate *= 4;
@@ -426,7 +423,7 @@ class Game_Party extends Game_Unit {
         return rate;
     };
 
-    rateSurprise(troopAgi: number) {
+    rateSurprise(troopAgi: number): number {
         var rate = this.agility() >= troopAgi ? 0.03 : 0.05;
         if (this.hasCancelSurprise()) {
             rate = 0;

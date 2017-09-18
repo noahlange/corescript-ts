@@ -4,16 +4,16 @@
 // The game object class for the system data.
 
 class Game_System {
-    protected _saveEnabled;
-    protected _menuEnabled;
-    protected _encounterEnabled;
-    protected _formationEnabled;
+    protected _saveEnabled: boolean;
+    protected _menuEnabled: boolean;
+    protected _encounterEnabled: boolean;
+    protected _formationEnabled: boolean;
     protected _battleCount: number;
     protected _winCount: number;
     protected _escapeCount: number;
     protected _saveCount: number;
     protected _versionId: number;
-    protected _framesOnSave;
+    protected _framesOnSave: number;
     protected _bgmOnSave;
     protected _bgsOnSave;
     protected _windowTone;
@@ -64,11 +64,11 @@ class Game_System {
         return $dataSystem.locale.match(/^ru/);
     };
     
-    isSideView() {
+    isSideView() : boolean{
         return $dataSystem.optSideView;
     };
     
-    isSaveEnabled() {
+    isSaveEnabled(): boolean {
         return this._saveEnabled;
     };
     
@@ -80,7 +80,7 @@ class Game_System {
         this._saveEnabled = true;
     };
     
-    isMenuEnabled() {
+    isMenuEnabled(): boolean {
         return this._menuEnabled;
     };
     
@@ -92,7 +92,7 @@ class Game_System {
         this._menuEnabled = true;
     };
     
-    isEncounterEnabled() {
+    isEncounterEnabled(): boolean {
         return this._encounterEnabled;
     };
     
@@ -104,7 +104,7 @@ class Game_System {
         this._encounterEnabled = true;
     };
     
-    isFormationEnabled() {
+    isFormationEnabled(): boolean {
         return this._formationEnabled;
     };
     

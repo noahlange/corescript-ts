@@ -20,14 +20,6 @@ interface CoreAudioBuffer {
     pan: number;
 }
 
-interface AudioProp {
-    name: string;
-    volume: number;
-    pitch: number;
-    pan: number;
-    pos: number;
-};
-
 class AudioManager {
     protected static _masterVolume = 1;   // (min: 0, max: 1)
     public static _bgmVolume = 100; /// bungcip: karena dipakai oleh ConfigManager
@@ -35,9 +27,9 @@ class AudioManager {
     protected static _meVolume = 100;
     protected static _seVolume = 100;
     
-    protected static _currentBgm: AudioProp | null = null;
-    protected static _currentBgs: AudioProp | null = null;
-    protected static _currentMe: AudioProp | null;
+    protected static _currentBgm: DB.Audio | null = null;
+    protected static _currentBgs: DB.Audio | null = null;
+    protected static _currentMe: DB.Audio | null;
 
     protected static _bgmBuffer: CoreAudioBuffer | null = null;
     protected static _bgsBuffer: CoreAudioBuffer | null = null;
@@ -89,7 +81,7 @@ class AudioManager {
         this._seVolume = value;
     }
 
-    static playBgm(bgm: AudioProp, pos?: number) {
+    static playBgm(bgm: DB.Audio, pos?: number) {
         if (this.isCurrentBgm(bgm)) {
             this.updateBgmParameters(bgm);
         } else {
@@ -110,14 +102,14 @@ class AudioManager {
         this.updateCurrentBgm(bgm, pos);
     };
 
-    static playEncryptedBgm(bgm: AudioProp, pos: number) {
+    static playEncryptedBgm(bgm: DB.Audio, pos: number) {
         var ext = this.audioFileExt();
         var url = this._path + 'bgm/' + encodeURIComponent(bgm.name) + ext;
         url = Decrypter.extToEncryptExt(url);
         Decrypter.decryptHTML5Audio(url, bgm, pos);
     };
 
-    static createDecryptBuffer(url: string, bgm: AudioProp, pos: number) {
+    static createDecryptBuffer(url: string, bgm: DB.Audio, pos: number) {
         this._blobUrl = url;
         this._bgmBuffer = this.createBuffer('bgm', bgm.name);
         this.updateBgmParameters(bgm);
@@ -127,7 +119,7 @@ class AudioManager {
         this.updateCurrentBgm(bgm, pos);
     };
 
-    static replayBgm(bgm: AudioProp) {
+    static replayBgm(bgm: DB.Audio) {
         if (this.isCurrentBgm(bgm)) {
             this.updateBgmParameters(bgm);
         } else {
@@ -138,16 +130,16 @@ class AudioManager {
         }
     };
 
-    static isCurrentBgm(bgm: AudioProp) {
+    static isCurrentBgm(bgm: DB.Audio) {
         return (this._currentBgm && this._bgmBuffer &&
             this._currentBgm.name === bgm.name);
     };
 
-    static updateBgmParameters(bgm: AudioProp) {
+    static updateBgmParameters(bgm: DB.Audio) {
         this.updateBufferParameters(this._bgmBuffer, this._bgmVolume, bgm);
     };
 
-    static updateCurrentBgm(bgm: AudioProp, pos: number) {
+    static updateCurrentBgm(bgm: DB.Audio, pos: number) {
         this._currentBgm = {
             name: bgm.name,
             volume: bgm.volume,
@@ -178,7 +170,7 @@ class AudioManager {
         }
     };
 
-    static playBgs(bgs: AudioProp, pos?: number) {
+    static playBgs(bgs: DB.Audio, pos?: number) {
         if (this.isCurrentBgs(bgs)) {
             this.updateBgsParameters(bgs);
         } else {
@@ -192,7 +184,7 @@ class AudioManager {
         this.updateCurrentBgs(bgs, pos);
     };
 
-    static replayBgs(bgs: AudioProp) {
+    static replayBgs(bgs: DB.Audio) {
         if (this.isCurrentBgs(bgs)) {
             this.updateBgsParameters(bgs);
         } else {
@@ -203,16 +195,16 @@ class AudioManager {
         }
     };
 
-    static isCurrentBgs(bgs: AudioProp) {
+    static isCurrentBgs(bgs: DB.Audio) {
         return (this._currentBgs && this._bgsBuffer &&
             this._currentBgs.name === bgs.name);
     };
 
-    static updateBgsParameters(bgs: AudioProp) {
+    static updateBgsParameters(bgs: DB.Audio) {
         this.updateBufferParameters(this._bgsBuffer, this._bgsVolume, bgs);
     };
 
-    static updateCurrentBgs(bgs: AudioProp, pos: number) {
+    static updateCurrentBgs(bgs: DB.Audio, pos: number) {
         this._currentBgs = {
             name: bgs.name,
             volume: bgs.volume,
@@ -243,7 +235,7 @@ class AudioManager {
         }
     };
 
-    static playMe(me: AudioProp) {
+    static playMe(me: DB.Audio) {
         this.stopMe();
         if (me.name) {
             if (this._bgmBuffer && this._currentBgm) {
@@ -257,7 +249,7 @@ class AudioManager {
         }
     };
 
-    static updateMeParameters(me: AudioProp) {
+    static updateMeParameters(me: DB.Audio) {
         this.updateBufferParameters(this._meBuffer, this._meVolume, me);
     };
 
@@ -278,7 +270,7 @@ class AudioManager {
         }
     };
 
-    static playSe(se: AudioProp) {
+    static playSe(se: DB.Audio) {
         if (se.name) {
             this._seBuffers = this._seBuffers.filter(function (audio) {
                 return audio.isPlaying();
@@ -290,7 +282,7 @@ class AudioManager {
         }
     };
 
-    static updateSeParameters(buffer: CoreAudioBuffer, se: AudioProp) {
+    static updateSeParameters(buffer: CoreAudioBuffer, se: DB.Audio) {
         this.updateBufferParameters(buffer, this._seVolume, se);
     };
 
@@ -301,7 +293,7 @@ class AudioManager {
         this._seBuffers = [];
     };
 
-    static playStaticSe(se: AudioProp) {
+    static playStaticSe(se: DB.Audio) {
         if (se.name) {
             this.loadStaticSe(se);
             for (var i = 0; i < this._staticBuffers.length; i++) {
@@ -316,7 +308,7 @@ class AudioManager {
         }
     };
 
-    static loadStaticSe(se: AudioProp) {
+    static loadStaticSe(se: DB.Audio) {
         if (se.name && !this.isStaticSe(se)) {
             var buffer = this.createBuffer('se', se.name);
             buffer['_reservedSeName'] = se.name;
@@ -327,7 +319,7 @@ class AudioManager {
         }
     };
 
-    static isStaticSe(se: AudioProp) {
+    static isStaticSe(se: DB.Audio) {
         for (var i = 0; i < this._staticBuffers.length; i++) {
             var buffer = this._staticBuffers[i];
             if (buffer['_reservedSeName'] === se.name) {
@@ -390,7 +382,7 @@ class AudioManager {
         }
     };
 
-    static updateBufferParameters(buffer: CoreAudioBuffer, configVolume: number, audio: AudioProp) {
+    static updateBufferParameters(buffer: CoreAudioBuffer, configVolume: number, audio: DB.Audio) {
         if (buffer && audio) {
             buffer.volume = configVolume * (audio.volume || 0) / 10000;
             buffer.pitch = (audio.pitch || 0) / 100;

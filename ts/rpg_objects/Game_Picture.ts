@@ -4,7 +4,7 @@
 // The game object class for a picture.
 
 class Game_Picture {
-    protected _name;
+    protected _name: string;
     protected _origin: number;
     protected _x: number;
     protected _y: number;
@@ -12,17 +12,18 @@ class Game_Picture {
     protected _scaleY: number;
     protected _opacity: number;
     protected _blendMode: number;
-    protected _tone;
-    protected _angle;
+    protected _angle: number;
     protected _targetX: number;
     protected _targetY: number;
     protected _targetScaleX: number;
     protected _targetScaleY: number;
     protected _targetOpacity: number;
     protected _duration: number;
-    protected _toneTarget;
+
+    protected _tone: number[];
+    protected _toneTarget: number[];
     protected _toneDuration: number;
-    protected _rotationSpeed;
+    protected _rotationSpeed: number;
 
     constructor() {
         this.initBasic();
@@ -102,7 +103,7 @@ class Game_Picture {
         this._rotationSpeed = 0;
     };
 
-    show(name, origin, x: number, y: number, scaleX: number, scaleY: number, opacity: number, blendMode: number) {
+    show(name: string, origin:number, x: number, y: number, scaleX: number, scaleY: number, opacity: number, blendMode: number) {
         this._name = name;
         this._origin = origin;
         this._x = x;
@@ -116,7 +117,7 @@ class Game_Picture {
         this.initRotation();
     };
 
-    move(origin, x: number, y: number, scaleX: number, scaleY: number, opacity: number, blendMode: number, duration: number) {
+    move(origin:number, x: number, y: number, scaleX: number, scaleY: number, opacity: number, blendMode: number, duration: number) {
         this._origin = origin;
         this._targetX = x;
         this._targetY = y;
@@ -131,7 +132,7 @@ class Game_Picture {
         this._rotationSpeed = speed;
     };
 
-    tint(tone, duration: number) {
+    tint(tone: number[], duration: number) {
         if (!this._tone) {
             this._tone = [0, 0, 0, 0];
         }

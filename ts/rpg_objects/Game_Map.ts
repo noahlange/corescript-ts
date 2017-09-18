@@ -5,29 +5,29 @@
 // determination functions.
 
 class Game_Map {
-    protected _interpreter;
+    protected _interpreter: Game_Interpreter;
     protected _mapId: number;
     protected _tilesetId: number;
     protected _events;
     protected _commonEvents;
-    protected _vehicles;
+    protected _vehicles: Game_Vehicle[];
     protected _displayX: number;
     protected _displayY: number;
-    protected _nameDisplay;
+    protected _nameDisplay: boolean;
     protected _scrollDirection: number;
     protected _scrollRest: number;
     protected _scrollSpeed: number;
-    protected _parallaxName;
-    protected _parallaxZero;
+    protected _parallaxName: string;
+    protected _parallaxZero: boolean;
     protected _parallaxLoopX: boolean;
     protected _parallaxLoopY: boolean;
     protected _parallaxSx: number;
     protected _parallaxSy: number;
     protected _parallaxX: number;
     protected _parallaxY: number;
-    protected _battleback1Name;
-    protected _battleback2Name;
-    protected _needsRefresh;
+    protected _battleback1Name: string | null;
+    protected _battleback2Name: string | null;
+    protected _needsRefresh: boolean;
 
     public tileEvents;
 
@@ -74,7 +74,7 @@ class Game_Map {
         this._needsRefresh = false;
     };
 
-    isEventRunning() {
+    isEventRunning(): boolean {
         return this._interpreter.isRunning() || this.isAnyEventStarting();
     };
 
@@ -114,11 +114,11 @@ class Game_Map {
         return this._battleback2Name;
     };
 
-    requestRefresh(mapId: number) {
+    requestRefresh(mapId?: number) {
         this._needsRefresh = true;
     };
 
-    isNameDisplayEnabled() {
+    isNameDisplayEnabled() : boolean{
         return this._nameDisplay;
     };
 
@@ -147,7 +147,7 @@ class Game_Map {
         return this._vehicles;
     };
 
-    vehicle(type: number | string) {
+    vehicle(type: number | string) : Game_Vehicle | null {
         if (type === 0 || type === 'boat') {
             return this.boat();
         } else if (type === 1 || type === 'ship') {
@@ -385,7 +385,7 @@ class Game_Map {
         return result;
     };
 
-    deltaY(y1, y2) {
+    deltaY(y1: number, y2: number) {
         var result = y1 - y2;
         if (this.isLoopVertical() && Math.abs(result) > this.height() / 2) {
             if (result < 0) {
@@ -718,12 +718,12 @@ class Game_Map {
         this.refresh();
     };
 
-    changeBattleback(battleback1Name, battleback2Name) {
+    changeBattleback(battleback1Name: string, battleback2Name: string) {
         this._battleback1Name = battleback1Name;
         this._battleback2Name = battleback2Name;
     };
 
-    changeParallax(name, loopX: boolean, loopY: boolean, sx: number, sy: number) {
+    changeParallax(name: string, loopX: boolean, loopY: boolean, sx: number, sy: number) {
         this._parallaxName = name;
         this._parallaxZero = ImageManager.isZeroParallax(this._parallaxName);
         if (this._parallaxLoopX && !loopX) {

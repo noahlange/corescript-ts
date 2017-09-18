@@ -27,7 +27,7 @@ class BattleManager {
     protected static _rewards;
 
 
-    static setup(troopId, canEscape, canLose) {
+    static setup(troopId: number, canEscape, canLose) {
         this.initMembers();
         this._canEscape = canEscape;
         this._canLose = canLose;

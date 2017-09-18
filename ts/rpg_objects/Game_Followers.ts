@@ -4,9 +4,9 @@
 // The wrapper class for a follower array.
 
 class Game_Followers {
-    protected _visible;
-    protected _gathering;
-    protected _data;
+    protected _visible: boolean;
+    protected _gathering: boolean;
+    protected _data: Game_Follower[];
 
     constructor() {
         this._visible = $dataSystem.optFollowers;
@@ -17,7 +17,7 @@ class Game_Followers {
         }
     }
 
-    isVisible() {
+    isVisible(): boolean {
         return this._visible;
     };
     
@@ -33,11 +33,11 @@ class Game_Followers {
         return this._data[index];
     };
     
-    forEach(callback, thisObject) {
+    forEach(callback, thisObject?) {
         this._data.forEach(callback, thisObject);
     };
     
-    reverseEach(callback, thisObject) {
+    reverseEach(callback, thisObject?) {
         this._data.reverse();
         this._data.forEach(callback, thisObject);
         this._data.reverse();
@@ -92,7 +92,7 @@ class Game_Followers {
         this._gathering = true;
     };
     
-    areGathering() {
+    areGathering(): boolean {
         return this._gathering;
     };
     
@@ -102,13 +102,13 @@ class Game_Followers {
         }, this);
     };
     
-    areMoving() {
+    areMoving(): boolean {
         return this.visibleFollowers().some(function(follower) {
             return follower.isMoving();
         }, this);
     };
     
-    areGathered() {
+    areGathered(): boolean {
         return this.visibleFollowers().every(function(follower) {
             return !follower.isMoving() && follower.pos($gamePlayer.x, $gamePlayer.y);
         }, this);

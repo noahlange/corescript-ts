@@ -3,7 +3,7 @@
 //
 // The superclass of Game_Party and Game_Troop.
 
-class Game_Unit {
+abstract class Game_Unit {
     protected _inBattle: boolean;
 
     constructor() {

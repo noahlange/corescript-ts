@@ -7,14 +7,14 @@
 class Game_Event extends Game_Character {
     protected _mapId: number;
     protected _eventId: number;
-    protected _moveType;
-    protected _trigger;
+    protected _moveType: number;
+    protected _trigger: number;
     protected _starting;
     protected _erased;
-    protected _pageIndex;
-    protected _originalPattern;
-    protected _originalDirection;
-    protected _prelockDirection;
+    protected _pageIndex: number;
+    protected _originalPattern: number;
+    protected _originalDirection: number;
+    protected _prelockDirection: number;
     protected _locked;
     protected _interpreter;
 
@@ -39,7 +39,7 @@ class Game_Event extends Game_Character {
         this._locked = false;
     };
     
-    eventId() {
+    eventId(): number {
         return this._eventId;
     };
     
@@ -339,7 +339,7 @@ class Game_Event extends Game_Character {
         this._prelockDirection = 0;
     };
     
-    forceMoveRoute(moveRoute) {
+    forceMoveRoute(moveRoute: number) {
         super.forceMoveRoute(moveRoute);
         this._prelockDirection = 0;
     };

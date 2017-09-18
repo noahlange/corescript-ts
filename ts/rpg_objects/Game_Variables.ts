@@ -4,7 +4,8 @@
 // The game object class for variables.
 
 class Game_Variables {
-    protected _data;
+    /// (bungcip): set to public because Game_Action required it
+    public _data: number[];
 
     constructor() {
         this.clear();

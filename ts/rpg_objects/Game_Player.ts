@@ -5,18 +5,18 @@
 // determinants and map scrolling functions.
 
 class Game_Player extends Game_Character {
-    protected _vehicleType;
-    protected _vehicleGettingOn;
-    protected _vehicleGettingOff;
-    protected _dashing;
-    protected _needsMapReload;
-    protected _transferring;
+    protected _vehicleType: string;
+    protected _vehicleGettingOn: boolean;
+    protected _vehicleGettingOff: boolean;
+    protected _dashing: boolean;
+    protected _needsMapReload: boolean;
+    protected _transferring: boolean;
     protected _newMapId: number;
     protected _newX: number;
     protected _newY: number;
     protected _newDirection: number;
     protected _fadeType: number;
-    protected _followers;
+    protected _followers: Game_Followers;
     protected _encounterCount: number;
 
 
@@ -24,7 +24,7 @@ class Game_Player extends Game_Character {
         super();
         this.setTransparent($dataSystem.optTransparent);
     };
-    
+
     initMembers() {
         super.initMembers();
         this._vehicleType = 'walk';
@@ -41,7 +41,7 @@ class Game_Player extends Game_Character {
         this._followers = new Game_Followers();
         this._encounterCount = 0;
     };
-    
+
     clearTransferInfo() {
         this._transferring = false;
         this._newMapId = 0;
@@ -49,11 +49,11 @@ class Game_Player extends Game_Character {
         this._newY = 0;
         this._newDirection = 0;
     };
-    
+
     followers() {
         return this._followers;
     };
-    
+
     refresh() {
         var actor = $gameParty.leader();
         var characterName = actor ? actor.characterName() : '';
@@ -61,15 +61,15 @@ class Game_Player extends Game_Character {
         this.setImage(characterName, characterIndex);
         this._followers.refresh();
     };
-    
+
     isStopping() {
         if (this._vehicleGettingOn || this._vehicleGettingOff) {
             return false;
         }
         return super.isStopping();
     };
-    
-    reserveTransfer(mapId: number, x: number, y: number, d: number, fadeType: number) {
+
+    reserveTransfer(mapId: number, x: number, y: number, d?: number, fadeType?: number) {
         this._transferring = true;
         this._newMapId = mapId;
         this._newX = x;
@@ -77,23 +77,23 @@ class Game_Player extends Game_Character {
         this._newDirection = d;
         this._fadeType = fadeType;
     };
-    
+
     requestMapReload() {
         this._needsMapReload = true;
     };
-    
+
     isTransferring() {
         return this._transferring;
     };
-    
+
     newMapId(): number {
         return this._newMapId;
     };
-    
-    fadeType() : number{
+
+    fadeType(): number {
         return this._fadeType;
     };
-    
+
     performTransfer() {
         if (this.isTransferring()) {
             this.setDirection(this._newDirection);
@@ -106,7 +106,7 @@ class Game_Player extends Game_Character {
             this.clearTransferInfo();
         }
     };
-    
+
     isMapPassable(x: number, y: number, d: number) {
         var vehicle = this.vehicle();
         if (vehicle) {
@@ -115,59 +115,59 @@ class Game_Player extends Game_Character {
             return super.isMapPassable(x, y, d);
         }
     };
-    
+
     vehicle() {
         return $gameMap.vehicle(this._vehicleType);
     };
-    
-    isInBoat() {
+
+    isInBoat(): boolean {
         return this._vehicleType === 'boat';
     };
-    
-    isInShip() {
+
+    isInShip(): boolean {
         return this._vehicleType === 'ship';
     };
-    
-    isInAirship() {
+
+    isInAirship(): boolean {
         return this._vehicleType === 'airship';
     };
-    
-    isInVehicle() {
+
+    isInVehicle(): boolean {
         return this.isInBoat() || this.isInShip() || this.isInAirship();
     };
-    
-    isNormal() {
+
+    isNormal(): boolean {
         return this._vehicleType === 'walk' && !this.isMoveRouteForcing();
     };
-    
-    isDashing() {
+
+    isDashing(): boolean {
         return this._dashing;
     };
-    
-    isDebugThrough() {
+
+    isDebugThrough(): boolean {
         return Input.isPressed('control') && $gameTemp.isPlaytest();
     };
-    
-    isCollided(x, y) {
+
+    isCollided(x: number, y: number): boolean {
         if (this.isThrough()) {
             return false;
         } else {
             return this.pos(x, y) || this._followers.isSomeoneCollided(x, y);
         }
     };
-    
-    centerX() : number{
+
+    centerX(): number {
         return (Graphics.width / $gameMap.tileWidth() - 1) / 2.0;
     };
-    
-    centerY() : number{
+
+    centerY(): number {
         return (Graphics.height / $gameMap.tileHeight() - 1) / 2.0;
     };
-    
+
     center(x: number, y: number) {
         return $gameMap.setDisplayPos(x - this.centerX(), y - this.centerY());
     };
-    
+
     locate(x: number, y: number) {
         super.locate(x, y);
         this.center(x, y);
@@ -177,23 +177,23 @@ class Game_Player extends Game_Character {
         }
         this._followers.synchronize(x, y, this.direction());
     };
-    
+
     increaseSteps() {
         super.increaseSteps();
         if (this.isNormal()) {
             $gameParty.increaseSteps();
         }
     };
-    
+
     makeEncounterCount() {
         var n = $gameMap.encounterStep();
         this._encounterCount = Math.randomInt(n) + Math.randomInt(n) + 1;
     };
-    
+
     makeEncounterTroopId() {
         var encounterList = [];
         var weightSum = 0;
-        $gameMap.encounterList().forEach(function(encounter) {
+        $gameMap.encounterList().forEach(function (encounter) {
             if (this.meetsEncounterConditions(encounter)) {
                 encounterList.push(encounter);
                 weightSum += encounter.weight;
@@ -210,12 +210,12 @@ class Game_Player extends Game_Character {
         }
         return 0;
     };
-    
+
     meetsEncounterConditions(encounter) {
         return (encounter.regionSet.length === 0 ||
-                encounter.regionSet.contains(this.regionId()));
+            encounter.regionSet.contains(this.regionId()));
     };
-    
+
     executeEncounter() {
         if (!$gameMap.isEventRunning() && this._encounterCount <= 0) {
             this.makeEncounterCount();
@@ -231,23 +231,23 @@ class Game_Player extends Game_Character {
             return false;
         }
     };
-    
+
     startMapEvent(x: number, y: number, triggers, normal) {
         if (!$gameMap.isEventRunning()) {
-            $gameMap.eventsXy(x, y).forEach(function(event) {
+            $gameMap.eventsXy(x, y).forEach(function (event) {
                 if (event.isTriggerIn(triggers) && event.isNormalPriority() === normal) {
                     event.start();
                 }
             });
         }
     };
-    
+
     moveByInput() {
         if (!this.isMoving() && this.canMove()) {
             var direction = this.getInputDirection();
             if (direction > 0) {
                 $gameTemp.clearDestination();
-            } else if ($gameTemp.isDestinationValid()){
+            } else if ($gameTemp.isDestinationValid()) {
                 var x = $gameTemp.destinationX();
                 var y = $gameTemp.destinationY();
                 direction = this.findDirectionTo(x, y);
@@ -257,8 +257,8 @@ class Game_Player extends Game_Character {
             }
         }
     };
-    
-    canMove() {
+
+    canMove(): boolean {
         if ($gameMap.isEventRunning() || $gameMessage.isBusy()) {
             return false;
         }
@@ -273,16 +273,16 @@ class Game_Player extends Game_Character {
         }
         return true;
     };
-    
-    getInputDirection() {
+
+    getInputDirection() : number {
         return Input.dir4;
     };
-    
-    executeMove(direction) {
+
+    executeMove(direction: number) {
         this.moveStraight(direction);
     };
-    
-    update(sceneActive?) {
+
+    update(sceneActive?: boolean) {
         var lastScrolledX = this.scrolledX();
         var lastScrolledY = this.scrolledY();
         var wasMoving = this.isMoving();
@@ -300,7 +300,7 @@ class Game_Player extends Game_Character {
         }
         this._followers.update();
     };
-    
+
     updateDashing() {
         if (this.isMoving()) {
             return;
@@ -311,7 +311,7 @@ class Game_Player extends Game_Character {
             this._dashing = false;
         }
     };
-    
+
     isDashButtonPressed() {
         var shift = Input.isPressed('shift');
         if (ConfigManager.alwaysDash) {
@@ -320,8 +320,8 @@ class Game_Player extends Game_Character {
             return shift;
         }
     };
-    
-    updateScroll(lastScrolledX, lastScrolledY) {
+
+    updateScroll(lastScrolledX: number, lastScrolledY: number) {
         var x1 = lastScrolledX;
         var y1 = lastScrolledY;
         var x2 = this.scrolledX();
@@ -339,7 +339,7 @@ class Game_Player extends Game_Character {
             $gameMap.scrollUp(y1 - y2);
         }
     };
-    
+
     updateVehicle() {
         if (this.isInVehicle() && !this.areFollowersGathering()) {
             if (this._vehicleGettingOn) {
@@ -351,7 +351,7 @@ class Game_Player extends Game_Character {
             }
         }
     };
-    
+
     updateVehicleGetOn() {
         if (!this.areFollowersGathering() && !this.isMoving()) {
             this.setDirection(this.vehicle().direction());
@@ -364,7 +364,7 @@ class Game_Player extends Game_Character {
             this.vehicle().getOn();
         }
     };
-    
+
     updateVehicleGetOff() {
         if (!this.areFollowersGathering() && this.vehicle().isLowest()) {
             this._vehicleGettingOff = false;
@@ -372,12 +372,12 @@ class Game_Player extends Game_Character {
             this.setTransparent(false);
         }
     };
-    
-    updateNonmoving(wasMoving) {
+
+    updateNonmoving(wasMoving: boolean) {
         if (!$gameMap.isEventRunning()) {
             if (wasMoving) {
                 $gameParty.onPlayerWalk();
-                this.checkEventTriggerHere([1,2]);
+                this.checkEventTriggerHere([1, 2]);
                 if ($gameMap.setupStartingEvent()) {
                     return;
                 }
@@ -392,7 +392,7 @@ class Game_Player extends Game_Character {
             }
         }
     };
-    
+
     triggerAction() {
         if (this.canMove()) {
             if (this.triggerButtonAction()) {
@@ -404,7 +404,7 @@ class Game_Player extends Game_Character {
         }
         return false;
     };
-    
+
     triggerButtonAction() {
         if (Input.isTriggered('ok')) {
             if (this.getOnOffVehicle()) {
@@ -414,16 +414,16 @@ class Game_Player extends Game_Character {
             if ($gameMap.setupStartingEvent()) {
                 return true;
             }
-            this.checkEventTriggerThere([0,1,2]);
+            this.checkEventTriggerThere([0, 1, 2]);
             if ($gameMap.setupStartingEvent()) {
                 return true;
             }
         }
         return false;
     };
-    
+
     triggerTouchAction() {
-        if ($gameTemp.isDestinationValid()){
+        if ($gameTemp.isDestinationValid()) {
             var direction = this.direction();
             var x1 = this.x;
             var y1 = this.y;
@@ -443,7 +443,7 @@ class Game_Player extends Game_Character {
         }
         return false;
     };
-    
+
     triggerTouchActionD1(x1: number, y1: number) {
         if ($gameMap.airship().pos(x1, y1)) {
             if (TouchInput.isTriggered() && this.getOnOffVehicle()) {
@@ -453,7 +453,7 @@ class Game_Player extends Game_Character {
         this.checkEventTriggerHere([0]);
         return $gameMap.setupStartingEvent();
     };
-    
+
     triggerTouchActionD2(x2: number, y2: number) {
         if ($gameMap.boat().pos(x2, y2) || $gameMap.ship().pos(x2, y2)) {
             if (TouchInput.isTriggered() && this.getOnVehicle()) {
@@ -465,28 +465,28 @@ class Game_Player extends Game_Character {
                 return true;
             }
         }
-        this.checkEventTriggerThere([0,1,2]);
+        this.checkEventTriggerThere([0, 1, 2]);
         return $gameMap.setupStartingEvent();
     };
-    
+
     triggerTouchActionD3(x2: number, y2: number) {
         if ($gameMap.isCounter(x2, y2)) {
-            this.checkEventTriggerThere([0,1,2]);
+            this.checkEventTriggerThere([0, 1, 2]);
         }
         return $gameMap.setupStartingEvent();
     };
-    
+
     updateEncounterCount() {
         if (this.canEncounter()) {
             this._encounterCount -= this.encounterProgressValue();
         }
     };
-    
+
     canEncounter() {
         return (!$gameParty.hasEncounterNone() && $gameSystem.isEncounterEnabled() &&
-                !this.isInAirship() && !this.isMoveRouteForcing() && !this.isDebugThrough());
+            !this.isInAirship() && !this.isMoveRouteForcing() && !this.isDebugThrough());
     };
-    
+
     encounterProgressValue() {
         var value = $gameMap.isBush(this.x, this.y) ? 2 : 1;
         if ($gameParty.hasEncounterHalf()) {
@@ -497,13 +497,13 @@ class Game_Player extends Game_Character {
         }
         return value;
     };
-    
+
     checkEventTriggerHere(triggers) {
         if (this.canStartLocalEvents()) {
             this.startMapEvent(this.x, this.y, triggers, false);
         }
     };
-    
+
     checkEventTriggerThere(triggers) {
         if (this.canStartLocalEvents()) {
             var direction = this.direction();
@@ -519,17 +519,17 @@ class Game_Player extends Game_Character {
             }
         }
     };
-    
+
     checkEventTriggerTouch(x: number, y: number) {
         if (this.canStartLocalEvents()) {
-            this.startMapEvent(x, y, [1,2], true);
+            this.startMapEvent(x, y, [1, 2], true);
         }
     };
-    
+
     canStartLocalEvents() {
         return !this.isInAirship();
     };
-    
+
     getOnOffVehicle() {
         if (this.isInVehicle()) {
             return this.getOffVehicle();
@@ -537,7 +537,7 @@ class Game_Player extends Game_Character {
             return this.getOnVehicle();
         }
     };
-    
+
     getOnVehicle() {
         var direction = this.direction();
         var x1 = this.x;
@@ -560,7 +560,7 @@ class Game_Player extends Game_Character {
         }
         return this._vehicleGettingOn;
     };
-    
+
     getOffVehicle() {
         if (this.vehicle().isLandOk(this.x, this.y, this.direction())) {
             if (this.isInAirship()) {
@@ -580,56 +580,56 @@ class Game_Player extends Game_Character {
         }
         return this._vehicleGettingOff;
     };
-    
+
     forceMoveForward() {
         this.setThrough(true);
         this.moveForward();
         this.setThrough(false);
     };
-    
+
     isOnDamageFloor() {
         return $gameMap.isDamageFloor(this.x, this.y) && !this.isInAirship();
     };
-    
+
     moveStraight(d) {
         if (this.canPass(this.x, this.y, d)) {
             this._followers.updateMove();
         }
         super.moveStraight(d);
     };
-    
+
     moveDiagonally(horz, vert) {
         if (this.canPassDiagonally(this.x, this.y, horz, vert)) {
             this._followers.updateMove();
         }
         super.moveDiagonally(horz, vert);
     };
-    
+
     jump(xPlus: number, yPlus: number) {
         super.jump(xPlus, yPlus);
         this._followers.jumpAll();
     };
-    
+
     showFollowers() {
         this._followers.show();
     };
-    
+
     hideFollowers() {
         this._followers.hide();
     };
-    
+
     gatherFollowers() {
         this._followers.gather();
     };
-    
+
     areFollowersGathering() {
         return this._followers.areGathering();
     };
-    
+
     areFollowersGathered() {
         return this._followers.areGathered();
     };
-        
+
 }
 
 

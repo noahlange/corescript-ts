@@ -4,7 +4,7 @@
 // The static class that manages storage for saving game data.
 
 class StorageManager {
-    static save(savefileId, json) {
+    static save(savefileId: number, json) {
         if (this.isLocalMode()) {
             this.saveToLocalFile(savefileId, json);
         } else {
@@ -12,7 +12,7 @@ class StorageManager {
         }
     };
     
-    static load(savefileId) {
+    static load(savefileId: number) {
         if (this.isLocalMode()) {
             return this.loadFromLocalFile(savefileId);
         } else {
@@ -20,7 +20,7 @@ class StorageManager {
         }
     };
     
-    static exists(savefileId) {
+    static exists(savefileId: number) {
         if (this.isLocalMode()) {
             return this.localFileExists(savefileId);
         } else {
@@ -28,7 +28,7 @@ class StorageManager {
         }
     };
     
-    static remove(savefileId) {
+    static remove(savefileId: number) {
         if (this.isLocalMode()) {
             this.removeLocalFile(savefileId);
         } else {
@@ -36,7 +36,7 @@ class StorageManager {
         }
     };
     
-    static backup(savefileId) {
+    static backup(savefileId: number) {
         if (this.exists(savefileId)) {
             if (this.isLocalMode()) {
                 var data = this.loadFromLocalFile(savefileId);
@@ -58,7 +58,7 @@ class StorageManager {
         }
     };
     
-    static backupExists(savefileId) {
+    static backupExists(savefileId: number) {
         if (this.isLocalMode()) {
             return this.localFileBackupExists(savefileId);
         } else {
@@ -66,7 +66,7 @@ class StorageManager {
         }
     };
     
-    static cleanBackup(savefileId) {
+    static cleanBackup(savefileId: number) {
         if (this.backupExists(savefileId)) {
             if (this.isLocalMode()) {
                 let require = window['require']; // bungcip: changed to make it compile
@@ -81,7 +81,7 @@ class StorageManager {
         }
     };
     
-    static restoreBackup(savefileId) {
+    static restoreBackup(savefileId: number) {
         if (this.backupExists(savefileId)) {
             if (this.isLocalMode()) {
                 var data = this.loadFromLocalBackupFile(savefileId);
@@ -109,7 +109,7 @@ class StorageManager {
         return Utils.isNwjs();
     };
     
-    static saveToLocalFile(savefileId, json) {
+    static saveToLocalFile(savefileId: number, json) {
         var data = LZString.compressToBase64(json);
         let require = window['require']; // bungcip: changed to make it compile
         var fs = require('fs');
@@ -121,7 +121,7 @@ class StorageManager {
         fs.writeFileSync(filePath, data);
     };
     
-    static loadFromLocalFile(savefileId) {
+    static loadFromLocalFile(savefileId: number) {
         var data = null;
         var require = window['process']; // bungcip: changed to make it compile
         var fs = require('fs');
@@ -132,7 +132,7 @@ class StorageManager {
         return LZString.decompressFromBase64(data);
     };
     
-    static loadFromLocalBackupFile(savefileId) {
+    static loadFromLocalBackupFile(savefileId: number) {
         var data = null;
         let require = window['require']; // bungcip: changed to make it compile
         var fs = require('fs');
@@ -143,19 +143,19 @@ class StorageManager {
         return LZString.decompressFromBase64(data);
     };
     
-    static localFileBackupExists(savefileId) {
+    static localFileBackupExists(savefileId: number) {
         let require = window['require']; // bungcip: changed to make it compile
         var fs = require('fs');
         return fs.existsSync(this.localFilePath(savefileId) + ".bak");
     };
     
-    static localFileExists(savefileId) {
+    static localFileExists(savefileId: number) {
         let require = window['require']; // bungcip: changed to make it compile
         var fs = require('fs');
         return fs.existsSync(this.localFilePath(savefileId));
     };
     
-    static removeLocalFile(savefileId) {
+    static removeLocalFile(savefileId: number) {
         let require = window['require']; // bungcip: changed to make it compile
         var fs = require('fs');
         var filePath = this.localFilePath(savefileId);
@@ -164,35 +164,35 @@ class StorageManager {
         }
     };
     
-    static saveToWebStorage(savefileId, json) {
+    static saveToWebStorage(savefileId: number, json) {
         var key = this.webStorageKey(savefileId);
         var data = LZString.compressToBase64(json);
         localStorage.setItem(key, data);
     };
     
-    static loadFromWebStorage(savefileId) {
+    static loadFromWebStorage(savefileId: number) {
         var key = this.webStorageKey(savefileId);
         var data = localStorage.getItem(key);
         return LZString.decompressFromBase64(data);
     };
     
-    static loadFromWebStorageBackup(savefileId) {
+    static loadFromWebStorageBackup(savefileId: number) {
         var key = this.webStorageKey(savefileId) + "bak";
         var data = localStorage.getItem(key);
         return LZString.decompressFromBase64(data);
     };
     
-    static webStorageBackupExists(savefileId) {
+    static webStorageBackupExists(savefileId: number) {
         var key = this.webStorageKey(savefileId) + "bak";
         return !!localStorage.getItem(key);
     };
     
-    static webStorageExists(savefileId) {
+    static webStorageExists(savefileId: number) {
         var key = this.webStorageKey(savefileId);
         return !!localStorage.getItem(key);
     };
     
-    static removeWebStorage(savefileId) {
+    static removeWebStorage(savefileId: number) {
         var key = this.webStorageKey(savefileId);
         localStorage.removeItem(key);
     };
@@ -206,7 +206,7 @@ class StorageManager {
         return path.join(base, 'save/');
     };
     
-    static localFilePath(savefileId) {
+    static localFilePath(savefileId: number) {
         var name;
         if (savefileId < 0) {
             name = 'config.rpgsave';
@@ -218,7 +218,7 @@ class StorageManager {
         return this.localFileDirectoryPath() + name;
     };
     
-    static webStorageKey(savefileId) {
+    static webStorageKey(savefileId: number) {
         if (savefileId < 0) {
             return 'RPG Config';
         } else if (savefileId === 0) {

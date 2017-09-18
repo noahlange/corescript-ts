@@ -50,7 +50,7 @@ class CacheMap {
      * @param key url of cache element
      * @returns {*|null}
      */
-    getItem(key: string): any {
+    getItem(key: string): any|null {
         var entry = this._inner[key];
         if (entry) {
             return entry.item;

@@ -4,7 +4,7 @@
 // The game object class for self switches.
 
 class Game_SelfSwitches {
-    protected _data;
+    protected _data: object;
 
     constructor() {
         this.clear();
@@ -14,11 +14,12 @@ class Game_SelfSwitches {
         this._data = {};
     };
     
-    value(key) {
+    /// NOTE(bungcip: changed to any because weird line in Game_Event.ts: 224)
+    value(key: any) {
         return !!this._data[key];
     };
     
-    setValue(key, value) {
+    setValue(key: any, value) {
         if (value) {
             this._data[key] = true;
         } else {

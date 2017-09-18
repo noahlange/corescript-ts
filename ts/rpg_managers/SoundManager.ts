@@ -11,13 +11,13 @@ class SoundManager {
         this.loadSystemSound(3);
     };
     
-    static loadSystemSound(n) {
+    static loadSystemSound(n: number) {
         if ($dataSystem) {
             AudioManager.loadStaticSe($dataSystem.sounds[n]);
         }
     };
     
-    static playSystemSound(n) {
+    static playSystemSound(n: number) {
         if ($dataSystem) {
             AudioManager.playStaticSe($dataSystem.sounds[n]);
         }

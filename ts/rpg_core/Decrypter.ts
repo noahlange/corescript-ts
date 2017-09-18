@@ -48,7 +48,7 @@ class Decrypter {
         };
     };
     
-    static decryptHTML5Audio = function(url: string, bgm: AudioProp, pos: number) {
+    static decryptHTML5Audio = function(url: string, bgm: DB.Audio, pos: number) {
         var requestFile = new XMLHttpRequest();
         requestFile.open("GET", url);
         requestFile.responseType = "arraybuffer";

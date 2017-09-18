@@ -3,14 +3,16 @@
 //
 // The game object class for a vehicle.
 
+type VehicleType  = 'boat' | 'ship' | 'airship' | '';
+
 class Game_Vehicle extends Game_Character {
-    protected _type;
+    protected _type: VehicleType;
     protected _mapId: number;
     protected _altitude: number;
-    protected _driving;
-    protected _bgm;
+    protected _driving: boolean;
+    protected _bgm: DB.Audio;
 
-    constructor(type) {
+    constructor(type: VehicleType) {
         super();
         this._type = type;
         this.resetDirection();
@@ -133,7 +135,7 @@ class Game_Vehicle extends Game_Character {
         $gameSystem.replayWalkingBgm();
     };
 
-    setBgm(bgm) {
+    setBgm(bgm: DB.Audio) {
         this._bgm = bgm;
     };
 

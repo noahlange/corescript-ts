@@ -4,10 +4,10 @@
 // The game object class for temporary data that is not included in save data.
 
 class Game_Temp {
-    protected _isPlaytest;
+    protected _isPlaytest: boolean;
     protected _commonEventId: number;
-    protected _destinationX;
-    protected _destinationY;
+    protected _destinationX: number|null;
+    protected _destinationY: number|null;
 
 
     constructor() {

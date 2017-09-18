@@ -5,32 +5,32 @@
 // and flashes.
 
 class Game_Screen {
-    protected _brightness;
-    protected _tone;
-    protected _flashColor;
-    protected _flashDuration;
-    protected _shake;
+    protected _brightness: number;
+    protected _tone: number[];
+    protected _flashColor: number[];
+    protected _flashDuration: number;
+    protected _shake: number;
     protected _zoomX: number;
     protected _zoomY: number;
     protected _zoomDuration: number;
-    protected _zoomScale;
-    protected _zoomScaleTarget;
-    protected _zoomScaleDuration;
-    protected _weatherType;
-    protected _weatherPower;
-    protected _weatherPowerTarget;
-    protected _weatherDuration;
+    protected _zoomScale: number;
+    protected _zoomScaleTarget: number;
+    protected _zoomScaleDuration: number;
+    protected _weatherType: string;
+    protected _weatherPower: number;
+    protected _weatherPowerTarget: number;
+    protected _weatherDuration: number;
 
     protected _fadeOutDuration: number;
     protected _fadeInDuration: number;
-    protected _toneTarget
+    protected _toneTarget: number[];
     protected _toneDuration: number;
     protected _shakePower: number;
     protected _shakeSpeed: number;
     protected _shakeDuration: number;
     protected _shakeDirection: number;
 
-    protected _pictures;
+    protected _pictures: Game_Picture[];
 
     constructor() {
         this.clear();
@@ -70,11 +70,11 @@ class Game_Screen {
         return this._shake;
     };
 
-    zoomX() {
+    zoomX(): number {
         return this._zoomX;
     };
 
-    zoomY() {
+    zoomY(): number {
         return this._zoomY;
     };
 
@@ -90,7 +90,7 @@ class Game_Screen {
         return this._weatherPower;
     };
 
-    picture(pictureId) {
+    picture(pictureId: number) {
         var realPictureId = this.realPictureId(pictureId);
         return this._pictures[realPictureId];
     };
@@ -155,17 +155,17 @@ class Game_Screen {
         return 100;
     };
 
-    startFadeOut(duration) {
+    startFadeOut(duration: number) {
         this._fadeOutDuration = duration;
         this._fadeInDuration = 0;
     };
 
-    startFadeIn(duration) {
+    startFadeIn(duration: number) {
         this._fadeInDuration = duration;
         this._fadeOutDuration = 0;
     };
 
-    startTint(tone, duration) {
+    startTint(tone: number[], duration: number) {
         this._toneTarget = tone.clone();
         this._toneDuration = duration;
         if (this._toneDuration === 0) {
@@ -173,31 +173,31 @@ class Game_Screen {
         }
     };
 
-    startFlash(color, duration) {
+    startFlash(color: number[], duration: number) {
         this._flashColor = color.clone();
         this._flashDuration = duration;
     };
 
-    startShake(power, speed, duration) {
+    startShake(power: number, speed: number, duration: number) {
         this._shakePower = power;
         this._shakeSpeed = speed;
         this._shakeDuration = duration;
     };
 
-    startZoom(x, y, scale, duration) {
+    startZoom(x: number, y: number, scale: number, duration: number) {
         this._zoomX = x;
         this._zoomY = y;
         this._zoomScaleTarget = scale;
         this._zoomDuration = duration;
     };
 
-    setZoom(x, y, scale) {
+    setZoom(x: number, y: number, scale: number) {
         this._zoomX = x;
         this._zoomY = y;
         this._zoomScale = scale;
     };
 
-    changeWeather(type, power, duration) {
+    changeWeather(type: string, power: number, duration: number) {
         if (type !== 'none' || duration === 0) {
             this._weatherType = type;
         }
@@ -304,7 +304,7 @@ class Game_Screen {
         this.startFlash([255, 0, 0, 128], 8);
     };
 
-    showPicture(pictureId: number, name, origin, x: number, y: number,
+    showPicture(pictureId: number, name: string, origin: number, x: number, y: number,
         scaleX: number, scaleY: number, opacity: number, blendMode: number) {
         var realPictureId = this.realPictureId(pictureId);
         var picture = new Game_Picture();
@@ -312,7 +312,7 @@ class Game_Screen {
         this._pictures[realPictureId] = picture;
     };
 
-    movePicture(pictureId: number, origin, x: number, y: number, scaleX: number,
+    movePicture(pictureId: number, origin: number, x: number, y: number, scaleX: number,
         scaleY: number, opacity: number, blendMode: number, duration: number) {
         var picture = this.picture(pictureId);
         if (picture) {
@@ -327,7 +327,7 @@ class Game_Screen {
         }
     };
 
-    tintPicture(pictureId: number, tone, duration: number) {
+    tintPicture(pictureId: number, tone: number[], duration: number) {
         var picture = this.picture(pictureId);
         if (picture) {
             picture.tint(tone, duration);
