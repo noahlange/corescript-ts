@@ -4,11 +4,11 @@
 // The scene class of the equipment screen.
 
 class Scene_Equip extends Scene_MenuBase {
-    protected _statusWindow;
-    protected _helpWindow;
-    protected _commandWindow;
-    protected _slotWindow;
-    protected _itemWindow;
+    protected _statusWindow: Window_EquipStatus;
+    protected _helpWindow: Window_Help;
+    protected _commandWindow: Window_EquipCommand;
+    protected _slotWindow: Window_EquipSlot;
+    protected _itemWindow: Window_EquipItem;
 
     create() {
         super.create();

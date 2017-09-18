@@ -65,11 +65,11 @@ class Window_NameInput extends Window_Selectable {
         '５', '６', '７', '８', '９', '（', '）', '＊', '＋', '－',
         '／', '＝', '＠', '＜', '＞', '：', '；', '　', 'かな', '決定'];
 
-    protected _editWindow;
-    protected _page;
+    protected _editWindow: Window_NameEdit;
+    protected _page: number;
         
         
-    constructor(editWindow) {
+    constructor(editWindow: Window_NameEdit) {
         var x = editWindow.x;
         var y = editWindow.y + editWindow.height + 8;
         var width = editWindow.width;
@@ -151,19 +151,19 @@ class Window_NameInput extends Window_Selectable {
         return this.active;
     };
 
-    cursorDown(wrap) {
+    cursorDown(wrap: boolean) {
         if (this._index < 80 || wrap) {
             this._index = (this._index + 10) % 90;
         }
     };
 
-    cursorUp(wrap) {
+    cursorUp(wrap: boolean) {
         if (this._index >= 10 || wrap) {
             this._index = (this._index + 80) % 90;
         }
     };
 
-    cursorRight(wrap) {
+    cursorRight(wrap: boolean) {
         if (this._index % 10 < 9) {
             this._index++;
         } else if (wrap) {
@@ -171,7 +171,7 @@ class Window_NameInput extends Window_Selectable {
         }
     };
 
-    cursorLeft(wrap) {
+    cursorLeft(wrap: boolean) {
         if (this._index % 10 > 0) {
             this._index--;
         } else if (wrap) {

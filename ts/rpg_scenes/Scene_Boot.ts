@@ -4,7 +4,7 @@
 // The scene class for initializing the entire game.
 
 class Scene_Boot extends Scene_Base {
-    protected _startDate;
+    protected _startDate: number;
 
     constructor() {
         super();

@@ -4,7 +4,7 @@
 // The window for selecting an actor's action on the battle screen.
 
 class Window_ActorCommand extends Window_Command {
-    protected _actor;
+    protected _actor: Game_Actor|null;
 
     constructor() {
         super(0);
@@ -58,7 +58,7 @@ class Window_ActorCommand extends Window_Command {
         this.addCommand(TextManager.item, 'item');
     };
     
-    setup(actor) {
+    setup(actor: Game_Actor) {
         this._actor = actor;
         this.clearCommandList();
         this.makeCommandList();

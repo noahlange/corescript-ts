@@ -4,10 +4,10 @@
 // The window used for the event command [Show Choices].
 
 class Window_ChoiceList extends Window_Command {
-    protected _messageWindow;
-    protected _background;
+    protected _messageWindow: Window_Message;
+    protected _background: number;
 
-    constructor(messageWindow) {
+    constructor(messageWindow: Window_Message) {
         super(0, 0, function() {
             this._messageWindow = messageWindow;
         });
@@ -90,7 +90,7 @@ class Window_ChoiceList extends Window_Command {
         return maxWidth;
     };
     
-    textWidthEx(text) {
+    textWidthEx(text: string) {
         return this.drawTextEx(text, 0, this.contents.height);
     };
     

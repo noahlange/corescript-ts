@@ -10,7 +10,7 @@ class Window_DebugRange extends Window_Selectable {
 
     protected _maxSwitches: number;
     protected _maxVariables: number;
-    protected _editWindow;
+    protected _editWindow: Window_DebugEdit;
 
     constructor(x: number, y: number) {
         super(x, y, undefined, undefined, function () {
@@ -78,7 +78,7 @@ class Window_DebugRange extends Window_Selectable {
     };
 
     isCancelTriggered() {
-        return (Window_Selectable.prototype.isCancelTriggered() ||
+        return (super.isCancelTriggered() ||
             Input.isTriggered('debug'));
     };
 
@@ -88,7 +88,7 @@ class Window_DebugRange extends Window_Selectable {
         Window_DebugRange.lastIndex = this.index();
     };
 
-    setEditWindow(editWindow) {
+    setEditWindow(editWindow: Window_DebugEdit) {
         this._editWindow = editWindow;
         this.update();
     };

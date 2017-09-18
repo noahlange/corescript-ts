@@ -4,7 +4,7 @@
 // The static class that manages storage for saving game data.
 
 class StorageManager {
-    static save(savefileId: number, json) {
+    static save(savefileId: number, json: Object) {
         if (this.isLocalMode()) {
             this.saveToLocalFile(savefileId, json);
         } else {
@@ -109,7 +109,7 @@ class StorageManager {
         return Utils.isNwjs();
     };
     
-    static saveToLocalFile(savefileId: number, json) {
+    static saveToLocalFile(savefileId: number, json: Object) {
         var data = LZString.compressToBase64(json);
         let require = window['require']; // bungcip: changed to make it compile
         var fs = require('fs');
@@ -164,7 +164,7 @@ class StorageManager {
         }
     };
     
-    static saveToWebStorage(savefileId: number, json) {
+    static saveToWebStorage(savefileId: number, json: Object) {
         var key = this.webStorageKey(savefileId);
         var data = LZString.compressToBase64(json);
         localStorage.setItem(key, data);

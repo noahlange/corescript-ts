@@ -7,13 +7,13 @@
  * @constructor 
  * @extends Stage
  */
-abstract class Scene_Base extends Stage {
+class Scene_Base extends Stage {
     protected _active: boolean;
-    protected _fadeSign;
-    protected _fadeDuration;
-    protected _fadeSprite;
-    protected _imageReservationId;
-    protected _windowLayer;
+    protected _fadeSign: number;
+    protected _fadeDuration: number;
+    protected _fadeSprite: ScreenSprite|null;
+    protected _imageReservationId: number;
+    protected _windowLayer: WindowLayer;
 
     /**
      * Create a instance of Scene_Base.

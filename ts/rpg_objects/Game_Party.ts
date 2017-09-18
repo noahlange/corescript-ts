@@ -4,7 +4,7 @@
 // The game object class for the party. Information such as gold and items is
 // included.
 
-class Game_Party extends Game_Unit {
+class Game_Party extends Game_Unit<Game_Actor> {
 
     static ABILITY_ENCOUNTER_HALF = 0;
     static ABILITY_ENCOUNTER_NONE = 1;
@@ -18,10 +18,10 @@ class Game_Party extends Game_Unit {
     protected _lastItem: Game_Item;
     protected _menuActorId: number;
     protected _targetActorId: number;
-    protected _actors;
-    protected _items;
-    protected _weapons;
-    protected _armors;
+    protected _actors: number[];
+    protected _items: Object;
+    protected _weapons: Object;
+    protected _armors: Object;
 
 
     constructor() {
@@ -54,17 +54,19 @@ class Game_Party extends Game_Unit {
         return this.size() === 0;
     };
 
-    members() {
-        return this.inBattle() ? this.battleMembers() : this.allMembers();
+    members(): Game_Actor[] {
+        return this.inBattle() ? 
+            this.battleMembers(): 
+            this.allMembers();
     };
 
-    allMembers() {
+    allMembers(): Game_Actor[] {
         return this._actors.map(function (id) {
             return $gameActors.actor(id);
         });
     };
 
-    battleMembers() {
+    battleMembers(): Game_Actor[] {
         return this.allMembers().slice(0, this.maxBattleMembers()).filter(function (actor) {
             return actor.isAppeared();
         });
@@ -74,7 +76,7 @@ class Game_Party extends Game_Unit {
         return 4;
     };
 
-    leader() {
+    leader(): Game_Actor {
         return this.battleMembers()[0];
     };
 
@@ -86,7 +88,7 @@ class Game_Party extends Game_Unit {
         });
     };
 
-    items() {
+    items(): DB.Item[] {
         var list = [];
         for (var id in this._items) {
             list.push($dataItems[id]);
@@ -94,7 +96,7 @@ class Game_Party extends Game_Unit {
         return list;
     };
 
-    weapons() {
+    weapons(): DB.Weapon[] {
         var list = [];
         for (var id in this._weapons) {
             list.push($dataWeapons[id]);
@@ -102,7 +104,7 @@ class Game_Party extends Game_Unit {
         return list;
     };
 
-    armors() {
+    armors(): DB.Armor[] {
         var list = [];
         for (var id in this._armors) {
             list.push($dataArmors[id]);
@@ -110,15 +112,19 @@ class Game_Party extends Game_Unit {
         return list;
     };
 
-    equipItems() {
-        return this.weapons().concat(this.armors());
+    equipItems(): (DB.Weapon | DB.Armor)[] {
+        const armors = this.armors() as object[];
+        const weapons = this.weapons() as object[];
+        return weapons.concat(armors) as (DB.Weapon | DB.Armor)[];
     };
 
-    allItems() {
-        return this.items().concat(this.equipItems());
+    allItems(): DB.Item[] {
+        const equips = this.equipItems() as object[];
+        const items = this.items() as object[];
+        return items.concat(equips) as DB.Item[];
     };
 
-    itemContainer(item) {
+    itemContainer(item: Object) {
         if (!item) {
             return null;
         } else if (DataManager.isItem(item)) {
@@ -288,7 +294,7 @@ class Game_Party extends Game_Unit {
         }
     };
 
-    canUse(item) {
+    canUse(item: Object) {
         return this.members().some(function (actor) {
             return actor.canUse(item);
         });

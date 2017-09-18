@@ -106,7 +106,7 @@ class DataManager {
             parallaxSy: 0,
             specifyBattleback: false,
             tilesetId: 0,
-                
+
         };
     };
 
@@ -181,7 +181,7 @@ class DataManager {
         return item && $dataWeapons.contains(item);
     };
 
-    static isArmor(item: any): item is DB.Weapon {
+    static isArmor(item: any): item is DB.Armor {
         return item && $dataArmors.contains(item);
     };
 
@@ -226,7 +226,7 @@ class DataManager {
         $gamePlayer.setTransparent(false);
     };
 
-    static loadGlobalInfo() {
+    static loadGlobalInfo(): SavefileInfo[] {
         var json;
         try {
             json = StorageManager.load(0);
@@ -247,11 +247,11 @@ class DataManager {
         }
     };
 
-    static saveGlobalInfo(info) {
+    static saveGlobalInfo(info: SavefileInfo[]) {
         StorageManager.save(0, JSON.stringify(info));
     };
 
-    static isThisGameFile(savefileId: number) {
+    static isThisGameFile(savefileId: number): boolean {
         var globalInfo = this.loadGlobalInfo();
         if (globalInfo && globalInfo[savefileId]) {
             if (StorageManager.isLocalMode()) {
@@ -266,7 +266,7 @@ class DataManager {
         }
     };
 
-    static isAnySavefileExists() {
+    static isAnySavefileExists(): boolean {
         var globalInfo = this.loadGlobalInfo();
         if (globalInfo) {
             for (var i = 1; i < globalInfo.length; i++) {
@@ -404,7 +404,7 @@ class DataManager {
         }
     };
 
-    static makeSavefileInfo() {
+    static makeSavefileInfo(): SavefileInfo {
         return {
             globalId: this._globalId,
             title: $dataSystem.gameTitle,
@@ -444,6 +444,16 @@ class DataManager {
         $gamePlayer = contents.player;
     };
 }
+
+interface SavefileInfo {
+    globalId: string;
+    title: string;
+    characters: any[];
+    faces: any[];
+    playtime: string;
+    timestamp: number;
+}
+
 
 interface SaveContents {
     system: Game_System;

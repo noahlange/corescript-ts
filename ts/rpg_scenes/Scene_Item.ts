@@ -4,9 +4,9 @@
 // The scene class of the item screen.
 
 class Scene_Item extends Scene_ItemBase {
-    protected _categoryWindow;
-    protected _itemWindow;
-    protected _helpWindow;
+    protected _categoryWindow: Window_ItemCategory;
+    protected _itemWindow: Window_ItemList;
+    protected _helpWindow: Window_Help;
     
     
     create() {

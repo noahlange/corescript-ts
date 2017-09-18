@@ -5,7 +5,7 @@
 
 class Window_Gold extends Window_Base {
 
-    constructor(x, y) {
+    constructor(x: number, y: number) {
         super(x, y);
         this.refresh();
     };

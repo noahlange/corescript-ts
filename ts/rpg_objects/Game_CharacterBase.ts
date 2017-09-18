@@ -22,22 +22,22 @@ class Game_CharacterBase {
     protected _tileId: number;
     protected _characterName;
     protected _characterIndex: number;
-    protected _isObjectCharacter;
-    protected _walkAnime;
-    protected _stepAnime;
-    protected _directionFix;
-    protected _through;
-    protected _transparent;
+    protected _isObjectCharacter: boolean;
+    protected _walkAnime: boolean;
+    protected _stepAnime: boolean;
+    protected _directionFix: boolean;
+    protected _through: boolean;
+    protected _transparent: boolean;
     protected _bushDepth: number;
     protected _animationId: number;
     protected _balloonId: number;
-    protected _animationPlaying;
-    protected _balloonPlaying;
+    protected _animationPlaying: boolean;
+    protected _balloonPlaying: boolean;
     protected _animationCount: number;
     protected _stopCount: number;
     protected _jumpCount: number;
     protected _jumpPeak: number;
-    protected _movementSuccess;
+    protected _movementSuccess: boolean;
 
 
 
@@ -238,7 +238,7 @@ class Game_CharacterBase {
         this._realY = y;
     };
 
-    copyPosition(character) {
+    copyPosition(character: Game_Character) {
         this._x = character._x;
         this._y = character._y;
         this._realX = character._realX;
@@ -448,7 +448,7 @@ class Game_CharacterBase {
         return this._characterIndex;
     };
 
-    setImage(characterName, characterIndex: number) {
+    setImage(characterName: string, characterIndex: number) {
         this._tileId = 0;
         this._characterName = characterName;
         this._characterIndex = characterIndex;
@@ -477,7 +477,7 @@ class Game_CharacterBase {
         return this._movementSuccess;
     };
 
-    setMovementSuccess(success) {
+    setMovementSuccess(success: boolean) {
         this._movementSuccess = success;
     };
 
@@ -536,7 +536,7 @@ class Game_CharacterBase {
         return this._walkAnime;
     };
 
-    setWalkAnime(walkAnime) {
+    setWalkAnime(walkAnime: boolean) {
         this._walkAnime = walkAnime;
     };
 
@@ -544,7 +544,7 @@ class Game_CharacterBase {
         return this._stepAnime;
     };
 
-    setStepAnime(stepAnime) {
+    setStepAnime(stepAnime: boolean) {
         this._stepAnime = stepAnime;
     };
 
@@ -552,7 +552,7 @@ class Game_CharacterBase {
         return this._directionFix;
     };
 
-    setDirectionFix(directionFix) {
+    setDirectionFix(directionFix: boolean) {
         this._directionFix = directionFix;
     };
 
@@ -560,7 +560,7 @@ class Game_CharacterBase {
         return this._through;
     };
 
-    setThrough(through) {
+    setThrough(through: boolean) {
         this._through = through;
     };
 
@@ -572,7 +572,7 @@ class Game_CharacterBase {
         return this._bushDepth;
     };
 
-    setTransparent(transparent) {
+    setTransparent(transparent: boolean) {
         this._transparent = transparent;
     };
 

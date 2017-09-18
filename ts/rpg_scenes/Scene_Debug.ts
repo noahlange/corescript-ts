@@ -4,13 +4,9 @@
 // The scene class of the debug screen.
 
 class Scene_Debug extends Scene_MenuBase {
-    // initialize() {
-    //     super.initialize();
-    // };
-
-    protected _rangeWindow;
-    protected _editWindow;
-    protected _debugHelpWindow;
+    protected _rangeWindow: Window_DebugRange;
+    protected _editWindow: Window_DebugEdit;
+    protected _debugHelpWindow: Window_Base;
     
     
     create() {

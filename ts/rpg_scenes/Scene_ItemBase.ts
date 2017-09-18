@@ -4,41 +4,41 @@
 // The superclass of Scene_Item and Scene_Skill.
 
 abstract class Scene_ItemBase extends Scene_MenuBase {
-    protected _actorWindow;
-    protected _itemWindow;
+    protected _actorWindow: Window_MenuActor;
+    protected _itemWindow: Window_ItemList | Window_SkillList;
 
-    
+
     createActorWindow() {
         this._actorWindow = new Window_MenuActor();
-        this._actorWindow.setHandler('ok',     this.onActorOk.bind(this));
+        this._actorWindow.setHandler('ok', this.onActorOk.bind(this));
         this._actorWindow.setHandler('cancel', this.onActorCancel.bind(this));
         this.addWindow(this._actorWindow);
     };
-    
+
     item() {
         return this._itemWindow.item();
     };
-    
+
     user() {
         return null;
     };
-    
-    isCursorLeft() {
+
+    isCursorLeft(): boolean {
         return this._itemWindow.index() % 2 === 0;
     };
-    
-    showSubWindow(window) {
+
+    showSubWindow(window: Window_Base) {
         window.x = this.isCursorLeft() ? Graphics.boxWidth - window.width : 0;
         window.show();
         window.activate();
     };
-    
-    hideSubWindow(window) {
+
+    hideSubWindow(window: Window_Base) {
         window.hide();
         window.deactivate();
         this.activateItemWindow();
     };
-    
+
     onActorOk() {
         if (this.canUse()) {
             this.useItem();
@@ -46,11 +46,11 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
             SoundManager.playBuzzer();
         }
     };
-    
+
     onActorCancel() {
         this.hideSubWindow(this._actorWindow);
     };
-    
+
     determineItem() {
         var action = new Game_Action(this.user());
         var item = this.item();
@@ -66,7 +66,7 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
 
     /// bungcip: defined to make it compiled
     abstract playSeForItem();
-    
+
     useItem() {
         this.playSeForItem();
         this.user().useItem(this.item());
@@ -75,13 +75,13 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
         this.checkGameover();
         this._actorWindow.refresh();
     };
-    
+
     activateItemWindow() {
         this._itemWindow.refresh();
         this._itemWindow.activate();
     };
-    
-    itemTargetActors() {
+
+    itemTargetActors(): Game_Actor[] {
         var action = new Game_Action(this.user());
         action.setItemObject(this.item());
         if (!action.isForFriend()) {
@@ -92,35 +92,35 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
             return [$gameParty.members()[this._actorWindow.index()]];
         }
     };
-    
-    canUse() {
+
+    canUse(): boolean {
         return this.user().canUse(this.item()) && this.isItemEffectsValid();
     };
-    
-    isItemEffectsValid() {
+
+    isItemEffectsValid(): boolean {
         var action = new Game_Action(this.user());
         action.setItemObject(this.item());
-        return this.itemTargetActors().some(function(target) {
+        return this.itemTargetActors().some(function (target) {
             return action.testApply(target);
         }, this);
     };
-    
+
     applyItem() {
         var action = new Game_Action(this.user());
         action.setItemObject(this.item());
-        this.itemTargetActors().forEach(function(target) {
+        this.itemTargetActors().forEach(function (target) {
             for (var i = 0; i < action.numRepeats(); i++) {
                 action.apply(target);
             }
         }, this);
         action.applyGlobal();
     };
-    
+
     checkCommonEvent() {
         if ($gameTemp.isCommonEventReserved()) {
             SceneManager.goto(Scene_Map);
         }
     };
-        
+
 }
 

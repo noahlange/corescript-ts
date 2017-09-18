@@ -6,7 +6,7 @@
 class Window_Base extends CoreWindow {
     protected _opening: boolean;
     protected _closing: boolean;
-    protected _dimmerSprite;
+    protected _dimmerSprite: Sprite;
 
     constructor(x?: number, y?: number, width?: number, height?: number, callback?) {
         super();
@@ -271,7 +271,7 @@ class Window_Base extends CoreWindow {
         return this.windowskin.getPixel(120, 120);
     };
 
-    translucentOpacity() {
+    translucentOpacity(): number {
         return 160;
     };
 
@@ -459,7 +459,7 @@ class Window_Base extends CoreWindow {
         return textHeight;
     };
 
-    drawIcon(iconIndex, x, y) {
+    drawIcon(iconIndex: number, x: number, y: number) {
         var bitmap = ImageManager.loadSystem('IconSet');
         var pw = Window_Base._iconWidth;
         var ph = Window_Base._iconHeight;
@@ -468,7 +468,7 @@ class Window_Base extends CoreWindow {
         this.contents.blt(bitmap, sx, sy, pw, ph, x, y);
     };
 
-    drawFace(faceName: string, faceIndex, x, y, width?, height?) {
+    drawFace(faceName: string, faceIndex: number, x: number, y: number, width?: number, height?: number) {
         width = width || Window_Base._faceWidth;
         height = height || Window_Base._faceHeight;
         var bitmap = ImageManager.loadFace(faceName);
@@ -483,7 +483,7 @@ class Window_Base extends CoreWindow {
         this.contents.blt(bitmap, sx, sy, sw, sh, dx, dy);
     };
 
-    drawCharacter(characterName: string, characterIndex, x, y) {
+    drawCharacter(characterName: string, characterIndex: number, x: number, y: number) {
         var bitmap = ImageManager.loadCharacter(characterName);
         var big = ImageManager.isBigCharacter(characterName);
         var pw = bitmap.width / (big ? 3 : 12);
@@ -494,7 +494,7 @@ class Window_Base extends CoreWindow {
         this.contents.blt(bitmap, sx, sy, pw, ph, x - pw / 2, y - ph);
     };
 
-    drawGauge(x, y, width, rate, color1, color2) {
+    drawGauge(x: number, y: number, width: number, rate: number, color1: string, color2: string) {
         var fillW = Math.floor(width * rate);
         var gaugeY = y + Window_Base.lineHeight() - 8;
         this.contents.fillRect(x, gaugeY, width, 6, this.gaugeBackColor());
@@ -575,7 +575,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    drawActorHp(actor, x: number, y: number, width: number = 186) {
+    drawActorHp(actor: Game_Actor, x: number, y: number, width: number = 186) {
         var color1 = this.hpGaugeColor1();
         var color2 = this.hpGaugeColor2();
         this.drawGauge(x, y, width, actor.hpRate(), color1, color2);
@@ -585,7 +585,7 @@ class Window_Base extends CoreWindow {
             this.hpColor(actor), this.normalColor());
     };
 
-    drawActorMp(actor, x: number, y: number, width: number = 186) {
+    drawActorMp(actor: Game_Actor, x: number, y: number, width: number = 186) {
         var color1 = this.mpGaugeColor1();
         var color2 = this.mpGaugeColor2();
         this.drawGauge(x, y, width, actor.mpRate(), color1, color2);
@@ -595,17 +595,17 @@ class Window_Base extends CoreWindow {
             this.mpColor(actor), this.normalColor());
     };
 
-    drawActorTp(actor, x: number, y: number, width: number = 96) {
+    drawActorTp(actor: Game_Actor, x: number, y: number, width: number = 96) {
         var color1 = this.tpGaugeColor1();
         var color2 = this.tpGaugeColor2();
         this.drawGauge(x, y, width, actor.tpRate(), color1, color2);
         this.changeTextColor(this.systemColor());
         this.drawText(TextManager.tpA, x, y, 44);
         this.changeTextColor(this.tpColor(actor));
-        this.drawText(actor.tp, x + width - 64, y, 64, 'right');
+        this.drawText(actor.tp.toString(), x + width - 64, y, 64, 'right');
     };
 
-    drawActorSimpleStatus(actor, x: number, y: number, width: number) {
+    drawActorSimpleStatus(actor: Game_Actor, x: number, y: number, width: number) {
         var lineHeight = Window_Base.lineHeight();
         var x2 = x + 180;
         var width2 = Math.min(200, width - 180 - this.textPadding());
@@ -626,7 +626,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    drawCurrencyValue(value, unit, x, y, width) {
+    drawCurrencyValue(value, unit, x: number, y: number, width: number) {
         var unitWidth = Math.min(80, this.textWidth(unit));
         this.resetTextColor();
         this.drawText(value, x, y, width - unitWidth - 6, 'right');
@@ -634,7 +634,7 @@ class Window_Base extends CoreWindow {
         this.drawText(unit, x + width - unitWidth, y, unitWidth, 'right');
     };
 
-    paramchangeTextColor(change) {
+    paramchangeTextColor(change: number) {
         if (change > 0) {
             return this.powerUpColor();
         } else if (change < 0) {

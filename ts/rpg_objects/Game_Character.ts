@@ -55,10 +55,10 @@ class Game_Character extends Game_CharacterBase {
         super();
     };
 
-    protected _moveRouteForcing;
-    protected _moveRoute = null;
+    protected _moveRouteForcing: boolean;
+    protected _moveRoute: null | DB.MoveRoute = null;
     protected _moveRouteIndex = 0;
-    protected _originalMoveRoute = null;
+    protected _originalMoveRoute: null | DB.MoveRoute = null;
     protected _originalMoveRouteIndex = 0;
     protected _waitCount = 0;
 
@@ -88,13 +88,13 @@ class Game_Character extends Game_CharacterBase {
         return this._moveRouteForcing;
     };
 
-    setMoveRoute(moveRoute) {
+    setMoveRoute(moveRoute: DB.MoveRoute) {
         this._moveRoute = moveRoute;
         this._moveRouteIndex = 0;
         this._moveRouteForcing = false;
     };
 
-    forceMoveRoute(moveRoute) {
+    forceMoveRoute(moveRoute: DB.MoveRoute) {
         if (!this._originalMoveRoute) {
             this.memorizeMoveRoute();
         }
@@ -124,7 +124,7 @@ class Game_Character extends Game_CharacterBase {
         }
     };
 
-    processMoveCommand(command) {
+    processMoveCommand(command: DB.List) {
         var gc = Game_Character;
         var params = command.parameters;
         switch (command.code) {
@@ -284,7 +284,7 @@ class Game_Character extends Game_CharacterBase {
         }
     };
 
-    moveTowardCharacter(character) {
+    moveTowardCharacter(character: Game_Character) {
         var sx = this.deltaXFrom(character.x);
         var sy = this.deltaYFrom(character.y);
         if (Math.abs(sx) > Math.abs(sy)) {
@@ -300,7 +300,7 @@ class Game_Character extends Game_CharacterBase {
         }
     };
 
-    moveAwayFromCharacter(character) {
+    moveAwayFromCharacter(character: Game_Character) {
         var sx = this.deltaXFrom(character.x);
         var sy = this.deltaYFrom(character.y);
         if (Math.abs(sx) > Math.abs(sy)) {
@@ -316,7 +316,7 @@ class Game_Character extends Game_CharacterBase {
         }
     };
 
-    turnTowardCharacter(character) {
+    turnTowardCharacter(character: Game_Character) {
         var sx = this.deltaXFrom(character.x);
         var sy = this.deltaYFrom(character.y);
         if (Math.abs(sx) > Math.abs(sy)) {
@@ -326,7 +326,7 @@ class Game_Character extends Game_CharacterBase {
         }
     };
 
-    turnAwayFromCharacter(character) {
+    turnAwayFromCharacter(character: Game_Character) {
         var sx = this.deltaXFrom(character.x);
         var sy = this.deltaYFrom(character.y);
         if (Math.abs(sx) > Math.abs(sy)) {
@@ -436,14 +436,14 @@ class Game_Character extends Game_CharacterBase {
         this.setDirection(2 + Math.randomInt(4) * 2);
     };
 
-    swap(character) {
+    swap(character: Game_Character) {
         var newX = character.x;
         var newY = character.y;
         character.locate(this.x, this.y);
         this.locate(newX, newY);
     };
 
-    findDirectionTo(goalX, goalY) {
+    findDirectionTo(goalX: number, goalY: number) {
         var searchLimit = this.searchLimit();
         var mapWidth = $gameMap.width();
         var nodeList = [];

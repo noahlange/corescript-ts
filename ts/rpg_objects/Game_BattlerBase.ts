@@ -7,12 +7,12 @@ class Game_BattlerBase {
     protected _hp: number;
     protected _mp: number;
     protected _tp: number;
-    protected _stateTurns;
-    protected _states;
+    protected _stateTurns: Object;
+    protected _states: number[];
     protected _hidden: boolean;
-    protected _buffs;
-    protected _buffTurns;
-    protected _paramPlus;
+    protected _buffs: number[];
+    protected _buffTurns: number[];
+    protected _paramPlus: number[];
 
     static TRAIT_ELEMENT_RATE = 11;
     static TRAIT_DEBUFF_RATE = 12;
@@ -287,7 +287,7 @@ class Game_BattlerBase {
         return this.stateIcons().concat(this.buffIcons());
     };
 
-    traitObjects() {
+    traitObjects(): DB.State[] {
         // Returns an array of the all objects having traits. States only here.
         return this.states();
     };
@@ -298,37 +298,37 @@ class Game_BattlerBase {
         }, []);
     };
 
-    traits(code) {
+    traits(code: number) {
         return this.allTraits().filter(function (trait) {
             return trait.code === code;
         });
     };
 
-    traitsWithId(code, id) {
+    traitsWithId(code: number, id: number) {
         return this.allTraits().filter(function (trait) {
             return trait.code === code && trait.dataId === id;
         });
     };
 
-    traitsPi(code, id) {
+    traitsPi(code: number, id: number) {
         return this.traitsWithId(code, id).reduce(function (r, trait) {
             return r * trait.value;
         }, 1);
     };
 
-    traitsSum(code, id) {
+    traitsSum(code: number, id: number) {
         return this.traitsWithId(code, id).reduce(function (r, trait) {
             return r + trait.value;
         }, 0);
     };
 
-    traitsSumAll(code) {
+    traitsSumAll(code: number) {
         return this.traits(code).reduce(function (r, trait) {
             return r + trait.value;
         }, 0);
     };
 
-    traitsSet(code) {
+    traitsSet(code: number) {
         return this.traits(code).reduce(function (r, trait) {
             return r.concat(trait.dataId);
         }, []);
@@ -671,28 +671,28 @@ class Game_BattlerBase {
         }
     };
 
-    isSkillWtypeOk(skill) {
+    isSkillWtypeOk(skill: DB.Skill | DB.Item): skill is DB.Skill {
         return true;
     };
 
-    skillMpCost(skill) {
+    skillMpCost(skill: DB.Skill) {
         return Math.floor(skill.mpCost * this.mcr);
     };
 
-    skillTpCost(skill) {
+    skillTpCost(skill: DB.Skill) {
         return skill.tpCost;
     };
 
-    canPaySkillCost(skill) {
+    canPaySkillCost(skill: DB.Skill) {
         return this._tp >= this.skillTpCost(skill) && this._mp >= this.skillMpCost(skill);
     };
 
-    paySkillCost(skill) {
+    paySkillCost(skill: DB.Skill) {
         this._mp -= this.skillMpCost(skill);
         this._tp -= this.skillTpCost(skill);
     };
 
-    isOccasionOk(item) {
+    isOccasionOk(item: DB.Item | DB.Skill) {
         if ($gameParty.inBattle()) {
             return item.occasion === 0 || item.occasion === 1;
         } else {
@@ -700,21 +700,21 @@ class Game_BattlerBase {
         }
     };
 
-    meetsUsableItemConditions(item) {
+    meetsUsableItemConditions(item: DB.Item | DB.Skill) {
         return this.canMove() && this.isOccasionOk(item);
     };
 
-    meetsSkillConditions(skill) {
+    meetsSkillConditions(skill: DB.Skill | DB.Item) {
         return (this.meetsUsableItemConditions(skill) &&
             this.isSkillWtypeOk(skill) && this.canPaySkillCost(skill) &&
             !this.isSkillSealed(skill.id) && !this.isSkillTypeSealed(skill.stypeId));
     };
 
-    meetsItemConditions(item) {
+    meetsItemConditions(item: DB.Skill | DB.Item) {
         return this.meetsUsableItemConditions(item) && $gameParty.hasItem(item);
     };
 
-    canUse(item) {
+    canUse(item: Object) {
         if (!item) {
             return false;
         } else if (DataManager.isSkill(item)) {
@@ -726,7 +726,7 @@ class Game_BattlerBase {
         }
     };
 
-    canEquip(item) {
+    canEquip(item: Object) {
         if (!item) {
             return false;
         } else if (DataManager.isWeapon(item)) {
@@ -738,11 +738,11 @@ class Game_BattlerBase {
         }
     };
 
-    canEquipWeapon(item) {
+    canEquipWeapon(item: DB.Weapon) {
         return this.isEquipWtypeOk(item.wtypeId) && !this.isEquipTypeSealed(item.etypeId);
     };
 
-    canEquipArmor(item) {
+    canEquipArmor(item: DB.Armor) {
         return this.isEquipAtypeOk(item.atypeId) && !this.isEquipTypeSealed(item.etypeId);
     };
 

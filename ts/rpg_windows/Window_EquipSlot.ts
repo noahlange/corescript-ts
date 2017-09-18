@@ -4,17 +4,17 @@
 // The window for selecting an equipment slot on the equipment screen.
 
 class Window_EquipSlot extends Window_Selectable {
-    protected _actor;
-    protected _itemWindow;
-    protected _statusWindow;
+    protected _actor: Game_Actor;
+    protected _itemWindow: Window_EquipItem;
+    protected _statusWindow: Window_EquipStatus;
 
-    constructor(x, y, width, height) {
+    constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
         this._actor = null;
         this.refresh();
     };
     
-    setActor(actor) {
+    setActor(actor: Game_Actor) {
         if (this._actor !== actor) {
             this._actor = actor;
             this.refresh();
@@ -36,7 +36,7 @@ class Window_EquipSlot extends Window_Selectable {
         return this._actor ? this._actor.equips()[this.index()] : null;
     };
     
-    drawItem(index) {
+    drawItem(index: number) {
         if (this._actor) {
             var rect = this.itemRectForText(index);
             this.changeTextColor(this.systemColor());
@@ -60,12 +60,12 @@ class Window_EquipSlot extends Window_Selectable {
         return this.isEnabled(this.index());
     };
     
-    setStatusWindow(statusWindow) {
+    setStatusWindow(statusWindow: Window_EquipStatus) {
         this._statusWindow = statusWindow;
         this.callUpdateHelp();
     };
     
-    setItemWindow(itemWindow) {
+    setItemWindow(itemWindow: Window_EquipItem) {
         this._itemWindow = itemWindow;
         this.update();
     };

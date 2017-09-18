@@ -39,7 +39,7 @@ class Window_Options extends Window_Command {
         this.addCommand(TextManager.seVolume, 'seVolume');
     };
     
-    drawItem(index) {
+    drawItem(index: number) {
         var rect = this.itemRectForText(index);
         var statusWidth = this.statusWidth();
         var titleWidth = rect.width - statusWidth;
@@ -53,13 +53,13 @@ class Window_Options extends Window_Command {
         return 120;
     };
     
-    statusText(index) {
+    statusText(index: number) {
         var symbol = this.commandSymbol(index);
         var value = this.getConfigValue(symbol);
         if (this.isVolumeSymbol(symbol)) {
-            return this.volumeStatusText(value);
+            return this.volumeStatusText(value as number);
         } else {
-            return this.booleanStatusText(value);
+            return this.booleanStatusText(value as boolean);
         }
     };
     
@@ -67,18 +67,18 @@ class Window_Options extends Window_Command {
         return symbol.contains('Volume');
     };
     
-    booleanStatusText(value) {
+    booleanStatusText(value: boolean) {
         return value ? 'ON' : 'OFF';
     };
     
-    volumeStatusText(value) {
+    volumeStatusText(value: number) {
         return value + '%';
     };
     
     processOk() {
         var index = this.index();
         var symbol = this.commandSymbol(index);
-        var value = this.getConfigValue(symbol);
+        var value = this.getConfigValue(symbol) as number;
         if (this.isVolumeSymbol(symbol)) {
             value += this.volumeOffset();
             if (value > 100) {
@@ -94,7 +94,7 @@ class Window_Options extends Window_Command {
     cursorRight(wrap) {
         var index = this.index();
         var symbol = this.commandSymbol(index);
-        var value = this.getConfigValue(symbol);
+        var value = this.getConfigValue(symbol) as number;
         if (this.isVolumeSymbol(symbol)) {
             value += this.volumeOffset();
             value = value.clamp(0, 100);
@@ -107,7 +107,7 @@ class Window_Options extends Window_Command {
     cursorLeft(wrap) {
         var index = this.index();
         var symbol = this.commandSymbol(index);
-        var value = this.getConfigValue(symbol);
+        var value: number = this.getConfigValue(symbol) as number;
         if (this.isVolumeSymbol(symbol)) {
             value -= this.volumeOffset();
             value = value.clamp(0, 100);
@@ -130,11 +130,11 @@ class Window_Options extends Window_Command {
         }
     };
     
-    getConfigValue(symbol) {
+    getConfigValue(symbol: string): number | boolean {
         return ConfigManager[symbol];
     };
     
-    setConfigValue(symbol, volume) {
+    setConfigValue(symbol: string, volume: number | boolean) {
         ConfigManager[symbol] = volume;
     };
     

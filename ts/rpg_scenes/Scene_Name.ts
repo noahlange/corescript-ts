@@ -6,8 +6,8 @@
 class Scene_Name extends Scene_MenuBase {
     protected _actorId: number;
     protected _maxLength: number;
-    protected _editWindow;
-    protected _inputWindow;
+    protected _editWindow: Window_NameEdit;
+    protected _inputWindow: Window_NameInput;
 
     prepare(actorId: number, maxLength: number) {
         this._actorId = actorId;

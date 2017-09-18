@@ -4,7 +4,7 @@
 // The scene class of the game end screen.
 
 class Scene_GameEnd extends Scene_MenuBase {
-    protected _commandWindow;
+    protected _commandWindow: Window_GameEnd;
     
     create() {
         super.create();

@@ -3,18 +3,18 @@
 //
 // The superclass of Game_Party and Game_Troop.
 
-abstract class Game_Unit {
+abstract class Game_Unit<T extends Game_Battler> {
     protected _inBattle: boolean;
 
     constructor() {
         this._inBattle = false;
     };
     
-    inBattle() {
+    inBattle(): boolean {
         return this._inBattle;
     };
     
-    members() {
+    members(): T[] {
         return [];
     };
     
@@ -59,7 +59,7 @@ abstract class Game_Unit {
         }, 0);
     };
     
-    randomTarget() {
+    randomTarget(): Game_Battler {
         var tgrRand = Math.random() * this.tgrSum();
         var target = null;
         this.aliveMembers().forEach(function(member) {
@@ -71,7 +71,7 @@ abstract class Game_Unit {
         return target;
     };
     
-    randomDeadTarget() {
+    randomDeadTarget(): Game_Battler {
         var members = this.deadMembers();
         if (members.length === 0) {
             return null;
@@ -79,7 +79,7 @@ abstract class Game_Unit {
         return members[Math.floor(Math.random() * members.length)];
     };
     
-    smoothTarget(index: number) {
+    smoothTarget(index: number): Game_Battler {
         if (index < 0) {
             index = 0;
         }
@@ -87,7 +87,7 @@ abstract class Game_Unit {
         return (member && member.isAlive()) ? member : this.aliveMembers()[0];
     };
     
-    smoothDeadTarget(index: number) {
+    smoothDeadTarget(index: number): Game_Battler {
         if (index < 0) {
             index = 0;
         }

@@ -4,9 +4,9 @@
 // The window for selecting an equipment item on the equipment screen.
 
 class Window_EquipItem extends Window_ItemList {
-    protected _actor;
+    protected _actor: Game_Actor;
     protected _slotId: number;
-    protected _statusWindow;
+    protected _statusWindow: Window_EquipStatus;
 
     constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
@@ -14,7 +14,7 @@ class Window_EquipItem extends Window_ItemList {
         this._slotId = 0;
     };
 
-    setActor(actor) {
+    setActor(actor: Game_Actor) {
         if (this._actor !== actor) {
             this._actor = actor;
             this.refresh();
@@ -40,14 +40,14 @@ class Window_EquipItem extends Window_ItemList {
         return this._actor.canEquip(item);
     };
 
-    isEnabled(item) {
+    isEnabled(item): boolean {
         return true;
     };
 
     selectLast() {
     };
 
-    setStatusWindow(statusWindow) {
+    setStatusWindow(statusWindow: Window_EquipStatus) {
         this._statusWindow = statusWindow;
         this.callUpdateHelp();
     };

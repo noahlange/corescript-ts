@@ -4,7 +4,7 @@
 // The scene class of the game over screen.
 
 class Scene_Gameover extends Scene_Base {
-    protected _backSprite;
+    protected _backSprite: Sprite;
 
     create() {
         super.create();

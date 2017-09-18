@@ -4,7 +4,7 @@
 // The window for displaying the map name on the map screen.
 
 class Window_MapName extends Window_Base {
-    protected _showCount;
+    protected _showCount: number;
     
     constructor() {
         super(0, 0);
@@ -58,7 +58,7 @@ class Window_MapName extends Window_Base {
         }
     };
     
-    drawBackground(x, y, width, height) {
+    drawBackground(x: number, y: number, width: number, height: number) {
         var color1 = this.dimColor1();
         var color2 = this.dimColor2();
         this.contents.gradientFillRect(x, y, width / 2, height, color2, color1);

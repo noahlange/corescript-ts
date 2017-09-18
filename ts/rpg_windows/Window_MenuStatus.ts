@@ -4,7 +4,7 @@
 // The window for displaying party member status on the menu screen.
 
 class Window_MenuStatus extends Window_Selectable {
-    protected _formationMode;
+    protected _formationMode: boolean;
     protected _pendingIndex: number;
 
     constructor(x: number, y: number) {
@@ -65,7 +65,7 @@ class Window_MenuStatus extends Window_Selectable {
         this.changePaintOpacity(true);
     };
 
-    drawItemStatus(index) {
+    drawItemStatus(index: number) {
         var actor = $gameParty.members()[index];
         var rect = this.itemRect(index);
         var x = rect.x + 162;

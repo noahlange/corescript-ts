@@ -4,16 +4,23 @@
 // The superclass of Game_Actor and Game_Enemy. It contains methods for sprites
 // and actions.
 
+// { : animationId, mirror: mirror, delay: delay }
+interface AnimationState {
+    animationId: number;
+    mirror: boolean;
+    delay: number;
+}
+
 class Game_Battler extends Game_BattlerBase {
-    protected _actions: any[];
+    protected _actions: Game_Action[];
     protected _speed: number;
     protected _result: Game_ActionResult;
-    protected _actionState;
+    protected _actionState: string;
     protected _lastTargetIndex: number;
-    protected _animations: any[];
+    protected _animations: AnimationState[];
     protected _damagePopup: boolean;
-    protected _effectType;
-    protected _motionType;
+    protected _effectType: string | null;
+    protected _motionType: string | null;
     protected _weaponImageId: number;
     protected _motionRefresh: boolean;
     protected _selected: boolean;
@@ -55,11 +62,11 @@ class Game_Battler extends Game_BattlerBase {
         this._motionRefresh = false;
     };
     
-    requestEffect(effectType) {
+    requestEffect(effectType: string) {
         this._effectType = effectType;
     };
     
-    requestMotion(motionType) {
+    requestMotion(motionType: string) {
         this._motionType = motionType;
     };
     
@@ -119,7 +126,7 @@ class Game_Battler extends Game_BattlerBase {
         return this._animations.shift();
     };
     
-    startAnimation(animationId: number, mirror, delay) {
+    startAnimation(animationId: number, mirror: boolean, delay: number) {
         var data = { animationId: animationId, mirror: mirror, delay: delay };
         this._animations.push(data);
     };
@@ -132,11 +139,11 @@ class Game_Battler extends Game_BattlerBase {
         this._weaponImageId = weaponImageId;
     };
     
-    action(index: number) {
+    action(index: number): Game_Action {
         return this._actions[index];
     };
     
-    setAction(index: number, action) {
+    setAction(index: number, action: Game_Action) {
         this._actions[index] = action;
     };
     
@@ -320,7 +327,7 @@ class Game_Battler extends Game_BattlerBase {
         this._actions.shift();
     };
     
-    setLastTarget(target) {
+    setLastTarget(target: Game_Enemy | Game_Actor) {
         if (target) {
             this._lastTargetIndex = target.index();
         } else {
@@ -342,7 +349,7 @@ class Game_Battler extends Game_BattlerBase {
         this._actions.push(action);
     };
     
-    useItem(item) {
+    useItem(item: DB.Item | DB.Skill) {
         if (DataManager.isSkill(item)) {
             this.paySkillCost(item);
         } else if (DataManager.isItem(item)) {
@@ -350,7 +357,7 @@ class Game_Battler extends Game_BattlerBase {
         }
     };
     
-    consumeItem(item) {
+    consumeItem(item: DB.Item) {
         $gameParty.consumeItem(item);
     };
     
@@ -457,7 +464,7 @@ class Game_Battler extends Game_BattlerBase {
         this.chargeTpByDamage(value / this.mhp);
     };
     
-    setActionState(actionState) {
+    setActionState(actionState: string) {
         this._actionState = actionState;
         this.requestMotionRefresh();
     };
@@ -496,13 +503,13 @@ class Game_Battler extends Game_BattlerBase {
         return false;
     };
     
-    performActionStart(action) {
+    performActionStart(action: Game_Action) {
         if (!action.isGuard()) {
             this.setActionState('acting');
         }
     };
     
-    performAction(action) {
+    performAction(action: Game_Action) {
     };
     
     performActionEnd() {

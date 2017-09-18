@@ -5,7 +5,7 @@
 
 class Window_BattleItem extends Window_ItemList {
 
-    constructor(x, y, width, height) {
+    constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
         this.hide();
     };

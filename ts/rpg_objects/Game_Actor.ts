@@ -21,8 +21,8 @@ class Game_Actor extends Game_Battler {
     protected _lastMenuSkill: Game_Item;
     protected _lastBattleSkill: Game_Item;
     protected _lastCommandSymbol: string;
-    protected _profile;
-    protected _stateSteps;
+    protected _profile: string;
+    protected _stateSteps: Object;
 
     get level(): number {
         return this._level;
@@ -358,7 +358,7 @@ class Game_Actor extends Game_Battler {
         });
     };
 
-    isSkillWtypeOk(skill) {
+    isSkillWtypeOk(skill: any): skill is DB.Skill {
         var wtypeId1 = skill.requiredWtypeId1;
         var wtypeId2 = skill.requiredWtypeId2;
         if ((wtypeId1 === 0 && wtypeId2 === 0) ||
@@ -431,7 +431,9 @@ class Game_Actor extends Game_Battler {
 
     traitObjects() {
         var objects = super.traitObjects();
-        objects = objects.concat([this.actor(), this.currentClass()]);
+        objects = objects.concat(
+            [this.actor(), this.currentClass()] as any
+        );
         var equips = this.equips();
         for (var i = 0; i < equips.length; i++) {
             var item = equips[i];
@@ -621,7 +623,7 @@ class Game_Actor extends Game_Battler {
         return $gameSystem.isSideView();
     };
 
-    startAnimation(animationId: number, mirror, delay) {
+    startAnimation(animationId: number, mirror: boolean, delay: number) {
         mirror = !mirror;
         super.startAnimation(animationId, mirror, delay);
     };
@@ -709,7 +711,7 @@ class Game_Actor extends Game_Battler {
         }
     };
 
-    makeActionList() {
+    makeActionList(): Game_Action[] {
         var list = [];
         var action = new Game_Action(this);
         action.setAttack();
@@ -771,7 +773,7 @@ class Game_Actor extends Game_Battler {
         }
     };
 
-    updateStateSteps(state) {
+    updateStateSteps(state: DB.State) {
         if (state.removeByWalking) {
             if (this._stateSteps[state.id] > 0) {
                 if (--this._stateSteps[state.id] === 0) {
@@ -867,18 +869,18 @@ class Game_Actor extends Game_Battler {
     };
 
     lastMenuSkill() {
-        return this._lastMenuSkill.object();
+        return this._lastMenuSkill.object() as DB.Skill;
     };
 
-    setLastMenuSkill(skill) {
+    setLastMenuSkill(skill: DB.Skill) {
         this._lastMenuSkill.setObject(skill);
     };
 
-    lastBattleSkill() {
-        return this._lastBattleSkill.object();
+    lastBattleSkill(): DB.Skill {
+        return this._lastBattleSkill.object() as DB.Skill;
     };
 
-    setLastBattleSkill(skill) {
+    setLastBattleSkill(skill: DB.Skill) {
         this._lastBattleSkill.setObject(skill);
     };
 
@@ -890,13 +892,13 @@ class Game_Actor extends Game_Battler {
         this._lastCommandSymbol = symbol;
     };
 
-    testEscape(item) {
+    testEscape(item: DB.Item) {
         return item.effects.some(function (effect, index, ar) {
             return effect && effect.code === Game_Action.EFFECT_SPECIAL;
         });
     };
 
-    meetsUsableItemConditions(item) {
+    meetsUsableItemConditions(item: DB.Item) {
         if ($gameParty.inBattle() && !BattleManager.canEscape() && this.testEscape(item)) {
             return false;
         }

@@ -5,14 +5,14 @@
 // handled as a window for convenience.
 
 class Window_BattleLog extends Window_Selectable {
-    protected _lines;
-    protected _methods;
-    protected _waitCount;
-    protected _waitMode;
-    protected _baseLineStack;
+    protected _lines: any[];
+    protected _methods: any[];
+    protected _waitCount: number;
+    protected _waitMode: string;
+    protected _baseLineStack: any[];
     protected _spriteset;
-    protected _backBitmap;
-    protected _backSprite;
+    protected _backBitmap: Bitmap;
+    protected _backSprite: Sprite;
 
     constructor() {
         super(0, 0);

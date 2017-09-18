@@ -3,20 +3,29 @@
 //
 // The window for displaying text messages.
 
+interface TextState {
+    index: number;
+    x?: number;
+    y?: number;
+    text: string;
+    left?: number;
+    height?: number
+}
+
 class Window_Message extends Window_Base {
-    protected _imageReservationId;
+    protected _imageReservationId: number;
     protected _background: number;
     protected _positionType: number;
     protected _waitCount: number;
-    protected _faceBitmap;
-    protected _textState;
-    protected _goldWindow;
-    protected _choiceWindow;
-    protected _numberWindow;
-    protected _itemWindow;
-    protected _showFast;
-    protected _lineShowFast;
-    protected _pauseSkip;
+    protected _faceBitmap: Bitmap;
+    protected _textState: TextState | null;
+    protected _goldWindow: Window_Gold;
+    protected _choiceWindow: Window_ChoiceList;
+    protected _numberWindow: Window_NumberInput;
+    protected _itemWindow: Window_EventItem;
+    protected _showFast: boolean;
+    protected _lineShowFast: boolean;
+    protected _pauseSkip: boolean;
 
 
     constructor() {
@@ -107,9 +116,10 @@ class Window_Message extends Window_Base {
     };
 
     startMessage() {
-        this._textState = {};
-        this._textState.index = 0;
-        this._textState.text = this.convertEscapeCharacters($gameMessage.allText());
+        this._textState = {
+            index: 0,
+            text: this.convertEscapeCharacters($gameMessage.allText())
+        };
         this.newPage(this._textState);
         this.updatePlacement();
         this.updateBackground();
@@ -250,7 +260,7 @@ class Window_Message extends Window_Base {
         }
     };
 
-    newPage(textState) {
+    newPage(textState: TextState) {
         this.contents.clear();
         this.resetFontSettings();
         this.clearFlags();
@@ -274,7 +284,7 @@ class Window_Message extends Window_Base {
         return $gameMessage.faceName() === '' ? 0 : 168;
     };
 
-    processNewLine(textState) {
+    processNewLine(textState: TextState) {
         this._lineShowFast = false;
         super.processNewLine(textState);
         if (this.needsNewPage(textState)) {
@@ -282,7 +292,7 @@ class Window_Message extends Window_Base {
         }
     };
 
-    processNewPage(textState) {
+    processNewPage(textState: TextState) {
         super.processNewPage(textState);
         if (textState.text[textState.index] === '\n') {
             textState.index++;
@@ -291,16 +301,16 @@ class Window_Message extends Window_Base {
         this.startPause();
     };
 
-    isEndOfText(textState) {
+    isEndOfText(textState: TextState) {
         return textState.index >= textState.text.length;
     };
 
-    needsNewPage(textState) {
+    needsNewPage(textState: TextState) {
         return (!this.isEndOfText(textState) &&
             textState.y + textState.height > this.contents.height);
     };
 
-    processEscapeCharacter(code, textState) {
+    processEscapeCharacter(code: string, textState: TextState) {
         switch (code) {
             case '$':
                 this._goldWindow.open();

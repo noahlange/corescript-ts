@@ -4,9 +4,9 @@
 // The scene class of the menu screen.
 
 class Scene_Menu extends Scene_MenuBase {
-    protected _statusWindow;
-    protected _commandWindow;
-    protected _goldWindow;
+    protected _statusWindow: Window_MenuStatus;
+    protected _commandWindow: Window_MenuCommand;
+    protected _goldWindow: Window_Gold;
     
     create() {
         super.create();

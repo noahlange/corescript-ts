@@ -4,8 +4,9 @@
 // The scene class of the skill screen.
 
 class Scene_Skill extends Scene_ItemBase {
-    protected _skillTypeWindow;
-    protected _statusWindow;
+    protected _skillTypeWindow: Window_SkillType;
+    protected _statusWindow: Window_SkillStatus;
+    protected _itemWindow: Window_SkillList;
     
     create() {
         super.create();

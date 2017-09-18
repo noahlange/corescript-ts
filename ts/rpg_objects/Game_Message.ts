@@ -5,9 +5,9 @@
 // or selections, etc.
 
 class Game_Message {
-    protected _texts;
-    protected _choices;
-    protected _faceName;
+    protected _texts: string[];
+    protected _choices: string[];
+    protected _faceName: string;
     protected _faceIndex: number;
     protected _background: number;
     protected _positionType: number;
@@ -19,10 +19,10 @@ class Game_Message {
     protected _numInputMaxDigits: number;
     protected _itemChoiceVariableId: number;
     protected _itemChoiceItypeId: number;
-    protected _scrollMode;
-    protected _scrollSpeed;
-    protected _scrollNoFast;
-    protected _choiceCallback;
+    protected _scrollMode: boolean;
+    protected _scrollSpeed: number;
+    protected _scrollNoFast: boolean;
+    protected _choiceCallback: Function;
 
     constructor() {
         this.clear();
@@ -113,11 +113,11 @@ class Game_Message {
         return this._scrollNoFast;
     };
     
-    add(text) {
+    add(text: string) {
         this._texts.push(text);
     };
     
-    setFaceImage(faceName, faceIndex: number) {
+    setFaceImage(faceName: string, faceIndex: number) {
         this._faceName = faceName;
         this._faceIndex = faceIndex;
     };
@@ -130,41 +130,41 @@ class Game_Message {
         this._positionType = positionType;
     };
     
-    setChoices(choices, defaultType, cancelType) {
+    setChoices(choices: string[], defaultType: number, cancelType: number) {
         this._choices = choices;
         this._choiceDefaultType = defaultType;
         this._choiceCancelType = cancelType;
     };
     
-    setChoiceBackground(background) {
+    setChoiceBackground(background: number) {
         this._choiceBackground = background;
     };
     
-    setChoicePositionType(positionType) {
+    setChoicePositionType(positionType: number) {
         this._choicePositionType = positionType;
     };
     
-    setNumberInput(variableId, maxDigits) {
+    setNumberInput(variableId: number, maxDigits: number) {
         this._numInputVariableId = variableId;
         this._numInputMaxDigits = maxDigits;
     };
     
-    setItemChoice(variableId, itemType) {
+    setItemChoice(variableId: number, itemType: number) {
         this._itemChoiceVariableId = variableId;
         this._itemChoiceItypeId = itemType;
     };
     
-    setScroll(speed, noFast) {
+    setScroll(speed: number, noFast: boolean) {
         this._scrollMode = true;
         this._scrollSpeed = speed;
         this._scrollNoFast = noFast;
     };
     
-    setChoiceCallback(callback) {
+    setChoiceCallback(callback: Function) {
         this._choiceCallback = callback;
     };
     
-    onChoice(n) {
+    onChoice(n: number) {
         if (this._choiceCallback) {
             this._choiceCallback(n);
             this._choiceCallback = null;

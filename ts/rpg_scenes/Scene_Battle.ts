@@ -4,23 +4,19 @@
 // The scene class of the battle screen.
 
 class Scene_Battle extends Scene_Base {
-    protected _partyCommandWindow;
-    protected _actorCommandWindow;
-    protected _skillWindow;
-    protected _itemWindow;
-    protected _actorWindow;
-    protected _enemyWindow;
-    protected _statusWindow;
-    protected _messageWindow;
-    protected _logWindow;
-    protected _helpWindow;
-    protected _spriteset;
-    protected _scrollTextWindow;
+    protected _partyCommandWindow: Window_PartyCommand;
+    protected _actorCommandWindow: Window_ActorCommand;
+    protected _skillWindow: Window_BattleSkill;
+    protected _itemWindow: Window_BattleItem;
+    protected _actorWindow: Window_BattleActor;
+    protected _enemyWindow: Window_BattleEnemy;
+    protected _statusWindow: Window_BattleStatus;
+    protected _messageWindow: Window_Message;
+    protected _logWindow: Window_BattleLog;
+    protected _helpWindow: Window_Help;
+    protected _spriteset: Spriteset_Battle;
+    protected _scrollTextWindow: Window_ScrollText;
 
-    // constructor() {
-    //     super();
-    // };
-    
     create() {
         super.create();
         this.createDisplayObjects();
@@ -53,7 +49,7 @@ class Scene_Battle extends Scene_Base {
         }
     };
     
-    isAnyInputWindowActive() {
+    isAnyInputWindowActive(): boolean {
         return (this._partyCommandWindow.active ||
                 this._actorCommandWindow.active ||
                 this._skillWindow.active ||

@@ -4,13 +4,13 @@
 // The window for editing an actor's name on the name input screen.
 
 class Window_NameEdit extends Window_Base {
-    protected _actor;
-    protected _name;
+    protected _actor: Game_Actor;
+    protected _name: string;
     protected _index: number;
     protected _maxLength: number;
-    protected _defaultName;
+    protected _defaultName: string;
 
-    constructor(actor, maxLength: number) {
+    constructor(actor: Game_Actor, maxLength: number) {
         super();
         this._actor = actor;
         this._name = actor.name().slice(0, this._maxLength);
@@ -39,7 +39,7 @@ class Window_NameEdit extends Window_Base {
     }
 
 
-    get name() {
+    get name(): string {
         return this._name;
     };
 
@@ -50,7 +50,7 @@ class Window_NameEdit extends Window_Base {
         return this._name.length > 0;
     };
 
-    add(ch: number) {
+    add(ch: string) {
         if (this._index < this._maxLength) {
             this._name += ch;
             this._index++;
@@ -76,7 +76,7 @@ class Window_NameEdit extends Window_Base {
         return 144;
     };
 
-    charWidth() {
+    charWidth(): number {
         var text = $gameSystem.isJapanese() ? '\uff21' : 'A';
         return this.textWidth(text);
     };

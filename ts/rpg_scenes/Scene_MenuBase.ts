@@ -4,9 +4,9 @@
 // The superclass of all the menu-type scenes.
 
 class Scene_MenuBase extends Scene_Base {
-    protected _actor;
-    protected _backgroundSprite;
-    protected _helpWindow;
+    protected _actor: Game_Actor;
+    protected _backgroundSprite: Sprite;
+    protected _helpWindow: Window_Help;
     
     create() {
         super.create();
@@ -15,7 +15,7 @@ class Scene_MenuBase extends Scene_Base {
         this.createWindowLayer();
     };
 
-    actor() {
+    actor(): Game_Actor {
         return this._actor;
     };
 
@@ -29,7 +29,7 @@ class Scene_MenuBase extends Scene_Base {
         this.addChild(this._backgroundSprite);
     };
 
-    setBackgroundOpacity(opacity) {
+    setBackgroundOpacity(opacity: number) {
         this._backgroundSprite.opacity = opacity;
     };
 

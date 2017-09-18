@@ -4,8 +4,8 @@
 // The superclass of Scene_Save and Scene_Load.
 
 class Scene_File extends Scene_MenuBase {
-    protected _listWindow;
-    protected _helpWindow;
+    protected _listWindow: Window_SavefileList;
+    protected _helpWindow: Window_Help;
     
     create() {
         super.create();

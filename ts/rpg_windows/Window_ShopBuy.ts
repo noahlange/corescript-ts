@@ -4,13 +4,13 @@
 // The window for selecting an item to buy on the shop screen.
 
 class Window_ShopBuy extends Window_Selectable {
-    protected _shopGoods;
+    protected _shopGoods: number[][];
     protected _money: number;
-    protected _data;
+    protected _data: (DB.Item|DB.Weapon|DB.Armor)[];
     protected _price;
     protected _statusWindow;
 
-    constructor(x: number, y: number, height: number, shopGoods) {
+    constructor(x: number, y: number, height: number, shopGoods: number[][]) {
         super(x, y, undefined, height);
         this._shopGoods = shopGoods;
         this._money = 0;
@@ -35,15 +35,15 @@ class Window_ShopBuy extends Window_Selectable {
         this.refresh();
     };
 
-    isCurrentItemEnabled() {
+    isCurrentItemEnabled(): boolean {
         return this.isEnabled(this._data[this.index()]);
     };
 
-    price(item) {
+    price(item): number {
         return this._price[this._data.indexOf(item)] || 0;
     };
 
-    isEnabled(item) {
+    isEnabled(item): boolean {
         return (item && this.price(item) <= this._money &&
             !$gameParty.hasMaxItems(item));
     };
@@ -84,7 +84,7 @@ class Window_ShopBuy extends Window_Selectable {
         rect.width -= this.textPadding();
         this.changePaintOpacity(this.isEnabled(item));
         this.drawItemName(item, rect.x, rect.y, rect.width - priceWidth);
-        this.drawText(this.price(item), rect.x + rect.width - priceWidth,
+        this.drawText(this.price(item).toString(), rect.x + rect.width - priceWidth,
             rect.y, priceWidth, 'right');
         this.changePaintOpacity(true);
     };

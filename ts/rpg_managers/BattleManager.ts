@@ -365,8 +365,10 @@ class BattleManager {
         }
     };
     
-    static allBattleMembers() {
-        return $gameParty.members().concat($gameTroop.members());
+    static allBattleMembers(): Game_Battler[] {
+        const enemies = $gameTroop.members() as Game_Battler[];
+        const parties = $gameParty.members() as Game_Battler[];
+        return parties.concat(enemies);
     };
     
     static makeActionOrders() {

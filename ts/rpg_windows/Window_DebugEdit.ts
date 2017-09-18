@@ -4,8 +4,8 @@
 // The window for displaying switches and variables on the debug screen.
 
 class Window_DebugEdit extends Window_Selectable {
-    protected _mode;
-    protected _topId;
+    protected _mode: string;
+    protected _topId: number;
 
     constructor(x: number, y: number, width: number) {
         var height = Window_Base.fittingHeight(10);
@@ -24,7 +24,7 @@ class Window_DebugEdit extends Window_Selectable {
         this.drawAllItems();
     };
 
-    drawItem(index) {
+    drawItem(index: number) {
         var dataId = this._topId + index;
         var idText = dataId.padZero(4) + ':';
         var idWidth = this.textWidth(idText);
@@ -56,7 +56,7 @@ class Window_DebugEdit extends Window_Selectable {
         }
     };
 
-    setMode(mode) {
+    setMode(mode: string) {
         if (this._mode !== mode) {
             this._mode = mode;
             this.refresh();

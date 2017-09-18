@@ -4,10 +4,10 @@
 // The window for displaying the description of the selected item.
 
 class Window_Help extends Window_Base {
-    protected _text;
+    protected _text: string;
 
     /// NOTE (bungcip) : useless numLines?
-    constructor(numLines?) {
+    constructor(numLines?: any) {
         var width = Graphics.boxWidth;
         super(0, 0, width);
         this._text = '';
@@ -19,7 +19,7 @@ class Window_Help extends Window_Base {
     
     
     
-    setText(text) {
+    setText(text: string) {
         if (this._text !== text) {
             this._text = text;
             this.refresh();
@@ -30,7 +30,7 @@ class Window_Help extends Window_Base {
         this.setText('');
     };
     
-    setItem(item) {
+    setItem(item: DB.Item) {
         this.setText(item ? item.description : '');
     };
     

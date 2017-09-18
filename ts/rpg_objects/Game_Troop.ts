@@ -3,11 +3,11 @@
 //
 // The game object class for a troop and the battle-related data.
 
-class Game_Troop extends Game_Unit {
+class Game_Troop extends Game_Unit<Game_Enemy> {
     protected _interpreter: Game_Interpreter;
     protected _troopId: number;
     protected _eventFlags: Object;
-    protected _enemies;
+    protected _enemies: Game_Enemy[];
     protected _turnCount: number;
     protected _namesCount: Object;
 
@@ -183,13 +183,13 @@ class Game_Troop extends Game_Unit {
 
     expTotal() {
         return this.deadMembers().reduce(function (r, enemy) {
-            return r + enemy.exp();
+            return r + (enemy as Game_Enemy).exp();
         }, 0);
     };
 
     goldTotal() {
         return this.deadMembers().reduce(function (r, enemy) {
-            return r + enemy.gold();
+            return r + (enemy as Game_Enemy).gold();
         }, 0) * this.goldRate();
     };
 
@@ -199,7 +199,7 @@ class Game_Troop extends Game_Unit {
 
     makeDropItems() {
         return this.deadMembers().reduce(function (r, enemy) {
-            return r.concat(enemy.makeDropItems());
+            return r.concat((enemy as Game_Enemy).makeDropItems());
         }, []);
     };
 

@@ -4,7 +4,7 @@
 // The scene class of the options screen.
 
 class Scene_Options extends Scene_MenuBase {
-    protected _optionsWindow;
+    protected _optionsWindow: Window_Options;
 
     create() {
         super.create();

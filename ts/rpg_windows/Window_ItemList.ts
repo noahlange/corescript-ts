@@ -4,16 +4,16 @@
 // The window for selecting an item on the item screen.
 
 class Window_ItemList extends Window_Selectable {
-    protected _category;
-    protected _data;
+    protected _category: string;
+    protected _data: any[];
 
-    constructor(x, y, width, height?, callback?) {
+    constructor(x: number, y: number, width: number, height?: number, callback?: Function) {
         super(x, y, width, height, callback);
         this._category = 'none';
         this._data = [];
     };
     
-    setCategory(category) {
+    setCategory(category: string) {
         if (this._category !== category) {
             this._category = category;
             this.refresh();
@@ -42,7 +42,7 @@ class Window_ItemList extends Window_Selectable {
         return this.isEnabled(this.item());
     };
     
-    includes(item) {
+    includes(item: any) {
         switch (this._category) {
         case 'item':
             return DataManager.isItem(item) && item.itypeId === 1;
@@ -79,7 +79,7 @@ class Window_ItemList extends Window_Selectable {
         this.select(index >= 0 ? index : 0);
     };
     
-    drawItem(index) {
+    drawItem(index: number) {
         var item = this._data[index];
         if (item) {
             var numberWidth = this.numberWidth();
@@ -96,7 +96,7 @@ class Window_ItemList extends Window_Selectable {
         return this.textWidth('000');
     };
     
-    drawItemNumber(item, x, y, width) {
+    drawItemNumber(item: any, x: number, y: number, width: number) {
         if (this.needsNumber()) {
             this.drawText(':', x, y, width - this.textWidth('00'), 'right');
             this.drawText($gameParty.numItems(item).toString(), x, y, width, 'right');

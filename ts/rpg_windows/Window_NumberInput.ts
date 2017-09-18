@@ -4,10 +4,10 @@
 // The window used for the event command [Input Number].
 
 class Window_NumberInput extends Window_Selectable {
-    protected _messageWindow;
+    protected _messageWindow: Window_Message;
     protected _number: number;
     protected _maxDigits: number;
-    protected _buttons;
+    protected _buttons: Sprite_Button[];
 
     constructor(messageWindow) {
         super( 0, 0, 0, 0, function(){

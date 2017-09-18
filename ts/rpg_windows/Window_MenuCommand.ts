@@ -77,7 +77,7 @@ class Window_MenuCommand extends Window_Command {
         this.addCommand(TextManager.gameEnd, 'gameEnd', enabled);
     };
     
-    needsCommand(name) {
+    needsCommand(name: string) {
         var flags = $dataSystem.menuCommands;
         if (flags) {
             switch (name) {

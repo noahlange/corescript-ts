@@ -5,8 +5,8 @@
 
 class Game_Enemy extends Game_Battler {
     protected _enemyId: number;
-    protected _letter;
-    protected _plural;
+    protected _letter: string;
+    protected _plural: boolean;
     protected _screenX: number;
     protected _screenY: number;
 
@@ -61,7 +61,8 @@ class Game_Enemy extends Game_Battler {
     };
     
     traitObjects() {
-        return super.traitObjects().concat(this.enemy());
+        let enemy = this.enemy() as any;
+        return super.traitObjects().concat(enemy);
     };
     
     paramBase(paramId: number) {
@@ -134,11 +135,11 @@ class Game_Enemy extends Game_Battler {
         return this._letter === '';
     };
     
-    setLetter(letter) {
+    setLetter(letter: string) {
         this._letter = letter;
     };
     
-    setPlural(plural) {
+    setPlural(plural: boolean) {
         this._plural = plural;
     };
     
@@ -178,7 +179,7 @@ class Game_Enemy extends Game_Battler {
         }
     };
     
-    transform(enemyId) {
+    transform(enemyId: number) {
         var name = this.originalName();
         this._enemyId = enemyId;
         if (this.originalName() !== name) {
@@ -212,7 +213,7 @@ class Game_Enemy extends Game_Battler {
         }
     };
     
-    meetsTurnCondition(param1, param2) {
+    meetsTurnCondition(param1: number, param2: number) {
         var n = $gameTroop.turnCount();
         if (param2 === 0) {
             return n === param1;
@@ -221,23 +222,23 @@ class Game_Enemy extends Game_Battler {
         }
     };
     
-    meetsHpCondition(param1, param2) {
+    meetsHpCondition(param1: number, param2: number) {
         return this.hpRate() >= param1 && this.hpRate() <= param2;
     };
     
-    meetsMpCondition(param1, param2) {
+    meetsMpCondition(param1: number, param2: number) {
         return this.mpRate() >= param1 && this.mpRate() <= param2;
     };
     
-    meetsStateCondition(param) {
+    meetsStateCondition(param: number) {
         return this.isStateAffected(param);
     };
     
-    meetsPartyLevelCondition(param) {
+    meetsPartyLevelCondition(param: number) {
         return $gameParty.highestLevel() >= param;
     };
     
-    meetsSwitchCondition(param) {
+    meetsSwitchCondition(param: number) {
         return $gameSwitches.value(param);
     };
     
@@ -245,7 +246,7 @@ class Game_Enemy extends Game_Battler {
         return this.meetsCondition(action) && this.canUse($dataSkills[action.skillId]);
     };
     
-    selectAction(actionList, ratingZero) {
+    selectAction(actionList, ratingZero: number) {
         var sum = actionList.reduce(function(r, a) {
             return r + a.rating - ratingZero;
         }, 0);

@@ -4,9 +4,9 @@
 // The window used for the event command [Select Item].
 
 class Window_EventItem extends Window_ItemList {
-    protected _messageWindow;
+    protected _messageWindow: Window_Message;
 
-    constructor(messageWindow) {
+    constructor(messageWindow: Window_Message) {
         var width = Graphics.boxWidth;
         super(0, 0, width, undefined, function() {
             this._messageWindow = messageWindow;
@@ -41,12 +41,12 @@ class Window_EventItem extends Window_ItemList {
         }
     };
     
-    includes(item) {
+    includes(item: any): item is DB.Item {
         var itypeId = $gameMessage.itemChoiceItypeId();
         return DataManager.isItem(item) && item.itypeId === itypeId;
     };
     
-    isEnabled(item) {
+    isEnabled(item: any) {
         return true;
     };
     

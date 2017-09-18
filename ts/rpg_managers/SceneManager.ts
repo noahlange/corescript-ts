@@ -8,30 +8,30 @@ class SceneManager {
     * Gets the current time in ms without on iOS Safari.
     * @private
     */
-    protected static _getTimeInMsWithoutMobileSafari = function() {
+    protected static _getTimeInMsWithoutMobileSafari = function () {
         return performance.now();
     };
 
-    protected static _scene             = null;
-    protected static _nextScene         = null;
-    protected static _stack             = [];
-    protected static _stopped           = false;
-    protected static _sceneStarted      = false;
-    protected static _exiting           = false;
-    protected static _previousClass     = null;
-    protected static _backgroundBitmap  = null;
-    protected static _screenWidth       = 816;
-    protected static _screenHeight      = 624;
-    protected static _boxWidth          = 816;
-    protected static _boxHeight         = 624;
+    protected static _scene: Scene_Base | null = null;
+    protected static _nextScene: Scene_Base | null = null;
+    protected static _stack = [];
+    protected static _stopped: boolean = false;
+    protected static _sceneStarted: boolean = false;
+    protected static _exiting: boolean = false;
+    protected static _previousClass = null;
+    protected static _backgroundBitmap: Bitmap = null;
+    protected static _screenWidth = 816;
+    protected static _screenHeight = 624;
+    protected static _boxWidth = 816;
+    protected static _boxHeight = 624;
     protected static _deltaTime = 1.0 / 60.0;
 
     // if (!Utils.isMobileSafari()) {
-        protected static _currentTime = SceneManager._getTimeInMsWithoutMobileSafari();
+    protected static _currentTime = SceneManager._getTimeInMsWithoutMobileSafari();
     // }
     protected static _accumulator = 0.0;
 
-    static run(sceneClass) {
+    static run(sceneClass: typeof Scene_Base) {
         try {
             this.initialize();
             this.goto(sceneClass);
@@ -107,7 +107,7 @@ class SceneManager {
         if (Utils.isNwjs()) {
             let require = window['require']; // bungcip: changed to make it compile
             let process = window['process']; // bungcip: changed to make it compile
-            
+
             var gui = require('nw.gui');
             var win = gui.Window.get();
             if (process.platform === 'darwin' && !win.menu) {
@@ -166,17 +166,17 @@ class SceneManager {
     static onKeyDown(event) {
         if (!event.ctrlKey && !event.altKey) {
             switch (event.keyCode) {
-            case 116:   // F5
-                if (Utils.isNwjs()) {
-                    location.reload();
-                }
-                break;
-            case 119:   // F8
-                if (Utils.isNwjs() && Utils.isOptionValid('test')) {
-                    let require = window['require']; // bungcip: changed to make it compile
-                    require('nw.gui').Window.get().showDevTools();
-                }
-                break;
+                case 116:   // F5
+                    if (Utils.isNwjs()) {
+                        location.reload();
+                    }
+                    break;
+                case 119:   // F8
+                    if (Utils.isNwjs() && Utils.isOptionValid('test')) {
+                        let require = window['require']; // bungcip: changed to make it compile
+                        require('nw.gui').Window.get().showDevTools();
+                    }
+                    break;
             }
         }
     };
@@ -304,7 +304,7 @@ class SceneManager {
         return this._previousClass === sceneClass;
     };
 
-    static goto(sceneClass) {
+    static goto(sceneClass: typeof Scene_Base) {
         if (sceneClass) {
             this._nextScene = new sceneClass();
         }
@@ -313,7 +313,7 @@ class SceneManager {
         }
     };
 
-    static push(sceneClass) {
+    static push(sceneClass: typeof Scene_Base) {
         this._stack.push(this._scene.constructor);
         this.goto(sceneClass);
     };
@@ -339,8 +339,9 @@ class SceneManager {
         this._stopped = true;
     };
 
-    static prepareNextScene(...arg) {
-        this._nextScene.prepare.apply(this._nextScene, arg);
+    static prepareNextScene(...arg: any[]) {
+        /// bungcip: prepare() only exist in Shop/NameInput
+        (this._nextScene as Scene_Shop).prepare.apply(this._nextScene, arg);
     };
 
     static snap() {
@@ -364,6 +365,6 @@ class SceneManager {
             this._accumulator = 0;
         }
     };
-    
+
 }
 

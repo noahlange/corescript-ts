@@ -5,9 +5,9 @@
 
 
 class Window_Command extends Window_Selectable {
-    protected _list = [];
+    protected _list: any[] = [];
 
-    constructor(x: number, y?: number, callback?) {
+    constructor(x: number, y?: number, callback?: Function) {
         super(x, y, undefined, undefined, function(){
             if (callback !== undefined) {
                 let cb = callback.bind(this);

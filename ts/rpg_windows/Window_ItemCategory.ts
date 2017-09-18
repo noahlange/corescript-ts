@@ -4,7 +4,7 @@
 // The window for selecting a category of items on the item and shop screens.
 
 class Window_ItemCategory extends Window_HorzCommand {
-    protected _itemWindow;
+    protected _itemWindow: Window_ItemList;
     
     constructor() {
         super(0, 0);
@@ -32,7 +32,7 @@ class Window_ItemCategory extends Window_HorzCommand {
         this.addCommand(TextManager.keyItem, 'keyItem');
     };
     
-    setItemWindow(itemWindow) {
+    setItemWindow(itemWindow: Window_ItemList) {
         this._itemWindow = itemWindow;
         this.update();
     };

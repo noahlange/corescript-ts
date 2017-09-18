@@ -3,6 +3,8 @@
 //
 // The wrapper class for a follower array.
 
+type ForeachFn = (item: Game_Follower) => void;
+
 class Game_Followers {
     protected _visible: boolean;
     protected _gathering: boolean;
@@ -33,11 +35,11 @@ class Game_Followers {
         return this._data[index];
     };
     
-    forEach(callback, thisObject?) {
+    forEach(callback: ForeachFn, thisObject?: object) {
         this._data.forEach(callback, thisObject);
     };
     
-    reverseEach(callback, thisObject?) {
+    reverseEach(callback: ForeachFn, thisObject?: object) {
         this._data.reverse();
         this._data.forEach(callback, thisObject);
         this._data.reverse();

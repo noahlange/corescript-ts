@@ -339,7 +339,7 @@ class Game_Event extends Game_Character {
         this._prelockDirection = 0;
     };
     
-    forceMoveRoute(moveRoute: number) {
+    forceMoveRoute(moveRoute: DB.MoveRoute) {
         super.forceMoveRoute(moveRoute);
         this._prelockDirection = 0;
     };

@@ -5,18 +5,18 @@
 
 class Scene_Shop extends Scene_MenuBase {
     protected _goods;
-    protected _purchaseOnly;
+    protected _purchaseOnly: boolean;
     protected _item;
     protected _goldWindow: Window_Gold;
     protected _commandWindow: Window_ShopCommand;
-    protected _dummyWindow;
-    protected _numberWindow;
+    protected _dummyWindow: Window_Base;
+    protected _numberWindow: Window_ShopNumber;
     protected _statusWindow: Window_ShopStatus;
-    protected _buyWindow;
-    protected _categoryWindow;
-    protected _sellWindow;
+    protected _buyWindow: Window_ShopBuy;
+    protected _categoryWindow: Window_ItemCategory;
+    protected _sellWindow: Window_ShopSell;
 
-    prepare(goods, purchaseOnly) {
+    prepare(goods, purchaseOnly: boolean) {
         this._goods = goods;
         this._purchaseOnly = purchaseOnly;
         this._item = null;

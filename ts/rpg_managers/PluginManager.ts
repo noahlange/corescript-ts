@@ -9,7 +9,7 @@ class PluginManager {
     protected static _errorUrls: string[] = [];
     protected static _parameters = {};
 
-    static setup(plugins) {
+    static setup(plugins: any[]) {
         plugins.forEach(function (plugin) {
             if (plugin.status && !this._scripts.contains(plugin.name)) {
                 this.setParameters(plugin.name, plugin.parameters);
@@ -30,7 +30,7 @@ class PluginManager {
         return this._parameters[name.toLowerCase()] || {};
     };
 
-    static setParameters(name: string, parameters) {
+    static setParameters(name: string, parameters: Object) {
         this._parameters[name.toLowerCase()] = parameters;
     };
 
@@ -45,8 +45,8 @@ class PluginManager {
         document.body.appendChild(script);
     };
 
-    static onError(e) {
-        this._errorUrls.push(e.target._url);
+    static onError(e: ErrorEvent) {
+        this._errorUrls.push(e.target['_url']);
     };
 
 }

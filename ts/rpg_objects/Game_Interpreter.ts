@@ -5,21 +5,21 @@
 
 class Game_Interpreter {
     protected _depth: number;
-    protected _branch;
-    protected _params;
+    protected _branch: Object;
+    protected _params: any[];
     protected _indent: number;
     protected _frameCount: number;
     protected _freezeChecker: number;
     protected _mapId: number
     protected _eventId: number
-    protected _list
+    protected _list: null | any;
     protected _index: number
     protected _waitCount: number
-    protected _waitMode
-    protected _comments
-    protected _character
-    protected _childInterpreter
-    protected _imageReservationId;
+    protected _waitMode: string;
+    protected _comments: string | string[];
+    protected _character: null | any;
+    protected _childInterpreter: null | Game_Interpreter;
+    protected _imageReservationId: number;
 
     constructor(depth: number = 0) {
         this._depth = depth;
@@ -238,7 +238,7 @@ class Game_Interpreter {
         }
     };
 
-    iterateActorEx(param1, param2, callback) {
+    iterateActorEx(param1:number, param2, callback) {
         if (param1 === 0) {
             this.iterateActorId(param2, callback);
         } else {
@@ -246,7 +246,7 @@ class Game_Interpreter {
         }
     };
 
-    iterateActorIndex(param, callback) {
+    iterateActorIndex(param: number, callback) {
         if (param < 0) {
             $gameParty.members().forEach(callback);
         } else {
@@ -257,7 +257,7 @@ class Game_Interpreter {
         }
     };
 
-    iterateEnemyIndex(param, callback) {
+    iterateEnemyIndex(param: number, callback) {
         if (param < 0) {
             $gameTroop.members().forEach(callback);
         } else {
@@ -268,7 +268,7 @@ class Game_Interpreter {
         }
     };
 
-    iterateBattler(param1, param2, callback) {
+    iterateBattler(param1: number, param2, callback) {
         if ($gameParty.inBattle()) {
             if (param1 === 0) {
                 this.iterateEnemyIndex(param2, callback);
@@ -278,7 +278,7 @@ class Game_Interpreter {
         }
     };
 
-    character(param) {
+    character(param: number) {
         if ($gameParty.inBattle()) {
             return null;
         } else if (param < 0) {
@@ -290,12 +290,12 @@ class Game_Interpreter {
         }
     };
 
-    operateValue(operation, operandType, operand) {
+    operateValue(operation: number, operandType, operand) {
         var value = operandType === 0 ? operand : $gameVariables.value(operand);
         return operation === 0 ? value : -value;
     };
 
-    changeHp(target, value, allowDeath) {
+    changeHp(target, value: number, allowDeath) {
         if (target.isAlive()) {
             if (!allowDeath && target.hp <= -value) {
                 value = 1 - target.hp;
