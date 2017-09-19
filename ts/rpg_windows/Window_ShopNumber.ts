@@ -5,12 +5,12 @@
 // screen.
 
 class Window_ShopNumber extends Window_Selectable {
-    protected _item;
+    protected _item: DB.Item;
     protected _max: number;
     protected _price: number;
     protected _number: number;
-    protected _currencyUnit;
-    protected _buttons;
+    protected _currencyUnit: string;
+    protected _buttons: Sprite_Button[];
 
     constructor(x: number, y: number, height: number) {
         super(x, y, undefined, height);
@@ -30,7 +30,7 @@ class Window_ShopNumber extends Window_Selectable {
         return this._number;
     };
     
-    setup(item, max: number, price: number) {
+    setup(item: DB.Item, max: number, price: number) {
         this._item = item;
         this._max = Math.floor(max);
         this._price = price;
@@ -40,7 +40,7 @@ class Window_ShopNumber extends Window_Selectable {
         this.refresh();
     };
     
-    setCurrencyUnit(currencyUnit) {
+    setCurrencyUnit(currencyUnit: string) {
         this._currencyUnit = currencyUnit;
         this.refresh();
     };

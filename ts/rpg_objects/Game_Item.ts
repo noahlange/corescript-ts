@@ -8,7 +8,7 @@ class Game_Item {
     protected _dataClass: string;
     protected _itemId: number;
 
-    constructor(item?) {
+    constructor(item?: DB.Item | DB.Weapon | DB.Armor | DB.Skill) {
         this._dataClass = '';
         this._itemId = 0;
         if (item) {

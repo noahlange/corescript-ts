@@ -5,7 +5,7 @@
 // equipment on the shop screen.
 
 class Window_ShopStatus extends Window_Base {
-    protected _item;
+    protected _item: DB.Item | DB.Weapon | DB.Armor;
     protected _pageIndex: number;
 
     constructor(x: number, y: number, width: number, height: number) {
@@ -26,7 +26,7 @@ class Window_ShopStatus extends Window_Base {
         }
     };
 
-    setItem(item) {
+    setItem(item: DB.Item | DB.Weapon | DB.Armor) {
         this._item = item;
         this.refresh();
     };
@@ -70,7 +70,7 @@ class Window_ShopStatus extends Window_Base {
         this.changePaintOpacity(enabled);
         this.resetTextColor();
         this.drawText(actor.name(), x, y, 168);
-        var item1 = this.currentEquippedItem(actor, this._item.etypeId);
+        var item1 = this.currentEquippedItem(actor, (this._item as DB.Weapon).etypeId);
         if (enabled) {
             this.drawActorParamChange(x, y, actor, item1);
         }
@@ -78,10 +78,10 @@ class Window_ShopStatus extends Window_Base {
         this.changePaintOpacity(true);
     };
 
-    drawActorParamChange(x: number, y: number, actor: Game_Actor, item1) {
+    drawActorParamChange(x: number, y: number, actor: Game_Actor, item1: DB.Weapon) {
         var width = this.contents.width - this.textPadding() - x;
         var paramId = this.paramId();
-        var change = this._item.params[paramId] - (item1 ? item1.params[paramId] : 0);
+        var change = (this._item as DB.Weapon).params[paramId] - (item1 ? item1.params[paramId] : 0);
         this.changeTextColor(this.paramchangeTextColor(change));
         this.drawText((change > 0 ? '+' : '') + change, x, y, width, 'right');
     };

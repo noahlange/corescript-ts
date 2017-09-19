@@ -4,10 +4,10 @@
 // The window for selecting buy/sell on the shop screen.
 
 class Window_ShopCommand extends Window_HorzCommand {
-    protected _windowWidth;
-    protected _purchaseOnly;
+    protected _windowWidth: number;
+    protected _purchaseOnly: boolean;
 
-    constructor(width: number, purchaseOnly) {
+    constructor(width: number, purchaseOnly: boolean) {
         super(0, 0, function() {
             this._windowWidth = width;
             this._purchaseOnly = purchaseOnly;

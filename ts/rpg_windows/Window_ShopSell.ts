@@ -5,7 +5,7 @@
 
 class Window_ShopSell extends Window_ItemList {
 
-    isEnabled(item) {
+    isEnabled(item: DB.Item) {
         return item && item.price > 0;
     };
 

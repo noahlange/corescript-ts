@@ -4,8 +4,8 @@
 // The window for selecting a skill type on the skill screen.
 
 class Window_SkillType extends Window_Command {
-    protected _actor;
-    protected _skillWindow;
+    protected _actor: Game_Actor;
+    protected _skillWindow: Window_SkillList;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -16,7 +16,7 @@ class Window_SkillType extends Window_Command {
         return 240;
     };
 
-    setActor(actor) {
+    setActor(actor: Game_Actor) {
         if (this._actor !== actor) {
             this._actor = actor;
             this.refresh();
@@ -48,7 +48,7 @@ class Window_SkillType extends Window_Command {
         }
     };
 
-    setSkillWindow(skillWindow) {
+    setSkillWindow(skillWindow: Window_SkillList) {
         this._skillWindow = skillWindow;
         this.update();
     };

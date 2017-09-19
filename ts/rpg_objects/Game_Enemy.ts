@@ -78,7 +78,7 @@ class Game_Enemy extends Game_Battler {
     };
     
     makeDropItems() {
-        return this.enemy().dropItems.reduce(function(r, di) {
+        return this.enemy().dropItems.reduce(function(r: DB.DropItem[], di: DB.DropItem) {
             if (di.kind > 0 && Math.random() * di.denominator < this.dropItemRate()) {
                 return r.concat(this.itemObject(di.kind, di.dataId));
             } else {
@@ -143,18 +143,18 @@ class Game_Enemy extends Game_Battler {
         this._plural = plural;
     };
     
-    performActionStart(action) {
+    performActionStart(action: Game_Action) {
         super.performActionStart(action);
         this.requestEffect('whiten');
     };
     
-    performAction(action) {
-        super.performAction(action);
-    };
+    // performAction(action: Game_Action) {
+    //     super.performAction(action);
+    // };
     
-    performActionEnd() {
-        super.performActionEnd();
-    };
+    // performActionEnd() {
+    //     super.performActionEnd();
+    // };
     
     performDamage() {
         super.performDamage();
@@ -192,7 +192,7 @@ class Game_Enemy extends Game_Battler {
         }
     };
     
-    meetsCondition(action) {
+    meetsCondition(action: DB.Action) {
         var param1 = action.conditionParam1;
         var param2 = action.conditionParam2;
         switch (action.conditionType) {
@@ -242,11 +242,11 @@ class Game_Enemy extends Game_Battler {
         return $gameSwitches.value(param);
     };
     
-    isActionValid(action) {
+    isActionValid(action: DB.Action) {
         return this.meetsCondition(action) && this.canUse($dataSkills[action.skillId]);
     };
     
-    selectAction(actionList, ratingZero: number) {
+    selectAction(actionList: DB.Action[], ratingZero: number) {
         var sum = actionList.reduce(function(r, a) {
             return r + a.rating - ratingZero;
         }, 0);
@@ -264,7 +264,7 @@ class Game_Enemy extends Game_Battler {
         }
     };
     
-    selectAllActions(actionList) {
+    selectAllActions(actionList: DB.Action[]) {
         var ratingMax = Math.max.apply(null, actionList.map(function(a) {
             return a.rating;
         }));

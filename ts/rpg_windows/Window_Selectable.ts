@@ -3,18 +3,22 @@
 //
 // The window class with cursor movement and scroll functions.
 
-class Window_Selectable extends Window_Base {
-    protected _index;
-    protected _cursorFixed;
-    protected _cursorAll;
-    protected _stayCount;
-    protected _helpWindow;
-    protected _handlers;
-    protected _touching;
-    protected _scrollX;
-    protected _scrollY;
+interface FunctionMap {
+    [key: string]: Function;
+}
 
-    constructor(x?: number, y?: number, width?: number, height?: number, callback?) {
+class Window_Selectable extends Window_Base {
+    protected _index: number;
+    protected _cursorFixed: boolean;
+    protected _cursorAll: boolean;
+    protected _stayCount: number;
+    protected _helpWindow: null | Window_Help;
+    protected _handlers: FunctionMap;
+    protected _touching: boolean;
+    protected _scrollX: number;
+    protected _scrollY: number;
+
+    constructor(x?: number, y?: number, width?: number, height?: number, callback?: Function) {
         super(x, y, width, height, callback);
         
         this._index = -1;
@@ -37,7 +41,7 @@ class Window_Selectable extends Window_Base {
         return this._cursorFixed;
     };
     
-    setCursorFixed(cursorFixed) {
+    setCursorFixed(cursorFixed: boolean) {
         this._cursorFixed = cursorFixed;
     };
     
@@ -45,7 +49,7 @@ class Window_Selectable extends Window_Base {
         return this._cursorAll;
     };
     
-    setCursorAll(cursorAll) {
+    setCursorAll(cursorAll: boolean) {
         this._cursorAll = cursorAll;
     };
     
@@ -142,7 +146,7 @@ class Window_Selectable extends Window_Base {
         return Math.max(0, this.topRow() + this.maxPageRows() - 1);
     };
     
-    setBottomRow(row) {
+    setBottomRow(row: number) {
         this.setTopRow(row - (this.maxPageRows() - 1));
     };
     
@@ -150,7 +154,7 @@ class Window_Selectable extends Window_Base {
         return this.topRow() * this.maxCols();
     };
     
-    itemRect(index) : Rectangle {
+    itemRect(index: number) : Rectangle {
         var rect = new Rectangle();
         var maxCols = this.maxCols();
         rect.width = this.itemWidth();
@@ -160,14 +164,14 @@ class Window_Selectable extends Window_Base {
         return rect;
     };
     
-    itemRectForText(index) {
+    itemRectForText(index: number) {
         var rect = this.itemRect(index);
         rect.x += this.textPadding();
         rect.width -= this.textPadding() * 2;
         return rect;
     };
     
-    setHelpWindow(helpWindow) {
+    setHelpWindow(helpWindow: Window_Help) {
         this._helpWindow = helpWindow;
         this.callUpdateHelp();
     };
@@ -184,30 +188,30 @@ class Window_Selectable extends Window_Base {
         }
     };
     
-    setHandler(symbol, method) {
+    setHandler(symbol: string, method: Function) {
         this._handlers[symbol] = method;
     };
     
-    isHandled(symbol) {
+    isHandled(symbol: string) {
         return !!this._handlers[symbol];
     };
     
-    callHandler(symbol) {
+    callHandler(symbol: string) {
         if (this.isHandled(symbol)) {
             this._handlers[symbol]();
         }
     };
     
-    isOpenAndActive() {
+    isOpenAndActive(): boolean {
         return this.isOpen() && this.active;
     };
     
-    isCursorMovable() {
+    isCursorMovable(): boolean {
         return (this.isOpenAndActive() && !this._cursorFixed &&
                 !this._cursorAll && this.maxItems() > 0);
     };
     
-    cursorDown(wrap?) {
+    cursorDown(wrap?: boolean) {
         var index = this.index();
         var maxItems = this.maxItems();
         var maxCols = this.maxCols();
@@ -216,7 +220,7 @@ class Window_Selectable extends Window_Base {
         }
     };
     
-    cursorUp(wrap?) {
+    cursorUp(wrap?: boolean) {
         var index = this.index();
         var maxItems = this.maxItems();
         var maxCols = this.maxCols();
@@ -225,7 +229,7 @@ class Window_Selectable extends Window_Base {
         }
     };
     
-    cursorRight(wrap) {
+    cursorRight(wrap: boolean) {
         var index = this.index();
         var maxItems = this.maxItems();
         var maxCols = this.maxCols();
@@ -234,7 +238,7 @@ class Window_Selectable extends Window_Base {
         }
     };
     
-    cursorLeft(wrap) {
+    cursorLeft(wrap: boolean) {
         var index = this.index();
         var maxItems = this.maxItems();
         var maxCols = this.maxCols();
@@ -370,7 +374,7 @@ class Window_Selectable extends Window_Base {
         return x >= 0 && y >= 0 && x < this.width && y < this.height;
     };
     
-    onTouch(triggered) {
+    onTouch(triggered: boolean) {
         var lastIndex = this.index();
         var x = this.canvasToLocalX(TouchInput.x);
         var y = this.canvasToLocalY(TouchInput.y);
@@ -395,7 +399,7 @@ class Window_Selectable extends Window_Base {
         }
     };
     
-    hitTest(x, y) {
+    hitTest(x: number, y: number) {
         if (this.isContentsArea(x, y)) {
             var cx = x - this.padding;
             var cy = y - this.padding;
@@ -533,7 +537,7 @@ class Window_Selectable extends Window_Base {
         this._helpWindow.clear();
     };
     
-    setHelpWindowItem(item) {
+    setHelpWindowItem(item: DB.Item | DB.Weapon | DB.Armor | DB.Skill) {
         if (this._helpWindow) {
             this._helpWindow.setItem(item);
         }

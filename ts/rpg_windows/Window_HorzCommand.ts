@@ -5,10 +5,6 @@
 
 class Window_HorzCommand extends Window_Command {
 
-    // constructor(x, y, callback) {
-    //     super(x, y, callback);
-    // };
-    
     numVisibleRows() {
         return 1;
     };

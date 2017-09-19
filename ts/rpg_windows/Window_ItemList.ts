@@ -61,7 +61,7 @@ class Window_ItemList extends Window_Selectable {
         return true;
     };
     
-    isEnabled(item) {
+    isEnabled(item: Object) {
         return $gameParty.canUse(item);
     };
     

@@ -104,7 +104,7 @@ class Window_BattleLog extends Window_Selectable {
         return waiting;
     };
     
-    setWaitMode(waitMode) {
+    setWaitMode(waitMode: string) {
         this._waitMode = waitMode;
     };
     
@@ -124,7 +124,7 @@ class Window_BattleLog extends Window_Selectable {
                 TouchInput.isLongPressed());
     };
     
-    push(methodName, ...methodArgs) {
+    push(methodName: string, ...methodArgs: any[]) {
         this._methods.push({ name: methodName, params: methodArgs });
     };
     
@@ -146,7 +146,7 @@ class Window_BattleLog extends Window_Selectable {
         this.setWaitMode('movement');
     };
     
-    addText(text) {
+    addText(text: string) {
         this._lines.push(text);
         this.refresh();
         this.wait();

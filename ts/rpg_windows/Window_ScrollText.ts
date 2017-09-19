@@ -5,8 +5,8 @@
 // is handled as a window for convenience.
 
 class Window_ScrollText extends Window_Base {
-    protected _text;
-    protected _allTextHeight;
+    protected _text: string;
+    protected _allTextHeight: number;
 
     constructor() {
         var width = Graphics.boxWidth;
@@ -37,8 +37,10 @@ class Window_ScrollText extends Window_Base {
     };
 
     refresh() {
-        var textState = { index: 0 };
-        textState['text'] = this.convertEscapeCharacters(this._text);
+        var textState : TextState = { 
+            index: 0,
+            text: this.convertEscapeCharacters(this._text)
+        };
         this.resetFontSettings();
         this._allTextHeight = this.calcTextHeight(textState, true);
         this.createContents();

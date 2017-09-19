@@ -138,7 +138,7 @@ class DataManager {
         }
     };
 
-    static extractMetadata(data) {
+    static extractMetadata(data: any) {
         var re = /<([^<>:]+)(:?)([^>]*)>/g;
         data.meta = {};
         for (; ;) {
@@ -305,7 +305,7 @@ class DataManager {
         }
     };
 
-    static loadSavefileImages(info) {
+    static loadSavefileImages(info: SavefileInfo) {
         if (info.characters) {
             for (var i = 0; i < info.characters.length; i++) {
                 ImageManager.reserveCharacter(info.characters[i][0]);
@@ -322,7 +322,7 @@ class DataManager {
         return 20;
     };
 
-    static saveGame(savefileId: number) {
+    static saveGame(savefileId: number): boolean {
         try {
             StorageManager.backup(savefileId);
             return this.saveGameWithoutRescue(savefileId);
@@ -337,7 +337,7 @@ class DataManager {
         }
     };
 
-    static loadGame(savefileId: number) {
+    static loadGame(savefileId: number): boolean {
         try {
             return this.loadGameWithoutRescue(savefileId);
         } catch (e) {
@@ -497,5 +497,5 @@ var $gameParty: Game_Party = null;
 var $gameTroop: Game_Troop = null;
 var $gameMap: Game_Map = null;
 var $gamePlayer: Game_Player = null;
-var $testEvent = null;
+var $testEvent: Object = null;
 

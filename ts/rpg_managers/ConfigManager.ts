@@ -3,6 +3,18 @@
 //
 // The static class that manages the configuration data.
 
+
+interface ConfigOption {
+    alwaysDash: boolean;
+    commandRemember: boolean;
+    bgmVolume: number;
+    bgsVolume: number;
+    meVolume: number;
+    seVolume: number;
+
+    [key: string]: number | boolean;
+}
+
 class ConfigManager {
     static alwaysDash = false;
     static commandRemember = false;
@@ -17,6 +29,7 @@ class ConfigManager {
     static get bgsVolume(): number {
         return AudioManager.bgsVolume;
     }
+
     static set bgsVolume(value: number) {
         AudioManager.bgsVolume = value;
     }
@@ -46,25 +59,26 @@ class ConfigManager {
         if (json) {
             config = JSON.parse(json);
         }
-        this.applyData(config);
+        this.applyData(config as ConfigOption);
     };
 
     static save() {
         StorageManager.save(-1, JSON.stringify(this.makeData()));
     };
 
-    static makeData() {
-        var config = {};
-        config['alwaysDash'] = this.alwaysDash;
-        config['commandRemember'] = this.commandRemember;
-        config['bgmVolume'] = this.bgmVolume;
-        config['bgsVolume'] = this.bgsVolume;
-        config['meVolume'] = this.meVolume;
-        config['seVolume'] = this.seVolume;
+    static makeData(): ConfigOption {
+        var config = {
+            alwaysDash:this.alwaysDash,
+            commandRemember:this.commandRemember,
+            bgmVolume:this.bgmVolume,
+            bgsVolume:this.bgsVolume,
+            meVolume:this.meVolume,
+            seVolume:this.seVolume,
+        };
         return config;
     };
 
-    static applyData(config) {
+    static applyData(config: ConfigOption) {
         this.alwaysDash = this.readFlag(config, 'alwaysDash');
         this.commandRemember = this.readFlag(config, 'commandRemember');
         this.bgmVolume = this.readVolume(config, 'bgmVolume');
@@ -73,11 +87,11 @@ class ConfigManager {
         this.seVolume = this.readVolume(config, 'seVolume');
     };
 
-    static readFlag(config, name) {
+    static readFlag(config: ConfigOption, name: string): boolean {
         return !!config[name];
     };
 
-    static readVolume(config, name) {
+    static readVolume(config: ConfigOption, name: string): number {
         var value = config[name];
         if (value !== undefined) {
             return Number(value).clamp(0, 100);

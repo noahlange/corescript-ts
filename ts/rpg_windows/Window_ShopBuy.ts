@@ -7,8 +7,8 @@ class Window_ShopBuy extends Window_Selectable {
     protected _shopGoods: number[][];
     protected _money: number;
     protected _data: (DB.Item|DB.Weapon|DB.Armor)[];
-    protected _price;
-    protected _statusWindow;
+    protected _price: number[];
+    protected _statusWindow: Window_ShopStatus;
 
     constructor(x: number, y: number, height: number, shopGoods: number[][]) {
         super(x, y, undefined, height);
@@ -39,11 +39,11 @@ class Window_ShopBuy extends Window_Selectable {
         return this.isEnabled(this._data[this.index()]);
     };
 
-    price(item): number {
+    price(item: DB.Item | DB.Weapon | DB.Armor): number {
         return this._price[this._data.indexOf(item)] || 0;
     };
 
-    isEnabled(item): boolean {
+    isEnabled(item: DB.Item | DB.Weapon | DB.Armor): boolean {
         return (item && this.price(item) <= this._money &&
             !$gameParty.hasMaxItems(item));
     };
@@ -89,7 +89,7 @@ class Window_ShopBuy extends Window_Selectable {
         this.changePaintOpacity(true);
     };
 
-    setStatusWindow(statusWindow) {
+    setStatusWindow(statusWindow: Window_ShopStatus) {
         this._statusWindow = statusWindow;
         this.callUpdateHelp();
     };

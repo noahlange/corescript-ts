@@ -24,7 +24,7 @@ class Window_BattleActor extends Window_BattleStatus {
         $gameParty.select(null);
     };
     
-    select(index) {
+    select(index: number) {
         super.select( index);
         $gameParty.select(this.actor());
     };

@@ -2,12 +2,16 @@
 // Game_BattlerBase
 //
 // The superclass of Game_Battler. It mainly contains parameters calculation.
+interface NumberMap {
+    [key: number]: number;
+}
+
 
 class Game_BattlerBase {
     protected _hp: number;
     protected _mp: number;
     protected _tp: number;
-    protected _stateTurns: Object;
+    protected _stateTurns: NumberMap;
     protected _states: number[];
     protected _hidden: boolean;
     protected _buffs: number[];
@@ -174,7 +178,7 @@ class Game_BattlerBase {
         this._buffTurns = [0, 0, 0, 0, 0, 0, 0, 0];
     };
 
-    eraseBuff(paramId) {
+    eraseBuff(paramId: number) {
         this._buffs[paramId] = 0;
         this._buffTurns[paramId] = 0;
     };
@@ -298,7 +302,7 @@ class Game_BattlerBase {
         }, []);
     };
 
-    traits(code: number) {
+    traits(code: number): DB.Trait[] {
         return this.allTraits().filter(function (trait) {
             return trait.code === code;
         });

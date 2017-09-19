@@ -4,7 +4,7 @@
 // The window for selecting a target enemy on the battle screen.
 
 class Window_BattleEnemy extends Window_Selectable {
-    protected _enemies;
+    protected _enemies: Game_Enemy[];
 
     constructor(x: number, y: number) {
         super(x, y, undefined, undefined, function() {
@@ -43,7 +43,7 @@ class Window_BattleEnemy extends Window_Selectable {
         return enemy ? enemy.index() : -1;
     };
     
-    drawItem(index) {
+    drawItem(index: number) {
         this.resetTextColor();
         var name = this._enemies[index].name();
         var rect = this.itemRectForText(index);
@@ -66,7 +66,7 @@ class Window_BattleEnemy extends Window_Selectable {
         super.refresh();
     };
     
-    select(index) {
+    select(index: number) {
         super.select( index);
         $gameTroop.select(this.enemy());
     };

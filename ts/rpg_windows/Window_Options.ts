@@ -63,7 +63,7 @@ class Window_Options extends Window_Command {
         }
     };
     
-    isVolumeSymbol(symbol) {
+    isVolumeSymbol(symbol: string) {
         return symbol.contains('Volume');
     };
     
@@ -91,7 +91,7 @@ class Window_Options extends Window_Command {
         }
     };
     
-    cursorRight(wrap) {
+    cursorRight(wrap: boolean) {
         var index = this.index();
         var symbol = this.commandSymbol(index);
         var value = this.getConfigValue(symbol) as number;
@@ -104,7 +104,7 @@ class Window_Options extends Window_Command {
         }
     };
     
-    cursorLeft(wrap) {
+    cursorLeft(wrap: boolean) {
         var index = this.index();
         var symbol = this.commandSymbol(index);
         var value: number = this.getConfigValue(symbol) as number;
@@ -121,7 +121,7 @@ class Window_Options extends Window_Command {
         return 20;
     };
     
-    changeValue(symbol, value) {
+    changeValue(symbol: string, value: number | boolean) {
         var lastValue = this.getConfigValue(symbol);
         if (lastValue !== value) {
             this.setConfigValue(symbol, value);
@@ -131,7 +131,7 @@ class Window_Options extends Window_Command {
     };
     
     getConfigValue(symbol: string): number | boolean {
-        return ConfigManager[symbol];
+        return ConfigManager[symbol] as number | boolean;
     };
     
     setConfigValue(symbol: string, volume: number | boolean) {

@@ -3,9 +3,16 @@
 //
 // The superclass of windows for selecting a command.
 
+// { name: name, symbol: symbol, enabled: enabled, ext: ext }
+interface CommandListItem {
+    name: string;
+    symbol: string;
+    enabled: boolean;
+    ext: number | null;
+}
 
 class Window_Command extends Window_Selectable {
-    protected _list: any[] = [];
+    protected _list: CommandListItem[] = [];
 
     constructor(x: number, y?: number, callback?: Function) {
         super(x, y, undefined, undefined, function(){
@@ -45,8 +52,13 @@ class Window_Command extends Window_Selectable {
     makeCommandList() {
     };
 
-    addCommand(name, symbol, enabled = true, ext = null) {
-        this._list.push({ name: name, symbol: symbol, enabled: enabled, ext: ext });
+    addCommand(name: string, symbol: string, enabled: boolean = true, ext: number | null = null) {
+        this._list.push({ 
+            name: name, 
+            symbol: symbol, 
+            enabled: enabled, 
+            ext: ext 
+        });
     };
 
     commandName(index: number) {
@@ -57,7 +69,7 @@ class Window_Command extends Window_Selectable {
         return this._list[index].symbol;
     };
 
-    isCommandEnabled(index: number) {
+    isCommandEnabled(index: number): boolean {
         return this._list[index].enabled;
     };
 
@@ -77,7 +89,7 @@ class Window_Command extends Window_Selectable {
         return this.currentData() ? this.currentData().ext : null;
     };
 
-    findSymbol(symbol) {
+    findSymbol(symbol: string) {
         for (var i = 0; i < this._list.length; i++) {
             if (this._list[i].symbol === symbol) {
                 return i;
@@ -86,7 +98,7 @@ class Window_Command extends Window_Selectable {
         return -1;
     };
 
-    selectSymbol(symbol) {
+    selectSymbol(symbol: string) {
         var index = this.findSymbol(symbol);
         if (index >= 0) {
             this.select(index);
@@ -95,7 +107,7 @@ class Window_Command extends Window_Selectable {
         }
     };
 
-    findExt(ext) {
+    findExt(ext: number) {
         for (var i = 0; i < this._list.length; i++) {
             if (this._list[i].ext === ext) {
                 return i;
@@ -104,7 +116,7 @@ class Window_Command extends Window_Selectable {
         return -1;
     };
 
-    selectExt(ext) {
+    selectExt(ext: number) {
         var index = this.findExt(ext);
         if (index >= 0) {
             this.select(index);
@@ -113,7 +125,7 @@ class Window_Command extends Window_Selectable {
         }
     };
 
-    drawItem(index) {
+    drawItem(index: number) {
         var rect = this.itemRectForText(index);
         var align = this.itemTextAlign();
         this.resetTextColor();

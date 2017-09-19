@@ -10,7 +10,7 @@ class Window_BattleItem extends Window_ItemList {
         this.hide();
     };
 
-    includes(item) {
+    includes(item: Object) {
         return $gameParty.canUse(item);
     };
 

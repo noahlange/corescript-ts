@@ -12,7 +12,7 @@ class Window_SavefileList extends Window_Selectable {
         this._mode = null;
     };
 
-    setMode(mode) {
+    setMode(mode: string) {
         this._mode = mode;
     };
 
@@ -50,7 +50,7 @@ class Window_SavefileList extends Window_Selectable {
         this.drawText(TextManager.file + ' ' + id, x, y, 180);
     };
 
-    drawContents(info, rect: Rectangle, valid: boolean) {
+    drawContents(info: SavefileInfo, rect: Rectangle, valid: boolean) {
         var bottom = rect.y + rect.height;
         if (rect.width >= 420) {
             this.drawGameTitle(info, rect.x + 192, rect.y, rect.width - 192);
@@ -65,13 +65,13 @@ class Window_SavefileList extends Window_Selectable {
         }
     };
 
-    drawGameTitle(info, x: number, y: number, width: number) {
+    drawGameTitle(info: SavefileInfo, x: number, y: number, width: number) {
         if (info.title) {
             this.drawText(info.title, x, y, width);
         }
     };
 
-    drawPartyCharacters(info, x: number, y: number) {
+    drawPartyCharacters(info: SavefileInfo, x: number, y: number) {
         if (info.characters) {
             for (var i = 0; i < info.characters.length; i++) {
                 var data = info.characters[i];
@@ -80,7 +80,7 @@ class Window_SavefileList extends Window_Selectable {
         }
     };
 
-    drawPlaytime(info, x: number, y: number, width: number) {
+    drawPlaytime(info: SavefileInfo, x: number, y: number, width: number) {
         if (info.playtime) {
             this.drawText(info.playtime, x, y, width, 'right');
         }

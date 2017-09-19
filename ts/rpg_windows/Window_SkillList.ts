@@ -4,9 +4,9 @@
 // The window for selecting a skill on the skill screen.
 
 class Window_SkillList extends Window_Selectable {
-    protected _actor;
+    protected _actor: Game_Actor;
     protected _stypeId: number;
-    protected _data;
+    protected _data: DB.Skill[];
 
     constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
@@ -15,7 +15,7 @@ class Window_SkillList extends Window_Selectable {
         this._data = [];
     };
     
-    setActor(actor) {
+    setActor(actor: Game_Actor) {
         if (this._actor !== actor) {
             this._actor = actor;
             this.refresh();
@@ -51,11 +51,11 @@ class Window_SkillList extends Window_Selectable {
         return this.isEnabled(this._data[this.index()]);
     };
     
-    includes(item) {
+    includes(item: DB.Skill) {
         return item && item.stypeId === this._stypeId;
     };
     
-    isEnabled(item) {
+    isEnabled(item: DB.Skill) {
         return this._actor && this._actor.canUse(item);
     };
     
@@ -80,7 +80,7 @@ class Window_SkillList extends Window_Selectable {
         this.select(index >= 0 ? index : 0);
     };
     
-    drawItem(index) {
+    drawItem(index: number) {
         var skill = this._data[index];
         if (skill) {
             var costWidth = this.costWidth();
@@ -97,13 +97,13 @@ class Window_SkillList extends Window_Selectable {
         return this.textWidth('000');
     };
     
-    drawSkillCost(skill, x: number, y: number, width: number) {
+    drawSkillCost(skill: DB.Skill, x: number, y: number, width: number) {
         if (this._actor.skillTpCost(skill) > 0) {
             this.changeTextColor(this.tpCostColor());
-            this.drawText(this._actor.skillTpCost(skill), x, y, width, 'right');
+            this.drawText(this._actor.skillTpCost(skill).toString(), x, y, width, 'right');
         } else if (this._actor.skillMpCost(skill) > 0) {
             this.changeTextColor(this.mpCostColor());
-            this.drawText(this._actor.skillMpCost(skill), x, y, width, 'right');
+            this.drawText(this._actor.skillMpCost(skill).toString(), x, y, width, 'right');
         }
     };
     

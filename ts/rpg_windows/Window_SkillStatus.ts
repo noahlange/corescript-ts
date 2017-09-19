@@ -4,14 +4,14 @@
 // The window for displaying the skill user's status on the skill screen.
 
 class Window_SkillStatus extends Window_Base {
-    protected _actor;
+    protected _actor: Game_Actor;
 
     constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
         this._actor = null;
     };
     
-    setActor(actor) {
+    setActor(actor: Game_Actor) {
         if (this._actor !== actor) {
             this._actor = actor;
             this.refresh();

@@ -14,7 +14,7 @@ class Game_Actor extends Game_Battler {
     protected _faceName: string;
     protected _faceIndex: number;
     protected _battlerName: string;
-    protected _exp: Object;
+    protected _exp: NumberMap;
     protected _skills: any[];
     protected _equips: any[];
     protected _actionInputIndex: number;
@@ -22,7 +22,7 @@ class Game_Actor extends Game_Battler {
     protected _lastBattleSkill: Game_Item;
     protected _lastCommandSymbol: string;
     protected _profile: string;
-    protected _stateSteps: Object;
+    protected _stateSteps: NumberMap;
 
     get level(): number {
         return this._level;
@@ -275,7 +275,7 @@ class Game_Actor extends Game_Battler {
         }
     };
 
-    changeEquipById(etypeId, itemId) {
+    changeEquipById(etypeId: number, itemId: number) {
         var slotId = etypeId - 1;
         if (this.equipSlots()[slotId] === 1) {
             this.changeEquip(slotId, $dataWeapons[itemId]);
@@ -501,7 +501,7 @@ class Game_Actor extends Game_Battler {
         return 1;
     };
 
-    changeExp(exp, show) {
+    changeExp(exp: number, show: boolean) {
         this._exp[this._classId] = Math.max(exp, 0);
         var lastLevel = this._level;
         var lastSkills = this.skills();
@@ -567,7 +567,7 @@ class Game_Actor extends Game_Battler {
         return true;
     };
 
-    changeLevel(level, show) {
+    changeLevel(level: number, show) {
         level = level.clamp(1, this.maxLevel());
         this.changeExp(this.expForLevel(level), show);
     };

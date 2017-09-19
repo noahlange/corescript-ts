@@ -224,7 +224,7 @@ class Game_Battler extends Game_BattlerBase {
         SoundManager.playEscape();
     };
     
-    addBuff(paramId: number, turns) {
+    addBuff(paramId: number, turns: number) {
         if (this.isAlive()) {
             this.increaseBuff(paramId);
             if (this.isBuffAffected(paramId)) {
@@ -235,7 +235,7 @@ class Game_Battler extends Game_BattlerBase {
         }
     };
     
-    addDebuff(paramId: number, turns) {
+    addDebuff(paramId: number, turns: number) {
         if (this.isAlive()) {
             this.decreaseBuff(paramId);
             if (this.isDebuffAffected(paramId)) {
@@ -268,7 +268,7 @@ class Game_Battler extends Game_BattlerBase {
         }
     };
     
-    removeStatesAuto(timing) {
+    removeStatesAuto(timing: number) {
         this.states().forEach(function(state) {
             if (this.isStateExpired(state.id) && state.autoRemovalTiming === timing) {
                 this.removeState(state.id);
@@ -335,7 +335,7 @@ class Game_Battler extends Game_BattlerBase {
         }
     };
     
-    forceAction(skillId: number, targetIndex) {
+    forceAction(skillId: number, targetIndex: number) {
         this.clearActions();
         var action = new Game_Action(this, true);
         action.setSkill(skillId);
@@ -543,7 +543,7 @@ class Game_Battler extends Game_BattlerBase {
         SoundManager.playReflection();
     };
     
-    performSubstitute(target) {
+    performSubstitute(target: any) {
     };
     
     performCollapse() {

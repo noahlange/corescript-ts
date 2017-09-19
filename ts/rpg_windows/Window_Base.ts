@@ -8,7 +8,7 @@ class Window_Base extends CoreWindow {
     protected _closing: boolean;
     protected _dimmerSprite: Sprite;
 
-    constructor(x?: number, y?: number, width?: number, height?: number, callback?) {
+    constructor(x?: number, y?: number, width?: number, height?: number, callback?: Function) {
         super();
 
         /// NOTE: workaround for: 
@@ -275,15 +275,15 @@ class Window_Base extends CoreWindow {
         return 160;
     };
 
-    changeTextColor(color) {
+    changeTextColor(color: string) {
         this.contents.textColor = color;
     };
 
-    changePaintOpacity(enabled) {
+    changePaintOpacity(enabled: boolean | number) {
         this.contents.paintOpacity = enabled ? 255 : this.translucentOpacity();
     };
 
-    drawText(text: string, x: number, y: number, maxWidth?, align?) {
+    drawText(text: string, x: number, y: number, maxWidth?: number, align?: string) {
         this.contents.drawText(text, x, y, maxWidth, Window_Base.lineHeight(), align);
     };
 
@@ -293,9 +293,11 @@ class Window_Base extends CoreWindow {
 
     drawTextEx(text: string, x: number, y: number) {
         if (text) {
-            var textState = { index: 0, x: x, y: y, left: x };
-            textState['text'] = this.convertEscapeCharacters(text);
-            textState['height'] = this.calcTextHeight(textState, false);
+            var textState: TextState = { 
+                index: 0, x: x, y: y, left: x,
+                text: this.convertEscapeCharacters(text),
+                height: this.calcTextHeight(textState, false)
+            };
             this.resetFontSettings();
             while (textState.index < textState['text'].length) {
                 this.processCharacter(textState);
@@ -335,7 +337,7 @@ class Window_Base extends CoreWindow {
         return actor ? actor.name() : '';
     };
 
-    processCharacter(textState) {
+    processCharacter(textState: TextState) {
         switch (textState.text[textState.index]) {
             case '\n':
                 this.processNewLine(textState);
@@ -352,25 +354,25 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    processNormalCharacter(textState) {
+    processNormalCharacter(textState: TextState) {
         var c = textState.text[textState.index++];
         var w = this.textWidth(c);
         this.contents.drawText(c, textState.x, textState.y, w * 2, textState.height);
         textState.x += w;
     };
 
-    processNewLine(textState) {
+    processNewLine(textState: TextState) {
         textState.x = textState.left;
         textState.y += textState.height;
         textState.height = this.calcTextHeight(textState, false);
         textState.index++;
     };
 
-    processNewPage(textState) {
+    processNewPage(textState: TextState) {
         textState.index++;
     };
 
-    obtainEscapeCode(textState) {
+    obtainEscapeCode(textState: TextState) {
         textState.index++;
         var regExp = /^[\$\.\|\^!><\{\}\\]|^[A-Z]+/i;
         var arr = regExp.exec(textState.text.slice(textState.index));
@@ -382,7 +384,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    obtainEscapeParam(textState): number {
+    obtainEscapeParam(textState: TextState): number {
         var arr = /^\[\d+\]/.exec(textState.text.slice(textState.index));
         if (arr) {
             textState.index += arr[0].length;
@@ -393,7 +395,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    processEscapeCharacter(code: string, textState) {
+    processEscapeCharacter(code: string, textState: TextState) {
         switch (code) {
             case 'C':
                 this.changeTextColor(this.textColor(this.obtainEscapeParam(textState)));
@@ -410,7 +412,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    processDrawIcon(iconIndex: number, textState) {
+    processDrawIcon(iconIndex: number, textState: TextState) {
         this.drawIcon(iconIndex, textState.x + 2, textState.y + 2);
         textState.x += Window_Base._iconWidth + 4;
     };
@@ -427,7 +429,7 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    calcTextHeight(textState, all) {
+    calcTextHeight(textState: TextState, all: boolean) {
         var lastFontSize = this.contents.fontSize;
         var textHeight = 0;
         var lines = textState.text.slice(textState.index).split('\n');
@@ -501,7 +503,7 @@ class Window_Base extends CoreWindow {
         this.contents.gradientFillRect(x, gaugeY, fillW, 6, color1, color2);
     };
 
-    hpColor(actor) {
+    hpColor(actor: Game_Actor) {
         if (actor.isDead()) {
             return this.deathColor();
         } else if (actor.isDying()) {
@@ -511,52 +513,52 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    mpColor(actor) {
+    mpColor(actor: Game_Actor) {
         return this.normalColor();
     };
 
-    tpColor(actor) {
+    tpColor(actor: Game_Actor) {
         return this.normalColor();
     };
 
-    drawActorCharacter(actor, x: number, y: number) {
+    drawActorCharacter(actor: Game_Actor, x: number, y: number) {
         this.drawCharacter(actor.characterName(), actor.characterIndex(), x, y);
     };
 
-    drawActorFace(actor, x: number, y: number, width?: number, height?: number) {
+    drawActorFace(actor: Game_Actor, x: number, y: number, width?: number, height?: number) {
         this.drawFace(actor.faceName(), actor.faceIndex(), x, y, width, height);
     };
 
-    drawActorName(actor, x: number, y: number, width: number = 168) {
+    drawActorName(actor: Game_Actor, x: number, y: number, width: number = 168) {
         this.changeTextColor(this.hpColor(actor));
         this.drawText(actor.name(), x, y, width);
     };
 
-    drawActorClass(actor, x: number, y: number, width: number = 168) {
+    drawActorClass(actor: Game_Actor, x: number, y: number, width: number = 168) {
         this.resetTextColor();
         this.drawText(actor.currentClass().name, x, y, width);
     };
 
-    drawActorNickname(actor, x: number, y: number, width: number = 270) {
+    drawActorNickname(actor: Game_Actor, x: number, y: number, width: number = 270) {
         this.resetTextColor();
         this.drawText(actor.nickname(), x, y, width);
     };
 
-    drawActorLevel(actor, x: number, y: number) {
+    drawActorLevel(actor: Game_Actor, x: number, y: number) {
         this.changeTextColor(this.systemColor());
         this.drawText(TextManager.levelA, x, y, 48);
         this.resetTextColor();
-        this.drawText(actor.level, x + 84, y, 36, 'right');
+        this.drawText(actor.level.toString(), x + 84, y, 36, 'right');
     };
 
-    drawActorIcons(actor, x: number, y: number, width: number = 144) {
+    drawActorIcons(actor: Game_Actor, x: number, y: number, width: number = 144) {
         var icons = actor.allIcons().slice(0, Math.floor(width / Window_Base._iconWidth));
         for (var i = 0; i < icons.length; i++) {
             this.drawIcon(icons[i], x + Window_Base._iconWidth * i, y + 2);
         }
     };
 
-    drawCurrentAndMax(current, max, x: number, y: number, width: number, color1, color2) {
+    drawCurrentAndMax(current: string, max: string, x: number, y: number, width: number, color1: string, color2: string) {
         var labelWidth = this.textWidth('HP');
         var valueWidth = this.textWidth('0000');
         var slashWidth = this.textWidth('/');
@@ -581,7 +583,7 @@ class Window_Base extends CoreWindow {
         this.drawGauge(x, y, width, actor.hpRate(), color1, color2);
         this.changeTextColor(this.systemColor());
         this.drawText(TextManager.hpA, x, y, 44);
-        this.drawCurrentAndMax(actor.hp, actor.mhp, x, y, width,
+        this.drawCurrentAndMax(actor.hp.toString(), actor.mhp.toString(), x, y, width,
             this.hpColor(actor), this.normalColor());
     };
 
@@ -591,7 +593,7 @@ class Window_Base extends CoreWindow {
         this.drawGauge(x, y, width, actor.mpRate(), color1, color2);
         this.changeTextColor(this.systemColor());
         this.drawText(TextManager.mpA, x, y, 44);
-        this.drawCurrentAndMax(actor.mp, actor.mmp, x, y, width,
+        this.drawCurrentAndMax(actor.mp.toString(), actor.mmp.toString(), x, y, width,
             this.mpColor(actor), this.normalColor());
     };
 
@@ -617,7 +619,7 @@ class Window_Base extends CoreWindow {
         this.drawActorMp(actor, x2, y + lineHeight * 2, width2);
     };
 
-    drawItemName(item, x: number, y: number, width: number = 312) {
+    drawItemName(item: DB.Item | DB.Skill | DB.Weapon | DB.Armor, x: number, y: number, width: number = 312) {
         if (item) {
             var iconBoxWidth = Window_Base._iconWidth + 4;
             this.resetTextColor();
@@ -626,10 +628,10 @@ class Window_Base extends CoreWindow {
         }
     };
 
-    drawCurrencyValue(value, unit, x: number, y: number, width: number) {
+    drawCurrencyValue(value: number, unit: string, x: number, y: number, width: number) {
         var unitWidth = Math.min(80, this.textWidth(unit));
         this.resetTextColor();
-        this.drawText(value, x, y, width - unitWidth - 6, 'right');
+        this.drawText(value.toString(), x, y, width - unitWidth - 6, 'right');
         this.changeTextColor(this.systemColor());
         this.drawText(unit, x + width - unitWidth, y, unitWidth, 'right');
     };

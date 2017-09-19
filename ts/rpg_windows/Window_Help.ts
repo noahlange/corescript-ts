@@ -12,31 +12,31 @@ class Window_Help extends Window_Base {
         super(0, 0, width);
         this._text = '';
     };
-    
-    windowHeight(){
+
+    windowHeight() {
         return Window_Base.fittingHeight(2);
     }
-    
-    
-    
+
+
+
     setText(text: string) {
         if (this._text !== text) {
             this._text = text;
             this.refresh();
         }
     };
-    
+
     clear() {
         this.setText('');
     };
-    
-    setItem(item: DB.Item) {
+
+    setItem(item: DB.Item | DB.Weapon | DB.Armor | DB.Skill) {
         this.setText(item ? item.description : '');
     };
-    
+
     refresh() {
         this.contents.clear();
         this.drawTextEx(this._text, this.textPadding(), 0);
     };
-    
+
 }

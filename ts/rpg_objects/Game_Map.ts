@@ -8,8 +8,8 @@ class Game_Map {
     protected _interpreter: Game_Interpreter;
     protected _mapId: number;
     protected _tilesetId: number;
-    protected _events;
-    protected _commonEvents;
+    protected _events: Game_Event[];
+    protected _commonEvents: Game_CommonEvent[];
     protected _vehicles: Game_Vehicle[];
     protected _displayX: number;
     protected _displayY: number;
@@ -29,7 +29,7 @@ class Game_Map {
     protected _battleback2Name: string | null;
     protected _needsRefresh: boolean;
 
-    public tileEvents;
+    public tileEvents: Game_Event[];
 
 
     constructor() {
@@ -118,7 +118,7 @@ class Game_Map {
         this._needsRefresh = true;
     };
 
-    isNameDisplayEnabled() : boolean{
+    isNameDisplayEnabled(): boolean {
         return this._nameDisplay;
     };
 
@@ -147,7 +147,7 @@ class Game_Map {
         return this._vehicles;
     };
 
-    vehicle(type: number | string) : Game_Vehicle | null {
+    vehicle(type: number | string): Game_Vehicle | null {
         if (type === 0 || type === 'boat') {
             return this.boat();
         } else if (type === 1 || type === 'ship') {
@@ -644,7 +644,7 @@ class Game_Map {
         return this._scrollRest > 0;
     };
 
-    update(sceneActive) {
+    update(sceneActive: boolean) {
         this.refreshIfNeeded();
         if (sceneActive) {
             this.updateInterpreter();
