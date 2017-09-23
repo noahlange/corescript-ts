@@ -105,7 +105,7 @@ class Window_ChoiceList extends Window_Command {
         }
     };
     
-    drawItem(index) {
+    drawItem(index: number) {
         var rect = this.itemRectForText(index);
         this.drawTextEx(this.commandName(index), rect.x, rect.y);
     };

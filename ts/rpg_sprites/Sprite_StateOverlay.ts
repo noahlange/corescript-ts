@@ -4,7 +4,7 @@
 // The sprite for displaying an overlay image for a state.
 
 class Sprite_StateOverlay extends Sprite_Base {
-    protected _battler;
+    protected _battler: Game_Battler| null;
     protected _overlayIndex: number;
     protected _animationCount: number;
     protected _pattern: number;
@@ -29,7 +29,7 @@ class Sprite_StateOverlay extends Sprite_Base {
         this.setFrame(0, 0, 0, 0);
     };
 
-    setup(battler) {
+    setup(battler: Game_Battler) {
         this._battler = battler;
     };
 

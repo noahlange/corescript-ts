@@ -71,7 +71,7 @@ class ImageCache {
             return items[key];
         }).sort(function (a, b) {
             return b.touch - a.touch;
-        }).forEach(function (item) {
+        }).forEach(function (item: any) {
             if (sizeLeft > 0 || this._mustBeHeld(item)) {
                 var bitmap = item.bitmap;
                 sizeLeft -= bitmap.width * bitmap.height;
@@ -99,7 +99,7 @@ class ImageCache {
         });
     };
 
-    getErrorBitmap() {
+    getErrorBitmap(): null | boolean | Bitmap {
         var items = this._items;
         var bitmap = null;
         if (Object.keys(items).some(function (key) {

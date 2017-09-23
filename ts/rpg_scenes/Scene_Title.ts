@@ -4,10 +4,10 @@
 // The scene class of the title screen.
 
 class Scene_Title extends Scene_Base {
-    protected _backSprite1;
-    protected _backSprite2;
-    protected _commandWindow;
-    protected _gameTitleSprite;
+    protected _backSprite1: Sprite;
+    protected _backSprite2: Sprite;
+    protected _commandWindow: Window_TitleCommand;
+    protected _gameTitleSprite: Sprite;
 
     create() {
         super.create();
@@ -68,7 +68,7 @@ class Scene_Title extends Scene_Base {
         this._gameTitleSprite.bitmap.drawText(text, x, y, maxWidth, 48, 'center');
     };
 
-    centerSprite(sprite) {
+    centerSprite(sprite: Sprite) {
         sprite.x = Graphics.width / 2;
         sprite.y = Graphics.height / 2;
         sprite.anchor.x = 0.5;

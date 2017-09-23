@@ -29,7 +29,7 @@ class JsonEx {
      * @return {String} The JSON string
      */
     static stringify(object: any): string {
-        var circular = [];
+        var circular: any[] = [];
         JsonEx._id = 1;
         var json = JSON.stringify(this._encode(object, circular, 0));
         this._cleanMetadata(object);
@@ -57,7 +57,7 @@ class JsonEx {
      * @return {Object} The reconstructed object
      */
     static parse(json: string) {
-        var circular = [];
+        var circular: any[] = [];
         var registry = {};
         var contents = this._decode(JSON.parse(json), circular, registry);
         this._cleanMetadata(contents);
@@ -67,7 +67,7 @@ class JsonEx {
     };
 
     static _linkCircularReference(contents: any, circulars: any, registry: any) {
-        circulars.forEach(function (circular) {
+        circulars.forEach(function (circular: any[]) {
             var key = circular[0];
             var value = circular[1];
             var id = circular[2];
@@ -171,7 +171,7 @@ class JsonEx {
             registry[value['@c']] = value;
 
             if (value['@']) {
-                var constructor = window[value['@']];
+                var constructor = (window as any)[value['@']];
                 if (constructor) {
                     value = this._resetPrototype(value, constructor.prototype);
                 }

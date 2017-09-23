@@ -15,7 +15,7 @@ class Game_Actor extends Game_Battler {
     protected _faceIndex: number;
     protected _battlerName: string;
     protected _exp: NumberMap;
-    protected _skills: any[];
+    protected _skills: number[];
     protected _equips: any[];
     protected _actionInputIndex: number;
     protected _lastMenuSkill: Game_Item;
@@ -94,11 +94,11 @@ class Game_Actor extends Game_Battler {
         this._nickname = nickname;
     };
 
-    profile() {
+    profile(): string {
         return this._profile;
     };
 
-    setProfile(profile) {
+    setProfile(profile: string) {
         this._profile = profile;
     };
 
@@ -226,23 +226,23 @@ class Game_Actor extends Game_Battler {
         });
     };
 
-    weapons() {
+    weapons(): DB.Weapon[] {
         return this.equips().filter(function (item) {
             return item && DataManager.isWeapon(item);
         });
     };
 
-    armors() {
+    armors(): DB.Armor[] {
         return this.equips().filter(function (item) {
             return item && DataManager.isArmor(item);
         });
     };
 
-    hasWeapon(weapon) {
+    hasWeapon(weapon: DB.Weapon) {
         return this.weapons().contains(weapon);
     };
 
-    hasArmor(armor) {
+    hasArmor(armor: DB.Armor) {
         return this.armors().contains(armor);
     };
 
@@ -251,7 +251,7 @@ class Game_Actor extends Game_Battler {
             !this.isEquipTypeSealed(this.equipSlots()[slotId]));
     };
 
-    changeEquip(slotId: number, item) {
+    changeEquip(slotId: number, item: DB.Weapon | DB.Armor) {
         if (this.tradeItemWithParty(item, this.equips()[slotId]) &&
             (!item || this.equipSlots()[slotId] === item.etypeId)) {
             this._equips[slotId].setObject(item);
@@ -259,13 +259,13 @@ class Game_Actor extends Game_Battler {
         }
     };
 
-    forceChangeEquip(slotId: number, item) {
+    forceChangeEquip(slotId: number, item: DB.Weapon | DB.Armor) {
         this._equips[slotId].setObject(item);
         this.releaseUnequippableItems(true);
         this.refresh();
     };
 
-    tradeItemWithParty(newItem, oldItem) {
+    tradeItemWithParty(newItem: DB.Weapon | DB.Armor | DB.Item, oldItem: DB.Weapon | DB.Armor | DB.Item) {
         if (newItem && !$gameParty.hasItem(newItem)) {
             return false;
         } else {
@@ -284,18 +284,18 @@ class Game_Actor extends Game_Battler {
         }
     };
 
-    isEquipped(item) {
+    isEquipped(item: DB.Weapon | DB.Armor) {
         return this.equips().contains(item);
     };
 
-    discardEquip(item) {
+    discardEquip(item: DB.Weapon | DB.Item | DB.Armor) {
         var slotId = this.equips().indexOf(item);
         if (slotId >= 0) {
             this._equips[slotId].setObject(null);
         }
     };
 
-    releaseUnequippableItems(forcing) {
+    releaseUnequippableItems(forcing: boolean) {
         for (; ;) {
             var slots = this.equipSlots();
             var equips = this.equips();
@@ -352,7 +352,7 @@ class Game_Actor extends Game_Battler {
         return bestItem;
     };
 
-    calcEquipItemPerformance(item) {
+    calcEquipItemPerformance(item: DB.Armor | DB.Weapon) {
         return item.params.reduce(function (a, b) {
             return a + b;
         });
@@ -409,12 +409,12 @@ class Game_Actor extends Game_Battler {
         return $dataClasses[this._classId];
     };
 
-    isClass(gameClass) {
+    isClass(gameClass: DB.Class) {
         return gameClass && this._classId === gameClass.id;
     };
 
-    skills() {
-        var list = [];
+    skills(): DB.Skill[] {
+        var list: DB.Skill[] = [];
         this._skills.concat(this.addedSkills()).forEach(function (id) {
             if (!list.contains($dataSkills[id])) {
                 list.push($dataSkills[id]);
@@ -423,7 +423,7 @@ class Game_Actor extends Game_Battler {
         return list;
     };
 
-    usableSkills() {
+    usableSkills(): DB.Skill[] {
         return this.skills().filter(function (skill) {
             return this.canUse(skill);
         }, this);
@@ -483,7 +483,7 @@ class Game_Actor extends Game_Battler {
         return value;
     };
 
-    attackAnimationId1() {
+    attackAnimationId1(): number {
         if (this.hasNoWeapons()) {
             return this.bareHandsAnimationId();
         } else {
@@ -492,7 +492,7 @@ class Game_Actor extends Game_Battler {
         }
     };
 
-    attackAnimationId2() {
+    attackAnimationId2(): number {
         var weapons = this.weapons();
         return weapons[1] ? weapons[1].animationId : 0;
     };
@@ -530,7 +530,7 @@ class Game_Actor extends Game_Battler {
         this._level--;
     };
 
-    findNewSkills(lastSkills) {
+    findNewSkills(lastSkills: DB.Skill[]) {
         var newSkills = this.skills();
         for (var i = 0; i < lastSkills.length; i++) {
             var index = newSkills.indexOf(lastSkills[i]);
@@ -541,7 +541,7 @@ class Game_Actor extends Game_Battler {
         return newSkills;
     };
 
-    displayLevelUp(newSkills) {
+    displayLevelUp(newSkills: DB.Skill[]) {
         var text = TextManager.levelUp.format(this._name, TextManager.level, this._level);
         $gameMessage.newPage();
         $gameMessage.add(text);
@@ -567,7 +567,7 @@ class Game_Actor extends Game_Battler {
         return true;
     };
 
-    changeLevel(level: number, show) {
+    changeLevel(level: number, show: boolean) {
         level = level.clamp(1, this.maxLevel());
         this.changeExp(this.expForLevel(level), show);
     };
@@ -596,7 +596,7 @@ class Game_Actor extends Game_Battler {
         return this.skills().contains($dataSkills[skillId]);
     };
 
-    changeClass(classId: number, keepExp) {
+    changeClass(classId: number, keepExp: boolean) {
         if (keepExp) {
             this._exp[classId] = this.currentExp();
         }
@@ -605,17 +605,17 @@ class Game_Actor extends Game_Battler {
         this.refresh();
     };
 
-    setCharacterImage(characterName, characterIndex: number) {
+    setCharacterImage(characterName: string, characterIndex: number) {
         this._characterName = characterName;
         this._characterIndex = characterIndex;
     };
 
-    setFaceImage(faceName, faceIndex: number) {
+    setFaceImage(faceName: string, faceIndex: number) {
         this._faceName = faceName;
         this._faceIndex = faceIndex;
     };
 
-    setBattlerImage(battlerName) {
+    setBattlerImage(battlerName: string) {
         this._battlerName = battlerName;
     };
 
@@ -628,11 +628,11 @@ class Game_Actor extends Game_Battler {
         super.startAnimation(animationId, mirror, delay);
     };
 
-    performActionStart(action) {
-        super.performActionStart(action);
-    };
+    // performActionStart(action) {
+    //     super.performActionStart(action);
+    // };
 
-    performAction(action) {
+    performAction(action: Game_Action) {
         super.performAction(action);
         if (action.isAttack()) {
             this.performAttack();
@@ -647,9 +647,9 @@ class Game_Actor extends Game_Battler {
         }
     };
 
-    performActionEnd() {
-        super.performActionEnd();
-    };
+    // performActionEnd() {
+    //     super.performActionEnd();
+    // };
 
     performAttack() {
         var weapons = this.weapons();
@@ -712,7 +712,7 @@ class Game_Actor extends Game_Battler {
     };
 
     makeActionList(): Game_Action[] {
-        var list = [];
+        var list: Game_Action[] = [];
         var action = new Game_Action(this);
         action.setAttack();
         list.push(action);
@@ -884,11 +884,11 @@ class Game_Actor extends Game_Battler {
         this._lastBattleSkill.setObject(skill);
     };
 
-    lastCommandSymbol() {
+    lastCommandSymbol(): string {
         return this._lastCommandSymbol;
     };
 
-    setLastCommandSymbol(symbol) {
+    setLastCommandSymbol(symbol: string) {
         this._lastCommandSymbol = symbol;
     };
 

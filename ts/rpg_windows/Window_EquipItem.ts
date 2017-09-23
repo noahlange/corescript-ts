@@ -30,7 +30,7 @@ class Window_EquipItem extends Window_ItemList {
         }
     };
 
-    includes(item) {
+    includes(item: null | DB.Weapon | DB.Armor) {
         if (item === null) {
             return true;
         }
@@ -40,7 +40,7 @@ class Window_EquipItem extends Window_ItemList {
         return this._actor.canEquip(item);
     };
 
-    isEnabled(item): boolean {
+    isEnabled(item: DB.Weapon | DB.Armor): boolean {
         return true;
     };
 

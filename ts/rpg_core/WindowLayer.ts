@@ -92,7 +92,7 @@ class WindowLayer extends PIXI.Container {
      */
     update() {
         this.children.forEach(function (child) {
-            if (child['update']) {
+            if ((child as any)['update']) {
                 /// bungcip: jadi any agar bisa dipanggil
                 (child as any).update();
             }
@@ -104,7 +104,7 @@ class WindowLayer extends PIXI.Container {
      * @param {Object} renderSession
      * @private
      */
-    renderCanvas(renderer) {
+    renderCanvas(renderer: PIXI.CanvasRenderer) {
         if (!this.visible || !this.renderable) {
             return;
         }
@@ -129,7 +129,7 @@ class WindowLayer extends PIXI.Container {
         renderer.context = context;
 
         for (var i = 0; i < this.children.length; i++) {
-            var child = this.children[i];
+            var child = this.children[i] as CoreWindow;
             /// bungcip: ada any agar bisa dicompile
             if ((child as any)._isWindow && child.visible && (child as any).openness > 0) {
                 this._canvasClearWindowRect(renderer, child);
@@ -161,7 +161,7 @@ class WindowLayer extends PIXI.Container {
      * @param {Window} window
      * @private
      */
-    protected _canvasClearWindowRect(renderSession, window) {
+    protected _canvasClearWindowRect(renderSession: any, window: CoreWindow) {
         var rx = this.x + window.x;
         var ry = this.y + window.y + window.height / 2 * (1 - window._openness / 255);
         var rw = window.width;
@@ -174,7 +174,7 @@ class WindowLayer extends PIXI.Container {
      * @param {Object} renderSession
      * @private
      */
-    renderWebGL(renderer) {
+    renderWebGL(renderer: PIXI.WebGLRenderer) {
         if (!this.visible || !this.renderable) {
             return;
         }
@@ -185,7 +185,7 @@ class WindowLayer extends PIXI.Container {
 
         renderer.flush();
         this.filterArea.copy(this as any);
-        renderer.filterManager.pushFilter(this, this.filters);
+        renderer.filterManager.pushFilter(this as any, this.filters);
         renderer.currentRenderer.start();
 
         var shift = new PIXI.Point();
@@ -195,11 +195,11 @@ class WindowLayer extends PIXI.Container {
         shift.y = Math.round((projectionMatrix.ty + 1) / 2 * rt.sourceFrame.height);
 
         for (var i = 0; i < this.children.length; i++) {
-            var child = this.children[i];
+            var child = this.children[i] as CoreWindow;
             /// bungcip: ada any agar bisa dicompile
             if ((child as any)._isWindow && child.visible && (child as any).openness > 0) {
                 this._maskWindow(child, shift);
-                renderer.maskManager.pushScissorMask(this, this._windowMask);
+                renderer.maskManager.pushScissorMask(this as any, this._windowMask);
                 renderer.clear();
                 renderer.maskManager.popScissorMask();
                 renderer.currentRenderer.start();
@@ -225,8 +225,8 @@ class WindowLayer extends PIXI.Container {
      * @param {Window} window
      * @private
      */
-    protected _maskWindow(window, shift) {
-        this._windowMask['_currentBounds'] = null; // bungcip: edited to compile
+    protected _maskWindow(window: CoreWindow, shift: Point) {
+        (this._windowMask as any)['_currentBounds'] = null; // bungcip: edited to compile
         this._windowMask['boundsDirty'] = true as any; // bungcip: edited to compile
         var rect = this._windowRect;
         rect.x = this.x + shift.x + window.x;

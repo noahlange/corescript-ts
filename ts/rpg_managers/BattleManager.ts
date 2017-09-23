@@ -3,6 +3,12 @@
 //
 // The static class that manages battle progress.
 
+interface BattleReward {
+    gold?: number;
+    exp?: number;
+    items?: DB.Item[];
+}
+
 class BattleManager {
     protected static _phase: string;
     protected static _canEscape: boolean;
@@ -12,19 +18,19 @@ class BattleManager {
     protected static _preemptive: boolean;
     protected static _surprise: boolean;
     protected static _actorIndex: number;
-    protected static _actionForcedBattler;
+    protected static _actionForcedBattler: null | Game_Battler;
     protected static _mapBgm: DB.Audio;
     protected static _mapBgs: DB.Audio;
     protected static _actionBattlers: any[];
-    protected static _subject;
-    protected static _action;
-    protected static _targets;
-    protected static _logWindow;
-    protected static _statusWindow;
-    protected static _spriteset;
+    protected static _subject: Game_Battler;
+    protected static _action: Game_Action;
+    protected static _targets: Game_Battler[];
+    protected static _logWindow: Window_BattleLog;
+    protected static _statusWindow: Window_BattleStatus;
+    protected static _spriteset: Spriteset_Battle;
     protected static _escapeRatio: number;
     protected static _escaped: boolean;
-    protected static _rewards;
+    protected static _rewards: BattleReward;
 
 
     static setup(troopId: number, canEscape: boolean, canLose: boolean) {
@@ -64,23 +70,23 @@ class BattleManager {
         return this._battleTest;
     };
     
-    static setBattleTest(battleTest) {
+    static setBattleTest(battleTest: boolean) {
         this._battleTest = battleTest;
     };
     
-    static setEventCallback(callback) {
+    static setEventCallback(callback: Function) {
         this._eventCallback = callback;
     };
     
-    static setLogWindow(logWindow) {
+    static setLogWindow(logWindow: Window_BattleLog) {
         this._logWindow = logWindow;
     };
     
-    static setStatusWindow(statusWindow) {
+    static setStatusWindow(statusWindow: Window_BattleStatus) {
         this._statusWindow = statusWindow;
     };
     
-    static setSpriteset(spriteset) {
+    static setSpriteset(spriteset: Spriteset_Battle) {
         this._spriteset = spriteset;
     };
     
@@ -225,7 +231,7 @@ class BattleManager {
         this.changeActor(-1, '');
     };
     
-    static changeActor(newActorIndex, lastActorActionState) {
+    static changeActor(newActorIndex: number, lastActorActionState: string) {
         var lastActor = this.actor();
         this._actorIndex = newActorIndex;
         var newActor = this.actor();
@@ -372,7 +378,7 @@ class BattleManager {
     };
     
     static makeActionOrders() {
-        var battlers = [];
+        var battlers: Game_Battler[] = [];
         if (!this._surprise) {
             battlers = battlers.concat($gameParty.members());
         }
@@ -395,7 +401,7 @@ class BattleManager {
         this._phase = 'action';
         this._action = action;
         this._targets = targets;
-        subject.useItem(action.item());
+        subject.useItem(action.item() as DB.Item);
         this._action.applyGlobal();
         this.refreshStatus();
         this._logWindow.startAction(subject, action, targets);
@@ -415,27 +421,29 @@ class BattleManager {
         this._phase = 'turn';
     };
     
-    static invokeAction(subject, target) {
+    static invokeAction(subject: Game_Battler, target: Game_Battler) {
         this._logWindow.push('pushBaseLine');
         if (Math.random() < this._action.itemCnt(target)) {
             this.invokeCounterAttack(subject, target);
         } else if (Math.random() < this._action.itemMrf(target)) {
             this.invokeMagicReflection(subject, target);
         } else {
-            this.invokeNormalAction(subject, target);
+            this.invokeNormalAction(subject, target as Game_Actor);
         }
         subject.setLastTarget(target);
         this._logWindow.push('popBaseLine');
         this.refreshStatus();
     };
     
-    static invokeNormalAction(subject, target) {
-        var realTarget = this.applySubstitute(target);
+    static invokeNormalAction(subject: Game_Battler, target: Game_Actor) {
+        /// bungcip: changed to make it compiled
+        // var realTarget = this.applySubstitute(target);
+        var realTarget = this.applySubstitute(subject, target);
         this._action.apply(realTarget);
         this._logWindow.displayActionResults(subject, realTarget);
     };
     
-    static invokeCounterAttack(subject, target) {
+    static invokeCounterAttack(subject: Game_Battler, target: Game_Battler) {
         var action = new Game_Action(target);
         action.setAttack();
         action.apply(subject);
@@ -443,14 +451,14 @@ class BattleManager {
         this._logWindow.displayActionResults(target, subject);
     };
     
-    static invokeMagicReflection(subject, target) {
-        this._action._reflectionTarget = target;
+    static invokeMagicReflection(subject: Game_Battler, target: Game_Battler) {
+        this._action._reflectionTarget = target as Game_Actor;
         this._logWindow.displayReflection(target);
         this._action.apply(subject);
         this._logWindow.displayActionResults(target, subject);
     };
     
-    static applySubstitute(target) {
+    static applySubstitute(subject: Game_Battler, target: Game_Actor) {
         if (this.checkSubstitute(target)) {
             var substitute = target.friendsUnit().substituteBattler();
             if (substitute && target !== substitute) {
@@ -461,7 +469,7 @@ class BattleManager {
         return target;
     };
     
-    static checkSubstitute(target) {
+    static checkSubstitute(target: Game_Battler) {
         return target.isDying() && !this._action.isCertainHit();
     };
     
@@ -469,7 +477,7 @@ class BattleManager {
         return !!this._actionForcedBattler;
     };
     
-    static forceAction(battler) {
+    static forceAction(battler: Game_Battler) {
         this._actionForcedBattler = battler;
         var index = this._actionBattlers.indexOf(battler);
         if (index >= 0) {
@@ -568,7 +576,7 @@ class BattleManager {
         this.endBattle(2);
     };
     
-    static endBattle(result) {
+    static endBattle(result: number) {
         this._phase = 'battleEnd';
         if (this._eventCallback) {
             this._eventCallback(result);
@@ -598,10 +606,11 @@ class BattleManager {
     };
     
     static makeRewards() {
-        this._rewards = {};
-        this._rewards.gold = $gameTroop.goldTotal();
-        this._rewards.exp = $gameTroop.expTotal();
-        this._rewards.items = $gameTroop.makeDropItems();
+        this._rewards = {
+            gold: $gameTroop.goldTotal(),
+            exp: $gameTroop.expTotal(),
+            items: $gameTroop.makeDropItems()
+        };
     };
     
     static displayVictoryMessage() {
@@ -646,7 +655,7 @@ class BattleManager {
         var items = this._rewards.items;
         if (items.length > 0) {
             $gameMessage.newPage();
-            items.forEach(function(item) {
+            items.forEach(function(item: DB.Item) {
                 $gameMessage.add(TextManager.obtainItem.format(item.name));
             });
         }
@@ -671,7 +680,7 @@ class BattleManager {
     
     static gainDropItems() {
         var items = this._rewards.items;
-        items.forEach(function(item) {
+        items.forEach(function(item: DB.Item) {
             $gameParty.gainItem(item, 1);
         });
     };

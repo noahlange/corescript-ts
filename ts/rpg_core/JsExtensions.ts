@@ -104,7 +104,7 @@ Object.defineProperties(Array.prototype, {
      */
     equals: {
         enumerable: false,
-        value: function (array) {
+        value: function (array: any[]) {
             if (!array || this.length !== array.length) {
                 return false;
             }
@@ -141,7 +141,7 @@ Object.defineProperties(Array.prototype, {
      */
     contains: {
         enumerable: false,
-        value: function (element) {
+        value: function (element: any) {
             return this.indexOf(element) >= 0;
         }
     }

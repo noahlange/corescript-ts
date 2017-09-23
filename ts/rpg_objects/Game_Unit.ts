@@ -59,9 +59,9 @@ abstract class Game_Unit<T extends Game_Battler> {
         }, 0);
     };
     
-    randomTarget(): Game_Battler {
+    randomTarget(): T | null {
         var tgrRand = Math.random() * this.tgrSum();
-        var target = null;
+        var target: T | null = null;
         this.aliveMembers().forEach(function(member) {
             tgrRand -= member.tgr;
             if (tgrRand <= 0 && !target) {
@@ -71,7 +71,7 @@ abstract class Game_Unit<T extends Game_Battler> {
         return target;
     };
     
-    randomDeadTarget(): Game_Battler {
+    randomDeadTarget(): T {
         var members = this.deadMembers();
         if (members.length === 0) {
             return null;
@@ -121,7 +121,7 @@ abstract class Game_Unit<T extends Game_Battler> {
         });
     };
     
-    select(activeMember) {
+    select(activeMember: T) {
         this.members().forEach(function(member) {
             if (member === activeMember) {
                 member.select();

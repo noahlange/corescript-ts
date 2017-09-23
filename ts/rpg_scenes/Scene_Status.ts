@@ -4,7 +4,7 @@
 // The scene class of the status screen.
 
 class Scene_Status extends Scene_MenuBase {
-    protected _statusWindow;
+    protected _statusWindow: Window_Status;
     
     create() {
         super.create();

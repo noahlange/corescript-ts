@@ -4,17 +4,17 @@
 // The scene class of the map screen.
 
 class Scene_Map extends Scene_Base {
-    protected _waitCount;
-    protected _encounterEffectDuration;
-    protected _mapLoaded;
-    protected _touchCount;
-    protected _transfer;
-    protected _mapNameWindow;
-    protected _spriteset;
-    protected _messageWindow;
-    protected _scrollTextWindow;
+    protected _waitCount: number;
+    protected _encounterEffectDuration: number;
+    protected _mapLoaded: boolean;
+    protected _touchCount: number;
+    protected _transfer: boolean;
+    protected _mapNameWindow: Window_MapName;
+    protected _spriteset: Spriteset_Map;
+    protected _messageWindow: Window_Message;
+    protected _scrollTextWindow: Window_ScrollText;
 
-    public menuCalling;
+    public menuCalling: boolean;
 
     constructor() {
         super();
@@ -356,7 +356,7 @@ class Scene_Map extends Scene_Base {
         this._windowLayer.visible = true;
     };
 
-    startFlashForEncounter(duration) {
+    startFlashForEncounter(duration: number) {
         var color = [255, 255, 255, 255];
         $gameScreen.startFlash(color, duration);
     };

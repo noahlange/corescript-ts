@@ -294,12 +294,15 @@ class Window_Base extends CoreWindow {
     drawTextEx(text: string, x: number, y: number) {
         if (text) {
             var textState: TextState = { 
-                index: 0, x: x, y: y, left: x,
-                text: this.convertEscapeCharacters(text),
-                height: this.calcTextHeight(textState, false)
+                index: 0, 
+                x: x, 
+                y: y, 
+                left: x,
+                text: this.convertEscapeCharacters(text)
             };
+            textState.height = this.calcTextHeight(textState, false);
             this.resetFontSettings();
-            while (textState.index < textState['text'].length) {
+            while (textState.index < textState.text.length) {
                 this.processCharacter(textState);
             }
             return textState.x - x;

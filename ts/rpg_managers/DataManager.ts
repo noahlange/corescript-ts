@@ -46,21 +46,21 @@ class DataManager {
         xhr.overrideMimeType('application/json');
         xhr.onload = function () {
             if (xhr.status < 400) {
-                window[name] = JSON.parse(xhr.responseText);
-                DataManager.onLoad(window[name]);
+                (window as any)[name] = JSON.parse(xhr.responseText);
+                DataManager.onLoad((window as any)[name]);
             }
         };
         xhr.onerror = this._mapLoader || function () {
             DataManager._errorUrl = DataManager._errorUrl || url;
         };
-        window[name] = null;
+        (window as any)[name] = null;
         xhr.send();
     };
 
     static isDatabaseLoaded() {
         this.checkError();
         for (var i = 0; i < this._databaseFiles.length; i++) {
-            if (!window[this._databaseFiles[i].name]) {
+            if (!(window as any)[this._databaseFiles[i].name]) {
                 return false;
             }
         }
@@ -497,5 +497,5 @@ var $gameParty: Game_Party = null;
 var $gameTroop: Game_Troop = null;
 var $gameMap: Game_Map = null;
 var $gamePlayer: Game_Player = null;
-var $testEvent: Object = null;
+var $testEvent: DB.List[] = null;
 

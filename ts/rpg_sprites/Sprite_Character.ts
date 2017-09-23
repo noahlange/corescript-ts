@@ -4,21 +4,21 @@
 // The sprite for displaying a character.
 
 class Sprite_Character extends Sprite_Base {
-    protected _character;
+    protected _character: Game_Character;
     protected _balloonDuration: number;
     protected _tilesetId: number;
-    protected _upperBody;
-    protected _lowerBody;
+    protected _upperBody: null | Sprite;
+    protected _lowerBody: null | Sprite;
     protected _tileId: number;
     protected _isBigCharacter: boolean;
-    protected _characterName;
+    protected _characterName: string;
     protected _characterIndex: number;
-    protected _bushDepth;
-    protected _balloonSprite;
+    protected _bushDepth: number;
+    protected _balloonSprite: Sprite_Balloon;
 
     public z: number;
 
-    constructor(character) {
+    constructor(character: Game_Character) {
         super();
         this.initMembers();
         this.setCharacter(character);
@@ -34,7 +34,7 @@ class Sprite_Character extends Sprite_Base {
         this._lowerBody = null;
     };
     
-    setCharacter(character) {
+    setCharacter(character: Game_Character) {
         this._character = character;
     };
     
@@ -55,8 +55,9 @@ class Sprite_Character extends Sprite_Base {
         }
     };
     
-    isTile() {
-        return this._character.tileId > 0;
+    isTile(): boolean {
+        /// bungcip: change it to make it compile
+        return this._character.tileId() > 0;
     };
     
     tilesetBitmap(tileId: number) {

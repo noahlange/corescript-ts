@@ -131,11 +131,11 @@ class Window_Options extends Window_Command {
     };
     
     getConfigValue(symbol: string): number | boolean {
-        return ConfigManager[symbol] as number | boolean;
+        return (ConfigManager as any) [symbol] as number | boolean;
     };
     
     setConfigValue(symbol: string, volume: number | boolean) {
-        ConfigManager[symbol] = volume;
+        (ConfigManager as any) [symbol] = volume;
     };
     
 }

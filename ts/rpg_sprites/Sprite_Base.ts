@@ -50,7 +50,7 @@ class Sprite_Base extends Sprite {
         }
     };
 
-    startAnimation(animation, mirror: boolean, delay: number) {
+    startAnimation(animation: DB.Animation, mirror: boolean, delay: number) {
         var sprite = new Sprite_Animation();
         sprite.setup(this._effectTarget, animation, mirror, delay);
         this.parent.addChild(sprite);

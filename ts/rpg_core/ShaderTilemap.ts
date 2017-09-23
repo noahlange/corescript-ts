@@ -84,7 +84,7 @@ class ShaderTilemap extends Tilemap {
      * @method updateBitmaps
      */
     refreshTileset() {
-        var bitmaps = this.bitmaps.map(function (x) { 
+        var bitmaps = this.bitmaps.map(function (x: Bitmap) { 
             return x._baseTexture ? new PIXI.Texture(x._baseTexture) : x; 
         });
         this.lowerLayer.setBitmaps(bitmaps);
@@ -139,7 +139,7 @@ class ShaderTilemap extends Tilemap {
             this.addChild(this.upperZLayer = new PIXI.tilemap.ZLayer(this, 4));
 
             var parameters = PluginManager.parameters('ShaderTilemap');
-            var useSquareShader = Number(parameters.hasOwnProperty('squareShader') ? parameters['squareShader'] : 0);
+            var useSquareShader = Number(parameters.hasOwnProperty('squareShader') ? (parameters as any)['squareShader'] : 0);
 
             this.lowerZLayer.addChild(this.lowerLayer = new PIXI.tilemap.CompositeRectTileLayer(0, [], useSquareShader as any));
             this.lowerLayer.shadowColor = new Float32Array([0.0, 0.0, 0.0, 0.5]);
@@ -384,7 +384,7 @@ class ShaderTilemap extends Tilemap {
      * @param {Number} dy
      * @private
      */
-    protected _drawTableEdge(layer, tileId: number, dx: number, dy: number) {
+    protected _drawTableEdge(layer: any, tileId: number, dx: number, dy: number) {
         if (Tilemap.isTileA2(tileId)) {
             var autotileTable = Tilemap.FLOOR_AUTOTILE_TABLE;
             var kind = Tilemap.getAutotileKind(tileId);
@@ -416,7 +416,7 @@ class ShaderTilemap extends Tilemap {
      * @param {Number} dy
      * @private
      */
-    protected _drawShadow(layer, shadowBits: number, dx: number, dy: number) {
+    protected _drawShadow(layer: any, shadowBits: number, dx: number, dy: number) {
         if (shadowBits & 0x0f) {
             var w1 = this._tileWidth / 2;
             var h1 = this._tileHeight / 2;

@@ -4,9 +4,9 @@
 // The scene class of the shop screen.
 
 class Scene_Shop extends Scene_MenuBase {
-    protected _goods;
+    protected _goods: number[][];
     protected _purchaseOnly: boolean;
-    protected _item;
+    protected _item: null | DB.Item | DB.Weapon | DB.Armor;
     protected _goldWindow: Window_Gold;
     protected _commandWindow: Window_ShopCommand;
     protected _dummyWindow: Window_Base;
@@ -16,7 +16,7 @@ class Scene_Shop extends Scene_MenuBase {
     protected _categoryWindow: Window_ItemCategory;
     protected _sellWindow: Window_ShopSell;
 
-    prepare(goods, purchaseOnly: boolean) {
+    prepare(goods: number[][], purchaseOnly: boolean) {
         this._goods = goods;
         this._purchaseOnly = purchaseOnly;
         this._item = null;
@@ -210,12 +210,12 @@ class Scene_Shop extends Scene_MenuBase {
         this.endNumberInput();
     };
     
-    doBuy(number) {
+    doBuy(number: number) {
         $gameParty.loseGold(number * this.buyingPrice());
         $gameParty.gainItem(this._item, number);
     };
     
-    doSell(number) {
+    doSell(number: number) {
         $gameParty.gainGold(number * this.sellingPrice());
         $gameParty.loseItem(this._item, number);
     };

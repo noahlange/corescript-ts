@@ -4,7 +4,7 @@
 // The sprite for displaying state icons.
 
 class Sprite_StateIcon extends Sprite {
-    protected _battler;
+    protected _battler: Game_Battler;
     protected _iconIndex: number;
     protected _animationCount: number;
     protected _animationIndex: number;
@@ -32,7 +32,7 @@ class Sprite_StateIcon extends Sprite {
         this.setFrame(0, 0, 0, 0);
     };
 
-    setup(battler) {
+    setup(battler: Game_Battler) {
         this._battler = battler;
     };
 
@@ -51,7 +51,7 @@ class Sprite_StateIcon extends Sprite {
     };
 
     updateIcon() {
-        var icons = [];
+        var icons: number[] = [];
         if (this._battler && this._battler.isAlive()) {
             icons = this._battler.allIcons();
         }

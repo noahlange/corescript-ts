@@ -7,14 +7,14 @@
  * @param {Bitmap} bitmap The image for the sprite
  */
 class Sprite extends PIXI.Sprite {
-    protected _bitmap;
+    protected _bitmap: Bitmap | null;
     protected _frame: Rectangle;
     protected _realFrame: Rectangle;
-    protected _blendColor;
-    protected _colorTone;
-    protected _canvas;
-    protected _context;
-    protected _tintTexture;
+    protected _blendColor: number[];
+    protected _colorTone: number[];
+    protected _canvas: null | HTMLCanvasElement;
+    protected _context: null | CanvasRenderingContext2D;
+    protected _tintTexture: null | PIXI.BaseTexture;
     /**
      * use heavy renderer that will reduce border artifacts and apply advanced blendModes
      * @type {boolean}
@@ -22,13 +22,13 @@ class Sprite extends PIXI.Sprite {
      */
     protected _isPicture: boolean;
 
-    protected _refreshFrame;
+    protected _refreshFrame: boolean;
 
-    public spriteId;
-    public opaque;
+    public spriteId: number;
+    public opaque: boolean;
 
     static voidFilter = new PIXI.filters.VoidFilter();
-    constructor(bitmap?) {
+    constructor(bitmap?: Bitmap) {
         super(new PIXI.Texture(new PIXI.BaseTexture()))
 
         this._bitmap = null;
@@ -123,8 +123,8 @@ class Sprite extends PIXI.Sprite {
      */
     update() {
         this.children.forEach(function (child) {
-            if (child['update']) {
-                child['update']();
+            if ((child as any)['update']) {
+                (child as any)['update']();
             }
         });
     };
@@ -205,7 +205,7 @@ class Sprite extends PIXI.Sprite {
      * @method setColorTone
      * @param {Array} tone The color tone [r, g, b, gray]
      */
-    setColorTone(tone) {
+    setColorTone(tone: number[]) {
         if (!(tone instanceof Array)) {
             throw new Error('Argument must be an array');
         }
@@ -219,7 +219,7 @@ class Sprite extends PIXI.Sprite {
      * @method _onBitmapLoad
      * @private
      */
-    protected _onBitmapLoad(bitmapLoaded) {
+    protected _onBitmapLoad(bitmapLoaded: Bitmap) {
         if (bitmapLoaded === this._bitmap) {
             if (this._refreshFrame && this._bitmap) {
                 this._refreshFrame = false;
@@ -458,12 +458,12 @@ class Sprite extends PIXI.Sprite {
                 // use heavy renderer, which reduces artifacts and applies corrent blendMode,
                 // but does not use multitexture optimization
                 this._speedUpCustomBlendModes(renderer);
-                renderer.setObjectRenderer(renderer.plugins['picture']);
-                renderer.plugins['picture'].render(this);
+                renderer.setObjectRenderer((renderer.plugins as any)['picture']);
+                (renderer.plugins as any)['picture'].render(this);
             } else {
                 // use pixi super-speed renderer
-                renderer.setObjectRenderer(renderer.plugins['sprite']);
-                renderer.plugins['sprite'].render(this);
+                renderer.setObjectRenderer((renderer.plugins as any)['sprite']);
+                (renderer.plugins as any)['sprite'].render(this);
             }
         }
     };

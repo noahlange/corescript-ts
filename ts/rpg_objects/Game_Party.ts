@@ -19,9 +19,9 @@ class Game_Party extends Game_Unit<Game_Actor> {
     protected _menuActorId: number;
     protected _targetActorId: number;
     protected _actors: number[];
-    protected _items: Object;
-    protected _weapons: Object;
-    protected _armors: Object;
+    protected _items: NumberMap;
+    protected _weapons: NumberMap;
+    protected _armors: NumberMap;
 
 
     constructor() {
@@ -229,36 +229,36 @@ class Game_Party extends Game_Unit<Game_Actor> {
         this._steps++;
     };
 
-    numItems(item): number {
+    numItems(item: DB.Item | DB.Weapon | DB.Armor): number {
         var container = this.itemContainer(item);
         return container ? container[item.id] || 0 : 0;
     };
 
-    maxItems(item): number {
+    maxItems(item: DB.Item | DB.Weapon | DB.Armor): number {
         return 99;
     };
 
-    hasMaxItems(item) {
+    hasMaxItems(item: DB.Item | DB.Weapon | DB.Armor) {
         return this.numItems(item) >= this.maxItems(item);
     };
 
-    hasItem(item, includeEquip: boolean = false) {
+    hasItem(item: DB.Item | DB.Weapon | DB.Armor, includeEquip: boolean = false) {
         if (this.numItems(item) > 0) {
             return true;
-        } else if (includeEquip && this.isAnyMemberEquipped(item)) {
+        } else if (includeEquip && this.isAnyMemberEquipped(item as DB.Weapon)) {
             return true;
         } else {
             return false;
         }
     };
 
-    isAnyMemberEquipped(item) {
+    isAnyMemberEquipped(item: DB.Armor | DB.Weapon) {
         return this.members().some(function (actor) {
             return actor.equips().contains(item);
         });
     };
 
-    gainItem(item, amount: number, includeEquip: boolean = false) {
+    gainItem(item: DB.Item | DB.Weapon | DB.Armor, amount: number, includeEquip: boolean = false) {
         var container = this.itemContainer(item);
         if (container) {
             var lastNumber = this.numItems(item);
@@ -268,13 +268,13 @@ class Game_Party extends Game_Unit<Game_Actor> {
                 delete container[item.id];
             }
             if (includeEquip && newNumber < 0) {
-                this.discardMembersEquip(item, -newNumber);
+                this.discardMembersEquip(item as DB.Armor, -newNumber);
             }
             $gameMap.requestRefresh();
         }
     };
 
-    discardMembersEquip(item, amount: number) {
+    discardMembersEquip(item: DB.Armor | DB.Weapon, amount: number) {
         var n = amount;
         this.members().forEach(function (actor) {
             while (n > 0 && actor.isEquipped(item)) {
@@ -284,11 +284,11 @@ class Game_Party extends Game_Unit<Game_Actor> {
         });
     };
 
-    loseItem(item, amount: number, includeEquip?: boolean) {
+    loseItem(item: DB.Item | DB.Weapon | DB.Armor, amount: number, includeEquip?: boolean) {
         this.gainItem(item, -amount, includeEquip);
     };
 
-    consumeItem(item) {
+    consumeItem(item: DB.Item | DB.Weapon | DB.Armor) {
         if (DataManager.isItem(item) && item.consumable) {
             this.loseItem(item, 1);
         }
@@ -328,7 +328,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
         return actor;
     };
 
-    setMenuActor(actor) {
+    setMenuActor(actor: Game_Actor) {
         this._menuActorId = actor.actorId();
     };
 
@@ -360,7 +360,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
         return actor;
     };
 
-    setTargetActor(actor) {
+    setTargetActor(actor: Game_Actor) {
         this._targetActorId = actor.actorId();
     };
 
@@ -368,7 +368,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
         return this._lastItem.object();
     };
 
-    setLastItem(item) {
+    setLastItem(item: DB.Item | DB.Weapon | DB.Armor) {
         this._lastItem.setObject(item);
     };
 

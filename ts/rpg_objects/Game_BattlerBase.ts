@@ -436,7 +436,7 @@ class Game_BattlerBase {
         return this.traitsSet(Game_BattlerBase.TRAIT_STYPE_SEAL).contains(stypeId);
     };
 
-    addedSkills() {
+    addedSkills(): number[] {
         return this.traitsSet(Game_BattlerBase.TRAIT_SKILL_ADD);
     };
 
@@ -715,7 +715,7 @@ class Game_BattlerBase {
     };
 
     meetsItemConditions(item: DB.Skill | DB.Item) {
-        return this.meetsUsableItemConditions(item) && $gameParty.hasItem(item);
+        return this.meetsUsableItemConditions(item) && $gameParty.hasItem(item as DB.Item);
     };
 
     canUse(item: Object) {

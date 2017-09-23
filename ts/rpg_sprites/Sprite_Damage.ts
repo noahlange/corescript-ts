@@ -3,11 +3,17 @@
 //
 // The sprite for displaying a popup damage.
 
+/// special interface for sprite
+interface ISprite extends Sprite {
+    dy: number;
+    ry: number;
+}
+
 class Sprite_Damage extends Sprite {
     protected _duration: number;
-    protected _flashColor;
+    protected _flashColor: number[];
     protected _flashDuration: number;
-    protected _damageBitmap;
+    protected _damageBitmap: Bitmap;
 
     constructor() {
         super();
@@ -17,7 +23,7 @@ class Sprite_Damage extends Sprite {
         this._damageBitmap = ImageManager.loadSystem('Damage');
     };
     
-    setup(target) {
+    setup(target: Game_Battler) {
         var result = target.result();
         if (result.missed || result.evaded) {
             this.createMiss();
@@ -52,7 +58,7 @@ class Sprite_Damage extends Sprite {
         sprite['dy'] = 0; // bungcip: changed to make it compile
     };
     
-    createDigits(baseRow, value) {
+    createDigits(baseRow: number, value: number) {
         var string = Math.abs(value).toString();
         var row = baseRow + (value < 0 ? 1 : 0);
         var w = this.digitWidth();
@@ -66,13 +72,13 @@ class Sprite_Damage extends Sprite {
         }
     };
     
-    createChildSprite() {
-        var sprite = new Sprite();
+    createChildSprite(): ISprite {
+        var sprite = new Sprite() as ISprite;
         sprite.bitmap = this._damageBitmap;
         sprite.anchor.x = 0.5;
         sprite.anchor.y = 1;
         sprite.y = -40;
-        sprite['ry'] = sprite.y; // bungcip: changed to make it compile
+        sprite.ry = sprite.y;
         this.addChild(sprite);
         return sprite;
     };
@@ -82,14 +88,14 @@ class Sprite_Damage extends Sprite {
         if (this._duration > 0) {
             this._duration--;
             for (var i = 0; i < this.children.length; i++) {
-                this.updateChild(this.children[i]);
+                this.updateChild(this.children[i] as ISprite);
             }
         }
         this.updateFlash();
         this.updateOpacity();
     };
     
-    updateChild(sprite) {
+    updateChild(sprite: ISprite) {
         sprite.dy += 0.5;
         sprite.ry += sprite.dy;
         if (sprite.ry >= 0) {

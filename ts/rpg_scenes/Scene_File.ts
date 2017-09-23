@@ -44,7 +44,7 @@ class Scene_File extends Scene_MenuBase {
         this.addWindow(this._listWindow);
     };
 
-    mode() {
+    mode() : string | null {
         return null;
     };
 

@@ -4,7 +4,7 @@
 // The scene class of the load screen.
 
 class Scene_Load extends Scene_File {
-    protected _loadSuccess;
+    protected _loadSuccess: boolean;
 
     constructor() {
         super();

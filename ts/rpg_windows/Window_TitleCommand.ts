@@ -11,7 +11,7 @@ class Window_TitleCommand extends Window_Command {
         this.selectLast();
     };
     
-    static _lastCommandSymbol = null;
+    static _lastCommandSymbol : string | null = null;
     static initCommandPosition = function() {
         this._lastCommandSymbol = null;
     };

@@ -11,9 +11,9 @@ class Weather extends PIXI.Container {
     protected _height: number;
     protected _sprites: any[];
 
-    protected type: string;
-    protected power: number;
-    protected origin: Point;
+    public type: string;
+    public power: number;
+    public origin: Point;
 
     protected _rainBitmap : Bitmap;
     protected _stormBitmap: Bitmap;
@@ -23,7 +23,7 @@ class Weather extends PIXI.Container {
 
     
     /// bungcip: viewport itu tidak ada? sementara didefinisikan dulu....
-    public viewport;
+    // public viewport;
     
 
     constructor() {
@@ -127,7 +127,8 @@ class Weather extends PIXI.Container {
      */
     protected _addSprite() {
         /// bungcip: viewport itu tidak ada? sementara didefinisikan dulu....
-        var sprite = new Sprite(this.viewport);
+        // var sprite = new Sprite(this.viewport);
+        var sprite = new Sprite();
         sprite.opacity = 0;
         this._sprites.push(sprite);
         this.addChild(sprite);
@@ -171,8 +172,8 @@ class Weather extends PIXI.Container {
     protected _updateRainSprite(sprite: Sprite) {
         sprite.bitmap = this._rainBitmap;
         sprite.rotation = Math.PI / 16;
-        sprite['ax'] -= 6 * Math.sin(sprite.rotation);
-        sprite['ay'] += 6 * Math.cos(sprite.rotation);
+        (sprite as any)['ax'] -= 6 * Math.sin(sprite.rotation);
+        (sprite as any)['ay'] += 6 * Math.cos(sprite.rotation);
         sprite.opacity -= 6;
     };
 
@@ -184,8 +185,8 @@ class Weather extends PIXI.Container {
     protected _updateStormSprite(sprite: Sprite) {
         sprite.bitmap = this._stormBitmap;
         sprite.rotation = Math.PI / 8;
-        sprite['ax'] -= 8 * Math.sin(sprite.rotation);
-        sprite['ay'] += 8 * Math.cos(sprite.rotation);
+        (sprite as any)['ax'] -= 8 * Math.sin(sprite.rotation);
+        (sprite as any)['ay'] += 8 * Math.cos(sprite.rotation);
         sprite.opacity -= 8;
     };
 
@@ -197,8 +198,8 @@ class Weather extends PIXI.Container {
     protected _updateSnowSprite(sprite: Sprite) {
         sprite.bitmap = this._snowBitmap;
         sprite.rotation = Math.PI / 16;
-        sprite['ax'] -= 3 * Math.sin(sprite.rotation);
-        sprite['ay'] += 3 * Math.cos(sprite.rotation);
+        (sprite as any)['ax'] -= 3 * Math.sin(sprite.rotation);
+        (sprite as any)['ay'] += 3 * Math.cos(sprite.rotation);
         sprite.opacity -= 3;
     };
 
@@ -208,8 +209,8 @@ class Weather extends PIXI.Container {
      * @private
      */
     protected _rebornSprite(sprite: Sprite) {
-        sprite['ax'] = Math.randomInt(Graphics.width + 100) - 100 + this.origin.x;
-        sprite['ay'] = Math.randomInt(Graphics.height + 200) - 200 + this.origin.y;
+        (sprite as any)['ax'] = Math.randomInt(Graphics.width + 100) - 100 + this.origin.x;
+        (sprite as any)['ay'] = Math.randomInt(Graphics.height + 200) - 200 + this.origin.y;
         sprite.opacity = 160 + Math.randomInt(60);
     };
 

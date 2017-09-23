@@ -14,11 +14,11 @@ class SceneManager {
 
     protected static _scene: Scene_Base | null = null;
     protected static _nextScene: Scene_Base | null = null;
-    protected static _stack = [];
+    protected static _stack: Function[] = [];
     protected static _stopped: boolean = false;
     protected static _sceneStarted: boolean = false;
     protected static _exiting: boolean = false;
-    protected static _previousClass = null;
+    protected static _previousClass: Function = null;
     protected static _backgroundBitmap: Bitmap = null;
     protected static _screenWidth = 816;
     protected static _screenHeight = 624;
@@ -105,8 +105,8 @@ class SceneManager {
 
     static initNwjs() {
         if (Utils.isNwjs()) {
-            let require = window['require']; // bungcip: changed to make it compile
-            let process = window['process']; // bungcip: changed to make it compile
+            let require = (window as any)['require']; // bungcip: changed to make it compile
+            let process = (window as any)['process']; // bungcip: changed to make it compile
 
             var gui = require('nw.gui');
             var win = gui.Window.get();
@@ -152,7 +152,7 @@ class SceneManager {
         window.close();
     };
 
-    static onError(e) {
+    static onError(e: any) {
         console.error(e.message);
         console.error(e.filename, e.lineno);
         try {
@@ -163,7 +163,7 @@ class SceneManager {
         }
     };
 
-    static onKeyDown(event) {
+    static onKeyDown(event: any) {
         if (!event.ctrlKey && !event.altKey) {
             switch (event.keyCode) {
                 case 116:   // F5
@@ -173,7 +173,7 @@ class SceneManager {
                     break;
                 case 119:   // F8
                     if (Utils.isNwjs() && Utils.isOptionValid('test')) {
-                        let require = window['require']; // bungcip: changed to make it compile
+                        let require = (window as any)['require']; // bungcip: changed to make it compile
                         require('nw.gui').Window.get().showDevTools();
                     }
                     break;
@@ -181,7 +181,7 @@ class SceneManager {
         }
     };
 
-    static catchException(e) {
+    static catchException(e: any) {
         if (e instanceof Error) {
             Graphics.printError(e.name, e.message);
             console.error(e.stack);
@@ -296,11 +296,11 @@ class SceneManager {
         return this._scene && this._sceneStarted;
     };
 
-    static isNextScene(sceneClass) {
+    static isNextScene(sceneClass: Function) {
         return this._nextScene && this._nextScene.constructor === sceneClass;
     };
 
-    static isPreviousScene(sceneClass) {
+    static isPreviousScene(sceneClass: Function) {
         return this._previousClass === sceneClass;
     };
 
@@ -320,7 +320,7 @@ class SceneManager {
 
     static pop() {
         if (this._stack.length > 0) {
-            this.goto(this._stack.pop());
+            this.goto( (this._stack as any).pop());
         } else {
             this.exit();
         }

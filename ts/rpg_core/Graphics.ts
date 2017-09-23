@@ -6,7 +6,7 @@
  */
 class Graphics {
     protected static _cssFontLoading = document.fonts && document.fonts.ready;
-    protected static _fontLoaded = null;
+    protected static _fontLoaded : FontFaceSet | null = null;
     protected static _videoVolume = 1;
 
 
@@ -436,7 +436,7 @@ class Graphics {
      * @method playVideo
      * @param {String} src
      */
-    static _videoLoader = null;
+    static _videoLoader: Function | null = null;
     static playVideo(src: string) {
         this._videoLoader = ResourceHandler.createLoader(null, this._playVideo.bind(this, src), this._onVideoError.bind(this));
         this._playVideo(src);
@@ -924,7 +924,7 @@ class Graphics {
      * @private
      */
     protected static _createFPSMeter() {
-        var options = { graph: 1, decimals: 0, theme: 'transparent', toggleOn: null };
+        var options = { graph: 1, decimals: 0, theme: 'transparent', toggleOn: null as any };
         this._fpsMeter = new FPSMeter(options);
         this._fpsMeter.hide();
     };
@@ -980,7 +980,7 @@ class Graphics {
      * @param {String} name
      * @private
      */
-    protected static _createFontLoader(name) {
+    protected static _createFontLoader(name: string) {
         var div = document.createElement('div');
         var text = document.createTextNode('.');
         div.style.fontFamily = name;
@@ -1003,8 +1003,8 @@ class Graphics {
      * @private
      */
     protected static _centerElement(element: HTMLElement) {
-        var width = element['width'] * this._realScale;
-        var height = element['height'] * this._realScale;
+        var width = (element as any)['width'] * this._realScale;
+        var height = (element as any)['height'] * this._realScale;
         element.style.position = 'absolute';
         element.style.margin = 'auto';
         element.style.top = '0';
@@ -1037,7 +1037,7 @@ class Graphics {
         var elements = document.body.getElementsByTagName('*');
         var oncontextmenu = () => false;
         for (var i = 0; i < elements.length; i++) {
-            elements[i]['oncontextmenu'] = oncontextmenu;
+            (elements[i] as any)['oncontextmenu'] = oncontextmenu;
         }
     };
 

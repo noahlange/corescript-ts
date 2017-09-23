@@ -9,7 +9,7 @@ class Window_NumberInput extends Window_Selectable {
     protected _maxDigits: number;
     protected _buttons: Sprite_Button[];
 
-    constructor(messageWindow) {
+    constructor(messageWindow: Window_Message) {
         super( 0, 0, 0, 0, function(){
             this._messageWindow = messageWindow;
         });
@@ -152,7 +152,7 @@ class Window_NumberInput extends Window_Selectable {
         }
     };
     
-    changeDigit(up) {
+    changeDigit(up: boolean) {
         var index = this.index();
         var place = Math.pow(10, this._maxDigits - 1 - index);
         var n = Math.floor(this._number / place) % 10;

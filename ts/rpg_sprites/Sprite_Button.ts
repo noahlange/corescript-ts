@@ -5,9 +5,9 @@
 
 class Sprite_Button extends Sprite {
     protected _touching: boolean;
-    protected _coldFrame;
-    protected _hotFrame;
-    protected _clickHandler;
+    protected _coldFrame: null | Rectangle;
+    protected _hotFrame: null | Rectangle;
+    protected _clickHandler: Function;
 
     constructor() {
         super();
@@ -43,7 +43,7 @@ class Sprite_Button extends Sprite {
         this._hotFrame = new Rectangle(x, y, width, height);
     };
 
-    setClickHandler(method) {
+    setClickHandler(method: Function) {
         this._clickHandler = method;
     };
 

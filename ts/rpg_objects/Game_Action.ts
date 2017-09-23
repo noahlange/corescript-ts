@@ -27,7 +27,9 @@ class Game_Action {
     protected _forcing: boolean;
     protected _item: Game_Item;
     protected _targetIndex: number;
-    protected _reflectionTarget: Game_Actor | Game_Enemy | null;
+
+    /// bungcip: used by battle manager
+    public _reflectionTarget: Game_Actor | Game_Enemy | null;
 
     constructor(subject: Game_Battler, forcing: boolean = false) {
         this._subjectActorId = 0;
@@ -264,7 +266,7 @@ class Game_Action {
     };
 
     makeTargets() {
-        var targets = [];
+        var targets: Game_Battler[] = [];
         if (!this._forcing && this.subject().isConfused()) {
             targets = [this.confusionTarget()];
         } else if (this.isForOpponent()) {
@@ -466,7 +468,7 @@ class Game_Action {
         return (this.item() as DB.Item).damage.critical ? this.subject().cri * (1 - target.cev) : 0;
     };
 
-    apply(target: Game_Actor) {
+    apply(target: Game_Battler) {
         var result = target.result();
         this.subject().clearResult();
         result.clear();
@@ -557,7 +559,7 @@ class Game_Action {
         return damage / (damage > 0 && target.isGuard() ? 2 * target.grd : 1);
     };
 
-    executeDamage(target: Game_Actor, value: number) {
+    executeDamage(target: Game_Battler, value: number) {
         var result = target.result();
         if (value === 0) {
             result.critical = false;
@@ -698,7 +700,7 @@ class Game_Action {
     };
 
     itemEffectAddAttackState(target: Game_Battler, effect: DB.Effect) {
-        this.subject().attackStates().forEach(function (stateId) {
+        this.subject().attackStates().forEach(function (stateId: number) {
             var chance = effect.value1;
             chance *= target.stateRate(stateId);
             chance *= this.subject().attackStatesRate(stateId);
@@ -750,33 +752,33 @@ class Game_Action {
         }
     };
 
-    itemEffectRemoveDebuff(target: Game_Battler, effect) {
+    itemEffectRemoveDebuff(target: Game_Battler, effect: DB.Effect) {
         if (target.isDebuffAffected(effect.dataId)) {
             target.removeBuff(effect.dataId);
             this.makeSuccess(target);
         }
     };
 
-    itemEffectSpecial(target: Game_Battler, effect) {
+    itemEffectSpecial(target: Game_Battler, effect: DB.Effect) {
         if (effect.dataId === Game_Action.SPECIAL_EFFECT_ESCAPE) {
             target.escape();
             this.makeSuccess(target);
         }
     };
 
-    itemEffectGrow(target: Game_Battler, effect) {
+    itemEffectGrow(target: Game_Battler, effect: DB.Effect) {
         target.addParam(effect.dataId, Math.floor(effect.value1));
         this.makeSuccess(target);
     };
 
-    itemEffectLearnSkill(target: Game_Battler, effect) {
+    itemEffectLearnSkill(target: Game_Battler, effect: DB.Effect) {
         if (target.isActor()) {
             target.learnSkill(effect.dataId);
             this.makeSuccess(target);
         }
     };
 
-    itemEffectCommonEvent(target: Game_Battler, effect) {
+    itemEffectCommonEvent(target: Game_Battler, effect: DB.Effect) {
     };
 
     makeSuccess(target: Game_Battler) {

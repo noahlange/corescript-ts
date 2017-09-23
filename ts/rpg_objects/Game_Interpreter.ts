@@ -3,16 +3,20 @@
 //
 // The interpreter for running event commands.
 
+interface BranchMap {
+    [key: number]: boolean | number;
+}
+
 class Game_Interpreter {
     protected _depth: number;
-    protected _branch: Object;
+    protected _branch: BranchMap;
     protected _params: any[];
     protected _indent: number;
     protected _frameCount: number;
     protected _freezeChecker: number;
     protected _mapId: number
     protected _eventId: number
-    protected _list: null | any;
+    protected _list: null | DB.List[];
     protected _index: number
     protected _waitCount: number
     protected _waitMode: string;
@@ -50,7 +54,7 @@ class Game_Interpreter {
         this._childInterpreter = null;
     };
 
-    setup(list, eventId: number = 0) {
+    setup(list: DB.List[], eventId: number = 0) {
         this.clear();
         this._mapId = $gameMap.mapId();
         this._eventId = eventId;
@@ -161,7 +165,7 @@ class Game_Interpreter {
         return waiting;
     };
 
-    setWaitMode(waitMode) {
+    setWaitMode(waitMode: string) {
         this._waitMode = waitMode;
     };
 
@@ -179,8 +183,8 @@ class Game_Interpreter {
             this._params = command.parameters;
             this._indent = command.indent;
             var methodName = 'command' + command.code;
-            if (typeof this[methodName] === 'function') {
-                if (!this[methodName]()) {
+            if (typeof (this as any)[methodName] === 'function') {
+                if (!(this as any)[methodName]()) {
                     return false;
                 }
             }
@@ -227,7 +231,7 @@ class Game_Interpreter {
         }
     };
 
-    iterateActorId(param, callback) {
+    iterateActorId(param: number, callback: (a: Game_Actor) => void) {
         if (param === 0) {
             $gameParty.members().forEach(callback);
         } else {
@@ -238,7 +242,7 @@ class Game_Interpreter {
         }
     };
 
-    iterateActorEx(param1:number, param2, callback) {
+    iterateActorEx(param1:number, param2: number, callback: (a: Game_Actor) => void) {
         if (param1 === 0) {
             this.iterateActorId(param2, callback);
         } else {
@@ -246,7 +250,7 @@ class Game_Interpreter {
         }
     };
 
-    iterateActorIndex(param: number, callback) {
+    iterateActorIndex(param: number, callback: (enemy: Game_Battler) => void) {
         if (param < 0) {
             $gameParty.members().forEach(callback);
         } else {
@@ -257,7 +261,7 @@ class Game_Interpreter {
         }
     };
 
-    iterateEnemyIndex(param: number, callback) {
+    iterateEnemyIndex(param: number, callback: (enemy: Game_Battler) => void) {
         if (param < 0) {
             $gameTroop.members().forEach(callback);
         } else {
@@ -268,7 +272,7 @@ class Game_Interpreter {
         }
     };
 
-    iterateBattler(param1: number, param2, callback) {
+    iterateBattler(param1: number, param2: number, callback:(enemy: Game_Battler) => void) {
         if ($gameParty.inBattle()) {
             if (param1 === 0) {
                 this.iterateEnemyIndex(param2, callback);
@@ -290,12 +294,12 @@ class Game_Interpreter {
         }
     };
 
-    operateValue(operation: number, operandType, operand) {
+    operateValue(operation: number, operandType: number, operand: number) {
         var value = operandType === 0 ? operand : $gameVariables.value(operand);
         return operation === 0 ? value : -value;
     };
 
-    changeHp(target, value: number, allowDeath) {
+    changeHp(target: Game_Battler, value: number, allowDeath: boolean) {
         if (target.isAlive()) {
             if (!allowDeath && target.hp <= -value) {
                 value = 1 - target.hp;
@@ -347,7 +351,7 @@ class Game_Interpreter {
         return false;
     };
 
-    setupChoices(params) {
+    setupChoices(params: any[]) {
         var choices = params[0].clone();
         var cancelType = params[1];
         var defaultType = params.length > 2 ? params[2] : 0;
@@ -359,7 +363,7 @@ class Game_Interpreter {
         $gameMessage.setChoices(choices, defaultType, cancelType);
         $gameMessage.setChoiceBackground(background);
         $gameMessage.setChoicePositionType(positionType);
-        $gameMessage.setChoiceCallback(function (n) {
+        $gameMessage.setChoiceCallback(function (n: number) {
             this._branch[this._indent] = n;
         }.bind(this));
     };
@@ -390,7 +394,7 @@ class Game_Interpreter {
         return false;
     };
 
-    setupNumInput(params) {
+    setupNumInput(params: number[]) {
         $gameMessage.setNumberInput(params[0], params[1]);
     };
 
@@ -404,7 +408,7 @@ class Game_Interpreter {
         return false;
     };
 
-    setupItemChoice(params) {
+    setupItemChoice(params: number[]) {
         $gameMessage.setItemChoice(params[0], params[1] || 2);
     };
 
@@ -619,7 +623,7 @@ class Game_Interpreter {
         return true;
     };
 
-    setupChild(list, eventId) {
+    setupChild(list: DB.List[], eventId: number) {
         this._childInterpreter = new Game_Interpreter(this._depth + 1);
         this._childInterpreter.setup(list, eventId);
     };
@@ -642,7 +646,7 @@ class Game_Interpreter {
         return true;
     };
 
-    jumpTo(index) {
+    jumpTo(index: number) {
         var lastIndex = this._index;
         var startIndex = Math.min(index, lastIndex);
         var endIndex = Math.max(index, lastIndex);
@@ -691,7 +695,7 @@ class Game_Interpreter {
         return true;
     };
 
-    gameDataOperand(type, param1, param2) {
+    gameDataOperand(type: number, param1: number, param2: number) {
         switch (type) {
             case 0:  // Item
                 return $gameParty.numItems($dataItems[param1]);
@@ -781,7 +785,7 @@ class Game_Interpreter {
         return 0;
     };
 
-    operateVariable(variableId, operationType, value) {
+    operateVariable(variableId: number, operationType: number, value: number) {
         try {
             var oldValue = $gameVariables.value(variableId);
             switch (operationType) {
@@ -1380,7 +1384,7 @@ class Game_Interpreter {
             }
             if ($dataTroops[troopId]) {
                 BattleManager.setup(troopId, this._params[2], this._params[3]);
-                BattleManager.setEventCallback(function (n) {
+                BattleManager.setEventCallback(function (n: number) {
                     this._branch[this._indent] = n;
                 }.bind(this));
                 $gamePlayer.makeEncounterCount();
@@ -1442,7 +1446,7 @@ class Game_Interpreter {
     // Change HP
     command311() {
         var value = this.operateValue(this._params[2], this._params[3], this._params[4]);
-        this.iterateActorEx(this._params[0], this._params[1], function (actor) {
+        this.iterateActorEx(this._params[0], this._params[1], function (actor: Game_Actor) {
             this.changeHp(actor, value, this._params[5]);
         }.bind(this));
         return true;
@@ -1451,7 +1455,7 @@ class Game_Interpreter {
     // Change MP
     command312() {
         var value = this.operateValue(this._params[2], this._params[3], this._params[4]);
-        this.iterateActorEx(this._params[0], this._params[1], function (actor) {
+        this.iterateActorEx(this._params[0], this._params[1], function (actor: Game_Actor) {
             actor.gainMp(value);
         }.bind(this));
         return true;
@@ -1460,7 +1464,7 @@ class Game_Interpreter {
     // Change TP
     command326() {
         var value = this.operateValue(this._params[2], this._params[3], this._params[4]);
-        this.iterateActorEx(this._params[0], this._params[1], function (actor) {
+        this.iterateActorEx(this._params[0], this._params[1], function (actor: Game_Actor) {
             actor.gainTp(value);
         }.bind(this));
         return true;
@@ -1468,7 +1472,7 @@ class Game_Interpreter {
 
     // Change State
     command313() {
-        this.iterateActorEx(this._params[0], this._params[1], function (actor) {
+        this.iterateActorEx(this._params[0], this._params[1], function (actor: Game_Actor) {
             var alreadyDead = actor.isDead();
             if (this._params[2] === 0) {
                 actor.addState(this._params[3]);
@@ -1485,7 +1489,7 @@ class Game_Interpreter {
 
     // Recover All
     command314() {
-        this.iterateActorEx(this._params[0], this._params[1], function (actor) {
+        this.iterateActorEx(this._params[0], this._params[1], function (actor: Game_Actor) {
             actor.recoverAll();
         }.bind(this));
         return true;
@@ -1494,7 +1498,7 @@ class Game_Interpreter {
     // Change EXP
     command315() {
         var value = this.operateValue(this._params[2], this._params[3], this._params[4]);
-        this.iterateActorEx(this._params[0], this._params[1], function (actor) {
+        this.iterateActorEx(this._params[0], this._params[1], function (actor: Game_Actor) {
             actor.changeExp(actor.currentExp() + value, this._params[5]);
         }.bind(this));
         return true;
@@ -1503,7 +1507,7 @@ class Game_Interpreter {
     // Change Level
     command316() {
         var value = this.operateValue(this._params[2], this._params[3], this._params[4]);
-        this.iterateActorEx(this._params[0], this._params[1], function (actor) {
+        this.iterateActorEx(this._params[0], this._params[1], function (actor: Game_Actor) {
             actor.changeLevel(actor.level + value, this._params[5]);
         }.bind(this));
         return true;
@@ -1512,7 +1516,7 @@ class Game_Interpreter {
     // Change Parameter
     command317() {
         var value = this.operateValue(this._params[3], this._params[4], this._params[5]);
-        this.iterateActorEx(this._params[0], this._params[1], function (actor) {
+        this.iterateActorEx(this._params[0], this._params[1], function (actor: Game_Actor) {
             actor.addParam(this._params[2], value);
         }.bind(this));
         return true;
@@ -1520,7 +1524,7 @@ class Game_Interpreter {
 
     // Change Skill
     command318() {
-        this.iterateActorEx(this._params[0], this._params[1], function (actor) {
+        this.iterateActorEx(this._params[0], this._params[1], function (actor: Game_Actor) {
             if (this._params[2] === 0) {
                 actor.learnSkill(this._params[3]);
             } else {
@@ -1599,7 +1603,7 @@ class Game_Interpreter {
     // Change Enemy HP
     command331() {
         var value = this.operateValue(this._params[1], this._params[2], this._params[3]);
-        this.iterateEnemyIndex(this._params[0], function (enemy) {
+        this.iterateEnemyIndex(this._params[0], function (enemy: Game_Enemy) {
             this.changeHp(enemy, value, this._params[4]);
         }.bind(this));
         return true;
@@ -1608,7 +1612,7 @@ class Game_Interpreter {
     // Change Enemy MP
     command332() {
         var value = this.operateValue(this._params[1], this._params[2], this._params[3]);
-        this.iterateEnemyIndex(this._params[0], function (enemy) {
+        this.iterateEnemyIndex(this._params[0], function (enemy: Game_Enemy) {
             enemy.gainMp(value);
         }.bind(this));
         return true;
@@ -1617,7 +1621,7 @@ class Game_Interpreter {
     // Change Enemy TP
     command342() {
         var value = this.operateValue(this._params[1], this._params[2], this._params[3]);
-        this.iterateEnemyIndex(this._params[0], function (enemy) {
+        this.iterateEnemyIndex(this._params[0], function (enemy: Game_Enemy) {
             enemy.gainTp(value);
         }.bind(this));
         return true;
@@ -1625,7 +1629,7 @@ class Game_Interpreter {
 
     // Change Enemy State
     command333() {
-        this.iterateEnemyIndex(this._params[0], function (enemy) {
+        this.iterateEnemyIndex(this._params[0], function (enemy: Game_Enemy) {
             var alreadyDead = enemy.isDead();
             if (this._params[1] === 0) {
                 enemy.addState(this._params[2]);
@@ -1642,7 +1646,7 @@ class Game_Interpreter {
 
     // Enemy Recover All
     command334() {
-        this.iterateEnemyIndex(this._params[0], function (enemy) {
+        this.iterateEnemyIndex(this._params[0], function (enemy: Game_Enemy) {
             enemy.recoverAll();
         }.bind(this));
         return true;
@@ -1650,7 +1654,7 @@ class Game_Interpreter {
 
     // Enemy Appear
     command335() {
-        this.iterateEnemyIndex(this._params[0], function (enemy) {
+        this.iterateEnemyIndex(this._params[0], function (enemy: Game_Enemy) {
             enemy.appear();
             $gameTroop.makeUniqueNames();
         }.bind(this));
@@ -1659,7 +1663,7 @@ class Game_Interpreter {
 
     // Enemy Transform
     command336() {
-        this.iterateEnemyIndex(this._params[0], function (enemy) {
+        this.iterateEnemyIndex(this._params[0], function (enemy: Game_Enemy) {
             enemy.transform(this._params[1]);
             $gameTroop.makeUniqueNames();
         }.bind(this));
@@ -1669,13 +1673,13 @@ class Game_Interpreter {
     // Show Battle Animation
     command337() {
         if (this._params[2] == true) {
-            this.iterateEnemyIndex(-1, function (enemy) {
+            this.iterateEnemyIndex(-1, function (enemy: Game_Enemy) {
                 if (enemy.isAlive()) {
                     enemy.startAnimation(this._params[1], false, 0);
                 }
             }.bind(this));
         } else {
-            this.iterateEnemyIndex(this._params[0], function (enemy) {
+            this.iterateEnemyIndex(this._params[0], function (enemy: Game_Enemy) {
                 if (enemy.isAlive()) {
                     enemy.startAnimation(this._params[1], false, 0);
                 }
@@ -1686,7 +1690,7 @@ class Game_Interpreter {
 
     // Force Action
     command339() {
-        this.iterateBattler(this._params[0], this._params[1], function (battler) {
+        this.iterateBattler(this._params[0], this._params[1], function (battler: Game_Battler) {
             if (!battler.isDeathStateAffected()) {
                 battler.forceAction(this._params[2], this._params[3]);
                 BattleManager.forceAction(battler);
@@ -1750,11 +1754,11 @@ class Game_Interpreter {
         return true;
     };
 
-    pluginCommand(command, args) {
+    pluginCommand(command: string, args: any[]) {
         // to be overridden by plugins
     };
 
-    static requestImages(list, commonList?) {
+    static requestImages(list: DB.List[] | null, commonList?: DB.List[]) {
         if (!list) return;
 
         list.forEach(function (command) {
@@ -1791,7 +1795,7 @@ class Game_Interpreter {
                 // Set Movement Route
                 case 205:
                     if (params[1]) {
-                        params[1].list.forEach(function (command) {
+                        params[1].list.forEach(function (command: DB.List) {
                             var params = command.parameters;
                             if (command.code === Game_Character.ROUTE_CHANGE_IMAGE) {
                                 ImageManager.requestCharacter(params[0]);

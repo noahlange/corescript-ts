@@ -166,7 +166,7 @@ class Tilemap extends PIXI.Container {
      * @param {Number} height The height of the map in number of tiles
      * @param {Array} data The one dimensional array for the map data
      */
-    setData(width: number, height: number, data) {
+    setData(width: number, height: number, data: number[]) {
         this._mapWidth = width;
         this._mapHeight = height;
         this._mapData = data;
@@ -198,8 +198,8 @@ class Tilemap extends PIXI.Container {
         this.animationCount++;
         this.animationFrame = Math.floor(this.animationCount / 30);
         this.children.forEach(function (child) {
-            if (child['update']) {
-                child['update']();
+            if ((child as any)['update']) {
+                (child as any)['update']();
             }
         });
         for (var i = 0; i < this.bitmaps.length; i++) {
@@ -293,11 +293,11 @@ class Tilemap extends PIXI.Container {
 
         this._lowerLayer = new Sprite();
         this._lowerLayer.move(-margin, -margin); /// bungcip: diedit
-        this._lowerLayer['z'] = 0;
+        (this._lowerLayer as any)['z'] = 0;
 
         this._upperLayer = new Sprite();
         this._upperLayer.move(-margin, -margin); /// bungcip: diedit
-        this._upperLayer['z'] = 4;
+        (this._upperLayer as any)['z'] = 4;
 
         for (var i = 0; i < 4; i++) {
             this._lowerLayer.addChild(new Sprite(this._lowerBitmap));
@@ -328,9 +328,9 @@ class Tilemap extends PIXI.Container {
         for (var i = 0; i < 2; i++) {
             var children;
             if (i === 0) {
-                children = this._lowerLayer.children;
+                children = this._lowerLayer.children as TilingSprite[];
             } else {
-                children = this._upperLayer.children;
+                children = this._upperLayer.children as TilingSprite[];
             }
             children[0].move(0, 0, w1, h1);
             children[0].setFrame(x2, y2, w1, h1);
@@ -475,7 +475,7 @@ class Tilemap extends PIXI.Container {
      * @param {Array} tiles
      * @private
      */
-    protected _writeLastTiles(i: number, x: number, y: number, tiles) {
+    protected _writeLastTiles(i: number, x: number, y: number, tiles: number[]) {
         var array1 = this._lastTiles[i];
         if (!array1) {
             array1 = this._lastTiles[i] = [];

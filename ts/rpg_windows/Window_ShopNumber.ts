@@ -30,8 +30,8 @@ class Window_ShopNumber extends Window_Selectable {
         return this._number;
     };
     
-    setup(item: DB.Item, max: number, price: number) {
-        this._item = item;
+    setup(item: DB.Item | DB.Armor | DB.Weapon, max: number, price: number) {
+        this._item = item as DB.Item;
         this._max = Math.floor(max);
         this._price = price;
         this._number = 1;

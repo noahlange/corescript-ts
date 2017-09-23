@@ -10,7 +10,7 @@ class Window_BattleLog extends Window_Selectable {
     protected _waitCount: number;
     protected _waitMode: string;
     protected _baseLineStack: any[];
-    protected _spriteset;
+    protected _spriteset: null | Spriteset_Battle;
     protected _backBitmap: Bitmap;
     protected _backSprite: Sprite;
 
@@ -28,7 +28,7 @@ class Window_BattleLog extends Window_Selectable {
         this.refresh();
     };
     
-    setSpriteset(spriteset) {
+    setSpriteset(spriteset: Spriteset_Battle) {
         this._spriteset = spriteset;
     };
     
@@ -111,8 +111,8 @@ class Window_BattleLog extends Window_Selectable {
     callNextMethod() {
         if (this._methods.length > 0) {
             var method = this._methods.shift();
-            if (method.name && this[method.name]) {
-                this[method.name].apply(this, method.params);
+            if (method.name && (this as any)[method.name]) {
+                (this as any)[method.name].apply(this, method.params);
             } else {
                 throw new Error('Method not found: ' + method.name);
             }
@@ -173,59 +173,59 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    popupDamage(target) {
+    popupDamage(target: Game_Actor | Game_Enemy) {
         target.startDamagePopup();
     };
     
-    performActionStart(subject, action) {
+    performActionStart(subject: Game_Actor | Game_Enemy, action: Game_Action) {
         subject.performActionStart(action);
     };
     
-    performAction(subject, action) {
+    performAction(subject: Game_Actor | Game_Enemy, action: Game_Action) {
         subject.performAction(action);
     };
     
-    performActionEnd(subject) {
+    performActionEnd(subject: Game_Actor | Game_Enemy) {
         subject.performActionEnd();
     };
     
-    performDamage(target) {
+    performDamage(target: Game_Actor | Game_Enemy) {
         target.performDamage();
     };
     
-    performMiss(target) {
+    performMiss(target: Game_Actor | Game_Enemy) {
         target.performMiss();
     };
     
-    performRecovery(target) {
+    performRecovery(target: Game_Actor | Game_Enemy) {
         target.performRecovery();
     };
     
-    performEvasion(target) {
+    performEvasion(target: Game_Actor | Game_Enemy) {
         target.performEvasion();
     };
     
-    performMagicEvasion(target) {
+    performMagicEvasion(target: Game_Actor | Game_Enemy) {
         target.performMagicEvasion();
     };
     
-    performCounter(target) {
+    performCounter(target: Game_Actor | Game_Enemy) {
         target.performCounter();
     };
     
-    performReflection(target) {
+    performReflection(target: Game_Actor | Game_Enemy) {
         target.performReflection();
     };
     
-    performSubstitute(substitute, target) {
+    performSubstitute(substitute: Game_Actor | Game_Enemy, target: Game_Actor | Game_Enemy) {
         substitute.performSubstitute(target);
     };
     
-    performCollapse(target) {
+    performCollapse(target: Game_Actor | Game_Enemy) {
         target.performCollapse();
     };
     
-    showAnimation(subject, targets, animationId) {
+    showAnimation(subject: Game_Actor | Game_Enemy, targets: Game_Actor[] | Game_Enemy[], animationId: number) {
         if (animationId < 0) {
             this.showAttackAnimation(subject, targets);
         } else {
@@ -233,7 +233,7 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    showAttackAnimation(subject, targets) {
+    showAttackAnimation(subject: Game_Actor | Game_Enemy, targets: Game_Battler[]) {
         if (subject.isActor()) {
             this.showActorAttackAnimation(subject, targets);
         } else {
@@ -241,16 +241,16 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    showActorAttackAnimation(subject, targets) {
+    showActorAttackAnimation(subject: Game_Actor, targets: Game_Battler[]) {
         this.showNormalAnimation(targets, subject.attackAnimationId1(), false);
         this.showNormalAnimation(targets, subject.attackAnimationId2(), true);
     };
     
-    showEnemyAttackAnimation(subject, targets) {
+    showEnemyAttackAnimation(subject: Game_Enemy, targets: Game_Battler[]) {
         SoundManager.playEnemyAttack();
     };
     
-    showNormalAnimation(targets, animationId, mirror?) {
+    showNormalAnimation(targets: Game_Battler[], animationId: number, mirror?: boolean) {
         var animation = $dataAnimations[animationId];
         if (animation) {
             var delay = this.animationBaseDelay();
@@ -304,7 +304,7 @@ class Window_BattleLog extends Window_Selectable {
         return 64;
     };
     
-    drawLineText(index) {
+    drawLineText(index: number) {
         var rect = this.itemRectForText(index);
         this.contents.clearRect(rect.x, rect.y, rect.width, rect.height);
         /// NOTE: changed to make it compiled
@@ -316,8 +316,8 @@ class Window_BattleLog extends Window_Selectable {
         this.push('wait');
     };
     
-    startAction(subject, action, targets) {
-        var item = action.item();
+    startAction(subject: Game_Battler, action: Game_Action, targets: Game_Battler[]) {
+        var item = action.item() as DB.Item;
         this.push('performActionStart', subject, action);
         this.push('waitForMovement');
         this.push('performAction', subject, action);
@@ -325,13 +325,13 @@ class Window_BattleLog extends Window_Selectable {
         this.displayAction(subject, item);
     };
     
-    endAction(subject) {
+    endAction(subject: Game_Battler) {
         this.push('waitForNewLine');
         this.push('clear');
         this.push('performActionEnd', subject);
     };
     
-    displayCurrentState(subject) {
+    displayCurrentState(subject: Game_Battler) {
         var stateText = subject.mostImportantStateText();
         if (stateText) {
             this.push('addText', subject.name() + stateText);
@@ -340,11 +340,11 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayRegeneration(subject) {
+    displayRegeneration(subject: Game_Battler) {
         this.push('popupDamage', subject);
     };
     
-    displayAction(subject, item) {
+    displayAction(subject: Game_Battler, item: DB.Item) {
         var numMethods = this._methods.length;
         if (DataManager.isSkill(item)) {
             if (item.message1) {
@@ -361,23 +361,23 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayCounter(target) {
+    displayCounter(target: Game_Battler) {
         this.push('performCounter', target);
         this.push('addText', TextManager.counterAttack.format(target.name()));
     };
     
-    displayReflection(target) {
+    displayReflection(target: Game_Battler) {
         this.push('performReflection', target);
         this.push('addText', TextManager.magicReflection.format(target.name()));
     };
     
-    displaySubstitute(substitute, target) {
+    displaySubstitute(substitute: Game_Battler, target: Game_Battler) {
         var substName = substitute.name();
         this.push('performSubstitute', substitute, target);
         this.push('addText', TextManager.substitute.format(substName, target.name()));
     };
     
-    displayActionResults(subject, target) {
+    displayActionResults(subject: Game_Battler, target: Game_Battler) {
         if (target.result().used) {
             this.push('pushBaseLine');
             this.displayCritical(target);
@@ -391,13 +391,13 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayFailure(target) {
+    displayFailure(target: Game_Battler) {
         if (target.result().isHit() && !target.result().success) {
             this.push('addText', TextManager.actionFailure.format(target.name()));
         }
     };
     
-    displayCritical(target) {
+    displayCritical(target: Game_Battler) {
         if (target.result().critical) {
             if (target.isActor()) {
                 this.push('addText', TextManager.criticalToActor);
@@ -407,7 +407,7 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayDamage(target) {
+    displayDamage(target: Game_Battler) {
         if (target.result().missed) {
             this.displayMiss(target);
         } else if (target.result().evaded) {
@@ -419,7 +419,7 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayMiss(target) {
+    displayMiss(target: Game_Battler) {
         var fmt;
         if (target.result().physical) {
             fmt = target.isActor() ? TextManager.actorNoHit : TextManager.enemyNoHit;
@@ -430,7 +430,7 @@ class Window_BattleLog extends Window_Selectable {
         this.push('addText', fmt.format(target.name()));
     };
     
-    displayEvasion(target) {
+    displayEvasion(target: Game_Battler) {
         var fmt;
         if (target.result().physical) {
             fmt = TextManager.evasion;
@@ -442,7 +442,7 @@ class Window_BattleLog extends Window_Selectable {
         this.push('addText', fmt.format(target.name()));
     };
     
-    displayHpDamage(target) {
+    displayHpDamage(target: Game_Battler) {
         if (target.result().hpAffected) {
             if (target.result().hpDamage > 0 && !target.result().drain) {
                 this.push('performDamage', target);
@@ -454,7 +454,7 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayMpDamage(target) {
+    displayMpDamage(target: Game_Battler) {
         if (target.isAlive() && target.result().mpDamage !== 0) {
             if (target.result().mpDamage < 0) {
                 this.push('performRecovery', target);
@@ -463,7 +463,7 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayTpDamage(target) {
+    displayTpDamage(target: Game_Battler) {
         if (target.isAlive() && target.result().tpDamage !== 0) {
             if (target.result().tpDamage < 0) {
                 this.push('performRecovery', target);
@@ -472,7 +472,7 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayAffectedStatus(target) {
+    displayAffectedStatus(target: Game_Battler) {
         if (target.result().isStatusAffected()) {
             this.push('pushBaseLine');
             this.displayChangedStates(target);
@@ -482,7 +482,7 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayAutoAffectedStatus(target) {
+    displayAutoAffectedStatus(target: Game_Battler) {
         if (target.result().isStatusAffected()) {
             /// NOTE (bungcip): changed to make it compiled
             this.displayAffectedStatus(target);
@@ -490,12 +490,12 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    displayChangedStates(target) {
+    displayChangedStates(target: Game_Battler) {
         this.displayAddedStates(target);
         this.displayRemovedStates(target);
     };
     
-    displayAddedStates(target) {
+    displayAddedStates(target: Game_Battler) {
         target.result().addedStateObjects().forEach(function(state) {
             var stateMsg = target.isActor() ? state.message1 : state.message2;
             if (state.id === target.deathStateId()) {
@@ -504,13 +504,13 @@ class Window_BattleLog extends Window_Selectable {
             if (stateMsg) {
                 this.push('popBaseLine');
                 this.push('pushBaseLine');
-                this.push('addText', target.name() + stateMsg);
+                this.push('addText', (target as Game_Actor).name()+ stateMsg);
                 this.push('waitForEffect');
             }
         }, this);
     };
     
-    displayRemovedStates(target) {
+    displayRemovedStates(target: Game_Battler ) {
         target.result().removedStateObjects().forEach(function(state) {
             if (state.message4) {
                 this.push('popBaseLine');
@@ -520,14 +520,14 @@ class Window_BattleLog extends Window_Selectable {
         }, this);
     };
     
-    displayChangedBuffs(target) {
+    displayChangedBuffs(target: Game_Battler) {
         var result = target.result();
         this.displayBuffs(target, result.addedBuffs, TextManager.buffAdd);
         this.displayBuffs(target, result.addedDebuffs, TextManager.debuffAdd);
         this.displayBuffs(target, result.removedBuffs, TextManager.buffRemove);
     };
     
-    displayBuffs(target, buffs, fmt) {
+    displayBuffs(target: Game_Battler, buffs: number[], fmt: string) {
         buffs.forEach(function(paramId) {
             this.push('popBaseLine');
             this.push('pushBaseLine');
@@ -535,7 +535,7 @@ class Window_BattleLog extends Window_Selectable {
         }, this);
     };
     
-    makeHpDamageText(target) {
+    makeHpDamageText(target: Game_Battler) {
         var result = target.result();
         var damage = result.hpDamage;
         var isActor = target.isActor();
@@ -555,7 +555,7 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    makeMpDamageText(target) {
+    makeMpDamageText(target: Game_Battler) {
         var result = target.result();
         var damage = result.mpDamage;
         var isActor = target.isActor();
@@ -574,7 +574,7 @@ class Window_BattleLog extends Window_Selectable {
         }
     };
     
-    makeTpDamageText(target) {
+    makeTpDamageText(target: Game_Battler) {
         var result = target.result();
         var damage = result.tpDamage;
         var isActor = target.isActor();

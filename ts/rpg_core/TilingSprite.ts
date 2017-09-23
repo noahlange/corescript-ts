@@ -111,7 +111,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      */
     update() {
         this.children.forEach(function (child) {
-            if (child['update']) {
+            if ((child as any)['update']) {
                 /// bungcip: rapikan... nanti
                 (child as any).update();
             }

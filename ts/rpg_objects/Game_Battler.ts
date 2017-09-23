@@ -11,7 +11,7 @@ interface AnimationState {
     delay: number;
 }
 
-class Game_Battler extends Game_BattlerBase {
+abstract class Game_Battler extends Game_BattlerBase {
     protected _actions: Game_Action[];
     protected _speed: number;
     protected _result: Game_ActionResult;
@@ -327,7 +327,12 @@ class Game_Battler extends Game_BattlerBase {
         this._actions.shift();
     };
     
-    setLastTarget(target: Game_Enemy | Game_Actor) {
+
+    /// bungcip: abstract methods
+    abstract name(): string;
+    abstract index(): number;
+
+    setLastTarget(target: Game_Battler) {
         if (target) {
             this._lastTargetIndex = target.index();
         } else {
@@ -548,6 +553,13 @@ class Game_Battler extends Game_BattlerBase {
     
     performCollapse() {
     };
+
+                
+    /// bungcip: added to base clas
+    isSpriteVisible(): boolean {
+        return true;
+    }
+
     
 }
 

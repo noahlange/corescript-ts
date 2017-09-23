@@ -374,7 +374,7 @@ class TouchInput {
                 event.preventDefault();
             }
         }
-        if (window['cordova'] || window.navigator['standalone']) {
+        if ((window as any)['cordova'] || (window.navigator as any)['standalone']) {
             event.preventDefault();
         }
     };

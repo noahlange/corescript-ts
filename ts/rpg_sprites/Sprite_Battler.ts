@@ -4,8 +4,8 @@
 // The superclass of Sprite_Actor and Sprite_Enemy.
 
 class Sprite_Battler extends Sprite_Base {
-    protected _battler;
-    protected _damages;
+    protected _battler: Game_Battler | null;
+    protected _damages: Sprite_Damage[];
     protected _homeX: number;
     protected _homeY: number;
     protected _offsetX: number;
@@ -15,7 +15,7 @@ class Sprite_Battler extends Sprite_Base {
     protected _movementDuration: number;
     protected _selectionEffectCount: number;
 
-    constructor(battler) {
+    constructor(battler?: Game_Battler) {
         super();
         this.initMembers();
         this.setBattler(battler);
@@ -36,7 +36,7 @@ class Sprite_Battler extends Sprite_Base {
         this._selectionEffectCount = 0;
     };
     
-    setBattler(battler) {
+    setBattler(battler: Game_Battler) {
         this._battler = battler;
     };
     
@@ -192,7 +192,6 @@ class Sprite_Battler extends Sprite_Base {
     inHomePosition() {
         return this._offsetX === 0 && this._offsetY === 0;
     };
-            
 }
 
 

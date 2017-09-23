@@ -4,17 +4,17 @@
 // The sprite for displaying an enemy.
 
 class Sprite_Enemy extends Sprite_Battler {
-    protected _enemy;
-    protected _appeared;
-    protected _battlerName;
-    protected _effectType;
+    protected _enemy: Game_Enemy;
+    protected _appeared: boolean;
+    protected _battlerName: string;
+    protected _effectType: null | string;
     protected _battlerHue: number;
     protected _effectDuration: number;
     protected _shake: number;
-    protected _stateIconSprite;
+    protected _stateIconSprite: Sprite_StateIcon;
     
 
-    constructor(battler) {
+    constructor(battler: Game_Enemy) {
         super(battler)
     }
 
@@ -35,7 +35,7 @@ class Sprite_Enemy extends Sprite_Battler {
         this.addChild(this._stateIconSprite);
     };
 
-    setBattler(battler) {
+    setBattler(battler: Game_Enemy) {
         super.setBattler(battler);
         this._enemy = battler;
         this.setHome(battler.screenX(), battler.screenY());
@@ -62,7 +62,7 @@ class Sprite_Enemy extends Sprite_Battler {
         }
     };
 
-    loadBitmap(name, hue) {
+    loadBitmap(name: string, hue: number) {
         if ($gameSystem.isSideView()) {
             this.bitmap = ImageManager.loadSvEnemy(name, hue);
         } else {
@@ -110,7 +110,7 @@ class Sprite_Enemy extends Sprite_Battler {
         }
     };
 
-    startEffect(effectType) {
+    startEffect(effectType: string) {
         this._effectType = effectType;
         switch (this._effectType) {
             case 'appear':

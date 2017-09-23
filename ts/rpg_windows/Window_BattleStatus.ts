@@ -64,12 +64,12 @@ class Window_BattleStatus extends Window_Selectable {
         return 330;
     };
     
-    drawBasicArea(rect: Rectangle, actor) {
+    drawBasicArea(rect: Rectangle, actor: Game_Actor) {
         this.drawActorName(actor, rect.x + 0, rect.y, 150);
         this.drawActorIcons(actor, rect.x + 156, rect.y, rect.width - 156);
     };
     
-    drawGaugeArea(rect: Rectangle, actor) {
+    drawGaugeArea(rect: Rectangle, actor: Game_Actor) {
         if ($dataSystem.optDisplayTp) {
             this.drawGaugeAreaWithTp(rect, actor);
         } else {
@@ -77,13 +77,13 @@ class Window_BattleStatus extends Window_Selectable {
         }
     };
     
-    drawGaugeAreaWithTp(rect: Rectangle, actor) {
+    drawGaugeAreaWithTp(rect: Rectangle, actor: Game_Actor) {
         this.drawActorHp(actor, rect.x + 0, rect.y, 108);
         this.drawActorMp(actor, rect.x + 123, rect.y, 96);
         this.drawActorTp(actor, rect.x + 234, rect.y, 96);
     };
     
-    drawGaugeAreaWithoutTp(rect: Rectangle, actor) {
+    drawGaugeAreaWithoutTp(rect: Rectangle, actor: Game_Actor) {
         this.drawActorHp(actor, rect.x + 0, rect.y, 201);
         this.drawActorMp(actor, rect.x + 216,  rect.y, 114);
     };

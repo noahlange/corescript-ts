@@ -49,12 +49,12 @@ class Window_EquipSlot extends Window_Selectable {
         }
     };
     
-    slotName(index) {
+    slotName(index: number) {
         var slots = this._actor.equipSlots();
         return this._actor ? $dataSystem.equipTypes[slots[index]] : '';
     };
     
-    isEnabled(index) {
+    isEnabled(index: number) {
         return this._actor ? this._actor.isEquipChangeOk(index) : false;
     };
     

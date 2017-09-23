@@ -16,14 +16,14 @@ class Game_SelfSwitches {
     
     /// NOTE(bungcip: changed to any because weird line in Game_Event.ts: 224)
     value(key: any) {
-        return !!this._data[key];
+        return !!(this._data as any)[key];
     };
     
-    setValue(key: any, value) {
+    setValue(key: any, value: boolean) {
         if (value) {
-            this._data[key] = true;
+            (this._data as any)[key] = true;
         } else {
-            delete this._data[key];
+            delete (this._data as any)[key];
         }
         this.onChange();
     };

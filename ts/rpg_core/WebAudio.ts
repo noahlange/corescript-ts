@@ -7,13 +7,13 @@
  * @param {String} url The url of the audio file
  */
 class WebAudio {
-    protected _loader;
-    protected _url;
+    protected _loader: () => void;
+    protected _url: string;
     // protected _load;
-    protected _buffer: any;
-    protected _sourceNode: any;
-    protected _gainNode: any;
-    protected _pannerNode: any;
+    protected _buffer: AudioBuffer;
+    protected _sourceNode: AudioBufferSourceNode;
+    protected _gainNode: GainNode;
+    protected _pannerNode: PannerNode;
     protected _totalTime: number;
     protected _sampleRate: number;
     protected _loopStart: number;
@@ -22,20 +22,20 @@ class WebAudio {
     protected _volume: number;
     protected _pitch: number;
     protected _pan: number;
-    protected _endTimer: any;
+    protected _endTimer: number;
     protected _loadListeners: Function[];
     protected _stopListeners: Function[];
     protected _hasError: boolean;
     protected _autoPlay: boolean;
     protected static _masterVolume = 1;
-    protected static _context = null;
-    protected static _masterGainNode = null;
+    protected static _context: AudioContext | null = null;
+    protected static _masterGainNode: GainNode | null = null;
     protected static _initialized = false;
     protected static _unlocked = false;
 
 
     protected static _standAlone = (function (top) {
-        return !top['ResourceHandler'];
+        return !(top as any)['ResourceHandler'];
     })(window);
 
 
@@ -130,7 +130,7 @@ class WebAudio {
             if (typeof AudioContext !== 'undefined') {
                 this._context = new AudioContext();
             } else if (typeof webkitAudioContext !== 'undefined') {
-                this._context = new webkitAudioContext();
+                this._context = new webkitAudioContext() as any;
             }
         } catch (e) {
             this._context = null;
@@ -394,7 +394,7 @@ class WebAudio {
      * @param {Boolean} loop Whether the audio data play in a loop
      * @param {Number} offset The start position to play in seconds
      */
-    play(loop, offset: number) {
+    play(loop: boolean, offset: number) {
         if (this.isReady()) {
             offset = offset || 0;
             this._startPlaying(loop, offset);
@@ -531,7 +531,7 @@ class WebAudio {
         var array = xhr.response;
         if (Decrypter.hasEncryptedAudio) array = Decrypter.decryptArrayBuffer(array);
         this._readLoopComments(new Uint8Array(array));
-        WebAudio._context.decodeAudioData(array, function (buffer) {
+        WebAudio._context.decodeAudioData(array, function (buffer: AudioBuffer) {
             this._buffer = buffer;
             this._totalTime = buffer.duration;
             if (this._loopLength > 0 && this._sampleRate > 0) {
@@ -551,7 +551,7 @@ class WebAudio {
      * @param {Number} offset
      * @private
      */
-    protected _startPlaying(loop, offset: number) {
+    protected _startPlaying(loop: boolean, offset: number) {
         this._removeEndTimer();
         this._removeNodes();
         this._createNodes();

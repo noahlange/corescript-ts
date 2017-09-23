@@ -4,13 +4,13 @@
 // The set of sprites on the battle screen.
 
 class Spriteset_Battle extends Spriteset_Base {
-    protected _battlebackLocated;
-    protected _backgroundSprite;
-    protected _battleField;
-    protected _back1Sprite;
-    protected _back2Sprite;
-    protected _actorSprites;
-    protected _enemySprites;
+    protected _battlebackLocated: boolean;
+    protected _backgroundSprite: Sprite;
+    protected _battleField: Sprite;
+    protected _back1Sprite: TilingSprite;
+    protected _back2Sprite: TilingSprite;
+    protected _actorSprites: Sprite_Actor[];
+    protected _enemySprites: Sprite_Enemy[];
 
 
     constructor() {
@@ -147,7 +147,7 @@ class Spriteset_Battle extends Spriteset_Base {
                 this.defaultBattleback2Name());
     };
     
-    terrainBattleback1Name(type) {
+    terrainBattleback1Name(type: number) {
         switch (type) {
         case 24: case 25:
             return 'Wasteland';
@@ -170,7 +170,7 @@ class Spriteset_Battle extends Spriteset_Base {
         }
     };
     
-    terrainBattleback2Name(type) {
+    terrainBattleback2Name(type: number) {
         switch (type) {
         case 20: case 21:
             return 'Forest';
@@ -207,7 +207,7 @@ class Spriteset_Battle extends Spriteset_Base {
         return 'Ship';
     };
     
-    autotileType(z) {
+    autotileType(z: number) {
         return $gameMap.autotileType($gamePlayer.x, $gamePlayer.y, z);
     };
     
@@ -224,7 +224,7 @@ class Spriteset_Battle extends Spriteset_Base {
         this._enemySprites = sprites;
     };
     
-    compareEnemySprite(a, b) {
+    compareEnemySprite(a: Sprite, b: Sprite) {
         if (a.y !== b.y) {
             return a.y - b.y;
         } else {
@@ -247,8 +247,10 @@ class Spriteset_Battle extends Spriteset_Base {
         }
     };
     
-    battlerSprites() {
-        return this._enemySprites.concat(this._actorSprites);
+    battlerSprites(): Sprite_Battler[] {
+        const actors = this._actorSprites as Sprite_Battler[];
+        const enemys = this._enemySprites as Sprite_Battler[];
+        return enemys.concat(actors);
     };
     
     isAnimationPlaying() {

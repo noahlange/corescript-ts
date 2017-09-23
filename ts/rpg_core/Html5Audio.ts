@@ -8,12 +8,12 @@
 class Html5Audio {
     protected static _initialized = false;
     protected static _unlocked = false;
-    protected static _audioElement = null;
-    protected static _gainTweenInterval = null;
+    protected static _audioElement: HTMLAudioElement | null = null;
+    protected static _gainTweenInterval: number | null = null;
     protected static _tweenGain = 0;
     protected static _tweenTargetGain = 0;
     protected static _tweenGainStep = 0;
-    protected static _staticSePath = null;
+    protected static _staticSePath: string | null = null;
 
 
     protected static _url: string;
@@ -291,7 +291,7 @@ class Html5Audio {
      * @static
      * @method stop
      */
-    protected static _tweenInterval;
+    protected static _tweenInterval: number;
     static stop() {
         if (this._audioElement) this._audioElement.pause();
         this._autoPlay = false;

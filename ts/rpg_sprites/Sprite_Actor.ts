@@ -2,20 +2,28 @@
 // Sprite_Actor
 //
 // The sprite for displaying an actor.
+interface Motion {
+    index: number;
+    loop: boolean;
+}
+
+interface MotionMap {
+    [key: string]: Motion
+}
 
 class Sprite_Actor extends Sprite_Battler {
-    protected _battlerName;
-    protected _motion;
-    protected _motionCount;
-    protected _pattern;
-    protected _mainSprite;
-    protected _effectTarget;
-    protected _actor;
-    protected _shadowSprite;
-    protected _weaponSprite;
-    protected _stateSprite;
+    protected _battlerName: string;
+    protected _motion: Motion;
+    protected _motionCount: number;
+    protected _pattern: number;
+    protected _mainSprite: Sprite_Base;
+    protected _effectTarget: Sprite_Base;
+    protected _actor: Game_Actor;
+    protected _shadowSprite: Sprite;
+    protected _weaponSprite: Sprite_Weapon;
+    protected _stateSprite: Sprite_StateOverlay;
 
-    static MOTIONS = {
+    static MOTIONS: MotionMap = {
         walk: { index: 0, loop: true },
         wait: { index: 1, loop: true },
         chant: { index: 2, loop: true },
@@ -36,7 +44,7 @@ class Sprite_Actor extends Sprite_Battler {
         dead: { index: 17, loop: true }
     };
 
-    constructor(battler?) {
+    constructor(battler?: Game_Battler) {
         super(battler);
         this.moveToStartPosition();
     };
@@ -80,7 +88,7 @@ class Sprite_Actor extends Sprite_Battler {
         this.addChild(this._stateSprite);
     };
 
-    setBattler(battler) {
+    setBattler(battler: Game_Actor) {
         super.setBattler(battler);
         var changed = (battler !== this._actor);
         if (changed) {
@@ -134,7 +142,7 @@ class Sprite_Actor extends Sprite_Battler {
         }
     };
 
-    startMotion(motionType) {
+    startMotion(motionType: keyof MotionMap) {
         var newMotion = Sprite_Actor.MOTIONS[motionType];
         if (this._motion !== newMotion) {
             this._motion = newMotion;

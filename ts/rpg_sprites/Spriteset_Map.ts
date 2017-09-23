@@ -4,14 +4,14 @@
 // The set of sprites on the map screen.
 
 class Spriteset_Map extends Spriteset_Base {
-    protected _characterSprites;
-    protected _parallax;
-    protected _tilemap;
-    protected _tileset;
-    protected _shadowSprite;
-    protected _destinationSprite;
-    protected _parallaxName;
-    protected _weather;
+    protected _characterSprites: Sprite_Character[];
+    protected _parallax: TilingSprite;
+    protected _tilemap: ShaderTilemap | Tilemap;
+    protected _tileset: DB.Tileset;
+    protected _shadowSprite: Sprite;
+    protected _destinationSprite: Sprite_Destination;
+    protected _parallaxName: string;
+    protected _weather: Weather;
 
     createLowerLayer() {
         super.createLowerLayer();
@@ -100,13 +100,13 @@ class Spriteset_Map extends Spriteset_Base {
         this._shadowSprite.bitmap = ImageManager.loadSystem('Shadow1');
         this._shadowSprite.anchor.x = 0.5;
         this._shadowSprite.anchor.y = 1;
-        this._shadowSprite.z = 6;
+        (this._shadowSprite as any).z = 6;
         this._tilemap.addChild(this._shadowSprite);
     };
 
     createDestination() {
         this._destinationSprite = new Sprite_Destination();
-        this._destinationSprite.z = 9;
+        (this._destinationSprite as any).z = 9;
         this._tilemap.addChild(this._destinationSprite);
     };
 

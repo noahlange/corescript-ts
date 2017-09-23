@@ -3,11 +3,15 @@
 //
 // The static class that manages the plugins.
 
+interface PluginParamMap {
+    [key: string]: Object;
+}
+
 class PluginManager {
     protected static _path = 'js/plugins/';
     protected static _scripts: HTMLScriptElement[] = [];
     protected static _errorUrls: string[] = [];
-    protected static _parameters = {};
+    protected static _parameters: PluginParamMap = {};
 
     static setup(plugins: any[]) {
         plugins.forEach(function (plugin) {
@@ -41,12 +45,12 @@ class PluginManager {
         script.src = url;
         script.async = false;
         script.onerror = this.onError.bind(this);
-        script['_url'] = url;
+        (script as any)['_url'] = url;
         document.body.appendChild(script);
     };
 
     static onError(e: ErrorEvent) {
-        this._errorUrls.push(e.target['_url']);
+        this._errorUrls.push((e.target as any)['_url']);
     };
 
 }

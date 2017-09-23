@@ -4,24 +4,24 @@
 // The sprite for displaying an animation.
 
 class Sprite_Animation extends Sprite {
-    protected static _checker1 = {};
-    protected static _checker2 = {};
+    protected static _checker1: any = {};
+    protected static _checker2: any = {};
 
     protected _reduceArtifacts: boolean
-    protected _target;
-    protected _animation;
+    protected _target: null | Sprite_Base;
+    protected _animation: null | DB.Animation;
     protected _mirror: boolean;
     protected _delay: number;
     protected _rate: number;
     protected _duration: number;
-    protected _flashColor;
+    protected _flashColor: number[];
     protected _flashDuration: number;
     protected _screenFlashDuration: number;
     protected _hidingDuration: number;
-    protected _bitmap1;
-    protected _bitmap2;
-    protected _cellSprites;
-    protected _screenFlashSprite;
+    protected _bitmap1: Bitmap;
+    protected _bitmap2: Bitmap;
+    protected _cellSprites: Sprite[] | null;
+    protected _screenFlashSprite: ScreenSprite;
     protected _duplicated: boolean;
 
     public z: number;
@@ -51,7 +51,7 @@ class Sprite_Animation extends Sprite {
         this.z = 8;
     };
 
-    setup(target, animation, mirror: boolean, delay: number) {
+    setup(target: Sprite_Base, animation: DB.Animation, mirror: boolean, delay: number) {
         this._target = target;
         this._animation = animation;
         this._mirror = mirror;
@@ -157,19 +157,19 @@ class Sprite_Animation extends Sprite {
     };
 
     createSprites() {
-        if (!Sprite_Animation._checker2[this._animation]) {
+        if (!Sprite_Animation._checker2[this._animation as any]) {
             this.createCellSprites();
             if (this._animation.position === 3) {
-                Sprite_Animation._checker2[this._animation] = true;
+                Sprite_Animation._checker2[this._animation as any] = true;
             }
             this.createScreenFlashSprite();
         }
-        if (Sprite_Animation._checker1[this._animation]) {
+        if (Sprite_Animation._checker1[this._animation as any]) {
             this._duplicated = true;
         } else {
             this._duplicated = false;
             if (this._animation.position === 3) {
-                Sprite_Animation._checker1[this._animation] = true;
+                Sprite_Animation._checker1[this._animation as any] = true;
             }
         }
     };
@@ -242,7 +242,7 @@ class Sprite_Animation extends Sprite {
             Math.floor((this._duration + this._rate - 1) / this._rate));
     };
 
-    updateAllCellSprites(frame) {
+    updateAllCellSprites(frame: number[][]) {
         for (var i = 0; i < this._cellSprites.length; i++) {
             var sprite = this._cellSprites[i];
             if (i < frame.length) {
@@ -253,7 +253,7 @@ class Sprite_Animation extends Sprite {
         }
     };
 
-    updateCellSprite(sprite, cell) {
+    updateCellSprite(sprite: Sprite, cell: number[]) {
         var pattern = cell[0];
         if (pattern >= 0) {
             var sx = pattern % 5 * 192;
@@ -284,7 +284,7 @@ class Sprite_Animation extends Sprite {
         }
     };
 
-    processTimingData(timing) {
+    processTimingData(timing: DB.Timing) {
         var duration = timing.flashDuration * this._rate;
         switch (timing.flashScope) {
             case 1:
@@ -302,12 +302,12 @@ class Sprite_Animation extends Sprite {
         }
     };
 
-    startFlash(color, duration: number) {
+    startFlash(color: number[], duration: number) {
         this._flashColor = color.clone();
         this._flashDuration = duration;
     };
 
-    startScreenFlash(color, duration: number) {
+    startScreenFlash(color: number[], duration: number) {
         this._screenFlashDuration = duration;
         if (this._screenFlashSprite) {
             this._screenFlashSprite.setColor(color[0], color[1], color[2]);

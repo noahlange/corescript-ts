@@ -2,7 +2,7 @@ class Decrypter {
     static hasEncryptedImages = false;
     static hasEncryptedAudio = false;
 
-    static _requestImgFile = [];
+    static _requestImgFile: any[] = [];
     static _headerlength = 16;
     static _xhrOk = 400;
     static _encryptionKey = "";
@@ -30,7 +30,7 @@ class Decrypter {
         requestFile.send();
     
         requestFile.onload = function () {
-            if(this['status'] < Decrypter._xhrOk) {
+            if((this as any)['status'] < Decrypter._xhrOk) {
                 var arrayBuffer = Decrypter.decryptArrayBuffer(requestFile.response);
                 /// NOTE(bungcip): _image is protected, but accessed by Decripter
                 bitmap._image.src = Decrypter.createBlobUrl(arrayBuffer);
@@ -55,7 +55,7 @@ class Decrypter {
         requestFile.send();
     
         requestFile.onload = function () {
-            if(this['status'] < Decrypter._xhrOk) {
+            if((this as any)['status'] < Decrypter._xhrOk) {
                 var arrayBuffer = Decrypter.decryptArrayBuffer(requestFile.response);
                 var url = Decrypter.createBlobUrl(arrayBuffer);
                 AudioManager.createDecryptBuffer(url, bgm, pos);

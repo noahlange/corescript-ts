@@ -191,7 +191,7 @@ class Game_Player extends Game_Character {
     };
 
     makeEncounterTroopId() {
-        var encounterList = [];
+        var encounterList: DB.Encounter[] = [];
         var weightSum = 0;
         $gameMap.encounterList().forEach(function (encounter) {
             if (this.meetsEncounterConditions(encounter)) {
@@ -211,7 +211,7 @@ class Game_Player extends Game_Character {
         return 0;
     };
 
-    meetsEncounterConditions(encounter) {
+    meetsEncounterConditions(encounter: DB.Encounter) {
         return (encounter.regionSet.length === 0 ||
             encounter.regionSet.contains(this.regionId()));
     };
@@ -232,7 +232,7 @@ class Game_Player extends Game_Character {
         }
     };
 
-    startMapEvent(x: number, y: number, triggers, normal) {
+    startMapEvent(x: number, y: number, triggers: number[], normal: boolean) {
         if (!$gameMap.isEventRunning()) {
             $gameMap.eventsXy(x, y).forEach(function (event) {
                 if (event.isTriggerIn(triggers) && event.isNormalPriority() === normal) {
@@ -498,13 +498,13 @@ class Game_Player extends Game_Character {
         return value;
     };
 
-    checkEventTriggerHere(triggers) {
+    checkEventTriggerHere(triggers: number[]) {
         if (this.canStartLocalEvents()) {
             this.startMapEvent(this.x, this.y, triggers, false);
         }
     };
 
-    checkEventTriggerThere(triggers) {
+    checkEventTriggerThere(triggers: number[]) {
         if (this.canStartLocalEvents()) {
             var direction = this.direction();
             var x1 = this.x;
@@ -591,14 +591,14 @@ class Game_Player extends Game_Character {
         return $gameMap.isDamageFloor(this.x, this.y) && !this.isInAirship();
     };
 
-    moveStraight(d) {
+    moveStraight(d: number) {
         if (this.canPass(this.x, this.y, d)) {
             this._followers.updateMove();
         }
         super.moveStraight(d);
     };
 
-    moveDiagonally(horz, vert) {
+    moveDiagonally(horz: number, vert: number) {
         if (this.canPassDiagonally(this.x, this.y, horz, vert)) {
             this._followers.updateMove();
         }

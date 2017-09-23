@@ -4,10 +4,10 @@
 // The window for displaying parameter changes on the equipment screen.
 
 class Window_EquipStatus extends Window_Base {
-    protected _actor;
-    protected _tempActor;
+    protected _actor: Game_Actor | null;
+    protected _tempActor: Game_Actor| null;
     
-    constructor(x, y) {
+    constructor(x: number, y: number) {
         super(x, y);
         this._actor = null;
         this._tempActor = null;
@@ -26,7 +26,7 @@ class Window_EquipStatus extends Window_Base {
         return 7;
     };
     
-    setActor(actor) {
+    setActor(actor: Game_Actor) {
         if (this._actor !== actor) {
             this._actor = actor;
             this.refresh();
@@ -43,14 +43,14 @@ class Window_EquipStatus extends Window_Base {
         }
     };
     
-    setTempActor(tempActor) {
+    setTempActor(tempActor: Game_Actor) {
         if (this._tempActor !== tempActor) {
             this._tempActor = tempActor;
             this.refresh();
         }
     };
     
-    drawItem(x, y, paramId) {
+    drawItem(x: number, y: number, paramId: number) {
         this.drawParamName(x + this.textPadding(), y, paramId);
         if (this._actor) {
             this.drawCurrentParam(x + 140, y, paramId);
@@ -61,26 +61,26 @@ class Window_EquipStatus extends Window_Base {
         }
     };
     
-    drawParamName(x, y, paramId) {
+    drawParamName(x: number, y: number, paramId: number) {
         this.changeTextColor(this.systemColor());
         this.drawText(TextManager.param(paramId), x, y, 120);
     };
     
-    drawCurrentParam(x, y, paramId) {
+    drawCurrentParam(x: number, y: number, paramId: number) {
         this.resetTextColor();
-        this.drawText(this._actor.param(paramId), x, y, 48, 'right');
+        this.drawText(this._actor.param(paramId).toString(), x, y, 48, 'right');
     };
     
-    drawRightArrow(x, y) {
+    drawRightArrow(x: number, y: number) {
         this.changeTextColor(this.systemColor());
         this.drawText('\u2192', x, y, 32, 'center');
     };
     
-    drawNewParam(x, y, paramId) {
+    drawNewParam(x: number, y: number, paramId: number) {
         var newValue = this._tempActor.param(paramId);
         var diffvalue = newValue - this._actor.param(paramId);
         this.changeTextColor(this.paramchangeTextColor(diffvalue));
-        this.drawText(newValue, x, y, 48, 'right');
+        this.drawText(newValue.toString(), x, y, 48, 'right');
     };
     
 }

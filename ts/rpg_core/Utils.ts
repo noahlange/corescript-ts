@@ -47,7 +47,7 @@ class Utils {
      * @return {Boolean} True if the platform is NW.js
      */
     static isNwjs(): boolean {
-        return typeof window['require'] === 'function' && typeof window['process'] === 'object';
+        return typeof (window as any)['require'] === 'function' && typeof (window as any)['process'] === 'object';
     };
 
     /**

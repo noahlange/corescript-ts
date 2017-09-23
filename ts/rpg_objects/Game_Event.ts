@@ -165,7 +165,7 @@ class Game_Event extends Game_Character {
         this._starting = false;
     };
     
-    isTriggerIn(triggers) {
+    isTriggerIn(triggers: number[]) {
         return triggers.contains(this._trigger);
     };
     
@@ -303,7 +303,7 @@ class Game_Event extends Game_Character {
         this.setPattern(this._originalPattern);
     };
     
-    checkEventTriggerTouch(x, y) {
+    checkEventTriggerTouch(x: number, y: number) {
         if (!$gameMap.isEventRunning()) {
             if (this._trigger === 2 && $gamePlayer.pos(x, y)) {
                 if (!this.isJumping() && this.isNormalPriority()) {

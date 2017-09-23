@@ -96,7 +96,7 @@ class Window_MenuStatus extends Window_Selectable {
         return this._formationMode;
     };
 
-    setFormationMode(formationMode) {
+    setFormationMode(formationMode: boolean) {
         this._formationMode = formationMode;
     };
 

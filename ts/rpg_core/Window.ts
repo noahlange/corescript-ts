@@ -12,7 +12,10 @@ class CoreWindow extends PIXI.Container {
     protected _width: number;
     protected _height: number;
     protected _cursorRect: Rectangle;
-    protected _openness: number;
+
+    /// bungcip: required to public in order to compile
+    public _openness: number;
+
     protected _animationCount: number;
     protected _padding: number;
     protected _margin: number;
@@ -248,8 +251,8 @@ class CoreWindow extends PIXI.Container {
             this._animationCount++;
         }
         this.children.forEach(function (child) {
-            if (child['update']) {
-                child['update']();
+            if ((child as any)['update']) {
+                (child as any)['update']();
             }
         });
     };
@@ -359,8 +362,8 @@ class CoreWindow extends PIXI.Container {
      * @method _createAllParts
      * @private
      */
-    protected _downArrowSprite;
-    protected _upArrowSprite;
+    protected _downArrowSprite: Sprite;
+    protected _upArrowSprite: Sprite;
     
     protected _createAllParts() {
         this._windowSpriteContainer = new PIXI.Container();

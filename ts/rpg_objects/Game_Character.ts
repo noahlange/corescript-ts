@@ -3,6 +3,21 @@
 //
 // The superclass of Game_Player, Game_Follower, GameVehicle, and Game_Event.
 
+interface IMapCoord {
+    parent?: null | Object;
+    x?: number;
+    y?: number;
+    g?: number;
+    f?: number;
+}
+
+// start['parent'] = null;
+// start['x'] = this.x;
+// start['y'] = this.y;
+// start['g'] = 0;
+// start['f'] = $gameMap.distance(start['x'], start['y'], goalX, goalY);
+
+
 class Game_Character extends Game_CharacterBase {
     static ROUTE_END = 0;
     static ROUTE_MOVE_DOWN = 1;
@@ -446,21 +461,27 @@ class Game_Character extends Game_CharacterBase {
     findDirectionTo(goalX: number, goalY: number) {
         var searchLimit = this.searchLimit();
         var mapWidth = $gameMap.width();
-        var nodeList = [];
-        var openList = [];
+        var nodeList: IMapCoord[] = [];
+        var openList: number[] = [];
         var closedList = [];
-        var start = {};
-        var best = start;
-
         if (this.x === goalX && this.y === goalY) {
             return 0;
         }
 
-        start['parent'] = null;
-        start['x'] = this.x;
-        start['y'] = this.y;
-        start['g'] = 0;
-        start['f'] = $gameMap.distance(start['x'], start['y'], goalX, goalY);
+        var start : IMapCoord = {
+            parent: null,
+            x: this.x,
+            y: this.y,
+            g: 0,
+            f: $gameMap.distance(this.x, this.y, goalX, goalY)
+        };
+        var best : IMapCoord = start;
+
+        // start['parent'] = null;
+        // start['x'] = this.x;
+        // start['y'] = this.y;
+        // start['g'] = 0;
+        // start['f'] = $gameMap.distance(start['x'], start['y'], goalX, goalY);
         nodeList.push(start);
         openList.push(start['y'] * mapWidth + start['x']);
 
@@ -508,7 +529,7 @@ class Game_Character extends Game_CharacterBase {
                 var index2 = openList.indexOf(pos2);
 
                 if (index2 < 0 || g2 < nodeList[index2].g) {
-                    var neighbor;
+                    var neighbor: IMapCoord;
                     if (index2 >= 0) {
                         neighbor = nodeList[index2];
                     } else {

@@ -14,14 +14,14 @@ class Game_System {
     protected _saveCount: number;
     protected _versionId: number;
     protected _framesOnSave: number;
-    protected _bgmOnSave;
-    protected _bgsOnSave;
-    protected _windowTone;
-    protected _battleBgm;
-    protected _victoryMe;
-    protected _defeatMe;
-    protected _savedBgm;
-    protected _walkingBgm;
+    protected _bgmOnSave: null | DB.Audio;
+    protected _bgsOnSave: null | DB.Audio;
+    protected _windowTone: null | number[];
+    protected _battleBgm: null | DB.Audio;
+    protected _victoryMe: null | DB.Audio;
+    protected _defeatMe: null | DB.Audio;
+    protected _savedBgm: null | DB.Audio;
+    protected _walkingBgm: null | DB.Audio;
 
     constructor() {
         this._saveEnabled = true;
@@ -140,7 +140,7 @@ class Game_System {
         return this._windowTone || $dataSystem.windowTone;
     };
     
-    setWindowTone(value) {
+    setWindowTone(value: number[]) {
         this._windowTone = value;
     };
     
@@ -148,7 +148,7 @@ class Game_System {
         return this._battleBgm || $dataSystem.battleBgm;
     };
     
-    setBattleBgm(value) {
+    setBattleBgm(value: DB.Audio) {
         this._battleBgm = value;
     };
     
@@ -156,7 +156,7 @@ class Game_System {
         return this._victoryMe || $dataSystem.victoryMe;
     };
     
-    setVictoryMe(value) {
+    setVictoryMe(value: DB.Audio) {
         this._victoryMe = value;
     };
     
@@ -164,7 +164,7 @@ class Game_System {
         return this._defeatMe || $dataSystem.defeatMe;
     };
     
-    setDefeatMe(value) {
+    setDefeatMe(value: DB.Audio) {
         this._defeatMe = value;
     };
     

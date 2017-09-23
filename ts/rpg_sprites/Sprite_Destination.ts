@@ -11,10 +11,10 @@ class Sprite_Destination extends Sprite {
         this.createBitmap();
         this._frameCount = 0;
     };
-    
+
     update() {
         super.update();
-        if ($gameTemp.isDestinationValid()){
+        if ($gameTemp.isDestinationValid()) {
             this.updatePosition();
             this.updateAnimation();
             this.visible = true;
@@ -23,7 +23,7 @@ class Sprite_Destination extends Sprite {
             this.visible = false;
         }
     };
-    
+
     createBitmap() {
         var tileWidth = $gameMap.tileWidth();
         var tileHeight = $gameMap.tileHeight();
@@ -33,7 +33,7 @@ class Sprite_Destination extends Sprite {
         this.anchor.y = 0.5;
         this.blendMode = Graphics.BLEND_ADD;
     };
-    
+
     updatePosition() {
         var tileWidth = $gameMap.tileWidth();
         var tileHeight = $gameMap.tileHeight();
@@ -42,7 +42,7 @@ class Sprite_Destination extends Sprite {
         this.x = ($gameMap.adjustX(x) + 0.5) * tileWidth;
         this.y = ($gameMap.adjustY(y) + 0.5) * tileHeight;
     };
-    
+
     updateAnimation() {
         this._frameCount++;
         this._frameCount %= 20;
@@ -50,5 +50,5 @@ class Sprite_Destination extends Sprite {
         this.scale.x = 1 + this._frameCount / 20;
         this.scale.y = this.scale.x;
     };
-    }
+}
 

@@ -22,6 +22,20 @@ declare module DB {
         variableId: number;
         variableValid: boolean;
         variableValue: number;
+
+        turnEnding?: boolean;
+        turnValid?: boolean;
+        turnA?: number;
+        turnB?: number;
+
+        enemyValid?: boolean;
+        enemyIndex?: number;
+
+        actorHp?: number;
+        enemyHp?: number;
+        switchValid?: boolean;
+        switchId?: number;
+
     }
 
     export interface Image {
@@ -72,6 +86,12 @@ declare module DB {
         y: number;
     }
 
+    export interface Encounter {
+        weight: number;
+        troopId: number;
+        regionSet: number[];
+    }
+
     export interface Map {
         autoplayBgm: boolean;
         autoplayBgs: boolean;
@@ -81,7 +101,7 @@ declare module DB {
         bgs: Audio;
         disableDashing: boolean;
         displayName: string;
-        encounterList: any[];
+        encounterList: Encounter[];
         encounterStep: number;
         height: number;
         note: string;

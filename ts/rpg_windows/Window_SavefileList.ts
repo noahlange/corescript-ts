@@ -12,7 +12,7 @@ class Window_SavefileList extends Window_Selectable {
         this._mode = null;
     };
 
-    setMode(mode: string) {
+    setMode(mode: string | null) {
         this._mode = mode;
     };
 

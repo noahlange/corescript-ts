@@ -298,7 +298,7 @@ class AudioManager {
             this.loadStaticSe(se);
             for (var i = 0; i < this._staticBuffers.length; i++) {
                 var buffer = this._staticBuffers[i];
-                if (buffer['_reservedSeName'] === se.name) {
+                if ( (buffer as any)['_reservedSeName'] === se.name) {
                     buffer.stop();
                     this.updateSeParameters(buffer, se);
                     buffer.play(false);
@@ -311,7 +311,7 @@ class AudioManager {
     static loadStaticSe(se: DB.Audio) {
         if (se.name && !this.isStaticSe(se)) {
             var buffer = this.createBuffer('se', se.name);
-            buffer['_reservedSeName'] = se.name;
+            (buffer as any)['_reservedSeName'] = se.name;
             this._staticBuffers.push(buffer);
             if (this.shouldUseHtml5Audio()) {
                 Html5Audio.setStaticSe(buffer.url);
@@ -322,7 +322,7 @@ class AudioManager {
     static isStaticSe(se: DB.Audio) {
         for (var i = 0; i < this._staticBuffers.length; i++) {
             var buffer = this._staticBuffers[i];
-            if (buffer['_reservedSeName'] === se.name) {
+            if ((buffer as any)['_reservedSeName'] === se.name) {
                 return true;
             }
         }

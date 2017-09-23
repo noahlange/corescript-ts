@@ -3,7 +3,7 @@
         "module": "es6",
         "target": "es5",
         "noImplicitUseStrict": false,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "removeComments": false,
         "preserveConstEnums": false,
         "sourceMap": false,

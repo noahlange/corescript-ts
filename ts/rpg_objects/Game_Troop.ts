@@ -3,13 +3,17 @@
 //
 // The game object class for a troop and the battle-related data.
 
+interface EventFlags {
+    [key: number]: boolean;
+}
+
 class Game_Troop extends Game_Unit<Game_Enemy> {
     protected _interpreter: Game_Interpreter;
     protected _troopId: number;
-    protected _eventFlags: Object;
+    protected _eventFlags: EventFlags;
     protected _enemies: Game_Enemy[];
     protected _turnCount: number;
-    protected _namesCount: Object;
+    protected _namesCount: NumberMap;
 
 
     static LETTER_TABLE_HALF = [
@@ -98,8 +102,8 @@ class Game_Troop extends Game_Unit<Game_Enemy> {
             Game_Troop.LETTER_TABLE_HALF;
     };
 
-    enemyNames() {
-        var names = [];
+    enemyNames(): string[] {
+        var names: string[] = [];
         this.members().forEach(function (enemy) {
             var name = enemy.originalName();
             if (enemy.isAlive() && !names.contains(name)) {
@@ -109,7 +113,7 @@ class Game_Troop extends Game_Unit<Game_Enemy> {
         return names;
     };
 
-    meetsConditions(page) {
+    meetsConditions(page: DB.Page) {
         var c = page.conditions;
         if (!c.turnEnding && !c.turnValid && !c.enemyValid &&
             !c.actorValid && !c.switchValid) {

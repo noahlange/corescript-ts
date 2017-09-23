@@ -19,9 +19,10 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
         return this._itemWindow.item();
     };
 
-    user() {
-        return null;
-    };
+    abstract user(): Game_Actor;
+    //  {
+    //     return null;
+    // };
 
     isCursorLeft(): boolean {
         return this._itemWindow.index() % 2 === 0;
@@ -65,7 +66,7 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
     };
 
     /// bungcip: defined to make it compiled
-    abstract playSeForItem();
+    abstract playSeForItem(): void;
 
     useItem() {
         this.playSeForItem();

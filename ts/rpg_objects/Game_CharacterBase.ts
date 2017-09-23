@@ -20,7 +20,7 @@ class Game_CharacterBase {
     protected _pattern: number;
     protected _priorityType: number;
     protected _tileId: number;
-    protected _characterName;
+    protected _characterName: string;
     protected _characterIndex: number;
     protected _isObjectCharacter: boolean;
     protected _walkAnime: boolean;

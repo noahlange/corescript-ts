@@ -171,7 +171,7 @@ class Scene_Base extends Stage {
      * @instance 
      * @memberof Scene_Base
      */
-    addWindow(window) {
+    addWindow(window: CoreWindow) {
         this._windowLayer.addChild(window);
     };
 
@@ -185,10 +185,10 @@ class Scene_Base extends Stage {
      * @instance 
      * @memberof Scene_Base
      */
-    startFadeIn(duration: number, white) {
+    startFadeIn(duration: number = 30, white: boolean = false) {
         this.createFadeSprite(white);
         this._fadeSign = 1;
-        this._fadeDuration = duration || 30;
+        this._fadeDuration = duration;
         this._fadeSprite.opacity = 255;
     };
 
@@ -217,7 +217,7 @@ class Scene_Base extends Stage {
      * @instance 
      * @memberof Scene_Base
      */
-    createFadeSprite(white) {
+    createFadeSprite(white: boolean) {
         if (!this._fadeSprite) {
             this._fadeSprite = new ScreenSprite();
             this.addChild(this._fadeSprite);
@@ -256,7 +256,7 @@ class Scene_Base extends Stage {
      * @memberof Scene_Base
      */
     updateChildren() {
-        this.children.forEach(function (child) {
+        this.children.forEach(function (child: any) {
             if (child['update']) {
                 child['update']();
             }

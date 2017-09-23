@@ -1,3 +1,7 @@
+interface StringMap {
+    [key: string] : any
+}
+
 /**
  * Cache for images, audio, or any other kind of resource
  * @param manager
@@ -5,7 +9,7 @@
  */
 class CacheMap {
     public manager: any;
-    protected _inner: Object;
+    protected _inner: StringMap;
     protected _lastRemovedEntries: any[];
     public updateTicks: number;
     public lastCheckTTL: number;
@@ -14,7 +18,7 @@ class CacheMap {
 
     constructor(manager: any) {
         this.manager = manager;
-        this._inner = new Map();
+        this._inner = {};
         this._lastRemovedEntries = [];
         this.updateTicks = 0;
         this.lastCheckTTL = 0;

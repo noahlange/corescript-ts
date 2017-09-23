@@ -41,7 +41,7 @@ class StorageManager {
             if (this.isLocalMode()) {
                 var data = this.loadFromLocalFile(savefileId);
                 var compressed = LZString.compressToBase64(data);
-                let require = window['require']; // bungcip: changed to make it compile
+                let require = (window as any)['require']; // bungcip: changed to make it compile
                 var fs = require('fs');
                 var dirPath = this.localFileDirectoryPath();
                 var filePath = this.localFilePath(savefileId) + ".bak";
@@ -69,7 +69,7 @@ class StorageManager {
     static cleanBackup(savefileId: number) {
         if (this.backupExists(savefileId)) {
             if (this.isLocalMode()) {
-                let require = window['require']; // bungcip: changed to make it compile
+                let require = (window as any)['require']; // bungcip: changed to make it compile
                 var fs = require('fs');
                 var dirPath = this.localFileDirectoryPath();
                 var filePath = this.localFilePath(savefileId);
@@ -86,7 +86,7 @@ class StorageManager {
             if (this.isLocalMode()) {
                 var data = this.loadFromLocalBackupFile(savefileId);
                 var compressed = LZString.compressToBase64(data);
-                let require = window['require']; // bungcip: changed to make it compile
+                let require = (window as any)['require']; // bungcip: changed to make it compile
                 var fs = require('fs');
                 var dirPath = this.localFileDirectoryPath();
                 var filePath = this.localFilePath(savefileId);
@@ -111,7 +111,7 @@ class StorageManager {
     
     static saveToLocalFile(savefileId: number, json: Object) {
         var data = LZString.compressToBase64(json);
-        let require = window['require']; // bungcip: changed to make it compile
+        let require = (window as any)['require']; // bungcip: changed to make it compile
         var fs = require('fs');
         var dirPath = this.localFileDirectoryPath();
         var filePath = this.localFilePath(savefileId);
@@ -123,7 +123,7 @@ class StorageManager {
     
     static loadFromLocalFile(savefileId: number) {
         var data = null;
-        var require = window['process']; // bungcip: changed to make it compile
+        var require = (window as any)['process']; // bungcip: changed to make it compile
         var fs = require('fs');
         var filePath = this.localFilePath(savefileId);
         if (fs.existsSync(filePath)) {
@@ -134,7 +134,7 @@ class StorageManager {
     
     static loadFromLocalBackupFile(savefileId: number) {
         var data = null;
-        let require = window['require']; // bungcip: changed to make it compile
+        let require = (window as any)['require']; // bungcip: changed to make it compile
         var fs = require('fs');
         var filePath = this.localFilePath(savefileId) + ".bak";
         if (fs.existsSync(filePath)) {
@@ -144,19 +144,19 @@ class StorageManager {
     };
     
     static localFileBackupExists(savefileId: number) {
-        let require = window['require']; // bungcip: changed to make it compile
+        let require = (window as any)['require']; // bungcip: changed to make it compile
         var fs = require('fs');
         return fs.existsSync(this.localFilePath(savefileId) + ".bak");
     };
     
     static localFileExists(savefileId: number) {
-        let require = window['require']; // bungcip: changed to make it compile
+        let require = (window as any)['require']; // bungcip: changed to make it compile
         var fs = require('fs');
         return fs.existsSync(this.localFilePath(savefileId));
     };
     
     static removeLocalFile(savefileId: number) {
-        let require = window['require']; // bungcip: changed to make it compile
+        let require = (window as any)['require']; // bungcip: changed to make it compile
         var fs = require('fs');
         var filePath = this.localFilePath(savefileId);
         if (fs.existsSync(filePath)) {
@@ -198,8 +198,8 @@ class StorageManager {
     };
     
     static localFileDirectoryPath() {
-        let require = window['require']; // bungcip: changed to make it compile
-        let process = window['process']; // bungcip: changed to make it compile
+        let require = (window as any)['require']; // bungcip: changed to make it compile
+        let process = (window as any)['process']; // bungcip: changed to make it compile
         var path = require('path');
     
         var base = path.dirname(process.mainModule.filename);

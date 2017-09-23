@@ -1,12 +1,21 @@
 //-----------------------------------------------------------------------------
+
+interface IInputState {
+    [key: string]: boolean;
+}
+
+interface IInputMapper {
+    [key: number]: string;
+}
+
 /**
  * The static class that handles input data from the keyboard and gamepads.
  *
  * @class Input
  */
 class Input {
-    protected static _currentState: Object;
-    protected static _previousState: Object;
+    protected static _currentState: IInputState;
+    protected static _previousState: IInputState;
     protected static _gamepadStates: any[];
     protected static _latestButton: string;
     protected static _pressedTime: number;
@@ -52,7 +61,7 @@ class Input {
      * @property keyMapper
      * @type Object
      */
-    static keyMapper = {
+    static keyMapper: IInputMapper = {
         9: 'tab',       // tab
         13: 'ok',       // enter
         16: 'shift',    // shift
@@ -86,7 +95,7 @@ class Input {
      * @property gamepadMapper
      * @type Object
      */
-    static gamepadMapper = {
+    static gamepadMapper: IInputMapper = {
         0: 'ok',        // A
         1: 'cancel',    // B
         2: 'shift',     // X
@@ -149,7 +158,7 @@ class Input {
      * @param {String} keyName The mapped name of the key
      * @return {Boolean} True if the key is pressed
      */
-    static isPressed(keyName) {
+    static isPressed(keyName: string) {
         if (this._isEscapeCompatible(keyName) && this.isPressed('escape')) {
             return true;
         } else {
@@ -251,7 +260,7 @@ class Input {
         if (Utils.isNwjs()) {
             var _alert = window.alert;
             window.alert = function () {
-                let require = window['require'];
+                let require = (window as any)['require'];
                 var gui = require('nw.gui');
                 var win = gui.Window.get();
                 _alert.apply(this, arguments);
