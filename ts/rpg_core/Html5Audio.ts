@@ -413,7 +413,7 @@ class Html5Audio {
     /**
      * @static
      * @method _startGainTween
-     * @params {Number} duration
+     * @param {Number} duration
      * @private
      */
     protected static _startGainTween(duration: number) {

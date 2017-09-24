@@ -53,24 +53,6 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
         }
     };
 
-    /// bungcip: duplicate dengan yang dibawah
-    // /**
-    //  * @method _renderWebGL
-    //  * @param {Object} renderer
-    //  * @private
-    //  */
-    // _renderWebGL(renderer) {
-    //     if (this._bitmap) {
-    //         this._bitmap.touch();
-    //     }
-    //     if (this.texture.frame.width > 0 && this.texture.frame.height > 0) {
-    //         if (this._bitmap) {
-    //             this._bitmap.checkDirty();
-    //         }
-    //         this._renderWebGL_PIXI(renderer);
-    //     }
-    // };
-
     /**
      * The image for the tiling sprite.
      *
@@ -112,7 +94,6 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
     update() {
         this.children.forEach(function (child) {
             if ((child as any)['update']) {
-                /// bungcip: rapikan... nanti
                 (child as any).update();
             }
         });
@@ -127,11 +108,11 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @param {Number} width The width of the tiling sprite
      * @param {Number} height The height of the tiling sprite
      */
-    move(x: number, y: number, width: number, height: number) {
-        this.x = x || 0;
-        this.y = y || 0;
-        this._width = width || 0;
-        this._height = height || 0;
+    move(x: number = 0, y: number = 0, width: number = 0, height: number = 0) {
+        this.x = x;
+        this.y = y;
+        this._width = width;
+        this._height = height;
     };
 
     /**
@@ -158,11 +139,9 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
     updateTransform() {
         this.tilePosition.x = Math.round(-this.origin.x);
         this.tilePosition.y = Math.round(-this.origin.y);
-        // this.updateTransformTS();
         super.updateTransform();
     };
 
-    // updateTransformTS = super.updateTransform;;
 
     /**
      * @method _onBitmapLoad
@@ -211,34 +190,4 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
     };
 
 
-
-
-
 }
-
-
-// _renderCanvas_PIXI = PIXI.extras.Picture_renderCanvas;
-// _renderWebGL_PIXI = PIXI.extras.Picture_renderWebGL;
-
-// The important members from Pixi.js
-
-/**
- * The visibility of the tiling sprite.
- *
- * @property visible
- * @type Boolean
- */
-
-/**
- * The x coordinate of the tiling sprite.
- *
- * @property x
- * @type Number
- */
-
-/**
- * The y coordinate of the tiling sprite.
- *
- * @property y
- * @type Number
- */
