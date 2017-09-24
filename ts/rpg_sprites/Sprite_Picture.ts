@@ -5,12 +5,12 @@
 
 class Sprite_Picture extends Sprite {
     protected _pictureId: number;
-    protected _pictureName: string;
+    protected _pictureName: string = '';
     
     constructor(pictureId: number) {
         super();
         this._pictureId = pictureId;
-        this._pictureName = '';
+        // this._pictureName = '';
         this._isPicture = true;
         this.update();
     };

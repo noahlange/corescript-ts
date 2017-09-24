@@ -4,13 +4,13 @@
 // The window for selecting an equipment slot on the equipment screen.
 
 class Window_EquipSlot extends Window_Selectable {
-    protected _actor: Game_Actor;
+    protected _actor: Game_Actor | null = null;
     protected _itemWindow: Window_EquipItem;
     protected _statusWindow: Window_EquipStatus;
 
     constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
-        this._actor = null;
+        // this._actor = null;
         this.refresh();
     };
     

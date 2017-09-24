@@ -4,13 +4,13 @@
 // The window for displaying parameter changes on the equipment screen.
 
 class Window_EquipStatus extends Window_Base {
-    protected _actor: Game_Actor | null;
-    protected _tempActor: Game_Actor| null;
+    protected _actor: Game_Actor | null = null;
+    protected _tempActor: Game_Actor| null = null;
     
     constructor(x: number, y: number) {
         super(x, y);
-        this._actor = null;
-        this._tempActor = null;
+        // this._actor = null;
+        // this._tempActor = null;
         this.refresh();
     };
     

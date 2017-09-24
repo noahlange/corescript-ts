@@ -7,13 +7,13 @@ type ForeachFn = (item: Game_Follower) => void;
 
 class Game_Followers {
     protected _visible: boolean;
-    protected _gathering: boolean;
-    protected _data: Game_Follower[];
+    protected _gathering: boolean = false;
+    protected _data: Game_Follower[] = [];
 
     constructor() {
         this._visible = $dataSystem.optFollowers;
-        this._gathering = false;
-        this._data = [];
+        // this._gathering = false;
+        // this._data = [];
         for (var i = 1; i < $gameParty.maxBattleMembers(); i++) {
             this._data.push(new Game_Follower(i));
         }

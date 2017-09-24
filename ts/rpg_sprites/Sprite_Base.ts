@@ -4,16 +4,16 @@
 // The sprite class with a feature which displays animations.
 
 class Sprite_Base extends Sprite {
-    protected _animationSprites: Sprite_Animation[];
-    protected _effectTarget: Sprite_Base;
-    protected _hiding: boolean;
+    protected _animationSprites: Sprite_Animation[] = [];
+    protected _effectTarget: Sprite_Base = this;
+    protected _hiding: boolean = false;
 
-    constructor() {
-        super();
-        this._animationSprites = [];
-        this._effectTarget = this;
-        this._hiding = false;
-    };
+    // constructor() {
+    //     super();
+    //     this._animationSprites = [];
+    //     this._effectTarget = this;
+    //     this._hiding = false;
+    // };
 
     update() {
         super.update();

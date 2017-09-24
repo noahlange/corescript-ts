@@ -5,16 +5,16 @@
 
 class Window_NumberInput extends Window_Selectable {
     protected _messageWindow: Window_Message;
-    protected _number: number;
-    protected _maxDigits: number;
+    protected _number: number = 0;
+    protected _maxDigits: number = 1;
     protected _buttons: Sprite_Button[];
 
     constructor(messageWindow: Window_Message) {
         super( 0, 0, 0, 0, function(){
             this._messageWindow = messageWindow;
         });
-        this._number = 0;
-        this._maxDigits = 1;
+        // this._number = 0;
+        // this._maxDigits = 1;
         this.openness = 0;
         this.createButtons();
         this.deactivate();

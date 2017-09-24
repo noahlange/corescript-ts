@@ -22,8 +22,8 @@ class Game_Action {
     static HITTYPE_PHYSICAL = 1;
     static HITTYPE_MAGICAL = 2;
 
-    protected _subjectActorId: number;
-    protected _subjectEnemyIndex: number;
+    protected _subjectActorId: number = 0;
+    protected _subjectEnemyIndex: number = -1;
     protected _forcing: boolean;
     protected _item: Game_Item;
     protected _targetIndex: number;
@@ -32,8 +32,8 @@ class Game_Action {
     public _reflectionTarget: Game_Actor | Game_Enemy | null;
 
     constructor(subject: Game_Battler, forcing: boolean = false) {
-        this._subjectActorId = 0;
-        this._subjectEnemyIndex = -1;
+        // this._subjectActorId = 0;
+        // this._subjectEnemyIndex = -1;
         this._forcing = forcing;
         this.setSubject(subject);
         this.clear();

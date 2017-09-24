@@ -5,7 +5,7 @@
 
 class Window_ChoiceList extends Window_Command {
     protected _messageWindow: Window_Message;
-    protected _background: number;
+    protected _background: number = 0;
 
     constructor(messageWindow: Window_Message) {
         super(0, 0, function() {
@@ -13,7 +13,7 @@ class Window_ChoiceList extends Window_Command {
         });
         this.openness = 0;
         this.deactivate();
-        this._background = 0;
+        // this._background = 0;
     };
     
     start() {

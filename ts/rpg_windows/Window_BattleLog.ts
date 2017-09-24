@@ -5,24 +5,24 @@
 // handled as a window for convenience.
 
 class Window_BattleLog extends Window_Selectable {
-    protected _lines: any[];
-    protected _methods: any[];
-    protected _waitCount: number;
-    protected _waitMode: string;
-    protected _baseLineStack: any[];
-    protected _spriteset: null | Spriteset_Battle;
+    protected _lines: any[] = [];
+    protected _methods: any[] = [];
+    protected _waitCount: number = 0;
+    protected _waitMode: string = '';
+    protected _baseLineStack: any[] = [];
+    protected _spriteset: null | Spriteset_Battle = null;
     protected _backBitmap: Bitmap;
     protected _backSprite: Sprite;
 
     constructor() {
         super(0, 0);
         this.opacity = 0;
-        this._lines = [];
-        this._methods = [];
-        this._waitCount = 0;
-        this._waitMode = '';
-        this._baseLineStack = [];
-        this._spriteset = null;
+        // this._lines = [];
+        // this._methods = [];
+        // this._waitCount = 0;
+        // this._waitMode = '';
+        // this._baseLineStack = [];
+        // this._spriteset = null;
         this.createBackBitmap();
         this.createBackSprite();
         this.refresh();

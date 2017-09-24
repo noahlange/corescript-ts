@@ -70,10 +70,7 @@ class Window_NameInput extends Window_Selectable {
         
         
     constructor(editWindow: Window_NameEdit) {
-        var x = editWindow.x;
-        var y = editWindow.y + editWindow.height + 8;
-        var width = editWindow.width;
-        super(x, y, width);
+        super(editWindow.x, editWindow.y + editWindow.height + 8, editWindow.width);
         this._editWindow = editWindow;
         this._page = 0;
         this._index = 0;

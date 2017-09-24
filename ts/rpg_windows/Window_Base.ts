@@ -737,6 +737,3 @@ class Window_Base extends CoreWindow {
     };
 
 }
-
-
-

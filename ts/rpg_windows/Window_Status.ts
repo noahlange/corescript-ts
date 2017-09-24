@@ -4,13 +4,11 @@
 // The window for displaying full status on the status screen.
 
 class Window_Status extends Window_Selectable {
-    protected _actor: Game_Actor;
+    protected _actor: Game_Actor = null;
 
     constructor() {
-        var width = Graphics.boxWidth;
-        var height = Graphics.boxHeight;
-        super(0, 0, width, height);
-        this._actor = null;
+        super(0, 0, Graphics.boxWidth, Graphics.boxHeight);
+        // this._actor = null;
         this.refresh();
         this.activate();
     };

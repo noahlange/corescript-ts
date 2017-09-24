@@ -4,13 +4,13 @@
 // The window for selecting a skill type on the skill screen.
 
 class Window_SkillType extends Window_Command {
-    protected _actor: Game_Actor;
+    protected _actor: Game_Actor = null;
     protected _skillWindow: Window_SkillList;
 
-    constructor(x: number, y: number) {
-        super(x, y);
-        this._actor = null;
-    };
+    // constructor(x: number, y: number) {
+    //     super(x, y);
+    //     this._actor = null;
+    // };
 
     windowWidth(): number {
         return 240;

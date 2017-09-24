@@ -7,7 +7,7 @@ class Sprite_Animation extends Sprite {
     protected static _checker1: any = {};
     protected static _checker2: any = {};
 
-    protected _reduceArtifacts: boolean
+    protected _reduceArtifacts: boolean = true;
     protected _target: null | Sprite_Base;
     protected _animation: null | DB.Animation;
     protected _mirror: boolean;
@@ -28,7 +28,7 @@ class Sprite_Animation extends Sprite {
 
     constructor() {
         super();
-        this._reduceArtifacts = true;
+        // this._reduceArtifacts = true;
         this.initMembers();
     };
 

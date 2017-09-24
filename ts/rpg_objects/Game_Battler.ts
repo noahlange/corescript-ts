@@ -12,18 +12,18 @@ interface AnimationState {
 }
 
 abstract class Game_Battler extends Game_BattlerBase {
-    protected _actions: Game_Action[];
-    protected _speed: number;
-    protected _result: Game_ActionResult;
-    protected _actionState: string;
-    protected _lastTargetIndex: number;
-    protected _animations: AnimationState[];
-    protected _damagePopup: boolean;
-    protected _effectType: string | null;
-    protected _motionType: string | null;
-    protected _weaponImageId: number;
-    protected _motionRefresh: boolean;
-    protected _selected: boolean;
+    protected _actions: Game_Action[] = [];
+    protected _speed: number = 0;
+    protected _result: Game_ActionResult = new Game_ActionResult();
+    protected _actionState: string = '';
+    protected _lastTargetIndex: number = 0;
+    protected _animations: AnimationState[] = [];
+    protected _damagePopup: boolean = false;
+    protected _effectType: string | null = null;
+    protected _motionType: string | null = null;
+    protected _weaponImageId: number = 0;
+    protected _motionRefresh: boolean = false;
+    protected _selected: boolean = false;
 
     initMembers() {
         super.initMembers();

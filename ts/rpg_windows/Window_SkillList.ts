@@ -4,16 +4,16 @@
 // The window for selecting a skill on the skill screen.
 
 class Window_SkillList extends Window_Selectable {
-    protected _actor: Game_Actor;
-    protected _stypeId: number;
-    protected _data: DB.Skill[];
+    protected _actor: Game_Actor = null;
+    protected _stypeId: number = 0;
+    protected _data: DB.Skill[] = [];
 
-    constructor(x: number, y: number, width: number, height: number) {
-        super(x, y, width, height);
-        this._actor = null;
-        this._stypeId = 0;
-        this._data = [];
-    };
+    // constructor(x: number, y: number, width: number, height: number) {
+    //     super(x, y, width, height);
+    //     // this._actor = null;
+    //     // this._stypeId = 0;
+    //     // this._data = [];
+    // };
     
     setActor(actor: Game_Actor) {
         if (this._actor !== actor) {

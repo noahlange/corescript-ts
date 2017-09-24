@@ -4,12 +4,12 @@
 // The window for selecting a save file on the save and load screens.
 
 class Window_SavefileList extends Window_Selectable {
-    protected _mode: string|null;
+    protected _mode: string|null = null;
 
     constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
         this.activate();
-        this._mode = null;
+        // this._mode = null;
     };
 
     setMode(mode: string | null) {

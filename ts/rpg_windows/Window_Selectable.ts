@@ -8,86 +8,86 @@ interface FunctionMap {
 }
 
 class Window_Selectable extends Window_Base {
-    protected _index: number;
-    protected _cursorFixed: boolean;
-    protected _cursorAll: boolean;
-    protected _stayCount: number;
-    protected _helpWindow: null | Window_Help;
-    protected _handlers: FunctionMap;
-    protected _touching: boolean;
-    protected _scrollX: number;
-    protected _scrollY: number;
+    protected _index: number = -1;
+    protected _cursorFixed: boolean = false;
+    protected _cursorAll: boolean = false;
+    protected _stayCount: number = 0;
+    protected _helpWindow: null | Window_Help = null;
+    protected _handlers: FunctionMap = {};
+    protected _touching: boolean = false;
+    protected _scrollX: number = 0;
+    protected _scrollY: number = 0;
 
     constructor(x?: number, y?: number, width?: number, height?: number, callback?: Function) {
         super(x, y, width, height, callback);
-        
-        this._index = -1;
-        this._cursorFixed = false;
-        this._cursorAll = false;
-        this._stayCount = 0;
-        this._helpWindow = null;
-        this._handlers = {};
-        this._touching = false;
-        this._scrollX = 0;
-        this._scrollY = 0;
+
+        // this._index = -1;
+        // this._cursorFixed = false;
+        // this._cursorAll = false;
+        // this._stayCount = 0;
+        // this._helpWindow = null;
+        // this._handlers = {};
+        // this._touching = false;
+        // this._scrollX = 0;
+        // this._scrollY = 0;
         this.deactivate();
     };
-    
+
     index() {
         return this._index;
     };
-    
+
     cursorFixed() {
         return this._cursorFixed;
     };
-    
+
     setCursorFixed(cursorFixed: boolean) {
         this._cursorFixed = cursorFixed;
     };
-    
+
     cursorAll() {
         return this._cursorAll;
     };
-    
+
     setCursorAll(cursorAll: boolean) {
         this._cursorAll = cursorAll;
     };
-    
+
     maxCols() {
         return 1;
     };
-    
+
     maxItems() {
         return 0;
     };
-    
+
     spacing() {
         return 12;
     };
-    
+
     itemWidth() {
         return Math.floor((this.width - this.padding * 2 +
-                           this.spacing()) / this.maxCols() - this.spacing());
+            this.spacing()) / this.maxCols() - this.spacing());
     };
-    
+
     itemHeight() {
         return Window_Base.lineHeight();
     };
-    
+
     maxRows() {
         return Math.max(Math.ceil(this.maxItems() / this.maxCols()), 1);
     };
-    
+
     activate() {
         super.activate();
         this.reselect();
     };
-    
+
     deactivate() {
         super.deactivate();
         this.reselect();
     };
-    
+
     select(index: number) {
         this._index = index;
         this._stayCount = 0;
@@ -95,27 +95,27 @@ class Window_Selectable extends Window_Base {
         this.updateCursor();
         this.callUpdateHelp();
     };
-    
+
     deselect() {
         this.select(-1);
     };
-    
+
     reselect() {
         this.select(this._index);
     };
-    
+
     row() {
         return Math.floor(this.index() / this.maxCols());
     };
-    
+
     topRow() {
         return Math.floor(this._scrollY / this.itemHeight());
     };
-    
+
     maxTopRow() {
         return Math.max(0, this.maxRows() - this.maxPageRows());
     };
-    
+
     setTopRow(row: number) {
         var scrollY = row.clamp(0, this.maxTopRow()) * this.itemHeight();
         if (this._scrollY !== scrollY) {
@@ -124,37 +124,37 @@ class Window_Selectable extends Window_Base {
             this.updateCursor();
         }
     };
-    
+
     resetScroll() {
         this.setTopRow(0);
     };
-    
+
     maxPageRows() {
         var pageHeight = this.height - this.padding * 2;
         return Math.floor(pageHeight / this.itemHeight());
     };
-    
+
     maxPageItems() {
         return this.maxPageRows() * this.maxCols();
     };
-    
+
     isHorizontal() {
         return this.maxPageRows() === 1;
     };
-    
+
     bottomRow() {
         return Math.max(0, this.topRow() + this.maxPageRows() - 1);
     };
-    
+
     setBottomRow(row: number) {
         this.setTopRow(row - (this.maxPageRows() - 1));
     };
-    
+
     topIndex() {
         return this.topRow() * this.maxCols();
     };
-    
-    itemRect(index: number) : Rectangle {
+
+    itemRect(index: number): Rectangle {
         var rect = new Rectangle();
         var maxCols = this.maxCols();
         rect.width = this.itemWidth();
@@ -163,54 +163,54 @@ class Window_Selectable extends Window_Base {
         rect.y = Math.floor(index / maxCols) * rect.height - this._scrollY;
         return rect;
     };
-    
+
     itemRectForText(index: number) {
         var rect = this.itemRect(index);
         rect.x += this.textPadding();
         rect.width -= this.textPadding() * 2;
         return rect;
     };
-    
+
     setHelpWindow(helpWindow: Window_Help) {
         this._helpWindow = helpWindow;
         this.callUpdateHelp();
     };
-    
+
     showHelpWindow() {
         if (this._helpWindow) {
             this._helpWindow.show();
         }
     };
-    
+
     hideHelpWindow() {
         if (this._helpWindow) {
             this._helpWindow.hide();
         }
     };
-    
+
     setHandler(symbol: string, method: Function) {
         this._handlers[symbol] = method;
     };
-    
+
     isHandled(symbol: string) {
         return !!this._handlers[symbol];
     };
-    
+
     callHandler(symbol: string) {
         if (this.isHandled(symbol)) {
             this._handlers[symbol]();
         }
     };
-    
+
     isOpenAndActive(): boolean {
         return this.isOpen() && this.active;
     };
-    
+
     isCursorMovable(): boolean {
         return (this.isOpenAndActive() && !this._cursorFixed &&
-                !this._cursorAll && this.maxItems() > 0);
+            !this._cursorAll && this.maxItems() > 0);
     };
-    
+
     cursorDown(wrap?: boolean) {
         var index = this.index();
         var maxItems = this.maxItems();
@@ -219,7 +219,7 @@ class Window_Selectable extends Window_Base {
             this.select((index + maxCols) % maxItems);
         }
     };
-    
+
     cursorUp(wrap?: boolean) {
         var index = this.index();
         var maxItems = this.maxItems();
@@ -228,7 +228,7 @@ class Window_Selectable extends Window_Base {
             this.select((index - maxCols + maxItems) % maxItems);
         }
     };
-    
+
     cursorRight(wrap: boolean) {
         var index = this.index();
         var maxItems = this.maxItems();
@@ -237,7 +237,7 @@ class Window_Selectable extends Window_Base {
             this.select((index + 1) % maxItems);
         }
     };
-    
+
     cursorLeft(wrap: boolean) {
         var index = this.index();
         var maxItems = this.maxItems();
@@ -246,7 +246,7 @@ class Window_Selectable extends Window_Base {
             this.select((index - 1 + maxItems) % maxItems);
         }
     };
-    
+
     cursorPagedown() {
         var index = this.index();
         var maxItems = this.maxItems();
@@ -255,7 +255,7 @@ class Window_Selectable extends Window_Base {
             this.select(Math.min(index + this.maxPageItems(), maxItems - 1));
         }
     };
-    
+
     cursorPageup() {
         var index = this.index();
         if (this.topRow() > 0) {
@@ -263,19 +263,19 @@ class Window_Selectable extends Window_Base {
             this.select(Math.max(index - this.maxPageItems(), 0));
         }
     };
-    
+
     scrollDown() {
         if (this.topRow() + 1 < this.maxRows()) {
             this.setTopRow(this.topRow() + 1);
         }
     };
-    
+
     scrollUp() {
         if (this.topRow() > 0) {
             this.setTopRow(this.topRow() - 1);
         }
     };
-    
+
     update() {
         super.update();
         this.updateArrows();
@@ -285,14 +285,14 @@ class Window_Selectable extends Window_Base {
         this.processTouch();
         this._stayCount++;
     };
-    
+
     updateArrows() {
         var topRow = this.topRow();
         var maxTopRow = this.maxTopRow();
         this.downArrowVisible = maxTopRow > 0 && topRow < maxTopRow;
         this.upArrowVisible = topRow > 0;
     };
-    
+
     processCursorMove() {
         if (this.isCursorMovable()) {
             var lastIndex = this.index();
@@ -319,7 +319,7 @@ class Window_Selectable extends Window_Base {
             }
         }
     };
-    
+
     processHandling() {
         if (this.isOpenAndActive()) {
             if (this.isOkEnabled() && this.isOkTriggered()) {
@@ -333,7 +333,7 @@ class Window_Selectable extends Window_Base {
             }
         }
     };
-    
+
     processWheel() {
         if (this.isOpenAndActive()) {
             var threshold = 20;
@@ -345,7 +345,7 @@ class Window_Selectable extends Window_Base {
             }
         }
     };
-    
+
     processTouch() {
         if (this.isOpenAndActive()) {
             if (TouchInput.isTriggered() && this.isTouchedInsideFrame()) {
@@ -367,13 +367,13 @@ class Window_Selectable extends Window_Base {
             this._touching = false;
         }
     };
-    
+
     isTouchedInsideFrame() {
         var x = this.canvasToLocalX(TouchInput.x);
         var y = this.canvasToLocalY(TouchInput.y);
         return x >= 0 && y >= 0 && x < this.width && y < this.height;
     };
-    
+
     onTouch(triggered: boolean) {
         var lastIndex = this.index();
         var x = this.canvasToLocalX(TouchInput.x);
@@ -398,7 +398,7 @@ class Window_Selectable extends Window_Base {
             SoundManager.playCursor();
         }
     };
-    
+
     hitTest(x: number, y: number) {
         if (this.isContentsArea(x, y)) {
             var cx = x - this.padding;
@@ -418,7 +418,7 @@ class Window_Selectable extends Window_Base {
         }
         return -1;
     };
-    
+
     isContentsArea(x: number, y: number) {
         var left = this.padding;
         var top = this.padding;
@@ -426,27 +426,27 @@ class Window_Selectable extends Window_Base {
         var bottom = this.height - this.padding;
         return (x >= left && y >= top && x < right && y < bottom);
     };
-    
+
     isTouchOkEnabled() {
         return this.isOkEnabled();
     };
-    
+
     isOkEnabled() {
         return this.isHandled('ok');
     };
-    
+
     isCancelEnabled() {
         return this.isHandled('cancel');
     };
-    
+
     isOkTriggered() {
         return Input.isRepeated('ok');
     };
-    
+
     isCancelTriggered() {
         return Input.isRepeated('cancel');
     };
-    
+
     processOk() {
         if (this.isCurrentItemEnabled()) {
             this.playOkSound();
@@ -457,49 +457,49 @@ class Window_Selectable extends Window_Base {
             this.playBuzzerSound();
         }
     };
-    
+
     playOkSound() {
         SoundManager.playOk();
     };
-    
+
     playBuzzerSound() {
         SoundManager.playBuzzer();
     };
-    
+
     callOkHandler() {
         this.callHandler('ok');
     };
-    
+
     processCancel() {
         SoundManager.playCancel();
         this.updateInputData();
         this.deactivate();
         this.callCancelHandler();
     };
-    
+
     callCancelHandler() {
         this.callHandler('cancel');
     };
-    
+
     processPageup() {
         SoundManager.playCursor();
         this.updateInputData();
         this.deactivate();
         this.callHandler('pageup');
     };
-    
+
     processPagedown() {
         SoundManager.playCursor();
         this.updateInputData();
         this.deactivate();
         this.callHandler('pagedown');
     };
-    
+
     updateInputData() {
         Input.update();
         TouchInput.update();
     };
-    
+
     updateCursor() {
         if (this._cursorAll) {
             var allRowsHeight = this.maxRows() * this.itemHeight();
@@ -512,12 +512,12 @@ class Window_Selectable extends Window_Base {
             this.setCursorRect(0, 0, 0, 0);
         }
     };
-    
+
     isCursorVisible() {
         var row = this.row();
         return row >= this.topRow() && row <= this.bottomRow();
     };
-    
+
     ensureCursorVisible() {
         var row = this.row();
         if (row < this.topRow()) {
@@ -526,27 +526,27 @@ class Window_Selectable extends Window_Base {
             this.setBottomRow(row);
         }
     };
-    
+
     callUpdateHelp() {
         if (this.active && this._helpWindow) {
             this.updateHelp();
         }
     };
-    
+
     updateHelp() {
         this._helpWindow.clear();
     };
-    
+
     setHelpWindowItem(item: DB.Item | DB.Weapon | DB.Armor | DB.Skill) {
         if (this._helpWindow) {
             this._helpWindow.setItem(item);
         }
     };
-    
+
     isCurrentItemEnabled() {
         return true;
     };
-    
+
     drawAllItems() {
         var topIndex = this.topIndex();
         for (var i = 0; i < this.maxPageItems(); i++) {
@@ -556,31 +556,31 @@ class Window_Selectable extends Window_Base {
             }
         }
     };
-    
+
     drawItem(index: number) {
     };
-    
+
     clearItem(index: number) {
         var rect = this.itemRect(index);
         this.contents.clearRect(rect.x, rect.y, rect.width, rect.height);
     };
-    
+
     redrawItem(index: number) {
         if (index >= 0) {
             this.clearItem(index);
             this.drawItem(index);
         }
     };
-    
+
     redrawCurrentItem() {
         this.redrawItem(this.index());
     };
-    
+
     refresh() {
         if (this.contents) {
             this.contents.clear();
             this.drawAllItems();
         }
     };
-    }
+}
 
