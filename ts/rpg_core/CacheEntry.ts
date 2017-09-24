@@ -12,23 +12,23 @@ class CacheEntry {
     public cache: any;
     public key: string;
     public item: string;
-    public cached: boolean;
-    public touchTicks: number;
-    public touchSeconds: number;
-    public ttlSeconds: number;
-    public ttlTicks: number;
-    public freedByTTL: boolean;
+    public cached: boolean = false;
+    public touchTicks: number = 0;
+    public touchSeconds: number = 0;
+    public ttlSeconds: number = 0;
+    public ttlTicks: number = 0;
+    public freedByTTL: boolean = false;
 
     constructor(cache: any, key: string, item: string) {
         this.cache = cache;
         this.key = key;
         this.item = item;
-        this.cached = false;
-        this.touchTicks = 0;
-        this.touchSeconds = 0;
-        this.ttlTicks = 0;
-        this.ttlSeconds = 0;
-        this.freedByTTL = false;
+        // this.cached = false;
+        // this.touchTicks = 0;
+        // this.touchSeconds = 0;
+        // this.ttlTicks = 0;
+        // this.ttlSeconds = 0;
+        // this.freedByTTL = false;
     }
 
     /**

@@ -103,6 +103,3 @@ class ToneSprite extends PIXI.Container {
     };
 
 }
-
-
-

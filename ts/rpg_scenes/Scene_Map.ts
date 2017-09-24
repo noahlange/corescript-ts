@@ -4,10 +4,10 @@
 // The scene class of the map screen.
 
 class Scene_Map extends Scene_Base {
-    protected _waitCount: number;
-    protected _encounterEffectDuration: number;
-    protected _mapLoaded: boolean;
-    protected _touchCount: number;
+    protected _waitCount: number = 0;
+    protected _encounterEffectDuration: number = 0;
+    protected _mapLoaded: boolean = false;
+    protected _touchCount: number = 0;
     protected _transfer: boolean;
     protected _mapNameWindow: Window_MapName;
     protected _spriteset: Spriteset_Map;
@@ -16,13 +16,13 @@ class Scene_Map extends Scene_Base {
 
     public menuCalling: boolean;
 
-    constructor() {
-        super();
-        this._waitCount = 0;
-        this._encounterEffectDuration = 0;
-        this._mapLoaded = false;
-        this._touchCount = 0;
-    };
+    // constructor() {
+    //     super();
+    //     this._waitCount = 0;
+    //     this._encounterEffectDuration = 0;
+    //     this._mapLoaded = false;
+    //     this._touchCount = 0;
+    // };
 
     create() {
         super.create();

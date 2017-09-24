@@ -9,55 +9,55 @@ class Weather extends PIXI.Container {
 
     protected _width: number;
     protected _height: number;
-    protected _sprites: any[];
+    protected _sprites: any[] = [];
 
-    public type: string;
+    /**
+     * The type of the weather in ['none', 'rain', 'storm', 'snow'].
+     *
+     * @property type
+     * @type String
+     */
+    public type: string = 'none';
+
+    /**
+     * The power of the weather in the range (0, 9).
+     *
+     * @property power
+     * @type Number
+     */
     public power: number;
+
+    /**
+     * The origin point of the weather for scrolling.
+     *
+     * @property origin
+     * @type Point
+     */
     public origin: Point;
 
-    protected _rainBitmap : Bitmap;
+    protected _rainBitmap: Bitmap;
     protected _stormBitmap: Bitmap;
     protected _snowBitmap: Bitmap;
 
     protected _dimmerSprite: ScreenSprite;
 
-    
+
     /// bungcip: viewport itu tidak ada? sementara didefinisikan dulu....
     // public viewport;
-    
+
 
     constructor() {
         super();
 
         this._width = Graphics.width;
         this._height = Graphics.height;
-        this._sprites = [];
+        // this._sprites = [];
 
         this._createBitmaps();
         this._createDimmer();
 
-        /**
-         * The type of the weather in ['none', 'rain', 'storm', 'snow'].
-         *
-         * @property type
-         * @type String
-         */
-        this.type = 'none';
-
-        /**
-         * The power of the weather in the range (0, 9).
-         *
-         * @property power
-         * @type Number
-         */
+        // this.type = 'none';
         this.power = 0;
-
-        /**
-         * The origin point of the weather for scrolling.
-         *
-         * @property origin
-         * @type Point
-         */
         this.origin = new Point();
     };
 

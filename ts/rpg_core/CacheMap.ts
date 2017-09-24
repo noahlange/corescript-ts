@@ -9,21 +9,21 @@ interface StringMap {
  */
 class CacheMap {
     public manager: any;
-    protected _inner: StringMap;
-    protected _lastRemovedEntries: any[];
-    public updateTicks: number;
-    public lastCheckTTL: number;
-    public delayCheckTTL: number;
-    public updateSeconds: number;
+    protected _inner: StringMap = {};
+    protected _lastRemovedEntries: any[] = [];
+    public updateTicks: number = 0;
+    public lastCheckTTL: number = 0;
+    public delayCheckTTL: number = 100;
+    public updateSeconds: number = Date.now();
 
     constructor(manager: any) {
         this.manager = manager;
-        this._inner = {};
-        this._lastRemovedEntries = [];
-        this.updateTicks = 0;
-        this.lastCheckTTL = 0;
-        this.delayCheckTTL = 100.0;
-        this.updateSeconds = Date.now();
+        // this._inner = {};
+        // this._lastRemovedEntries = [];
+        // this.updateTicks = 0;
+        // this.lastCheckTTL = 0;
+        // this.delayCheckTTL = 100.0;
+        // this.updateSeconds = Date.now();
     }
 
     /**

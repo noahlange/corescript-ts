@@ -15,10 +15,6 @@ class ImageCache {
 
     protected _items: ImageCacheItems = {};
 
-    // constructor() {
-    //     this._items = {};
-    // };
-
     add(key: string, value: Bitmap) {
         this._items[key] = {
             bitmap: value,
@@ -116,6 +112,4 @@ class ImageCache {
     };
 
 }
-
-
 

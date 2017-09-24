@@ -4,12 +4,12 @@
 // The sprite for displaying the destination place of the touch input.
 
 class Sprite_Destination extends Sprite {
-    protected _frameCount: number;
+    protected _frameCount: number = 0;
 
     constructor() {
         super();
         this.createBitmap();
-        this._frameCount = 0;
+        // this._frameCount = 0;
     };
 
     update() {

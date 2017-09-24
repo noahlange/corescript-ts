@@ -6,16 +6,16 @@
  * @constructor
  */
 class Tilemap extends PIXI.Container {
-    protected _margin: number;
+    protected _margin: number = 20;
     protected _width: number;
     protected _height: number;
-    protected _tileWidth: number;
-    protected _tileHeight: number;
-    protected _mapWidth: number;
-    protected _mapHeight: number;
+    protected _tileWidth: number = 48;
+    protected _tileHeight: number = 48;
+    protected _mapWidth: number = 0;
+    protected _mapHeight: number = 0;
     protected _mapData: null | any[];
-    protected _layerWidth: number;
-    protected _layerHeight: number;
+    protected _layerWidth: number = 0;
+    protected _layerHeight: number = 0;
     protected _lastTiles: any[];
 
     public bitmaps: any;
@@ -28,16 +28,16 @@ class Tilemap extends PIXI.Container {
     constructor() {
         super();
 
-        this._margin = 20;
+        // this._margin = 20;
         this._width = Graphics.width + this._margin * 2;
         this._height = Graphics.height + this._margin * 2;
-        this._tileWidth = 48;
-        this._tileHeight = 48;
-        this._mapWidth = 0;
-        this._mapHeight = 0;
+        // this._tileWidth = 48;
+        // this._tileHeight = 48;
+        // this._mapWidth = 0;
+        // this._mapHeight = 0;
         this._mapData = null;
-        this._layerWidth = 0;
-        this._layerHeight = 0;
+        // this._layerWidth = 0;
+        // this._layerHeight = 0;
         this._lastTiles = [];
 
         /**

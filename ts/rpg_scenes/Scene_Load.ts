@@ -4,12 +4,12 @@
 // The scene class of the load screen.
 
 class Scene_Load extends Scene_File {
-    protected _loadSuccess: boolean;
+    protected _loadSuccess: boolean = false;
 
-    constructor() {
-        super();
-        this._loadSuccess = false;
-    };
+    // constructor() {
+    //     super();
+    //     this._loadSuccess = false;
+    // };
     
     terminate() {
         super.terminate();

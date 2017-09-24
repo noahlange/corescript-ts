@@ -5,12 +5,12 @@
 // required because save data should not include the database object itself.
 
 class Game_Item {
-    protected _dataClass: string;
-    protected _itemId: number;
+    protected _dataClass: string = '';
+    protected _itemId: number = 0;
 
     constructor(item?: DB.Item | DB.Weapon | DB.Armor | DB.Skill) {
-        this._dataClass = '';
-        this._itemId = 0;
+        // this._dataClass = '';
+        // this._itemId = 0;
         if (item) {
             this.setObject(item);
         }

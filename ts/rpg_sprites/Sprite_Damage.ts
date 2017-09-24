@@ -10,16 +10,16 @@ interface ISprite extends Sprite {
 }
 
 class Sprite_Damage extends Sprite {
-    protected _duration: number;
-    protected _flashColor: number[];
-    protected _flashDuration: number;
+    protected _duration: number = 90;
+    protected _flashColor: number[] = [0, 0, 0, 0];
+    protected _flashDuration: number = 0;
     protected _damageBitmap: Bitmap;
 
     constructor() {
         super();
-        this._duration = 90;
-        this._flashColor = [0, 0, 0, 0];
-        this._flashDuration = 0;
+        // this._duration = 90;
+        // this._flashColor = [0, 0, 0, 0];
+        // this._flashDuration = 0;
         this._damageBitmap = ImageManager.loadSystem('Damage');
     };
     

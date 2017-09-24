@@ -4,7 +4,7 @@
 // The superclass of Spriteset_Map and Spriteset_Battle.
 
 abstract class Spriteset_Base extends Sprite {
-    protected _tone: number[];
+    protected _tone: number[] = [0, 0, 0, 0];
     protected _baseSprite: Sprite;
     protected _blackScreen: ScreenSprite;
     protected _toneFilter: ToneFilter;
@@ -17,7 +17,7 @@ abstract class Spriteset_Base extends Sprite {
     constructor() {
         super();
         this.setFrame(0, 0, Graphics.width, Graphics.height);
-        this._tone = [0, 0, 0, 0];
+        // this._tone = [0, 0, 0, 0];
         this.opaque = true;
         this.createLowerLayer();
         this.createToneChanger();

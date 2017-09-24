@@ -66,9 +66,9 @@ class Game_Character extends Game_CharacterBase {
     static ROUTE_PLAY_SE = 44;
     static ROUTE_SCRIPT = 45;
 
-    constructor() {
-        super();
-    };
+    // constructor() {
+    //     super();
+    // };
 
     protected _moveRouteForcing: boolean;
     protected _moveRoute: null | DB.MoveRoute = null;

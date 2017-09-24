@@ -5,16 +5,16 @@
 
 class Game_Temp {
     protected _isPlaytest: boolean;
-    protected _commonEventId: number;
-    protected _destinationX: number|null;
-    protected _destinationY: number|null;
+    protected _commonEventId: number = 0;
+    protected _destinationX: number|null = null;
+    protected _destinationY: number|null = null;
 
 
     constructor() {
         this._isPlaytest = Utils.isOptionValid('test');
-        this._commonEventId = 0;
-        this._destinationX = null;
-        this._destinationY = null;
+        // this._commonEventId = 0;
+        // this._destinationX = null;
+        // this._destinationY = null;
     };
 
     isPlaytest() {

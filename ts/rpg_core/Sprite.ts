@@ -7,43 +7,43 @@
  * @param {Bitmap} bitmap The image for the sprite
  */
 class Sprite extends PIXI.Sprite {
-    protected _bitmap: Bitmap | null;
-    protected _frame: Rectangle;
-    protected _realFrame: Rectangle;
-    protected _blendColor: number[];
-    protected _colorTone: number[];
-    protected _canvas: null | HTMLCanvasElement;
-    protected _context: null | CanvasRenderingContext2D;
-    protected _tintTexture: null | PIXI.BaseTexture;
+    protected _bitmap: Bitmap | null = null;
+    protected _frame: Rectangle = new Rectangle();
+    protected _realFrame: Rectangle = new Rectangle();;
+    protected _blendColor: number[] = [0, 0, 0, 0];
+    protected _colorTone: number[] = [0, 0, 0, 0];
+    protected _canvas: null | HTMLCanvasElement = null;
+    protected _context: null | CanvasRenderingContext2D = null;
+    protected _tintTexture: null | PIXI.BaseTexture = null;
     /**
      * use heavy renderer that will reduce border artifacts and apply advanced blendModes
      * @type {boolean}
      * @private
      */
-    protected _isPicture: boolean;
+    protected _isPicture: boolean = false;
 
     protected _refreshFrame: boolean;
 
     public spriteId: number;
-    public opaque: boolean;
+    public opaque: boolean = false;
 
     static voidFilter = new PIXI.filters.VoidFilter();
     constructor(bitmap?: Bitmap) {
         super(new PIXI.Texture(new PIXI.BaseTexture()))
 
-        this._bitmap = null;
-        this._frame = new Rectangle();
-        this._realFrame = new Rectangle();
-        this._blendColor = [0, 0, 0, 0];
-        this._colorTone = [0, 0, 0, 0];
-        this._canvas = null;
-        this._context = null;
-        this._tintTexture = null;
+        // this._bitmap = null;
+        // this._frame = new Rectangle();
+        // this._realFrame = new Rectangle();
+        // this._blendColor = [0, 0, 0, 0];
+        // this._colorTone = [0, 0, 0, 0];
+        // this._canvas = null;
+        // this._context = null;
+        // this._tintTexture = null;
 
-        this._isPicture = false;
+        // this._isPicture = false;
 
         this.spriteId = Sprite._counter++;
-        this.opaque = false;
+        // this.opaque = false;
 
         this.bitmap = bitmap;
     };
@@ -150,7 +150,7 @@ class Sprite extends PIXI.Sprite {
      * @param {Number} width The width of the frame
      * @param {Number} height The height of the frame
      */
-    setFrame(x:number, y:number, width:number, height:number) {
+    setFrame(x: number, y: number, width: number, height: number) {
         this._refreshFrame = false;
         var frame = this._frame;
         if (x !== frame.x || y !== frame.y ||
@@ -287,7 +287,7 @@ class Sprite extends PIXI.Sprite {
      * @return {Boolean}
      * @private
      */
-    protected _isInBitmapRect(x:number, y:number, w:number, h:number) {
+    protected _isInBitmapRect(x: number, y: number, w: number, h: number) {
         return (this._bitmap && x + w > 0 && y + h > 0 &&
             x < this._bitmap.width && y < this._bitmap.height);
     };
@@ -308,7 +308,7 @@ class Sprite extends PIXI.Sprite {
      * @param {Number} h
      * @private
      */
-    protected _createTinter(w:number, h:number) {
+    protected _createTinter(w: number, h: number) {
         if (!this._canvas) {
             this._canvas = document.createElement('canvas');
             this._context = this._canvas.getContext('2d');
@@ -334,7 +334,7 @@ class Sprite extends PIXI.Sprite {
      * @param {Number} h
      * @private
      */
-    protected _executeTint(x:number, y:number, w:number, h:number) {
+    protected _executeTint(x: number, y: number, w: number, h: number) {
         var context = this._context;
         var tone = this._colorTone;
         var color = this._blendColor;

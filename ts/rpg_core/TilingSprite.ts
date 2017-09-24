@@ -7,8 +7,8 @@
  * @param {Bitmap} bitmap The image for the tiling sprite
  */
 class TilingSprite extends PIXI.extras.PictureTilingSprite {
-    protected _bitmap: Bitmap | null;
-    protected _frame: Rectangle;
+    protected _bitmap: Bitmap | null = null;
+    protected _frame: Rectangle = new Rectangle();
 
     public spriteId: number;
 
@@ -25,10 +25,10 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
     constructor(bitmap?: Bitmap) {
         super(new PIXI.Texture(new PIXI.BaseTexture()));
 
-        this._bitmap = null;
+        // this._bitmap = null;
         this._width = 0;
         this._height = 0;
-        this._frame = new Rectangle();
+        // this._frame = new Rectangle();
         this.spriteId = Sprite._counter++;
 
         this.origin = new Point();

@@ -4,11 +4,11 @@
 // The sprite for displaying the timer.
 
 class Sprite_Timer extends Sprite {
-    protected _seconds: number;
+    protected _seconds: number = 0;
 
     constructor() {
         super();
-        this._seconds = 0;
+        // this._seconds = 0;
         this.createBitmap();
         this.update();
     };

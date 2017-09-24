@@ -7,10 +7,10 @@
  */
 /// bungcip: direname karena bentrok dengan Window dari DOM
 class CoreWindow extends PIXI.Container {
-    protected _isWindow: boolean;
-    protected _windowskin: Bitmap;
-    protected _width: number;
-    protected _height: number;
+    protected _isWindow: boolean = true;
+    protected _windowskin: Bitmap = null;
+    protected _width: number = 0;
+    protected _height: number = 0;
     protected _cursorRect: Rectangle;
 
     /// bungcip: required to public in order to compile
@@ -28,19 +28,53 @@ class CoreWindow extends PIXI.Container {
     protected _windowArrowSprites: Sprite[];
     protected _windowPauseSignSprite: Sprite;
 
+    /**
+     * The origin point of the window for scrolling.
+     *
+     * @property origin
+     * @type Point
+     */
     public origin: Point;
+
+    /**
+     * The active state for the window.
+     *
+     * @property active
+     * @type Boolean
+     */
     public active: boolean;
+
+    /**
+     * The visibility of the down scroll arrow.
+     *
+     * @property downArrowVisible
+     * @type Boolean
+     */
     public downArrowVisible: boolean;
+
+    /**
+     * The visibility of the up scroll arrow.
+     *
+     * @property upArrowVisible
+     * @type Boolean
+     */
     public upArrowVisible: boolean;
+
+    /**
+     * The visibility of the pause sign.
+     *
+     * @property pause
+     * @type Boolean
+     */
     public pause: boolean;
 
     constructor() {
         super();
 
-        this._isWindow = true;
-        this._windowskin = null;
-        this._width = 0;
-        this._height = 0;
+        // this._isWindow = true;
+        // this._windowskin = null;
+        // this._width = 0;
+        // this._height = 0;
         this._cursorRect = new Rectangle();
         this._openness = 255;
         this._animationCount = 0;
@@ -59,44 +93,10 @@ class CoreWindow extends PIXI.Container {
 
         this._createAllParts();
 
-        /**
-         * The origin point of the window for scrolling.
-         *
-         * @property origin
-         * @type Point
-         */
         this.origin = new Point();
-
-        /**
-         * The active state for the window.
-         *
-         * @property active
-         * @type Boolean
-         */
         this.active = true;
-
-        /**
-         * The visibility of the down scroll arrow.
-         *
-         * @property downArrowVisible
-         * @type Boolean
-         */
         this.downArrowVisible = false;
-
-        /**
-         * The visibility of the up scroll arrow.
-         *
-         * @property upArrowVisible
-         * @type Boolean
-         */
         this.upArrowVisible = false;
-
-        /**
-         * The visibility of the pause sign.
-         *
-         * @property pause
-         * @type Boolean
-         */
         this.pause = false;
     };
 

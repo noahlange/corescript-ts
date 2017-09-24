@@ -4,45 +4,45 @@
 // The game object class for the system data.
 
 class Game_System {
-    protected _saveEnabled: boolean;
-    protected _menuEnabled: boolean;
-    protected _encounterEnabled: boolean;
-    protected _formationEnabled: boolean;
-    protected _battleCount: number;
-    protected _winCount: number;
-    protected _escapeCount: number;
-    protected _saveCount: number;
-    protected _versionId: number;
-    protected _framesOnSave: number;
-    protected _bgmOnSave: null | DB.Audio;
-    protected _bgsOnSave: null | DB.Audio;
-    protected _windowTone: null | number[];
-    protected _battleBgm: null | DB.Audio;
-    protected _victoryMe: null | DB.Audio;
-    protected _defeatMe: null | DB.Audio;
-    protected _savedBgm: null | DB.Audio;
-    protected _walkingBgm: null | DB.Audio;
+    protected _saveEnabled: boolean = true;
+    protected _menuEnabled: boolean = true;
+    protected _encounterEnabled: boolean = true;
+    protected _formationEnabled: boolean = true;
+    protected _battleCount: number = 0;
+    protected _winCount: number = 0;
+    protected _escapeCount: number = 0;
+    protected _saveCount: number = 0;
+    protected _versionId: number = 0;
+    protected _framesOnSave: number = 0;
+    protected _bgmOnSave: null | DB.Audio = null;
+    protected _bgsOnSave: null | DB.Audio = null;
+    protected _windowTone: null | number[] = null;
+    protected _battleBgm: null | DB.Audio = null;
+    protected _victoryMe: null | DB.Audio = null;
+    protected _defeatMe: null | DB.Audio = null;
+    protected _savedBgm: null | DB.Audio = null;
+    protected _walkingBgm: null | DB.Audio = null;
 
-    constructor() {
-        this._saveEnabled = true;
-        this._menuEnabled = true;
-        this._encounterEnabled = true;
-        this._formationEnabled = true;
-        this._battleCount = 0;
-        this._winCount = 0;
-        this._escapeCount = 0;
-        this._saveCount = 0;
-        this._versionId = 0;
-        this._framesOnSave = 0;
-        this._bgmOnSave = null;
-        this._bgsOnSave = null;
-        this._windowTone = null;
-        this._battleBgm = null;
-        this._victoryMe = null;
-        this._defeatMe = null;
-        this._savedBgm = null;
-        this._walkingBgm = null;
-    };
+    // constructor() {
+    //     // this._saveEnabled = true;
+    //     // this._menuEnabled = true;
+    //     // this._encounterEnabled = true;
+    //     // this._formationEnabled = true;
+    //     // this._battleCount = 0;
+    //     // this._winCount = 0;
+    //     // this._escapeCount = 0;
+    //     // this._saveCount = 0;
+    //     // this._versionId = 0;
+    //     // this._framesOnSave = 0;
+    //     // this._bgmOnSave = null;
+    //     // this._bgsOnSave = null;
+    //     // this._windowTone = null;
+    //     // this._battleBgm = null;
+    //     // this._victoryMe = null;
+    //     // this._defeatMe = null;
+    //     // this._savedBgm = null;
+    //     // this._walkingBgm = null;
+    // };
     
     isJapanese() {
         return $dataSystem.locale.match(/^ja/);

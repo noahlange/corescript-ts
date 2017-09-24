@@ -4,18 +4,18 @@
 // The sprite for displaying a button.
 
 class Sprite_Button extends Sprite {
-    protected _touching: boolean;
-    protected _coldFrame: null | Rectangle;
-    protected _hotFrame: null | Rectangle;
-    protected _clickHandler: Function;
+    protected _touching: boolean = false;
+    protected _coldFrame: null | Rectangle = null;
+    protected _hotFrame: null | Rectangle = null;
+    protected _clickHandler: Function = null;
 
-    constructor() {
-        super();
-        this._touching = false;
-        this._coldFrame = null;
-        this._hotFrame = null;
-        this._clickHandler = null;
-    };
+    // constructor() {
+    //     super();
+    //     this._touching = false;
+    //     this._coldFrame = null;
+    //     this._hotFrame = null;
+    //     this._clickHandler = null;
+    // };
 
     update() {
         super.update();

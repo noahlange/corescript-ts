@@ -4,7 +4,7 @@
 // The set of sprites on the battle screen.
 
 class Spriteset_Battle extends Spriteset_Base {
-    protected _battlebackLocated: boolean;
+    protected _battlebackLocated: boolean = false;
     protected _backgroundSprite: Sprite;
     protected _battleField: Sprite;
     protected _back1Sprite: TilingSprite;
@@ -13,10 +13,10 @@ class Spriteset_Battle extends Spriteset_Base {
     protected _enemySprites: Sprite_Enemy[];
 
 
-    constructor() {
-        super();
-        this._battlebackLocated = false;
-    };
+    // constructor() {
+    //     super();
+    //     // this._battlebackLocated = false;
+    // };
     
     createLowerLayer() {
         super.createLowerLayer();
