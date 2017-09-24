@@ -53,6 +53,8 @@ interface FontFaceSet extends Set<FontFace> {
 
 interface Document {
     fonts: FontFaceSet;
+    mozFullScreen?: Element;
+    msFullscreenElement?: Element
 }
 
 interface StyleSheet {

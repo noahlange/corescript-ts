@@ -1201,9 +1201,9 @@ class Graphics {
      */
     protected static _switchFullScreen() {
         if (this._isFullScreen()) {
-            this._requestFullScreen();
-        } else {
             this._cancelFullScreen();
+        } else {
+            this._requestFullScreen();
         }
     };
 
@@ -1214,8 +1214,10 @@ class Graphics {
      * @private
      */
     protected static _isFullScreen(): boolean {
-        /// bungcip: edited for compile
-        return (document.fullscreenElement && document.fullscreenElement !== null);
+        return (document.fullscreenElement ||
+            document.mozFullScreen || 
+            document.webkitFullscreenElement ||
+            document.msFullscreenElement) !== null;        
     };
 
     /**
@@ -1224,7 +1226,6 @@ class Graphics {
      * @private
      */
     protected static _requestFullScreen() {
-        /// bungcip: edited for compile
         var element = document.body;
         if (element.requestFullscreen) {
             element.requestFullscreen();
@@ -1237,11 +1238,9 @@ class Graphics {
      * @private
      */
     protected static _cancelFullScreen() {
-        /// bungcip: edited for compile
         if (document.exitFullscreen) {
             document.exitFullscreen();
         }
     };
-
 
 }
