@@ -7,11 +7,6 @@ class Game_Timer {
     protected _frames: number = 0;
     protected _working: boolean = false;
 
-    // constructor() {
-    //     this._frames = 0;
-    //     this._working = false;
-    // };
-
     update(sceneActive: boolean) {
         if (sceneActive && this._working && this._frames > 0) {
             this._frames--;

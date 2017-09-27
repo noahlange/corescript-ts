@@ -4,13 +4,13 @@
 // The window for displaying the map name on the map screen.
 
 class Window_MapName extends Window_Base {
-    protected _showCount: number;
+    protected _showCount: number = 0;
     
     constructor() {
         super(0, 0);
         this.opacity = 0;
         this.contentsOpacity = 0;
-        this._showCount = 0;
+        // this._showCount = 0;
         this.refresh();
     };
     

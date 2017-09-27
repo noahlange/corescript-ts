@@ -16,7 +16,6 @@ abstract class Spriteset_Base extends Sprite {
     constructor() {
         super();
         this.setFrame(0, 0, Graphics.width, Graphics.height);
-        // this._tone = [0, 0, 0, 0];
         this.opaque = true;
         this.createLowerLayer();
         this.createToneChanger();

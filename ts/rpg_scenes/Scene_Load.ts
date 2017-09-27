@@ -6,11 +6,6 @@
 class Scene_Load extends Scene_File {
     protected _loadSuccess: boolean = false;
 
-    // constructor() {
-    //     super();
-    //     this._loadSuccess = false;
-    // };
-    
     terminate() {
         super.terminate();
         if (this._loadSuccess) {

@@ -20,9 +20,6 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
     };
 
     abstract user(): Game_Actor;
-    //  {
-    //     return null;
-    // };
 
     isCursorLeft(): boolean {
         return this._itemWindow.index() % 2 === 0;

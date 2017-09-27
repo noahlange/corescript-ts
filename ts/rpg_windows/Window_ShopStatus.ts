@@ -5,13 +5,13 @@
 // equipment on the shop screen.
 
 class Window_ShopStatus extends Window_Base {
-    protected _item: DB.Item | DB.Weapon | DB.Armor;
-    protected _pageIndex: number;
+    protected _item: DB.Item | DB.Weapon | DB.Armor = null;
+    protected _pageIndex: number = 0;
 
     constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
-        this._item = null;
-        this._pageIndex = 0;
+        // this._item = null;
+        // this._pageIndex = 0;
         this.refresh();
     };
 

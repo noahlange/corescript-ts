@@ -9,11 +9,11 @@ interface BranchMap {
 
 class Game_Interpreter {
     protected _depth: number;
-    protected _branch: BranchMap;
-    protected _params: any[];
-    protected _indent: number;
-    protected _frameCount: number;
-    protected _freezeChecker: number;
+    protected _branch: BranchMap = {};
+    protected _params: any[] = [];
+    protected _indent: number = 0;
+    protected _frameCount: number = 0;
+    protected _freezeChecker: number = 0;
     protected _mapId: number
     protected _eventId: number
     protected _list: null | DB.List[];
@@ -29,11 +29,11 @@ class Game_Interpreter {
         this._depth = depth;
         this.checkOverflow();
         this.clear();
-        this._branch = {};
-        this._params = [];
-        this._indent = 0;
-        this._frameCount = 0;
-        this._freezeChecker = 0;
+        // this._branch = {};
+        // this._params = [];
+        // this._indent = 0;
+        // this._frameCount = 0;
+        // this._freezeChecker = 0;
     };
 
     checkOverflow() {
@@ -1797,7 +1797,7 @@ class Game_Interpreter {
                     if (params[1]) {
                         params[1].list.forEach(function (command: DB.List) {
                             var params = command.parameters;
-                            if (command.code === Game_Character.ROUTE_CHANGE_IMAGE) {
+                            if (command.code === Route.CHANGE_IMAGE) {
                                 ImageManager.requestCharacter(params[0]);
                             }
                         });

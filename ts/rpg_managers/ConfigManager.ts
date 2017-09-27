@@ -20,7 +20,7 @@ class ConfigManager {
     static commandRemember = false;
 
     static get bgmVolume(): number {
-        return AudioManager._bgmVolume;
+        return AudioManager.bgmVolume;
     }
     static set bgmVolume(value: number) {
         AudioManager.bgmVolume = value;

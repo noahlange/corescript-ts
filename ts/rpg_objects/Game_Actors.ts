@@ -6,11 +6,6 @@
 class Game_Actors {
     protected _data: Game_Actor[] = [];
 
-    // constructor(){
-    //     this._data = [];
-        
-    // }
-
     actor(actorId: number) {
         if ($dataActors[actorId]) {
             if (!this._data[actorId]) {

@@ -628,10 +628,6 @@ class Game_Actor extends Game_Battler {
         super.startAnimation(animationId, mirror, delay);
     };
 
-    // performActionStart(action) {
-    //     super.performActionStart(action);
-    // };
-
     performAction(action: Game_Action) {
         super.performAction(action);
         if (action.isAttack()) {
@@ -646,10 +642,6 @@ class Game_Actor extends Game_Battler {
             this.requestMotion('item');
         }
     };
-
-    // performActionEnd() {
-    //     super.performActionEnd();
-    // };
 
     performAttack() {
         var weapons = this.weapons();

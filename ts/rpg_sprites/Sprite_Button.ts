@@ -9,14 +9,6 @@ class Sprite_Button extends Sprite {
     protected _hotFrame: null | Rectangle = null;
     protected _clickHandler: Function = null;
 
-    // constructor() {
-    //     super();
-    //     this._touching = false;
-    //     this._coldFrame = null;
-    //     this._hotFrame = null;
-    //     this._clickHandler = null;
-    // };
-
     update() {
         super.update();
         this.updateFrame();

@@ -22,7 +22,7 @@ interface CoreAudioBuffer {
 
 class AudioManager {
     protected static _masterVolume = 1;   // (min: 0, max: 1)
-    public static _bgmVolume = 100; /// bungcip: karena dipakai oleh ConfigManager
+    protected static _bgmVolume = 100;
     protected static _bgsVolume = 100;
     protected static _meVolume = 100;
     protected static _seVolume = 100;

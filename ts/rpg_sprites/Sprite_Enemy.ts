@@ -14,9 +14,9 @@ class Sprite_Enemy extends Sprite_Battler {
     protected _stateIconSprite: Sprite_StateIcon;
     
 
-    constructor(battler: Game_Enemy) {
-        super(battler)
-    }
+    // constructor(battler: Game_Enemy) {
+    //     super(battler)
+    // }
 
     initMembers() {
         super.initMembers();

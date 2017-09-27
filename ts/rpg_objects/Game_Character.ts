@@ -11,56 +11,57 @@ interface IMapCoord {
     f?: number;
 }
 
+enum Route {
+    END = 0,
+    MOVE_DOWN = 1,
+    MOVE_LEFT = 2,
+    MOVE_RIGHT = 3,
+    MOVE_UP = 4,
+    MOVE_LOWER_L = 5,
+    MOVE_LOWER_R = 6,
+    MOVE_UPPER_L = 7,
+    MOVE_UPPER_R = 8,
+    MOVE_RANDOM = 9,
+    MOVE_TOWARD = 10,
+    MOVE_AWAY = 11,
+    MOVE_FORWARD = 12,
+    MOVE_BACKWARD = 13,
+    JUMP = 14,
+    WAIT = 15,
+    TURN_DOWN = 16,
+    TURN_LEFT = 17,
+    TURN_RIGHT = 18,
+    TURN_UP = 19,
+    TURN_90D_R = 20,
+    TURN_90D_L = 21,
+    TURN_180D = 22,
+    TURN_90D_R_L = 23,
+    TURN_RANDOM = 24,
+    TURN_TOWARD = 25,
+    TURN_AWAY = 26,
+    SWITCH_ON = 27,
+    SWITCH_OFF = 28,
+    CHANGE_SPEED = 29,
+    CHANGE_FREQ = 30,
+    WALK_ANIME_ON = 31,
+    WALK_ANIME_OFF = 32,
+    STEP_ANIME_ON = 33,
+    STEP_ANIME_OFF = 34,
+    DIR_FIX_ON = 35,
+    DIR_FIX_OFF = 36,
+    THROUGH_ON = 37,
+    THROUGH_OFF = 38,
+    TRANSPARENT_ON = 39,
+    TRANSPARENT_OFF = 40,
+    CHANGE_IMAGE = 41,
+    CHANGE_OPACITY = 42,
+    CHANGE_BLEND_MODE = 43,
+    PLAY_SE = 44,
+    SCRIPT = 45,
+}
 
 
 class Game_Character extends Game_CharacterBase {
-    static ROUTE_END = 0;
-    static ROUTE_MOVE_DOWN = 1;
-    static ROUTE_MOVE_LEFT = 2;
-    static ROUTE_MOVE_RIGHT = 3;
-    static ROUTE_MOVE_UP = 4;
-    static ROUTE_MOVE_LOWER_L = 5;
-    static ROUTE_MOVE_LOWER_R = 6;
-    static ROUTE_MOVE_UPPER_L = 7;
-    static ROUTE_MOVE_UPPER_R = 8;
-    static ROUTE_MOVE_RANDOM = 9;
-    static ROUTE_MOVE_TOWARD = 10;
-    static ROUTE_MOVE_AWAY = 11;
-    static ROUTE_MOVE_FORWARD = 12;
-    static ROUTE_MOVE_BACKWARD = 13;
-    static ROUTE_JUMP = 14;
-    static ROUTE_WAIT = 15;
-    static ROUTE_TURN_DOWN = 16;
-    static ROUTE_TURN_LEFT = 17;
-    static ROUTE_TURN_RIGHT = 18;
-    static ROUTE_TURN_UP = 19;
-    static ROUTE_TURN_90D_R = 20;
-    static ROUTE_TURN_90D_L = 21;
-    static ROUTE_TURN_180D = 22;
-    static ROUTE_TURN_90D_R_L = 23;
-    static ROUTE_TURN_RANDOM = 24;
-    static ROUTE_TURN_TOWARD = 25;
-    static ROUTE_TURN_AWAY = 26;
-    static ROUTE_SWITCH_ON = 27;
-    static ROUTE_SWITCH_OFF = 28;
-    static ROUTE_CHANGE_SPEED = 29;
-    static ROUTE_CHANGE_FREQ = 30;
-    static ROUTE_WALK_ANIME_ON = 31;
-    static ROUTE_WALK_ANIME_OFF = 32;
-    static ROUTE_STEP_ANIME_ON = 33;
-    static ROUTE_STEP_ANIME_OFF = 34;
-    static ROUTE_DIR_FIX_ON = 35;
-    static ROUTE_DIR_FIX_OFF = 36;
-    static ROUTE_THROUGH_ON = 37;
-    static ROUTE_THROUGH_OFF = 38;
-    static ROUTE_TRANSPARENT_ON = 39;
-    static ROUTE_TRANSPARENT_OFF = 40;
-    static ROUTE_CHANGE_IMAGE = 41;
-    static ROUTE_CHANGE_OPACITY = 42;
-    static ROUTE_CHANGE_BLEND_MODE = 43;
-    static ROUTE_PLAY_SE = 44;
-    static ROUTE_SCRIPT = 45;
-
     protected _moveRouteForcing: boolean;
     protected _moveRoute: null | DB.MoveRoute = null;
     protected _moveRouteIndex = 0;
@@ -131,145 +132,145 @@ class Game_Character extends Game_CharacterBase {
     };
 
     processMoveCommand(command: DB.List) {
-        var gc = Game_Character;
+        // var gc = Game_Character;
         var params = command.parameters;
         switch (command.code) {
-            case gc.ROUTE_END:
+            case Route.END:
                 this.processRouteEnd();
                 break;
-            case gc.ROUTE_MOVE_DOWN:
+            case Route.MOVE_DOWN:
                 this.moveStraight(2);
                 break;
-            case gc.ROUTE_MOVE_LEFT:
+            case Route.MOVE_LEFT:
                 this.moveStraight(4);
                 break;
-            case gc.ROUTE_MOVE_RIGHT:
+            case Route.MOVE_RIGHT:
                 this.moveStraight(6);
                 break;
-            case gc.ROUTE_MOVE_UP:
+            case Route.MOVE_UP:
                 this.moveStraight(8);
                 break;
-            case gc.ROUTE_MOVE_LOWER_L:
+            case Route.MOVE_LOWER_L:
                 this.moveDiagonally(4, 2);
                 break;
-            case gc.ROUTE_MOVE_LOWER_R:
+            case Route.MOVE_LOWER_R:
                 this.moveDiagonally(6, 2);
                 break;
-            case gc.ROUTE_MOVE_UPPER_L:
+            case Route.MOVE_UPPER_L:
                 this.moveDiagonally(4, 8);
                 break;
-            case gc.ROUTE_MOVE_UPPER_R:
+            case Route.MOVE_UPPER_R:
                 this.moveDiagonally(6, 8);
                 break;
-            case gc.ROUTE_MOVE_RANDOM:
+            case Route.MOVE_RANDOM:
                 this.moveRandom();
                 break;
-            case gc.ROUTE_MOVE_TOWARD:
+            case Route.MOVE_TOWARD:
                 this.moveTowardPlayer();
                 break;
-            case gc.ROUTE_MOVE_AWAY:
+            case Route.MOVE_AWAY:
                 this.moveAwayFromPlayer();
                 break;
-            case gc.ROUTE_MOVE_FORWARD:
+            case Route.MOVE_FORWARD:
                 this.moveForward();
                 break;
-            case gc.ROUTE_MOVE_BACKWARD:
+            case Route.MOVE_BACKWARD:
                 this.moveBackward();
                 break;
-            case gc.ROUTE_JUMP:
+            case Route.JUMP:
                 this.jump(params[0], params[1]);
                 break;
-            case gc.ROUTE_WAIT:
+            case Route.WAIT:
                 this._waitCount = params[0] - 1;
                 break;
-            case gc.ROUTE_TURN_DOWN:
+            case Route.TURN_DOWN:
                 this.setDirection(2);
                 break;
-            case gc.ROUTE_TURN_LEFT:
+            case Route.TURN_LEFT:
                 this.setDirection(4);
                 break;
-            case gc.ROUTE_TURN_RIGHT:
+            case Route.TURN_RIGHT:
                 this.setDirection(6);
                 break;
-            case gc.ROUTE_TURN_UP:
+            case Route.TURN_UP:
                 this.setDirection(8);
                 break;
-            case gc.ROUTE_TURN_90D_R:
+            case Route.TURN_90D_R:
                 this.turnRight90();
                 break;
-            case gc.ROUTE_TURN_90D_L:
+            case Route.TURN_90D_L:
                 this.turnLeft90();
                 break;
-            case gc.ROUTE_TURN_180D:
+            case Route.TURN_180D:
                 this.turn180();
                 break;
-            case gc.ROUTE_TURN_90D_R_L:
+            case Route.TURN_90D_R_L:
                 this.turnRightOrLeft90();
                 break;
-            case gc.ROUTE_TURN_RANDOM:
+            case Route.TURN_RANDOM:
                 this.turnRandom();
                 break;
-            case gc.ROUTE_TURN_TOWARD:
+            case Route.TURN_TOWARD:
                 this.turnTowardPlayer();
                 break;
-            case gc.ROUTE_TURN_AWAY:
+            case Route.TURN_AWAY:
                 this.turnAwayFromPlayer();
                 break;
-            case gc.ROUTE_SWITCH_ON:
+            case Route.SWITCH_ON:
                 $gameSwitches.setValue(params[0], true);
                 break;
-            case gc.ROUTE_SWITCH_OFF:
+            case Route.SWITCH_OFF:
                 $gameSwitches.setValue(params[0], false);
                 break;
-            case gc.ROUTE_CHANGE_SPEED:
+            case Route.CHANGE_SPEED:
                 this.setMoveSpeed(params[0]);
                 break;
-            case gc.ROUTE_CHANGE_FREQ:
+            case Route.CHANGE_FREQ:
                 this.setMoveFrequency(params[0]);
                 break;
-            case gc.ROUTE_WALK_ANIME_ON:
+            case Route.WALK_ANIME_ON:
                 this.setWalkAnime(true);
                 break;
-            case gc.ROUTE_WALK_ANIME_OFF:
+            case Route.WALK_ANIME_OFF:
                 this.setWalkAnime(false);
                 break;
-            case gc.ROUTE_STEP_ANIME_ON:
+            case Route.STEP_ANIME_ON:
                 this.setStepAnime(true);
                 break;
-            case gc.ROUTE_STEP_ANIME_OFF:
+            case Route.STEP_ANIME_OFF:
                 this.setStepAnime(false);
                 break;
-            case gc.ROUTE_DIR_FIX_ON:
+            case Route.DIR_FIX_ON:
                 this.setDirectionFix(true);
                 break;
-            case gc.ROUTE_DIR_FIX_OFF:
+            case Route.DIR_FIX_OFF:
                 this.setDirectionFix(false);
                 break;
-            case gc.ROUTE_THROUGH_ON:
+            case Route.THROUGH_ON:
                 this.setThrough(true);
                 break;
-            case gc.ROUTE_THROUGH_OFF:
+            case Route.THROUGH_OFF:
                 this.setThrough(false);
                 break;
-            case gc.ROUTE_TRANSPARENT_ON:
+            case Route.TRANSPARENT_ON:
                 this.setTransparent(true);
                 break;
-            case gc.ROUTE_TRANSPARENT_OFF:
+            case Route.TRANSPARENT_OFF:
                 this.setTransparent(false);
                 break;
-            case gc.ROUTE_CHANGE_IMAGE:
+            case Route.CHANGE_IMAGE:
                 this.setImage(params[0], params[1]);
                 break;
-            case gc.ROUTE_CHANGE_OPACITY:
+            case Route.CHANGE_OPACITY:
                 this.setOpacity(params[0]);
                 break;
-            case gc.ROUTE_CHANGE_BLEND_MODE:
+            case Route.CHANGE_BLEND_MODE:
                 this.setBlendMode(params[0]);
                 break;
-            case gc.ROUTE_PLAY_SE:
+            case Route.PLAY_SE:
                 AudioManager.playSe(params[0]);
                 break;
-            case gc.ROUTE_SCRIPT:
+            case Route.SCRIPT:
                 eval(params[0]);
                 break;
         }
@@ -468,11 +469,6 @@ class Game_Character extends Game_CharacterBase {
         };
         var best : IMapCoord = start;
 
-        // start['parent'] = null;
-        // start['x'] = this.x;
-        // start['y'] = this.y;
-        // start['g'] = 0;
-        // start['f'] = $gameMap.distance(start['x'], start['y'], goalX, goalY);
         nodeList.push(start);
         openList.push(start['y'] * mapWidth + start['x']);
 
@@ -573,5 +569,3 @@ class Game_Character extends Game_CharacterBase {
     };
 
 }
-
-

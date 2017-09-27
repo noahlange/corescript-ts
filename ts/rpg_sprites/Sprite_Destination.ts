@@ -25,8 +25,8 @@ class Sprite_Destination extends Sprite {
     };
 
     createBitmap() {
-        var tileWidth = $gameMap.tileWidth();
-        var tileHeight = $gameMap.tileHeight();
+        const tileWidth = $gameMap.tileWidth();
+        const tileHeight = $gameMap.tileHeight();
         this.bitmap = new Bitmap(tileWidth, tileHeight);
         this.bitmap.fillAll('white');
         this.anchor.x = 0.5;
@@ -35,10 +35,10 @@ class Sprite_Destination extends Sprite {
     };
 
     updatePosition() {
-        var tileWidth = $gameMap.tileWidth();
-        var tileHeight = $gameMap.tileHeight();
-        var x = $gameTemp.destinationX();
-        var y = $gameTemp.destinationY();
+        const tileWidth = $gameMap.tileWidth();
+        const tileHeight = $gameMap.tileHeight();
+        const x = $gameTemp.destinationX();
+        const y = $gameTemp.destinationY();
         this.x = ($gameMap.adjustX(x) + 0.5) * tileWidth;
         this.y = ($gameMap.adjustY(y) + 0.5) * tileHeight;
     };
