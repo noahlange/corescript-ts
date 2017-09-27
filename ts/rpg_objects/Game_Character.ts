@@ -11,11 +11,6 @@ interface IMapCoord {
     f?: number;
 }
 
-// start['parent'] = null;
-// start['x'] = this.x;
-// start['y'] = this.y;
-// start['g'] = 0;
-// start['f'] = $gameMap.distance(start['x'], start['y'], goalX, goalY);
 
 
 class Game_Character extends Game_CharacterBase {
@@ -65,10 +60,6 @@ class Game_Character extends Game_CharacterBase {
     static ROUTE_CHANGE_BLEND_MODE = 43;
     static ROUTE_PLAY_SE = 44;
     static ROUTE_SCRIPT = 45;
-
-    // constructor() {
-    //     super();
-    // };
 
     protected _moveRouteForcing: boolean;
     protected _moveRoute: null | DB.MoveRoute = null;

@@ -138,7 +138,14 @@ class Bitmap {
      */
     public fontItalic: boolean;
 
+    /**
+     * The color of the text in CSS format.
+     *
+     * @property textColor
+     * @type String
+     */
     public textColor: string;
+    
     public outlineColor: string;
     public outlineWidth: number;
 
@@ -176,12 +183,6 @@ class Bitmap {
         this.fontFace = 'GameFont';
         this.fontSize = 28;
         this.fontItalic = false;
-        /**
-         * The color of the text in CSS format.
-         *
-         * @property textColor
-         * @type String
-         */
         this.textColor = '#ffffff';
         /**
          * The color of the outline of the text in CSS format.
@@ -414,9 +415,8 @@ class Bitmap {
      * @param {Number} [dw=sw] The width to draw the image in the destination
      * @param {Number} [dh=sh] The height to draw the image in the destination
      */
-    blt(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, 
-        dw: number = sw, dh: number = sh) 
-    {
+    blt(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number,
+        dw: number = sw, dh: number = sh) {
         // dw = dw || sw;
         // dh = dh || sh;
         if (sx >= 0 && sy >= 0 && sw > 0 && sh > 0 && dw > 0 && dh > 0 &&
@@ -440,9 +440,8 @@ class Bitmap {
      * @param {Number} [dw=sw] The width to draw the image in the destination
      * @param {Number} [dh=sh] The height to draw the image in the destination
      */
-    bltImage(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, 
-        dw: number = sw, dh: number = sh) 
-    {
+    bltImage(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number,
+        dw: number = sw, dh: number = sh) {
         // dw = dw || sw;
         // dh = dh || sh;
         if (sx >= 0 && sy >= 0 && sw > 0 && sh > 0 && dw > 0 && dh > 0 &&
@@ -541,8 +540,7 @@ class Bitmap {
      * @param {Boolean} vertical Wether the gradient should be draw as vertical or not
      */
     gradientFillRect(x: number, y: number, width: number, height: number, color1: string, color2: string,
-        vertical: boolean = false)
-    {
+        vertical: boolean = false) {
         var context = this._context;
         var grad;
         if (vertical) {

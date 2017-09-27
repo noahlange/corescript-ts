@@ -4,11 +4,11 @@
 // The superclass of Game_Party and Game_Troop.
 
 abstract class Game_Unit<T extends Game_Battler> {
-    protected _inBattle: boolean;
+    protected _inBattle: boolean = false;
 
-    constructor() {
-        this._inBattle = false;
-    };
+    // constructor() {
+    //     this._inBattle = false;
+    // };
     
     inBattle(): boolean {
         return this._inBattle;

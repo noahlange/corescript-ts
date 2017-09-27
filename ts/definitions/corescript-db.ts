@@ -135,24 +135,6 @@ declare module DB {
         startY: number;
     }
 
-    // export interface Vehicle {
-    //     bgm: Audio;
-    //     characterIndex: number;
-    //     characterName: string;
-    //     startMapId: number;
-    //     startX: number;
-    //     startY: number;
-    // }
-
-    // export interface Vehicle {
-    //     bgm: Audio;
-    //     characterIndex: number;
-    //     characterName: string;
-    //     startMapId: number;
-    //     startX: number;
-    //     startY: number;
-    // }
-
     export interface Messages {
         actionFailure: string;
         actorDamage: string;
@@ -297,7 +279,7 @@ declare module DB {
         damage: Damage;
         description: string;
         effects: Effect[];
-        hitType: number;
+        hitType: HitType;
         iconIndex: number;
         itypeId: number;
         name: string;
@@ -505,22 +487,6 @@ declare module DB {
         y: number;
         hidden: boolean;
     }
-
-    // export interface Conditions {
-    //     actorHp: number;
-    //     actorId: number;
-    //     actorValid: boolean;
-    //     enemyHp: number;
-    //     enemyIndex: number;
-    //     enemyValid: boolean;
-    //     switchId: number;
-    //     switchValid: boolean;
-    //     turnA: number;
-    //     turnB: number;
-    //     turnEnding: boolean;
-    //     turnValid: boolean;
-    // }
-
 
     export interface Troop {
         id: number;

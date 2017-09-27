@@ -20,15 +20,6 @@ class TextManager {
         return $dataSystem.terms.messages[messageId] || '';
     };
 
-    // static getter(method, param) {
-    //     return {
-    //         get: function () {
-    //             return this[method](param);
-    //         },
-    //         configurable: true
-    //     };
-    // };
-
     static get currencyUnit(): string { return $dataSystem.currencyUnit; }
 
 

@@ -12,10 +12,10 @@ interface MotionMap {
 }
 
 class Sprite_Actor extends Sprite_Battler {
-    protected _battlerName: string;
-    protected _motion: Motion;
-    protected _motionCount: number;
-    protected _pattern: number;
+    protected _battlerName: string = '';
+    protected _motion: Motion = null;
+    protected _motionCount: number = 0;
+    protected _pattern: number = 0;
     protected _mainSprite: Sprite_Base;
     protected _effectTarget: Sprite_Base;
     protected _actor: Game_Actor;
@@ -51,10 +51,10 @@ class Sprite_Actor extends Sprite_Battler {
 
     initMembers() {
         super.initMembers();
-        this._battlerName = '';
-        this._motion = null;
-        this._motionCount = 0;
-        this._pattern = 0;
+        // this._battlerName = '';
+        // this._motion = null;
+        // this._motionCount = 0;
+        // this._pattern = 0;
         this.createShadowSprite();
         this.createWeaponSprite();
         this.createMainSprite();

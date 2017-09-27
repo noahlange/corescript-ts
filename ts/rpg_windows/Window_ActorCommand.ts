@@ -4,13 +4,13 @@
 // The window for selecting an actor's action on the battle screen.
 
 class Window_ActorCommand extends Window_Command {
-    protected _actor: Game_Actor|null;
+    protected _actor: Game_Actor|null = null;
 
     constructor() {
         super(0);
         this.openness = 0;
         this.deactivate();
-        this._actor = null;
+        // this._actor = null;
     };
     
     windowWidth(): number {

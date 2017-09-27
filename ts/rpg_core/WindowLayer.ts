@@ -9,7 +9,7 @@ class WindowLayer extends PIXI.Container {
     protected _width: number = 0;
     protected _height: number = 0;
     protected _tempCanvas: any = null;
-    protected _translationMatrix: number[];
+    protected _translationMatrix: number[] = [1, 0, 0, 0, 1, 0, 0, 0, 1];
     protected _windowMask: PIXI.Graphics;
     protected _windowRect: any;
     protected _renderSprite: any;
@@ -20,7 +20,7 @@ class WindowLayer extends PIXI.Container {
         // this._width = 0;
         // this._height = 0;
         // this._tempCanvas = null;
-        this._translationMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+        // this._translationMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
 
         this._windowMask = new PIXI.Graphics();
         this._windowMask.beginFill(0xffffff, 1);

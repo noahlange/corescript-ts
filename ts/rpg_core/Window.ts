@@ -11,22 +11,22 @@ class CoreWindow extends PIXI.Container {
     protected _windowskin: Bitmap = null;
     protected _width: number = 0;
     protected _height: number = 0;
-    protected _cursorRect: Rectangle;
+    protected _cursorRect: Rectangle = new Rectangle();
 
     /// bungcip: required to public in order to compile
-    public _openness: number;
+    public _openness: number = 255;
 
-    protected _animationCount: number;
-    protected _padding: number;
-    protected _margin: number;
-    protected _colorTone: number[];
-    protected _windowSpriteContainer: PIXI.Container;
-    protected _windowBackSprite: Sprite;
-    protected _windowCursorSprite: Sprite;
-    protected _windowFrameSprite: Sprite;
-    protected _windowContentsSprite: Sprite;
-    protected _windowArrowSprites: Sprite[];
-    protected _windowPauseSignSprite: Sprite;
+    protected _animationCount: number = 0;
+    protected _padding: number = 18;
+    protected _margin: number = 4;
+    protected _colorTone: number[] = [0, 0, 0];
+    protected _windowSpriteContainer: PIXI.Container = null;
+    protected _windowBackSprite: Sprite = null;
+    protected _windowCursorSprite: Sprite = null;
+    protected _windowFrameSprite: Sprite = null;
+    protected _windowContentsSprite: Sprite = null;
+    protected _windowArrowSprites: Sprite[] = [];
+    protected _windowPauseSignSprite: Sprite = null;
 
     /**
      * The origin point of the window for scrolling.
@@ -34,7 +34,7 @@ class CoreWindow extends PIXI.Container {
      * @property origin
      * @type Point
      */
-    public origin: Point;
+    public origin: Point = new Point();
 
     /**
      * The active state for the window.
@@ -42,7 +42,7 @@ class CoreWindow extends PIXI.Container {
      * @property active
      * @type Boolean
      */
-    public active: boolean;
+    public active: boolean = true;
 
     /**
      * The visibility of the down scroll arrow.
@@ -50,7 +50,7 @@ class CoreWindow extends PIXI.Container {
      * @property downArrowVisible
      * @type Boolean
      */
-    public downArrowVisible: boolean;
+    public downArrowVisible: boolean = false;
 
     /**
      * The visibility of the up scroll arrow.
@@ -58,7 +58,7 @@ class CoreWindow extends PIXI.Container {
      * @property upArrowVisible
      * @type Boolean
      */
-    public upArrowVisible: boolean;
+    public upArrowVisible: boolean = false;
 
     /**
      * The visibility of the pause sign.
@@ -66,7 +66,7 @@ class CoreWindow extends PIXI.Container {
      * @property pause
      * @type Boolean
      */
-    public pause: boolean;
+    public pause: boolean = false;
 
     constructor() {
         super();
@@ -75,29 +75,29 @@ class CoreWindow extends PIXI.Container {
         // this._windowskin = null;
         // this._width = 0;
         // this._height = 0;
-        this._cursorRect = new Rectangle();
-        this._openness = 255;
-        this._animationCount = 0;
+        // this._cursorRect = new Rectangle();
+        // this._openness = 255;
+        // this._animationCount = 0;
 
-        this._padding = 18;
-        this._margin = 4;
-        this._colorTone = [0, 0, 0];
+        // this._padding = 18;
+        // this._margin = 4;
+        // this._colorTone = [0, 0, 0];
 
-        this._windowSpriteContainer = null;
-        this._windowBackSprite = null;
-        this._windowCursorSprite = null;
-        this._windowFrameSprite = null;
-        this._windowContentsSprite = null;
-        this._windowArrowSprites = [];
-        this._windowPauseSignSprite = null;
+        // this._windowSpriteContainer = null;
+        // this._windowBackSprite = null;
+        // this._windowCursorSprite = null;
+        // this._windowFrameSprite = null;
+        // this._windowContentsSprite = null;
+        // this._windowArrowSprites = [];
+        // this._windowPauseSignSprite = null;
 
         this._createAllParts();
 
-        this.origin = new Point();
-        this.active = true;
-        this.downArrowVisible = false;
-        this.upArrowVisible = false;
-        this.pause = false;
+        // this.origin = new Point();
+        // this.active = true;
+        // this.downArrowVisible = false;
+        // this.upArrowVisible = false;
+        // this.pause = false;
     };
 
     /**

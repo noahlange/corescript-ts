@@ -13,10 +13,10 @@ class Tilemap extends PIXI.Container {
     protected _tileHeight: number = 48;
     protected _mapWidth: number = 0;
     protected _mapHeight: number = 0;
-    protected _mapData: null | any[];
+    protected _mapData: null | any[] = null;
     protected _layerWidth: number = 0;
     protected _layerHeight: number = 0;
-    protected _lastTiles: any[];
+    protected _lastTiles: any[] = [];
 
     public bitmaps: any;
     public origin: Point;
@@ -35,10 +35,10 @@ class Tilemap extends PIXI.Container {
         // this._tileHeight = 48;
         // this._mapWidth = 0;
         // this._mapHeight = 0;
-        this._mapData = null;
+        // this._mapData = null;
         // this._layerWidth = 0;
         // this._layerHeight = 0;
-        this._lastTiles = [];
+        // this._lastTiles = [];
 
         /**
          * The bitmaps used as a tileset.

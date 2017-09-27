@@ -3,24 +3,33 @@
 //
 // The game object class for a battle action.
 
+
+
+enum ActionEffect {
+    RECOVER_HP = 11,
+    RECOVER_MP = 12,
+    GAIN_TP = 13,
+    ADD_STATE = 21,
+    REMOVE_STATE = 22,
+    ADD_BUFF = 31,
+    ADD_DEBUFF = 32,
+    REMOVE_BUFF = 33,
+    REMOVE_DEBUFF = 34,
+    SPECIAL = 41,
+    GROW = 42,
+    LEARN_SKILL = 43,
+    COMMON_EVENT = 44,
+}
+
+enum HitType {
+    CERTAIN = 0,
+    PHYSICAL = 1,
+    MAGICAL = 2,
+}
+
+
 class Game_Action {
-    static EFFECT_RECOVER_HP = 11;
-    static EFFECT_RECOVER_MP = 12;
-    static EFFECT_GAIN_TP = 13;
-    static EFFECT_ADD_STATE = 21;
-    static EFFECT_REMOVE_STATE = 22;
-    static EFFECT_ADD_BUFF = 31;
-    static EFFECT_ADD_DEBUFF = 32;
-    static EFFECT_REMOVE_BUFF = 33;
-    static EFFECT_REMOVE_DEBUFF = 34;
-    static EFFECT_SPECIAL = 41;
-    static EFFECT_GROW = 42;
-    static EFFECT_LEARN_SKILL = 43;
-    static EFFECT_COMMON_EVENT = 44;
     static SPECIAL_EFFECT_ESCAPE = 0;
-    static HITTYPE_CERTAIN = 0;
-    static HITTYPE_PHYSICAL = 1;
-    static HITTYPE_MAGICAL = 2;
 
     protected _subjectActorId: number = 0;
     protected _subjectEnemyIndex: number = -1;
@@ -196,15 +205,15 @@ class Game_Action {
     };
 
     isCertainHit() {
-        return (this.item() as DB.Item).hitType === Game_Action.HITTYPE_CERTAIN;
+        return (this.item() as DB.Item).hitType === HitType.CERTAIN;
     };
 
     isPhysical() {
-        return (this.item() as DB.Item).hitType === Game_Action.HITTYPE_PHYSICAL;
+        return (this.item() as DB.Item).hitType === HitType.PHYSICAL;
     };
 
     isMagical() {
-        return (this.item() as DB.Item).hitType === Game_Action.HITTYPE_MAGICAL;
+        return (this.item() as DB.Item).hitType === HitType.MAGICAL;
     };
 
     isAttack() {
@@ -407,23 +416,23 @@ class Game_Action {
 
     testItemEffect(target: Game_Battler, effect: DB.Effect) {
         switch (effect.code) {
-            case Game_Action.EFFECT_RECOVER_HP:
+            case ActionEffect.RECOVER_HP:
                 return target.hp < target.mhp || effect.value1 < 0 || effect.value2 < 0;
-            case Game_Action.EFFECT_RECOVER_MP:
+            case ActionEffect.RECOVER_MP:
                 return target.mp < target.mmp || effect.value1 < 0 || effect.value2 < 0;
-            case Game_Action.EFFECT_ADD_STATE:
+            case ActionEffect.ADD_STATE:
                 return !target.isStateAffected(effect.dataId);
-            case Game_Action.EFFECT_REMOVE_STATE:
+            case ActionEffect.REMOVE_STATE:
                 return target.isStateAffected(effect.dataId);
-            case Game_Action.EFFECT_ADD_BUFF:
+            case ActionEffect.ADD_BUFF:
                 return !target.isMaxBuffAffected(effect.dataId);
-            case Game_Action.EFFECT_ADD_DEBUFF:
+            case ActionEffect.ADD_DEBUFF:
                 return !target.isMaxDebuffAffected(effect.dataId);
-            case Game_Action.EFFECT_REMOVE_BUFF:
+            case ActionEffect.REMOVE_BUFF:
                 return target.isBuffAffected(effect.dataId);
-            case Game_Action.EFFECT_REMOVE_DEBUFF:
+            case ActionEffect.REMOVE_DEBUFF:
                 return target.isDebuffAffected(effect.dataId);
-            case Game_Action.EFFECT_LEARN_SKILL:
+            case ActionEffect.LEARN_SKILL:
                 return target.isActor() && !target.isLearnedSkill(effect.dataId);
             default:
                 return true;
@@ -617,43 +626,43 @@ class Game_Action {
 
     applyItemEffect(target: Game_Battler, effect: DB.Effect) {
         switch (effect.code) {
-            case Game_Action.EFFECT_RECOVER_HP:
+            case ActionEffect.RECOVER_HP:
                 this.itemEffectRecoverHp(target, effect);
                 break;
-            case Game_Action.EFFECT_RECOVER_MP:
+            case ActionEffect.RECOVER_MP:
                 this.itemEffectRecoverMp(target, effect);
                 break;
-            case Game_Action.EFFECT_GAIN_TP:
+            case ActionEffect.GAIN_TP:
                 this.itemEffectGainTp(target, effect);
                 break;
-            case Game_Action.EFFECT_ADD_STATE:
+            case ActionEffect.ADD_STATE:
                 this.itemEffectAddState(target, effect);
                 break;
-            case Game_Action.EFFECT_REMOVE_STATE:
+            case ActionEffect.REMOVE_STATE:
                 this.itemEffectRemoveState(target, effect);
                 break;
-            case Game_Action.EFFECT_ADD_BUFF:
+            case ActionEffect.ADD_BUFF:
                 this.itemEffectAddBuff(target, effect);
                 break;
-            case Game_Action.EFFECT_ADD_DEBUFF:
+            case ActionEffect.ADD_DEBUFF:
                 this.itemEffectAddDebuff(target, effect);
                 break;
-            case Game_Action.EFFECT_REMOVE_BUFF:
+            case ActionEffect.REMOVE_BUFF:
                 this.itemEffectRemoveBuff(target, effect);
                 break;
-            case Game_Action.EFFECT_REMOVE_DEBUFF:
+            case ActionEffect.REMOVE_DEBUFF:
                 this.itemEffectRemoveDebuff(target, effect);
                 break;
-            case Game_Action.EFFECT_SPECIAL:
+            case ActionEffect.SPECIAL:
                 this.itemEffectSpecial(target, effect);
                 break;
-            case Game_Action.EFFECT_GROW:
+            case ActionEffect.GROW:
                 this.itemEffectGrow(target, effect);
                 break;
-            case Game_Action.EFFECT_LEARN_SKILL:
+            case ActionEffect.LEARN_SKILL:
                 this.itemEffectLearnSkill(target, effect);
                 break;
-            case Game_Action.EFFECT_COMMON_EVENT:
+            case ActionEffect.COMMON_EVENT:
                 this.itemEffectCommonEvent(target, effect);
                 break;
         }
@@ -796,7 +805,7 @@ class Game_Action {
 
     applyGlobal() {
         (this.item() as DB.Item).effects.forEach(function (effect) {
-            if (effect.code === Game_Action.EFFECT_COMMON_EVENT) {
+            if (effect.code === ActionEffect.COMMON_EVENT) {
                 $gameTemp.reserveCommonEvent(effect.dataId);
             }
         }, this);

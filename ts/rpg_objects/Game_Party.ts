@@ -4,43 +4,45 @@
 // The game object class for the party. Information such as gold and items is
 // included.
 
+enum PartyAbility {
+    ENCOUNTER_HALF = 0,
+    ENCOUNTER_NONE = 1,
+    CANCEL_SURPRISE = 2,
+    RAISE_PREEMPTIVE = 3,
+    GOLD_DOUBLE = 4,
+    DROP_ITEM_DOUBLE = 5,
+}
+
 class Game_Party extends Game_Unit<Game_Actor> {
 
-    static ABILITY_ENCOUNTER_HALF = 0;
-    static ABILITY_ENCOUNTER_NONE = 1;
-    static ABILITY_CANCEL_SURPRISE = 2;
-    static ABILITY_RAISE_PREEMPTIVE = 3;
-    static ABILITY_GOLD_DOUBLE = 4;
-    static ABILITY_DROP_ITEM_DOUBLE = 5;
-
-    protected _gold: number;
-    protected _steps: number;
-    protected _lastItem: Game_Item;
-    protected _menuActorId: number;
-    protected _targetActorId: number;
-    protected _actors: number[];
-    protected _items: NumberMap;
-    protected _weapons: NumberMap;
-    protected _armors: NumberMap;
+    protected _gold: number = 0;
+    protected _steps: number = 0;
+    protected _lastItem: Game_Item = new Game_Item();
+    protected _menuActorId: number = 0;
+    protected _targetActorId: number = 0;
+    protected _actors: number[] = [];
+    protected _items: NumberMap = {};
+    protected _weapons: NumberMap = {};
+    protected _armors: NumberMap = {};
 
 
-    constructor() {
-        super();
+    // constructor() {
+    //     super();
 
-        this._gold = 0;
-        this._steps = 0;
-        this._lastItem = new Game_Item();
-        this._menuActorId = 0;
-        this._targetActorId = 0;
-        this._actors = [];
-        this.initAllItems();
-    };
+    //     // this._gold = 0;
+    //     // this._steps = 0;
+    //     // this._lastItem = new Game_Item();
+    //     // this._menuActorId = 0;
+    //     // this._targetActorId = 0;
+    //     // this._actors = [];
+    //     this.initAllItems();
+    // };
 
-    initAllItems() {
-        this._items = {};
-        this._weapons = {};
-        this._armors = {};
-    };
+    // initAllItems() {
+    //     this._items = {};
+    //     this._weapons = {};
+    //     this._armors = {};
+    // };
 
     exists() {
         return this._actors.length > 0;
@@ -398,27 +400,27 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     hasEncounterHalf() {
-        return this.partyAbility(Game_Party.ABILITY_ENCOUNTER_HALF);
+        return this.partyAbility(PartyAbility.ENCOUNTER_HALF);
     };
 
     hasEncounterNone() {
-        return this.partyAbility(Game_Party.ABILITY_ENCOUNTER_NONE);
+        return this.partyAbility(PartyAbility.ENCOUNTER_NONE);
     };
 
     hasCancelSurprise() {
-        return this.partyAbility(Game_Party.ABILITY_CANCEL_SURPRISE);
+        return this.partyAbility(PartyAbility.CANCEL_SURPRISE);
     };
 
     hasRaisePreemptive() {
-        return this.partyAbility(Game_Party.ABILITY_RAISE_PREEMPTIVE);
+        return this.partyAbility(PartyAbility.RAISE_PREEMPTIVE);
     };
 
     hasGoldDouble() {
-        return this.partyAbility(Game_Party.ABILITY_GOLD_DOUBLE);
+        return this.partyAbility(PartyAbility.GOLD_DOUBLE);
     };
 
     hasDropItemDouble() {
-        return this.partyAbility(Game_Party.ABILITY_DROP_ITEM_DOUBLE);
+        return this.partyAbility(PartyAbility.DROP_ITEM_DOUBLE);
     };
 
     ratePreemptive(troopAgi: number): number {

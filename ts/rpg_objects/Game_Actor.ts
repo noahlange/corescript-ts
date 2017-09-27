@@ -894,7 +894,7 @@ class Game_Actor extends Game_Battler {
 
     testEscape(item: DB.Item) {
         return item.effects.some(function (effect, index, ar) {
-            return effect && effect.code === Game_Action.EFFECT_SPECIAL;
+            return effect && effect.code === ActionEffect.SPECIAL;
         });
     };
 
@@ -906,5 +906,3 @@ class Game_Actor extends Game_Battler {
     };
 
 }
-
-
