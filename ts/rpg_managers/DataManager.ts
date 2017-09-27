@@ -132,8 +132,6 @@ class DataManager {
             }
         }
         if (object === $dataSystem) {
-            Decrypter.hasEncryptedImages = !!$dataSystem.hasEncryptedImages;
-            Decrypter.hasEncryptedAudio = !!$dataSystem.hasEncryptedAudio;
             Scene_Boot.loadSystemImages();
         }
     };

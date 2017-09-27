@@ -43,9 +43,6 @@ class Html5Audio {
         }
         this.clear();
 
-        if (Decrypter.hasEncryptedAudio && this._audioElement.src) {
-            window.URL.revokeObjectURL(this._audioElement.src);
-        }
         this._url = url;
     };
 

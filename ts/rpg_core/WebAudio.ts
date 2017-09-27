@@ -509,7 +509,6 @@ class WebAudio {
     protected _load(url: string) {
         if (WebAudio._context) {
             var xhr = new XMLHttpRequest();
-            if (Decrypter.hasEncryptedAudio) url = Decrypter.extToEncryptExt(url);
             xhr.open('GET', url);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function () {
@@ -529,7 +528,6 @@ class WebAudio {
      */
     protected _onXhrLoad(xhr: XMLHttpRequest) {
         var array = xhr.response;
-        if (Decrypter.hasEncryptedAudio) array = Decrypter.decryptArrayBuffer(array);
         this._readLoopComments(new Uint8Array(array));
         WebAudio._context.decodeAudioData(array, function (buffer: AudioBuffer) {
             this._buffer = buffer;

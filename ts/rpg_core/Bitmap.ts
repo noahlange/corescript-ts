@@ -29,12 +29,6 @@ class Bitmap {
      * requestCompleted:
      * Request completed
      *
-     * decrypting:
-     * requesting encrypted data from supplied URI or decrypting it.
-     *
-     * decryptCompleted:
-     * Decrypt completed
-     *
      * loaded:
      * loaded. isReady() === true, so It's usable.
      *
@@ -149,11 +143,10 @@ class Bitmap {
     public outlineColor: string;
     public outlineWidth: number;
 
-    /// NOTE(bungcip): became public because decrypter needed it
-    public _image: HTMLImageElement | null;
-    public _errorListener: () => void;
-    public _loadListener: () => void;
-    public _loader: () => void;
+    protected _image: HTMLImageElement | null;
+    protected _errorListener: () => void;
+    protected _loadListener: () => void;
+    protected _loader: () => void;
 
     protected _url: string;
     protected _loadingState: string;
@@ -811,8 +804,7 @@ class Bitmap {
      * @method _onLoad
      * @private
      */
-    /// NOTE: jadi public karena dibutuhkan oleh Decrypter
-    public _onLoad() {
+    protected _onLoad() {
         this._image.removeEventListener('load', this._loadListener);
         this._image.removeEventListener('error', this._errorListener);
         this._renewCanvas();
@@ -827,23 +819,11 @@ class Bitmap {
                     this._clearImgInstance();
                 }
                 break;
-            case 'decrypting':
-                window.URL.revokeObjectURL(this._image.src);
-                this._loadingState = 'decryptCompleted';
-                if (this._decodeAfterRequest) {
-                    this.decode();
-                }
-                else {
-                    this._loadingState = 'purged';
-                    this._clearImgInstance();
-                }
-                break;
         }
     };
     decode() {
         switch (this._loadingState) {
             case 'requestCompleted':
-            case 'decryptCompleted':
                 this._loadingState = 'loaded';
                 if (!this.__canvas)
                     this._createBaseTexture(this._image);
@@ -851,7 +831,6 @@ class Bitmap {
                 this._callLoadListeners();
                 break;
             case 'requesting':
-            case 'decrypting':
                 this._decodeAfterRequest = true;
                 if (!this._loader) {
                     this._loader = ResourceHandler.createLoader(this._url, this._requestImage.bind(this, this._url), this._onError.bind(this));
@@ -881,8 +860,7 @@ class Bitmap {
      * @method _onError
      * @private
      */
-    /// NOTE: jadi public karena dibutuhkan oleh Decrypter
-    public _onError() {
+    protected _onError() {
         this._image.removeEventListener('load', this._loadListener);
         this._image.removeEventListener('error', this._errorListener);
         this._loadingState = 'error';
@@ -928,15 +906,9 @@ class Bitmap {
         this._image = new Image();
         this._url = url;
         this._loadingState = 'requesting';
-        if (!Decrypter.checkImgIgnore(url) && Decrypter.hasEncryptedImages) {
-            this._loadingState = 'decrypting';
-            Decrypter.decryptImg(url, this);
-        }
-        else {
-            this._image.src = url;
-            this._image.addEventListener('load', this._loadListener = this._onLoad.bind(this));
-            this._image.addEventListener('error', this._errorListener = this._loader || this._onError.bind(this));
-        }
+        this._image.src = url;
+        this._image.addEventListener('load', this._loadListener = this._onLoad.bind(this));
+        this._image.addEventListener('error', this._errorListener = this._loader || this._onError.bind(this));
     };
 
     isRequestOnly(): boolean {
@@ -944,8 +916,7 @@ class Bitmap {
     };
     isRequestReady(): boolean {
         return this._loadingState !== 'pending' &&
-            this._loadingState !== 'requesting' &&
-            this._loadingState !== 'decrypting';
+            this._loadingState !== 'requesting';
     };
     startRequest() {
         if (this._loadingState === 'pending') {

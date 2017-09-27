@@ -18,12 +18,6 @@ class CacheMap {
 
     constructor(manager: any) {
         this.manager = manager;
-        // this._inner = {};
-        // this._lastRemovedEntries = [];
-        // this.updateTicks = 0;
-        // this.lastCheckTTL = 0;
-        // this.delayCheckTTL = 100.0;
-        // this.updateSeconds = Date.now();
     }
 
     /**

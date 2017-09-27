@@ -87,34 +87,12 @@ class AudioManager {
         } else {
             this.stopBgm();
             if (bgm.name) {
-                if (Decrypter.hasEncryptedAudio && this.shouldUseHtml5Audio()) {
-                    this.playEncryptedBgm(bgm, pos);
-                }
-                else {
-                    this._bgmBuffer = this.createBuffer('bgm', bgm.name);
-                    this.updateBgmParameters(bgm);
-                    if (!this._meBuffer) {
-                        this._bgmBuffer.play(true, pos || 0);
-                    }
+                this._bgmBuffer = this.createBuffer('bgm', bgm.name);
+                this.updateBgmParameters(bgm);
+                if (!this._meBuffer) {
+                    this._bgmBuffer.play(true, pos || 0);
                 }
             }
-        }
-        this.updateCurrentBgm(bgm, pos);
-    };
-
-    static playEncryptedBgm(bgm: DB.Audio, pos: number) {
-        var ext = this.audioFileExt();
-        var url = this._path + 'bgm/' + encodeURIComponent(bgm.name) + ext;
-        url = Decrypter.extToEncryptExt(url);
-        Decrypter.decryptHTML5Audio(url, bgm, pos);
-    };
-
-    static createDecryptBuffer(url: string, bgm: DB.Audio, pos: number) {
-        this._blobUrl = url;
-        this._bgmBuffer = this.createBuffer('bgm', bgm.name);
-        this.updateBgmParameters(bgm);
-        if (!this._meBuffer) {
-            this._bgmBuffer.play(true, pos || 0);
         }
         this.updateCurrentBgm(bgm, pos);
     };
@@ -400,7 +378,7 @@ class AudioManager {
 
     static shouldUseHtml5Audio(): boolean {
         // The only case where we wanted html5audio was android/ no encrypt
-        // Atsuma-ru asked to force webaudio there too, so just return false for ALL    // return Utils.isAndroidChrome() && !Decrypter.hasEncryptedAudio;
+        // Atsuma-ru asked to force webaudio there too, so just return false for ALL 
         return false;
     };
 
