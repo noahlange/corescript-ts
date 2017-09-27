@@ -44,18 +44,6 @@ class ShaderTilemap extends Tilemap {
     /**
      * PIXI render method
      *
-     * @method renderCanvas
-     * @param {Object} pixi renderer
-     */
-    renderCanvas(renderer: PIXI.CanvasRenderer) {
-        this._hackRenderer(renderer);
-        super.renderCanvas(renderer);
-    };
-
-
-    /**
-     * PIXI render method
-     *
      * @method renderWebGL
      * @param {Object} pixi renderer
      */

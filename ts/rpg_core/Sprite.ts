@@ -387,26 +387,7 @@ class Sprite extends PIXI.Sprite {
         context.drawImage(this._bitmap.canvas, x, y, w, h, 0, 0, w, h);
     };
 
-    protected _renderCanvas_PIXI = super._renderCanvas;
     protected _renderWebGL_PIXI = super._renderWebGL;
-
-    /**
-     * @method _renderCanvas
-     * @param {Object} renderer
-     * @private
-     */
-    protected _renderCanvas(renderer: PIXI.CanvasRenderer) {
-        if (this.bitmap) {
-            this.bitmap.touch();
-        }
-        if (this.bitmap && !this.bitmap.isReady()) {
-            return;
-        }
-
-        if (this.texture.frame.width > 0 && this.texture.frame.height > 0) {
-            this._renderCanvas_PIXI(renderer);
-        }
-    };
 
     /**
      * checks if we need to speed up custom blendmodes

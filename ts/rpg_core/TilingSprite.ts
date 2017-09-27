@@ -36,22 +36,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
         this.bitmap = bitmap;
     };
 
-    private _renderCanvas_PIXI = super._renderCanvas;
     private _renderWebGL_PIXI = super._renderWebGL;
-
-    /**
-     * @method _renderCanvas
-     * @param {Object} renderer
-     * @private
-     */
-    _renderCanvas(renderer: PIXI.CanvasRenderer) {
-        if (this._bitmap) {
-            this._bitmap.touch();
-        }
-        if (this.texture.frame.width > 0 && this.texture.frame.height > 0) {
-            this._renderCanvas_PIXI(renderer);
-        }
-    };
 
     /**
      * The image for the tiling sprite.
@@ -147,7 +132,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @method _onBitmapLoad
      * @private
      */
-    _onBitmapLoad() {
+    protected _onBitmapLoad() {
         this.texture.baseTexture = this._bitmap.baseTexture;
         this._refresh();
     };
@@ -156,7 +141,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @method _refresh
      * @private
      */
-    _refresh() {
+    protected _refresh() {
         var frame = this._frame.clone();
         if (frame.width === 0 && frame.height === 0 && this._bitmap) {
             frame.width = this._bitmap.width;

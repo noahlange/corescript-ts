@@ -8,7 +8,6 @@ abstract class Spriteset_Base extends Sprite {
     protected _baseSprite: Sprite;
     protected _blackScreen: ScreenSprite;
     protected _toneFilter: ToneFilter;
-    protected _toneSprite: ToneSprite;
     protected _pictureContainer: Sprite;
     protected _timerSprite: Sprite_Timer;
     protected _flashSprite: ScreenSprite;
@@ -52,11 +51,7 @@ abstract class Spriteset_Base extends Sprite {
     };
 
     createToneChanger() {
-        if (Graphics.isWebGL()) {
-            this.createWebGLToneChanger();
-        } else {
-            this.createCanvasToneChanger();
-        }
+        this.createWebGLToneChanger();
     };
 
     createWebGLToneChanger() {
@@ -66,11 +61,6 @@ abstract class Spriteset_Base extends Sprite {
         this._toneFilter = new ToneFilter();
         this._baseSprite.filters = [this._toneFilter];
         this._baseSprite.filterArea = new Rectangle(-margin, -margin, width, height);
-    };
-
-    createCanvasToneChanger() {
-        this._toneSprite = new ToneSprite();
-        this.addChild(this._toneSprite);
     };
 
     createPictures() {
@@ -109,11 +99,7 @@ abstract class Spriteset_Base extends Sprite {
         var tone = $gameScreen.tone();
         if (!this._tone.equals(tone)) {
             this._tone = tone.clone();
-            if (Graphics.isWebGL()) {
-                this.updateWebGLToneChanger();
-            } else {
-                this.updateCanvasToneChanger();
-            }
+            this.updateWebGLToneChanger();
         }
     };
 
@@ -122,11 +108,6 @@ abstract class Spriteset_Base extends Sprite {
         this._toneFilter.reset();
         this._toneFilter.adjustTone(tone[0], tone[1], tone[2]);
         this._toneFilter.adjustSaturation(-tone[3]);
-    };
-
-    updateCanvasToneChanger() {
-        var tone = this._tone;
-        this._toneSprite.setTone(tone[0], tone[1], tone[2], tone[3]);
     };
 
     updatePosition() {

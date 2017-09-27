@@ -52,27 +52,15 @@ class SceneManager {
     };
 
     static initGraphics() {
-        var type = this.preferableRendererType();
-        Graphics.initialize(this._screenWidth, this._screenHeight, type);
+        Graphics.initialize(this._screenWidth, this._screenHeight);
         Graphics.boxWidth = this._boxWidth;
         Graphics.boxHeight = this._boxHeight;
         Graphics.setLoadingImage('img/system/Loading.png');
         if (Utils.isOptionValid('showfps')) {
             Graphics.showFps();
         }
-        if (type === 'webgl') {
-            this.checkWebGL();
-        }
-    };
 
-    static preferableRendererType() {
-        if (Utils.isOptionValid('canvas')) {
-            return 'canvas';
-        } else if (Utils.isOptionValid('webgl')) {
-            return 'webgl';
-        } else {
-            return 'auto';
-        }
+        this.checkWebGL();
     };
 
     static shouldUseCanvasRenderer() {

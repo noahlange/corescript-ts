@@ -224,13 +224,7 @@ class Bitmap {
             Graphics._renderer.render(stage, renderTexture);
             stage.worldTransform.identity();
             var canvas = null;
-            if (Graphics.isWebGL()) {
-                canvas = Graphics._renderer.extract.canvas(renderTexture);
-            }
-            else {
-                /// bungcip: _canvasRenderTarget not exist....
-                canvas = (renderTexture.baseTexture as any)._canvasRenderTarget.canvas;
-            }
+            canvas = Graphics._renderer.extract.canvas(renderTexture);
             context.drawImage(canvas, 0, 0);
         }
         else {

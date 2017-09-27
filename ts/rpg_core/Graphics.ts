@@ -12,7 +12,6 @@ class Graphics {
 
     protected static _width: number;
     protected static _height: number;
-    protected static _rendererType: string;
     protected static _boxWidth: number;
     protected static _boxHeight: number;
     protected static _scale: number;
@@ -49,13 +48,10 @@ class Graphics {
      * @method initialize
      * @param {Number} width The width of the game screen
      * @param {Number} height The height of the game screen
-     * @param {String} type The type of the renderer.
-     *                 'canvas', 'webgl', or 'auto'.
      */
-    static initialize(width = 800, height = 800, type = 'auto') {
+    static initialize(width = 800, height = 800) {
         this._width = width;
         this._height = height;
-        this._rendererType = type;
         this._boxWidth = this._width;
         this._boxHeight = this._height;
 
@@ -206,17 +202,6 @@ class Graphics {
             this._rendered = false;
         }
         this.frameCount++;
-    };
-
-    /**
-     * Checks whether the renderer type is WebGL.
-     *
-     * @static
-     * @method isWebGL
-     * @return {Boolean} True if the renderer type is WebGL
-     */
-    static isWebGL(): boolean {
-        return this._renderer && this._renderer.type === PIXI.RENDERER_TYPE.WEBGL;
     };
 
     /**
@@ -547,9 +532,7 @@ class Graphics {
      * Calls pixi.js garbage collector
      */
     static callGC() {
-        if (this.isWebGL()) {
-            Graphics._renderer.textureGC.run();
-        }
+        Graphics._renderer.textureGC.run();
     };
 
 
@@ -883,25 +866,15 @@ class Graphics {
      */
     protected static _createRenderer() {
         // PIXI.dontSayHello = true;
-        var width = this._width;
-        var height = this._height;
-        var options = { view: this._canvas };
+        const width = this._width;
+        const height = this._height;
+        const options = { view: this._canvas };
         try {
-            switch (this._rendererType) {
-                case 'canvas':
-                    this._renderer = new PIXI.CanvasRenderer(width, height, options);
-                    break;
-                case 'webgl':
-                    this._renderer = new PIXI.WebGLRenderer(width, height, options);
-                    break;
-                default:
-                    this._renderer = PIXI.autoDetectRenderer(width, height, options);
-                    break;
-            }
+            this._renderer = new PIXI.WebGLRenderer(width, height, options);
 
-            if (this._renderer && this._renderer.textureGC)
+            if (this._renderer && this._renderer.textureGC){
                 this._renderer.textureGC.maxIdle = 1;
-
+            }
         } catch (e) {
             this._renderer = null;
         }
@@ -957,7 +930,7 @@ class Graphics {
         text.style.color = 'white';
         text.style.textAlign = 'center';
         text.style.textShadow = '1px 1px 0 rgba(0,0,0,0.5)';
-        text.innerHTML = this.isWebGL() ? 'WebGL mode' : 'Canvas mode';
+        text.innerHTML = 'WebGL mode';
 
         document.body.appendChild(box);
         box.appendChild(text);

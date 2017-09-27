@@ -99,75 +99,20 @@ class WindowLayer extends PIXI.Container {
         });
     };
 
-    /**
-     * @method _renderCanvas
-     * @param {Object} renderSession
-     * @private
-     */
-    renderCanvas(renderer: PIXI.CanvasRenderer) {
-        if (!this.visible || !this.renderable) {
-            return;
-        }
 
-        if (!this._tempCanvas) {
-            this._tempCanvas = document.createElement('canvas');
-        }
-
-        this._tempCanvas.width = Graphics.width;
-        this._tempCanvas.height = Graphics.height;
-
-        var realCanvasContext = renderer.context;
-        var context = this._tempCanvas.getContext('2d');
-
-        context.save();
-        context.clearRect(0, 0, Graphics.width, Graphics.height);
-        context.beginPath();
-        context.rect(this.x, this.y, this.width, this.height);
-        context.closePath();
-        context.clip();
-
-        renderer.context = context;
-
-        for (var i = 0; i < this.children.length; i++) {
-            var child = this.children[i] as CoreWindow;
-            /// bungcip: ada any agar bisa dicompile
-            if ((child as any)._isWindow && child.visible && (child as any).openness > 0) {
-                this._canvasClearWindowRect(renderer, child);
-                context.save();
-                child.renderCanvas(renderer);
-                context.restore();
-            }
-        }
-
-        context.restore();
-
-        renderer.context = realCanvasContext;
-        renderer.context.setTransform(1, 0, 0, 1, 0, 0);
-        renderer.context.globalCompositeOperation = 'source-over';
-        renderer.context.globalAlpha = 1;
-        renderer.context.drawImage(this._tempCanvas, 0, 0);
-
-        for (var j = 0; j < this.children.length; j++) {
-            /// bungcip: ada any agar bisa dicompile
-            if (!(this.children[j] as any)._isWindow) {
-                this.children[j].renderCanvas(renderer);
-            }
-        }
-    };
-
-    /**
-     * @method _canvasClearWindowRect
-     * @param {Object} renderSession
-     * @param {Window} window
-     * @private
-     */
-    protected _canvasClearWindowRect(renderSession: any, window: CoreWindow) {
-        var rx = this.x + window.x;
-        var ry = this.y + window.y + window.height / 2 * (1 - window._openness / 255);
-        var rw = window.width;
-        var rh = window.height * window._openness / 255;
-        renderSession.context.clearRect(rx, ry, rw, rh);
-    };
+    // /**
+    //  * @method _canvasClearWindowRect
+    //  * @param {Object} renderSession
+    //  * @param {Window} window
+    //  * @private
+    //  */
+    // protected _canvasClearWindowRect(renderSession: any, window: CoreWindow) {
+    //     var rx = this.x + window.x;
+    //     var ry = this.y + window.y + window.height / 2 * (1 - window._openness / 255);
+    //     var rw = window.width;
+    //     var rh = window.height * window._openness / 255;
+    //     renderSession.context.clearRect(rx, ry, rw, rh);
+    // };
 
     /**
      * @method _renderWebGL

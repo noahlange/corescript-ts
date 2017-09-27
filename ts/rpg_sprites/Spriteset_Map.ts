@@ -6,7 +6,7 @@
 class Spriteset_Map extends Spriteset_Base {
     protected _characterSprites: Sprite_Character[];
     protected _parallax: TilingSprite;
-    protected _tilemap: ShaderTilemap | Tilemap;
+    protected _tilemap: ShaderTilemap;
     protected _tileset: DB.Tileset;
     protected _shadowSprite: Sprite;
     protected _destinationSprite: Sprite_Destination;
@@ -48,11 +48,7 @@ class Spriteset_Map extends Spriteset_Base {
     };
 
     createTilemap() {
-        if (Graphics.isWebGL()) {
-            this._tilemap = new ShaderTilemap();
-        } else {
-            this._tilemap = new Tilemap();
-        }
+        this._tilemap = new ShaderTilemap();
         this._tilemap.tileWidth = $gameMap.tileWidth();
         this._tilemap.tileHeight = $gameMap.tileHeight();
         this._tilemap.setData($gameMap.width(), $gameMap.height(), $gameMap.data());
@@ -121,27 +117,11 @@ class Spriteset_Map extends Spriteset_Base {
         }
     };
 
-    /*
-     * Simple fix for canvas parallax issue, destroy old parallax and readd to  the tree.
-     */
-    _canvasReAddParallax() {
-        var index = this._baseSprite.children.indexOf(this._parallax);
-        this._baseSprite.removeChild(this._parallax);
-        this._parallax = new TilingSprite();
-        this._parallax.move(0, 0, Graphics.width, Graphics.height);
-        this._parallax.bitmap = ImageManager.loadParallax(this._parallaxName);
-        this._baseSprite.addChildAt(this._parallax, index);
-    };
-
     updateParallax() {
         if (this._parallaxName !== $gameMap.parallaxName()) {
             this._parallaxName = $gameMap.parallaxName();
 
-            if (this._parallax.bitmap && Graphics.isWebGL() != true) {
-                this._canvasReAddParallax();
-            } else {
-                this._parallax.bitmap = ImageManager.loadParallax(this._parallaxName);
-            }
+            this._parallax.bitmap = ImageManager.loadParallax(this._parallaxName);
         }
         if (this._parallax.bitmap) {
             this._parallax.origin.x = $gameMap.parallaxOx();
