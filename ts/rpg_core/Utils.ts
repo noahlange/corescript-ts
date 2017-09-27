@@ -51,43 +51,6 @@ class Utils {
     };
 
     /**
-     * Checks whether the platform is a mobile device.
-     *
-     * @static
-     * @method isMobileDevice
-     * @return {Boolean} True if the platform is a mobile device
-     */
-    static isMobileDevice(): boolean {
-        var r = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-        return !!navigator.userAgent.match(r);
-    };
-
-    /**
-     * Checks whether the browser is Mobile Safari.
-     *
-     * @static
-     * @method isMobileSafari
-     * @return {Boolean} True if the browser is Mobile Safari
-     */
-    static isMobileSafari(): boolean {
-        var agent = navigator.userAgent;
-        return !!(agent.match(/iPhone|iPad|iPod/) && agent.match(/AppleWebKit/) &&
-            !agent.match('CriOS'));
-    };
-
-    /**
-     * Checks whether the browser is Android Chrome.
-     *
-     * @static
-     * @method isAndroidChrome
-     * @return {Boolean} True if the browser is Android Chrome
-     */
-    static isAndroidChrome(): boolean {
-        var agent = navigator.userAgent;
-        return !!(agent.match(/Android/) && agent.match(/Chrome/));
-    };
-
-    /**
      * Checks whether the browser can read files in the game folder.
      *
      * @static

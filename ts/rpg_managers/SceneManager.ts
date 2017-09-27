@@ -26,9 +26,7 @@ class SceneManager {
     protected static _boxHeight = 624;
     protected static _deltaTime = 1.0 / 60.0;
 
-    // if (!Utils.isMobileSafari()) {
     protected static _currentTime = SceneManager._getTimeInMsWithoutMobileSafari();
-    // }
     protected static _accumulator = 0.0;
 
     static run(sceneClass: typeof Scene_Base) {
@@ -64,7 +62,7 @@ class SceneManager {
     };
 
     static shouldUseCanvasRenderer() {
-        return Utils.isMobileDevice();
+        return false;
     };
 
     static checkWebGL() {
@@ -125,9 +123,6 @@ class SceneManager {
     static update() {
         try {
             this.tickStart();
-            if (Utils.isMobileSafari()) {
-                this.updateInputData();
-            }
             this.updateManagers();
             this.updateMain();
             this.tickEnd();
@@ -194,21 +189,16 @@ class SceneManager {
     };
 
     static updateMain() {
-        if (Utils.isMobileSafari()) {
+        var newTime = this._getTimeInMsWithoutMobileSafari();
+        var fTime = (newTime - this._currentTime) / 1000;
+        if (fTime > 0.25) fTime = 0.25;
+        this._currentTime = newTime;
+        this._accumulator += fTime;
+        while (this._accumulator >= this._deltaTime) {
+            this.updateInputData();
             this.changeScene();
             this.updateScene();
-        } else {
-            var newTime = this._getTimeInMsWithoutMobileSafari();
-            var fTime = (newTime - this._currentTime) / 1000;
-            if (fTime > 0.25) fTime = 0.25;
-            this._currentTime = newTime;
-            this._accumulator += fTime;
-            while (this._accumulator >= this._deltaTime) {
-                this.updateInputData();
-                this.changeScene();
-                this.updateScene();
-                this._accumulator -= this._deltaTime;
-            }
+            this._accumulator -= this._deltaTime;
         }
         this.renderScene();
         this.requestUpdate();
@@ -348,10 +338,9 @@ class SceneManager {
     static resume() {
         this._stopped = false;
         this.requestUpdate();
-        if (!Utils.isMobileSafari()) {
-            this._currentTime = this._getTimeInMsWithoutMobileSafari();
-            this._accumulator = 0;
-        }
+
+        this._currentTime = this._getTimeInMsWithoutMobileSafari();
+        this._accumulator = 0;
     };
 
 }

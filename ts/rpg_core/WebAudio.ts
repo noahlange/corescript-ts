@@ -240,7 +240,7 @@ class WebAudio {
      * @private
      */
     protected static _shouldMuteOnHide() {
-        return Utils.isMobileDevice();
+        return false;
     };
 
     /**

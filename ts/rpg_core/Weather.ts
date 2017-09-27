@@ -7,8 +7,8 @@
  */
 class Weather extends PIXI.Container {
 
-    protected _width: number;
-    protected _height: number;
+    protected _width: number = Graphics.width;
+    protected _height: number = Graphics.height;
     protected _sprites: any[] = [];
 
     /**
@@ -25,7 +25,7 @@ class Weather extends PIXI.Container {
      * @property power
      * @type Number
      */
-    public power: number;
+    public power: number = 0;
 
     /**
      * The origin point of the weather for scrolling.
@@ -33,7 +33,7 @@ class Weather extends PIXI.Container {
      * @property origin
      * @type Point
      */
-    public origin: Point;
+    public origin: Point = new Point();
 
     protected _rainBitmap: Bitmap;
     protected _stormBitmap: Bitmap;
@@ -49,16 +49,16 @@ class Weather extends PIXI.Container {
     constructor() {
         super();
 
-        this._width = Graphics.width;
-        this._height = Graphics.height;
+        // this._width = Graphics.width;
+        // this._height = Graphics.height;
         // this._sprites = [];
 
         this._createBitmaps();
         this._createDimmer();
 
         // this.type = 'none';
-        this.power = 0;
-        this.origin = new Point();
+        // this.power = 0;
+        // this.origin = new Point();
     };
 
     /**

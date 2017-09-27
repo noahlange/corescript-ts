@@ -100,20 +100,6 @@ class WindowLayer extends PIXI.Container {
     };
 
 
-    // /**
-    //  * @method _canvasClearWindowRect
-    //  * @param {Object} renderSession
-    //  * @param {Window} window
-    //  * @private
-    //  */
-    // protected _canvasClearWindowRect(renderSession: any, window: CoreWindow) {
-    //     var rx = this.x + window.x;
-    //     var ry = this.y + window.y + window.height / 2 * (1 - window._openness / 255);
-    //     var rw = window.width;
-    //     var rh = window.height * window._openness / 255;
-    //     renderSession.context.clearRect(rx, ry, rw, rh);
-    // };
-
     /**
      * @method _renderWebGL
      * @param {Object} renderSession

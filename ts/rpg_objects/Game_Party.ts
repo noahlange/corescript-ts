@@ -26,24 +26,6 @@ class Game_Party extends Game_Unit<Game_Actor> {
     protected _armors: NumberMap = {};
 
 
-    // constructor() {
-    //     super();
-
-    //     // this._gold = 0;
-    //     // this._steps = 0;
-    //     // this._lastItem = new Game_Item();
-    //     // this._menuActorId = 0;
-    //     // this._targetActorId = 0;
-    //     // this._actors = [];
-    //     this.initAllItems();
-    // };
-
-    // initAllItems() {
-    //     this._items = {};
-    //     this._weapons = {};
-    //     this._armors = {};
-    // };
-
     exists() {
         return this._actors.length > 0;
     };

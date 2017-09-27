@@ -62,7 +62,7 @@ class Graphics {
         this._errorPrinter = null;
         this._canvas = null;
         this._video = null;
-        this._videoUnlocked = !Utils.isMobileDevice();
+        this._videoUnlocked = true;
         this._videoLoading = false;
         this._upperCanvas = null;
         this._renderer = null;
@@ -680,7 +680,7 @@ class Graphics {
      * @private
      */
     protected static _defaultStretchMode() {
-        return Utils.isNwjs() || Utils.isMobileDevice();
+        return Utils.isNwjs();
     };
 
     /**

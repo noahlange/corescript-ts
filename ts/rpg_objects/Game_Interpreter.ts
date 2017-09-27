@@ -1288,7 +1288,7 @@ class Game_Interpreter {
     };
 
     videoFileExt() {
-        if (Graphics.canPlayVideoType('video/webm') && !Utils.isMobileDevice()) {
+        if (Graphics.canPlayVideoType('video/webm')) {
             return '.webm';
         } else {
             return '.mp4';

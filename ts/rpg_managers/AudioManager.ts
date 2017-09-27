@@ -369,7 +369,7 @@ class AudioManager {
     };
 
     static audioFileExt(): string {
-        if (WebAudio.canPlayOgg() && !Utils.isMobileDevice()) {
+        if (WebAudio.canPlayOgg()) {
             return '.ogg';
         } else {
             return '.m4a';

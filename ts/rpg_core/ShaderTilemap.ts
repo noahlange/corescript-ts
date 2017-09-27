@@ -18,14 +18,14 @@ class ShaderTilemap extends Tilemap {
     protected _tileWidth: number;
     protected _tileHeight: number;
 
-    public roundPixels: boolean;
+    public roundPixels: boolean = true;
     public lowerLayer: PIXI.tilemap.CompositeRectTileLayer;
     public upperLayer: PIXI.tilemap.CompositeRectTileLayer;
 
-    constructor() {
-        super();
-        this.roundPixels = true;
-    }
+    // constructor() {
+    //     super();
+    //     this.roundPixels = true;
+    // }
 
     /**
      * Uploads animation state in renderer
@@ -33,7 +33,7 @@ class ShaderTilemap extends Tilemap {
      * @method _hackRenderer
      * @private
      */
-    protected _hackRenderer(renderer: PIXI.CanvasRenderer | PIXI.WebGLRenderer) {
+    protected _hackRenderer(renderer: PIXI.WebGLRenderer) {
         var af = this.animationFrame % 4;
         if (af == 3) af = 1;
         (renderer.plugins as any).tile.tileAnim[0] = af * this._tileWidth;

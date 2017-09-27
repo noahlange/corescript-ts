@@ -12,12 +12,6 @@ class Spriteset_Battle extends Spriteset_Base {
     protected _actorSprites: Sprite_Actor[];
     protected _enemySprites: Sprite_Enemy[];
 
-
-    // constructor() {
-    //     super();
-    //     // this._battlebackLocated = false;
-    // };
-    
     createLowerLayer() {
         super.createLowerLayer();
         this.createBackground();
