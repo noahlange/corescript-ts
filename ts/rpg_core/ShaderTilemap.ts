@@ -2,11 +2,9 @@
 
 // we need this constant for some platforms (Samsung S4, S5, Tab4, HTC One H8)
 PIXI.glCore.VertexArrayObject.FORCE_NATIVE = true;
-
-/// bungcip: di pixijs 4.5 default udah nggak ada...
-(PIXI.GC_MODES as any).DEFAULT = PIXI.GC_MODES.AUTO;
-
+PIXI.settings.GC_MODE = PIXI.GC_MODES.AUTO; //btw, this is default setting
 PIXI.tilemap.TileRenderer.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+PIXI.tilemap.TileRenderer.DO_CLEAR = true;
 
 /**
  * The tilemap which displays 2D tile-based game map using shaders
@@ -36,8 +34,8 @@ class ShaderTilemap extends Tilemap {
     protected _hackRenderer(renderer: PIXI.WebGLRenderer) {
         var af = this.animationFrame % 4;
         if (af == 3) af = 1;
-        (renderer.plugins as any).tile.tileAnim[0] = af * this._tileWidth;
-        (renderer.plugins as any).tile.tileAnim[1] = (this.animationFrame % 3) * this._tileHeight;
+        (renderer.plugins as any).tilemap.tileAnim[0] = af * this._tileWidth;
+        (renderer.plugins as any).tilemap.tileAnim[1] = (this.animationFrame % 3) * this._tileHeight;
         return renderer;
     };
 
