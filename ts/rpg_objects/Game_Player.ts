@@ -5,7 +5,7 @@
 // determinants and map scrolling functions.
 
 class Game_Player extends Game_Character {
-    protected _vehicleType: string;
+    protected _vehicleType: VehicleType;
     protected _vehicleGettingOn: boolean;
     protected _vehicleGettingOff: boolean;
     protected _dashing: boolean;

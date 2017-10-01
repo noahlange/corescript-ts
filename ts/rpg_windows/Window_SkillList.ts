@@ -8,13 +8,6 @@ class Window_SkillList extends Window_Selectable {
     protected _stypeId: number = 0;
     protected _data: DB.Skill[] = [];
 
-    // constructor(x: number, y: number, width: number, height: number) {
-    //     super(x, y, width, height);
-    //     // this._actor = null;
-    //     // this._stypeId = 0;
-    //     // this._data = [];
-    // };
-    
     setActor(actor: Game_Actor) {
         if (this._actor !== actor) {
             this._actor = actor;

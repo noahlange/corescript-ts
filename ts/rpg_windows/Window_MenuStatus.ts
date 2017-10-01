@@ -4,13 +4,13 @@
 // The window for displaying party member status on the menu screen.
 
 class Window_MenuStatus extends Window_Selectable {
-    protected _formationMode: boolean;
-    protected _pendingIndex: number;
+    protected _formationMode: boolean = false;
+    protected _pendingIndex: number = -1;
 
     constructor(x: number, y: number) {
         super(x, y);
-        this._formationMode = false;
-        this._pendingIndex = -1;
+        // this._formationMode = false;
+        // this._pendingIndex = -1;
         this.refresh();
     };
 

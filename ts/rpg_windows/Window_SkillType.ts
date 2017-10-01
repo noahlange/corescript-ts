@@ -7,11 +7,6 @@ class Window_SkillType extends Window_Command {
     protected _actor: Game_Actor = null;
     protected _skillWindow: Window_SkillList;
 
-    // constructor(x: number, y: number) {
-    //     super(x, y);
-    //     this._actor = null;
-    // };
-
     windowWidth(): number {
         return 240;
     };

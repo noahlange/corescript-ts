@@ -4,13 +4,12 @@
 // The window for displaying the description of the selected item.
 
 class Window_Help extends Window_Base {
-    protected _text: string;
+    protected _text: string = '';
 
     /// NOTE (bungcip) : useless numLines?
     constructor(numLines?: any) {
-        var width = Graphics.boxWidth;
-        super(0, 0, width);
-        this._text = '';
+        super(0, 0, Graphics.boxWidth);
+        // this._text = '';
     };
 
     windowHeight() {

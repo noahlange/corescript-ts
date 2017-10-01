@@ -14,11 +14,6 @@ class Window_ShopNumber extends Window_Selectable {
 
     constructor(x: number, y: number, height: number) {
         super(x, y, undefined, height);
-        // this._item = null;
-        // this._max = 1;
-        // this._price = 0;
-        // this._number = 1;
-        // this._currencyUnit = TextManager.currencyUnit;
         this.createButtons();
     };
     

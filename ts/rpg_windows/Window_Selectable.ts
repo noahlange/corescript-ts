@@ -20,16 +20,6 @@ class Window_Selectable extends Window_Base {
 
     constructor(x?: number, y?: number, width?: number, height?: number, callback?: Function) {
         super(x, y, width, height, callback);
-
-        // this._index = -1;
-        // this._cursorFixed = false;
-        // this._cursorAll = false;
-        // this._stayCount = 0;
-        // this._helpWindow = null;
-        // this._handlers = {};
-        // this._touching = false;
-        // this._scrollX = 0;
-        // this._scrollY = 0;
         this.deactivate();
     };
 

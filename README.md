@@ -6,7 +6,7 @@ Goal:
 - Using Typescript
 - Create new way to extends functionaly of engine 
 - Only support desktop & evergreen browser for now
-- Reduce LOC 
+- Reduce LOC  
 - Remove decrypter and canvas support
 - Upgrade to latest PIXI
 

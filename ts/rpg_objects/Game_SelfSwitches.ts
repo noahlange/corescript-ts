@@ -4,11 +4,11 @@
 // The game object class for self switches.
 
 class Game_SelfSwitches {
-    protected _data: object;
+    protected _data: object = {};
 
-    constructor() {
-        this.clear();
-    };
+    // constructor() {
+    //     this.clear();
+    // };
     
     clear() {
         this._data = {};

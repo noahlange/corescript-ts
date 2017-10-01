@@ -4,13 +4,13 @@
 // The window for selecting an item on the item screen.
 
 class Window_ItemList extends Window_Selectable {
-    protected _category: string;
-    protected _data: any[];
+    protected _category: string = 'none';
+    protected _data: any[] = [];
 
     constructor(x: number, y: number, width: number, height?: number, callback?: Function) {
         super(x, y, width, height, callback);
-        this._category = 'none';
-        this._data = [];
+        // this._category = 'none';
+        // this._data = [];
     };
     
     setCategory(category: string) {

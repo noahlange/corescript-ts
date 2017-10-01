@@ -4,11 +4,11 @@
 // The game object class for switches.
 
 class Game_Switches {
-    protected _data: boolean[];
+    protected _data: boolean[] = [];
 
-    constructor() {
-        this.clear();
-    };
+    // constructor() {
+    //     this.clear();
+    // };
     
     clear() {
         this._data = [];

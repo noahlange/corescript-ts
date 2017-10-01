@@ -6,10 +6,6 @@
 abstract class Game_Unit<T extends Game_Battler> {
     protected _inBattle: boolean = false;
 
-    // constructor() {
-    //     this._inBattle = false;
-    // };
-    
     inBattle(): boolean {
         return this._inBattle;
     };

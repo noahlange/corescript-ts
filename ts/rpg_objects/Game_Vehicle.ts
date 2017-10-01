@@ -3,7 +3,7 @@
 //
 // The game object class for a vehicle.
 
-type VehicleType  = 'boat' | 'ship' | 'airship' | '';
+type VehicleType  = 'boat' | 'ship' | 'airship' | 'walk' | '';
 
 class Game_Vehicle extends Game_Character {
     protected _type: VehicleType;

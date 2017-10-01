@@ -23,26 +23,6 @@ class Game_System {
     protected _savedBgm: null | DB.Audio = null;
     protected _walkingBgm: null | DB.Audio = null;
 
-    // constructor() {
-    //     // this._saveEnabled = true;
-    //     // this._menuEnabled = true;
-    //     // this._encounterEnabled = true;
-    //     // this._formationEnabled = true;
-    //     // this._battleCount = 0;
-    //     // this._winCount = 0;
-    //     // this._escapeCount = 0;
-    //     // this._saveCount = 0;
-    //     // this._versionId = 0;
-    //     // this._framesOnSave = 0;
-    //     // this._bgmOnSave = null;
-    //     // this._bgsOnSave = null;
-    //     // this._windowTone = null;
-    //     // this._battleBgm = null;
-    //     // this._victoryMe = null;
-    //     // this._defeatMe = null;
-    //     // this._savedBgm = null;
-    //     // this._walkingBgm = null;
-    // };
     
     isJapanese() {
         return $dataSystem.locale.match(/^ja/);

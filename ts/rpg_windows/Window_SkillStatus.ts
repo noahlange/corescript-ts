@@ -6,11 +6,6 @@
 class Window_SkillStatus extends Window_Base {
     protected _actor: Game_Actor = null;
 
-    // constructor(x: number, y: number, width: number, height: number) {
-    //     super(x, y, width, height);
-    //     this._actor = null;
-    // };
-    
     setActor(actor: Game_Actor) {
         if (this._actor !== actor) {
             this._actor = actor;

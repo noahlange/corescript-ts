@@ -10,8 +10,6 @@ class Window_ShopStatus extends Window_Base {
 
     constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
-        // this._item = null;
-        // this._pageIndex = 0;
         this.refresh();
     };
 

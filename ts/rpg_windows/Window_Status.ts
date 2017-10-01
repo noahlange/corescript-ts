@@ -8,7 +8,6 @@ class Window_Status extends Window_Selectable {
 
     constructor() {
         super(0, 0, Graphics.boxWidth, Graphics.boxHeight);
-        // this._actor = null;
         this.refresh();
         this.activate();
     };

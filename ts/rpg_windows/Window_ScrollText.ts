@@ -5,17 +5,15 @@
 // is handled as a window for convenience.
 
 class Window_ScrollText extends Window_Base {
-    protected _text: string;
-    protected _allTextHeight: number;
+    protected _text: string = '';
+    protected _allTextHeight: number = 0;
 
     constructor() {
-        var width = Graphics.boxWidth;
-        var height = Graphics.boxHeight;
-        super(0, 0, width, height);
+        super(0, 0, Graphics.boxWidth, Graphics.boxHeight);
         this.opacity = 0;
         this.hide();
-        this._text = '';
-        this._allTextHeight = 0;
+        // this._text = '';
+        // this._allTextHeight = 0;
     };
 
     update() {
