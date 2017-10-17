@@ -5,8 +5,8 @@
 
 class Sprite_Button extends Sprite {
     protected _touching: boolean = false;
-    protected _coldFrame: null | Rectangle = null;
-    protected _hotFrame: null | Rectangle = null;
+    protected _coldFrame: PIXI.Rectangle = null;
+    protected _hotFrame: PIXI.Rectangle = null;
     protected _clickHandler: Function = null;
 
     update() {
@@ -28,11 +28,11 @@ class Sprite_Button extends Sprite {
     };
 
     setColdFrame(x: number, y: number, width: number, height: number) {
-        this._coldFrame = new Rectangle(x, y, width, height);
+        this._coldFrame = new PIXI.Rectangle(x, y, width, height);
     };
 
     setHotFrame(x: number, y: number, width: number, height: number) {
-        this._hotFrame = new Rectangle(x, y, width, height);
+        this._hotFrame = new PIXI.Rectangle(x, y, width, height);
     };
 
     setClickHandler(method: Function) {

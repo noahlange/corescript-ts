@@ -8,8 +8,8 @@
  */
 class Sprite extends PIXI.Sprite {
     protected _bitmap: Bitmap | null = null;
-    protected _frame: Rectangle = new Rectangle();
-    protected _realFrame: Rectangle = new Rectangle();;
+    protected _frame: PIXI.Rectangle = new PIXI.Rectangle();
+    protected _realFrame: PIXI.Rectangle = new PIXI.Rectangle();;
     protected _blendColor: number[] = [0, 0, 0, 0];
     protected _colorTone: number[] = [0, 0, 0, 0];
     protected _canvas: null | HTMLCanvasElement = null;
@@ -31,20 +31,7 @@ class Sprite extends PIXI.Sprite {
     constructor(bitmap?: Bitmap) {
         super(new PIXI.Texture(new PIXI.BaseTexture()))
 
-        // this._bitmap = null;
-        // this._frame = new Rectangle();
-        // this._realFrame = new Rectangle();
-        // this._blendColor = [0, 0, 0, 0];
-        // this._colorTone = [0, 0, 0, 0];
-        // this._canvas = null;
-        // this._context = null;
-        // this._tintTexture = null;
-
-        // this._isPicture = false;
-
         this.spriteId = Sprite._counter++;
-        // this.opaque = false;
-
         this.bitmap = bitmap;
     };
 
@@ -70,7 +57,7 @@ class Sprite extends PIXI.Sprite {
                 value.addLoadListener(this._onBitmapLoad.bind(this));
             } else {
                 this._refreshFrame = false;
-                this.texture.frame = Rectangle.emptyRectangle;
+                this.texture.frame = PIXI.Rectangle.EMPTY;
             }
         }
     }
@@ -260,7 +247,7 @@ class Sprite extends PIXI.Sprite {
                 this._executeTint(realX, realY, realW, realH);
                 this._tintTexture.update();
                 this.texture.baseTexture = this._tintTexture;
-                this.texture.frame = new Rectangle(0, 0, realW, realH);
+                this.texture.frame = new PIXI.Rectangle(0, 0, realW, realH);
             } else {
                 if (this._bitmap) {
                     this.texture.baseTexture = this._bitmap.baseTexture;
@@ -268,7 +255,7 @@ class Sprite extends PIXI.Sprite {
                 this.texture.frame = this._realFrame;
             }
         } else if (this._bitmap) {
-            this.texture.frame = Rectangle.emptyRectangle;
+            this.texture.frame = PIXI.Rectangle.EMPTY;
         } else {
             this.texture.baseTexture.width = Math.max(this.texture.baseTexture.width, this._frame.x + this._frame.width);
             this.texture.baseTexture.height = Math.max(this.texture.baseTexture.height, this._frame.y + this._frame.height);

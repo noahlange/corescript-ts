@@ -50,7 +50,7 @@ class Window_SavefileList extends Window_Selectable {
         this.drawText(TextManager.file + ' ' + id, x, y, 180);
     };
 
-    drawContents(info: SavefileInfo, rect: Rectangle, valid: boolean) {
+    drawContents(info: SavefileInfo, rect: PIXI.Rectangle, valid: boolean) {
         var bottom = rect.y + rect.height;
         if (rect.width >= 420) {
             this.drawGameTitle(info, rect.x + 192, rect.y, rect.width - 192);

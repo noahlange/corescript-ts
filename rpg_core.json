@@ -6,7 +6,6 @@
   "out/rpg_core/CacheMap.js",
   "out/rpg_core/ImageCache.js",
   "out/rpg_core/RequestQueue.js",
-  "out/rpg_core/Rectangle.js",
   "out/rpg_core/Bitmap.js",
   "out/rpg_core/Graphics.js",
   "out/rpg_core/Input.js",

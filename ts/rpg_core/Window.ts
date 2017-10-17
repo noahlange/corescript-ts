@@ -11,7 +11,7 @@ class CoreWindow extends PIXI.Container {
     protected _windowskin: Bitmap = null;
     protected _width: number = 0;
     protected _height: number = 0;
-    protected _cursorRect: Rectangle = new Rectangle();
+    protected _cursorRect: PIXI.Rectangle = new PIXI.Rectangle();
 
     /// bungcip: required to public in order to compile
     public _openness: number = 255;

@@ -59,7 +59,7 @@ abstract class Spriteset_Base extends Sprite {
         var height = Graphics.height + margin * 2;
         this._toneFilter = new ToneFilter();
         this._baseSprite.filters = [this._toneFilter];
-        this._baseSprite.filterArea = new Rectangle(-margin, -margin, width, height);
+        this._baseSprite.filterArea = new PIXI.Rectangle(-margin, -margin, width, height);
     };
 
     createPictures() {

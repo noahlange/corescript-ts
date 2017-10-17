@@ -144,8 +144,8 @@ class Window_Selectable extends Window_Base {
         return this.topRow() * this.maxCols();
     };
 
-    itemRect(index: number): Rectangle {
-        var rect = new Rectangle();
+    itemRect(index: number): PIXI.Rectangle {
+        var rect = new PIXI.Rectangle();
         var maxCols = this.maxCols();
         rect.width = this.itemWidth();
         rect.height = this.itemHeight();

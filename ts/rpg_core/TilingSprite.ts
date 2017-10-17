@@ -8,7 +8,7 @@
  */
 class TilingSprite extends PIXI.extras.PictureTilingSprite {
     protected _bitmap: Bitmap | null = null;
-    protected _frame: Rectangle = new Rectangle();
+    protected _frame: PIXI.Rectangle = new PIXI.Rectangle();
 
     public spriteId: number;
 
@@ -25,10 +25,8 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
     constructor(bitmap?: Bitmap) {
         super(new PIXI.Texture(new PIXI.BaseTexture()));
 
-        // this._bitmap = null;
         this._width = 0;
         this._height = 0;
-        // this._frame = new Rectangle();
         this.spriteId = Sprite._counter++;
 
         this.origin = new PIXI.Point();
@@ -53,7 +51,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
             if (this._bitmap) {
                 this._bitmap.addLoadListener(this._onBitmapLoad.bind(this));
             } else {
-                this.texture.frame = Rectangle.emptyRectangle;
+                this.texture.frame = PIXI.Rectangle.EMPTY;
             }
         }
     }

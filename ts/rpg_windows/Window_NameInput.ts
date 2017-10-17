@@ -116,9 +116,9 @@ class Window_NameInput extends Window_Selectable {
         return this._index === 89;
     };
 
-    itemRect(index: number) : Rectangle {
+    itemRect(index: number) : PIXI.Rectangle {
         /// NOTE (bungcip): changed to make it compile
-        const rect = new Rectangle(
+        const rect = new PIXI.Rectangle(
             index % 10 * 42 + Math.floor(index % 10 / 5) * 24,
             Math.floor(index / 10) * Window_Base.lineHeight(),
             42,

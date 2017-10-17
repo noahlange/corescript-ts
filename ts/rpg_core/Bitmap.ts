@@ -329,8 +329,8 @@ class Bitmap {
      * @property rect
      * @type Rectangle
      */
-    get rect(): Rectangle {
-        return new Rectangle(0, 0, this.width, this.height);
+    get rect(): PIXI.Rectangle {
+        return new PIXI.Rectangle(0, 0, this.width, this.height);
     }
     /**
      * Whether the smooth scaling is applied.
