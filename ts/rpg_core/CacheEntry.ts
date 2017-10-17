@@ -23,12 +23,6 @@ class CacheEntry {
         this.cache = cache;
         this.key = key;
         this.item = item;
-        // this.cached = false;
-        // this.touchTicks = 0;
-        // this.touchSeconds = 0;
-        // this.ttlTicks = 0;
-        // this.ttlSeconds = 0;
-        // this.freedByTTL = false;
     }
 
     /**

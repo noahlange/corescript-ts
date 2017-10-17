@@ -9,8 +9,6 @@ class Window_EquipStatus extends Window_Base {
     
     constructor(x: number, y: number) {
         super(x, y);
-        // this._actor = null;
-        // this._tempActor = null;
         this.refresh();
     };
     

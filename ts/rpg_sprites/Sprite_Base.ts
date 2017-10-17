@@ -8,13 +8,6 @@ class Sprite_Base extends Sprite {
     protected _effectTarget: Sprite_Base = this;
     protected _hiding: boolean = false;
 
-    // constructor() {
-    //     super();
-    //     this._animationSprites = [];
-    //     this._effectTarget = this;
-    //     this._hiding = false;
-    // };
-
     update() {
         super.update();
         this.updateVisibility();

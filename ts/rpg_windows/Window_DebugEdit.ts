@@ -9,8 +9,6 @@ class Window_DebugEdit extends Window_Selectable {
 
     constructor(x: number, y: number, width: number) {
         super(x, y, width, Window_Base.fittingHeight(10));
-        // this._mode = 'switch';
-        // this._topId = 1;
         this.refresh();
     };
 

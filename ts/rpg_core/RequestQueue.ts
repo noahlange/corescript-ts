@@ -2,10 +2,6 @@
 class RequestQueue {
     protected _queue: any[] = [];
 
-    // constructor(){
-    //     this._queue = [];
-    // }    
-
     enqueue(key: string, value: any){
         this._queue.push({
             key: key,

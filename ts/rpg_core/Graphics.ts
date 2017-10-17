@@ -113,15 +113,15 @@ class Graphics {
      */
     static frameCount = 0;
 
-    /**
-     * The alias of PIXI.blendModes.NORMAL.
-     *
-     * @static
-     * @property BLEND_NORMAL
-     * @type Number
-     * @final
-     */
-    static BLEND_NORMAL = 0;
+    // /**
+    //  * The alias of PIXI.blendModes.NORMAL.
+    //  *
+    //  * @static
+    //  * @property BLEND_NORMAL
+    //  * @type Number
+    //  * @final
+    //  */
+    // static BLEND_NORMAL = 0;
 
     /**
      * The alias of PIXI.blendModes.ADD.
@@ -133,25 +133,25 @@ class Graphics {
      */
     static BLEND_ADD = 1;
 
-    /**
-     * The alias of PIXI.blendModes.MULTIPLY.
-     *
-     * @static
-     * @property BLEND_MULTIPLY
-     * @type Number
-     * @final
-     */
-    static BLEND_MULTIPLY = 2;
+    // /**
+    //  * The alias of PIXI.blendModes.MULTIPLY.
+    //  *
+    //  * @static
+    //  * @property BLEND_MULTIPLY
+    //  * @type Number
+    //  * @final
+    //  */
+    // static BLEND_MULTIPLY = 2;
 
-    /**
-     * The alias of PIXI.blendModes.SCREEN.
-     *
-     * @static
-     * @property BLEND_SCREEN
-     * @type Number
-     * @final
-     */
-    static BLEND_SCREEN = 3;
+    // /**
+    //  * The alias of PIXI.blendModes.SCREEN.
+    //  *
+    //  * @static
+    //  * @property BLEND_SCREEN
+    //  * @type Number
+    //  * @final
+    //  */
+    // static BLEND_SCREEN = 3;
 
     /**
      * Marks the beginning of each frame for FPSMeter.

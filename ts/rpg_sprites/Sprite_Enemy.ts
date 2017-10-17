@@ -13,11 +13,6 @@ class Sprite_Enemy extends Sprite_Battler {
     protected _shake: number;
     protected _stateIconSprite: Sprite_StateIcon;
     
-
-    // constructor(battler: Game_Enemy) {
-    //     super(battler)
-    // }
-
     initMembers() {
         super.initMembers();
         this._enemy = null;

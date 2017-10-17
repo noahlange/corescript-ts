@@ -7,10 +7,10 @@
  */
 class ScreenSprite extends PIXI.Container {
     protected _graphics: PIXI.Graphics;
-    protected _red: number;
-    protected _green: number;
-    protected _blue: number;
-    protected _colorText: string;
+    protected _red: number = -1;
+    protected _green: number = -1;
+    protected _blue: number = -1;
+    protected _colorText: string = '';
 
     constructor() {
         super();
@@ -19,10 +19,10 @@ class ScreenSprite extends PIXI.Container {
         this.addChild(this._graphics);
         this.opacity = 0;
 
-        this._red = -1;
-        this._green = -1;
-        this._blue = -1;
-        this._colorText = '';
+        // this._red = -1;
+        // this._green = -1;
+        // this._blue = -1;
+        // this._colorText = '';
         this.setBlack();
     };
     /**
@@ -111,6 +111,3 @@ class ScreenSprite extends PIXI.Container {
 
 
 }
-
-
-
