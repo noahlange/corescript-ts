@@ -18,7 +18,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @property origin
      * @type Point
      */
-    public origin: Point;
+    public origin: PIXI.Point;
 
     public tilingTexture: any;
 
@@ -31,7 +31,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
         // this._frame = new Rectangle();
         this.spriteId = Sprite._counter++;
 
-        this.origin = new Point();
+        this.origin = new PIXI.Point();
 
         this.bitmap = bitmap;
     };

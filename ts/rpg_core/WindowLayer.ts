@@ -156,7 +156,7 @@ class WindowLayer extends PIXI.Container {
      * @param {Window} window
      * @private
      */
-    protected _maskWindow(window: CoreWindow, shift: Point) {
+    protected _maskWindow(window: CoreWindow, shift: PIXI.Point) {
         (this._windowMask as any)['_currentBounds'] = null; // bungcip: edited to compile
         this._windowMask['boundsDirty'] = true as any; // bungcip: edited to compile
         var rect = this._windowRect;

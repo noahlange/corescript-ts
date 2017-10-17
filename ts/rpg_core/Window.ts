@@ -34,7 +34,7 @@ class CoreWindow extends PIXI.Container {
      * @property origin
      * @type Point
      */
-    public origin: Point = new Point();
+    public origin: PIXI.Point = new PIXI.Point();
 
     /**
      * The active state for the window.
@@ -70,34 +70,7 @@ class CoreWindow extends PIXI.Container {
 
     constructor() {
         super();
-
-        // this._isWindow = true;
-        // this._windowskin = null;
-        // this._width = 0;
-        // this._height = 0;
-        // this._cursorRect = new Rectangle();
-        // this._openness = 255;
-        // this._animationCount = 0;
-
-        // this._padding = 18;
-        // this._margin = 4;
-        // this._colorTone = [0, 0, 0];
-
-        // this._windowSpriteContainer = null;
-        // this._windowBackSprite = null;
-        // this._windowCursorSprite = null;
-        // this._windowFrameSprite = null;
-        // this._windowContentsSprite = null;
-        // this._windowArrowSprites = [];
-        // this._windowPauseSignSprite = null;
-
         this._createAllParts();
-
-        // this.origin = new Point();
-        // this.active = true;
-        // this.downArrowVisible = false;
-        // this.upArrowVisible = false;
-        // this.pause = false;
     };
 
     /**

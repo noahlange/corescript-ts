@@ -33,7 +33,7 @@ class Weather extends PIXI.Container {
      * @property origin
      * @type Point
      */
-    public origin: Point = new Point();
+    public origin: PIXI.Point = new PIXI.Point();
 
     protected _rainBitmap: Bitmap;
     protected _stormBitmap: Bitmap;
@@ -49,16 +49,8 @@ class Weather extends PIXI.Container {
     constructor() {
         super();
 
-        // this._width = Graphics.width;
-        // this._height = Graphics.height;
-        // this._sprites = [];
-
         this._createBitmaps();
         this._createDimmer();
-
-        // this.type = 'none';
-        // this.power = 0;
-        // this.origin = new Point();
     };
 
     /**

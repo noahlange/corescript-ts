@@ -7,8 +7,8 @@
  */
 class Tilemap extends PIXI.Container {
     protected _margin: number = 20;
-    protected _width: number;
-    protected _height: number;
+    protected _width: number = Graphics.width + this._margin * 2;
+    protected _height: number = Graphics.height + this._margin * 2;
     protected _tileWidth: number = 48;
     protected _tileHeight: number = 48;
     protected _mapWidth: number = 0;
@@ -18,75 +18,56 @@ class Tilemap extends PIXI.Container {
     protected _layerHeight: number = 0;
     protected _lastTiles: any[] = [];
 
-    public bitmaps: any;
-    public origin: Point;
-    public flags: any[];
-    public animationCount: number;
-    public horizontalWrap: boolean;
-    public verticalWrap: boolean;
+    /**
+     * The bitmaps used as a tileset.
+     *
+     * @property bitmaps
+     * @type Array
+     */
+    public bitmaps: any = [];
+
+    /**
+     * The origin point of the tilemap for scrolling.
+     *
+     * @property origin
+     * @type PIXI.Point
+     */
+    public origin: PIXI.Point = new PIXI.Point();
+
+    /**
+     * The tileset flags.
+     *
+     * @property flags
+     * @type Array
+     */
+    public flags: any[] = [];
+
+    /**
+     * The animation count for autotiles.
+     *
+     * @property animationCount
+     * @type Number
+     */
+    public animationCount: number = 0;
+
+    /**
+     * Whether the tilemap loops horizontal.
+     *
+     * @property horizontalWrap
+     * @type Boolean
+     */
+    public horizontalWrap: boolean = false;
+
+    /**
+     * Whether the tilemap loops vertical.
+     *
+     * @property verticalWrap
+     * @type Boolean
+     */
+    public verticalWrap: boolean = false;
 
     constructor() {
         super();
-
-        // this._margin = 20;
-        this._width = Graphics.width + this._margin * 2;
-        this._height = Graphics.height + this._margin * 2;
-        // this._tileWidth = 48;
-        // this._tileHeight = 48;
-        // this._mapWidth = 0;
-        // this._mapHeight = 0;
-        // this._mapData = null;
-        // this._layerWidth = 0;
-        // this._layerHeight = 0;
-        // this._lastTiles = [];
-
-        /**
-         * The bitmaps used as a tileset.
-         *
-         * @property bitmaps
-         * @type Array
-         */
-        this.bitmaps = [];
-
-        /**
-         * The origin point of the tilemap for scrolling.
-         *
-         * @property origin
-         * @type Point
-         */
-        this.origin = new Point();
-
-        /**
-         * The tileset flags.
-         *
-         * @property flags
-         * @type Array
-         */
-        this.flags = [];
-
-        /**
-         * The animation count for autotiles.
-         *
-         * @property animationCount
-         * @type Number
-         */
-        this.animationCount = 0;
-
-        /**
-         * Whether the tilemap loops horizontal.
-         *
-         * @property horizontalWrap
-         * @type Boolean
-         */
-        this.horizontalWrap = false;
-
-        /**
-         * Whether the tilemap loops vertical.
-         *
-         * @property verticalWrap
-         * @type Boolean
-         */
-        this.verticalWrap = false;
 
         this._createLayers();
         this.refresh();
