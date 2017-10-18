@@ -234,7 +234,7 @@ class Game_BattlerBase {
     };
 
     updateBuffTurns() {
-        for (var i = 0; i < this._buffTurns.length; i++) {
+        for (let i = 0; i < this._buffTurns.length; i++) {
             if (this._buffTurns[i] > 0) {
                 this._buffTurns[i]--;
             }
@@ -269,7 +269,7 @@ class Game_BattlerBase {
 
     buffIcons() {
         var icons = [];
-        for (var i = 0; i < this._buffs.length; i++) {
+        for (let i = 0; i < this._buffs.length; i++) {
             if (this._buffs[i] !== 0) {
                 icons.push(this.buffIconIndex(this._buffs[i], i));
             }
@@ -649,7 +649,7 @@ class Game_BattlerBase {
 
     mostImportantStateText() {
         var states = this.states();
-        for (var i = 0; i < states.length; i++) {
+        for (let i = 0; i < states.length; i++) {
             if (states[i].message3) {
                 return states[i].message3;
             }

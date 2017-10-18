@@ -104,7 +104,7 @@ class Sprite_Battler extends Sprite_Base {
     updateDamagePopup() {
         this.setupDamagePopup();
         if (this._damages.length > 0) {
-            for (var i = 0; i < this._damages.length; i++) {
+            for (let i = 0; i < this._damages.length; i++) {
                 this._damages[i].update();
             }
             if (!this._damages[0].isPlaying()) {
@@ -136,7 +136,7 @@ class Sprite_Battler extends Sprite_Base {
             var mirror = data.mirror;
             var delay = animation.position === 3 ? 0 : data.delay;
             this.startAnimation(animation, mirror, delay);
-            for (var i = 0; i < this._animationSprites.length; i++) {
+            for (let i = 0; i < this._animationSprites.length; i++) {
                 var sprite = this._animationSprites[i];
                 sprite.visible = this._battler.isSpriteVisible();
             }

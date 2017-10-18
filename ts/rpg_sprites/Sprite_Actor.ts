@@ -51,10 +51,6 @@ class Sprite_Actor extends Sprite_Battler {
 
     initMembers() {
         super.initMembers();
-        // this._battlerName = '';
-        // this._motion = null;
-        // this._motionCount = 0;
-        // this._pattern = 0;
         this.createShadowSprite();
         this.createWeaponSprite();
         this.createMainSprite();
@@ -90,7 +86,7 @@ class Sprite_Actor extends Sprite_Battler {
 
     setBattler(battler: Game_Actor) {
         super.setBattler(battler);
-        var changed = (battler !== this._actor);
+        const changed = (battler !== this._actor);
         if (changed) {
             this._actor = battler;
             if (battler) {
@@ -143,7 +139,7 @@ class Sprite_Actor extends Sprite_Battler {
     };
 
     startMotion(motionType: keyof MotionMap) {
-        var newMotion = Sprite_Actor.MOTIONS[motionType];
+        const newMotion = Sprite_Actor.MOTIONS[motionType];
         if (this._motion !== newMotion) {
             this._motion = newMotion;
             this._motionCount = 0;
@@ -163,7 +159,7 @@ class Sprite_Actor extends Sprite_Battler {
 
     updateBitmap() {
         super.updateBitmap();
-        var name = this._actor.battlerName();
+        const name = this._actor.battlerName();
         if (this._battlerName !== name) {
             this._battlerName = name;
             this._mainSprite.bitmap = ImageManager.loadSvActor(name);
@@ -172,20 +168,20 @@ class Sprite_Actor extends Sprite_Battler {
 
     updateFrame() {
         super.updateFrame();
-        var bitmap = this._mainSprite.bitmap;
+        const bitmap = this._mainSprite.bitmap;
         if (bitmap) {
-            var motionIndex = this._motion ? this._motion.index : 0;
-            var pattern = this._pattern < 3 ? this._pattern : 1;
-            var cw = bitmap.width / 9;
-            var ch = bitmap.height / 6;
-            var cx = Math.floor(motionIndex / 6) * 3 + pattern;
-            var cy = motionIndex % 6;
+            const motionIndex = this._motion ? this._motion.index : 0;
+            const pattern = this._pattern < 3 ? this._pattern : 1;
+            const cw = bitmap.width / 9;
+            const ch = bitmap.height / 6;
+            const cx = Math.floor(motionIndex / 6) * 3 + pattern;
+            const cy = motionIndex % 6;
             this._mainSprite.setFrame(cx * cw, cy * ch, cw, ch);
         }
     };
 
     updateMove() {
-        var bitmap = this._mainSprite.bitmap;
+        const bitmap = this._mainSprite.bitmap;
         if (!bitmap || bitmap.isReady()) {
             super.updateMove();
         }
@@ -219,13 +215,13 @@ class Sprite_Actor extends Sprite_Battler {
     };
 
     refreshMotion() {
-        var actor = this._actor;
-        var motionGuard = Sprite_Actor.MOTIONS['guard'];
+        const actor = this._actor;
+        const motionGuard = Sprite_Actor.MOTIONS['guard'];
         if (actor) {
             if (this._motion === motionGuard && !BattleManager.isInputting()) {
                 return;
             }
-            var stateMotion = actor.stateMotionIndex();
+            const stateMotion = actor.stateMotionIndex();
             if (actor.isInputting() || actor.isActing()) {
                 this.startMotion('walk');
             } else if (stateMotion === 3) {

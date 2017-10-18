@@ -164,8 +164,8 @@ class ShaderTilemap extends Tilemap {
         this.upperZLayer.clear();
         var tileCols = Math.ceil(this._width / this._tileWidth) + 1;
         var tileRows = Math.ceil(this._height / this._tileHeight) + 1;
-        for (var y = 0; y < tileRows; y++) {
-            for (var x = 0; x < tileCols; x++) {
+        for (let y = 0; y < tileRows; y++) {
+            for (let x = 0; x < tileCols; x++) {
                 this._paintTiles(startX, startY, x, y);
             }
         }
@@ -338,7 +338,7 @@ class ShaderTilemap extends Tilemap {
         var table = autotileTable[shape];
         var w1 = this._tileWidth / 2;
         var h1 = this._tileHeight / 2;
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             var qsx = table[i][0];
             var qsy = table[i][1];
             var sx1 = (bx * 2 + qsx) * w1;
@@ -383,7 +383,7 @@ class ShaderTilemap extends Tilemap {
             var table = autotileTable[shape];
             var w1 = this._tileWidth / 2;
             var h1 = this._tileHeight / 2;
-            for (var i = 0; i < 2; i++) {
+            for (let i = 0; i < 2; i++) {
                 var qsx = table[2 + i][0];
                 var qsy = table[2 + i][1];
                 var sx1 = (bx * 2 + qsx) * w1;
@@ -406,7 +406,7 @@ class ShaderTilemap extends Tilemap {
         if (shadowBits & 0x0f) {
             var w1 = this._tileWidth / 2;
             var h1 = this._tileHeight / 2;
-            for (var i = 0; i < 4; i++) {
+            for (let i = 0; i < 4; i++) {
                 if (shadowBits & (1 << i)) {
                     var dx1 = dx + (i % 2) * w1;
                     var dy1 = dy + Math.floor(i / 2) * h1;

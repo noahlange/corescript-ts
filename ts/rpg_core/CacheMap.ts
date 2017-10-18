@@ -37,7 +37,7 @@ class CacheMap {
                 temp.push(entry);
             }
         }
-        for (var i = 0; i < temp.length; i++) {
+        for (let i = 0; i < temp.length; i++) {
             temp[i].free(true);
         }
         temp.length = 0;
@@ -58,7 +58,7 @@ class CacheMap {
 
     clear() {
         const keys = Object.keys(this._inner);
-        for (var i = 0; i < keys.length; i++) {
+        for (let i = 0; i < keys.length; i++) {
             this._inner[keys[i]].free();
         }
     };

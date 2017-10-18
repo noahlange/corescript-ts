@@ -35,7 +35,7 @@ class Window_EquipStatus extends Window_Base {
         this.contents.clear();
         if (this._actor) {
             this.drawActorName(this._actor, this.textPadding(), 0);
-            for (var i = 0; i < 6; i++) {
+            for (let i = 0; i < 6; i++) {
                 this.drawItem(0, Window_Base.lineHeight() * (1 + i), 2 + i);
             }
         }

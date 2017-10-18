@@ -44,7 +44,7 @@ class Window_ShopStatus extends Window_Base {
 
     drawEquipInfo(x: number, y: number) {
         var members = this.statusMembers();
-        for (var i = 0; i < members.length; i++) {
+        for (let i = 0; i < members.length; i++) {
             this.drawActorEquipInfo(x, y + Window_Base.lineHeight() * (i * 2.4), members[i]);
         }
     };
@@ -92,7 +92,7 @@ class Window_ShopStatus extends Window_Base {
         var list = [];
         var equips = actor.equips();
         var slots = actor.equipSlots();
-        for (var i = 0; i < slots.length; i++) {
+        for (let i = 0; i < slots.length; i++) {
             if (slots[i] === etypeId) {
                 list.push(equips[i]);
             }
@@ -100,7 +100,7 @@ class Window_ShopStatus extends Window_Base {
         var paramId = this.paramId();
         var worstParam = Number.MAX_VALUE;
         var worstItem = null;
-        for (var j = 0; j < list.length; j++) {
+        for (let j = 0; j < list.length; j++) {
             if (list[j] && list[j].params[paramId] < worstParam) {
                 worstParam = list[j].params[paramId];
                 worstItem = list[j];

@@ -75,7 +75,7 @@ class Window_Status extends Window_Selectable {
     
     drawParameters(x: number, y: number) {
         var lineHeight = Window_Base.lineHeight();
-        for (var i = 0; i < 6; i++) {
+        for (let i = 0; i < 6; i++) {
             var paramId = i + 2;
             var y2 = y + lineHeight * i;
             this.changeTextColor(this.systemColor());
@@ -106,7 +106,7 @@ class Window_Status extends Window_Selectable {
     drawEquipments(x: number, y: number) {
         var equips = this._actor.equips();
         var count = Math.min(equips.length, this.maxEquipmentLines());
-        for (var i = 0; i < count; i++) {
+        for (let i = 0; i < count; i++) {
             this.drawItemName(equips[i], x, y + Window_Base.lineHeight() * i);
         }
     };

@@ -126,10 +126,10 @@ class Window_NameEdit extends Window_Base {
     refresh() {
         this.contents.clear();
         this.drawActorFace(this._actor, 0, 0);
-        for (var i = 0; i < this._maxLength; i++) {
+        for (let i = 0; i < this._maxLength; i++) {
             this.drawUnderline(i);
         }
-        for (var j = 0; j < this._name.length; j++) {
+        for (let j = 0; j < this._name.length; j++) {
             this.drawChar(j);
         }
         var rect = this.itemRect(this._index);

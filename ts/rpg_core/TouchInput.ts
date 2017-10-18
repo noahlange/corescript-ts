@@ -359,7 +359,7 @@ class TouchInput {
      * @private
      */
     protected static _onTouchStart(event: TouchEvent) {
-        for (var i = 0; i < event.changedTouches.length; i++) {
+        for (let i = 0; i < event.changedTouches.length; i++) {
             var touch = event.changedTouches[i];
             var x = Graphics.pageToCanvasX(touch.pageX);
             var y = Graphics.pageToCanvasY(touch.pageY);
@@ -386,7 +386,7 @@ class TouchInput {
      * @private
      */
     protected static _onTouchMove(event: TouchEvent) {
-        for (var i = 0; i < event.changedTouches.length; i++) {
+        for (let i = 0; i < event.changedTouches.length; i++) {
             var touch = event.changedTouches[i];
             var x = Graphics.pageToCanvasX(touch.pageX);
             var y = Graphics.pageToCanvasY(touch.pageY);
@@ -401,7 +401,7 @@ class TouchInput {
      * @private
      */
     protected static _onTouchEnd(event: TouchEvent) {
-        for (var i = 0; i < event.changedTouches.length; i++) {
+        for (let i = 0; i < event.changedTouches.length; i++) {
             var touch = event.changedTouches[i];
             var x = Graphics.pageToCanvasX(touch.pageX);
             var y = Graphics.pageToCanvasY(touch.pageY);

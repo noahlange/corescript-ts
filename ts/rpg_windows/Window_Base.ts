@@ -438,7 +438,7 @@ class Window_Base extends CoreWindow {
         var lines = textState.text.slice(textState.index).split('\n');
         var maxLines = all ? lines.length : 1;
 
-        for (var i = 0; i < maxLines; i++) {
+        for (let i = 0; i < maxLines; i++) {
             var maxFontSize = this.contents.fontSize;
             var regExp = /\x1b[\{\}]/g;
             for (; ;) {
@@ -556,7 +556,7 @@ class Window_Base extends CoreWindow {
 
     drawActorIcons(actor: Game_Actor, x: number, y: number, width: number = 144) {
         var icons = actor.allIcons().slice(0, Math.floor(width / Window_Base._iconWidth));
-        for (var i = 0; i < icons.length; i++) {
+        for (let i = 0; i < icons.length; i++) {
             this.drawIcon(icons[i], x + Window_Base._iconWidth * i, y + 2);
         }
     };

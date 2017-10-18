@@ -33,7 +33,7 @@ class Spriteset_Map extends Spriteset_Base {
     };
 
     hideCharacters() {
-        for (var i = 0; i < this._characterSprites.length; i++) {
+        for (let i = 0; i < this._characterSprites.length; i++) {
             var sprite = this._characterSprites[i];
             if (!sprite.isTile()) {
                 sprite.hide();
@@ -62,7 +62,7 @@ class Spriteset_Map extends Spriteset_Base {
         this._tileset = $gameMap.tileset();
         if (this._tileset) {
             var tilesetNames = this._tileset.tilesetNames;
-            for (var i = 0; i < tilesetNames.length; i++) {
+            for (let i = 0; i < tilesetNames.length; i++) {
                 this._tilemap.bitmaps[i] = ImageManager.loadTileset(tilesetNames[i]);
             }
             var newTilesetFlags = $gameMap.tilesetFlags();
@@ -86,7 +86,7 @@ class Spriteset_Map extends Spriteset_Base {
             this._characterSprites.push(new Sprite_Character(follower));
         }, this);
         this._characterSprites.push(new Sprite_Character($gamePlayer));
-        for (var i = 0; i < this._characterSprites.length; i++) {
+        for (let i = 0; i < this._characterSprites.length; i++) {
             this._tilemap.addChild(this._characterSprites[i]);
         }
     };

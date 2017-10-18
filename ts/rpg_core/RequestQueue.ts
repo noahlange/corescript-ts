@@ -24,7 +24,7 @@ class RequestQueue {
     };
     
     raisePriority(key: string){
-        for(var n = 0; n < this._queue.length; n++){
+        for (let n = 0; n < this._queue.length; n++){
             var item = this._queue[n];
             if(item.key === key){
                 this._queue.splice(n, 1);

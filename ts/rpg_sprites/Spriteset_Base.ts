@@ -69,7 +69,7 @@ abstract class Spriteset_Base extends Sprite {
         var y = (Graphics.height - height) / 2;
         this._pictureContainer = new Sprite();
         this._pictureContainer.setFrame(x, y, width, height);
-        for (var i = 1; i <= $gameScreen.maxPictures(); i++) {
+        for (let i = 1; i <= $gameScreen.maxPictures(); i++) {
             this._pictureContainer.addChild(new Sprite_Picture(i));
         }
         this.addChild(this._pictureContainer);

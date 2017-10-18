@@ -107,7 +107,7 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
         var action = new Game_Action(this.user());
         action.setItemObject(this.item());
         this.itemTargetActors().forEach(function (target) {
-            for (var i = 0; i < action.numRepeats(); i++) {
+            for (let i = 0; i < action.numRepeats(); i++) {
                 action.apply(target);
             }
         }, this);

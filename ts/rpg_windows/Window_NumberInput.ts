@@ -76,7 +76,7 @@ class Window_NumberInput extends Window_Selectable {
         var buttonWidth = 48;
         var buttonHeight = 48;
         this._buttons = [];
-        for (var i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i++) {
             var button = new Sprite_Button();
             var x = buttonWidth * [1, 2, 4][i];
             var w = buttonWidth * (i === 2 ? 2 : 1);
@@ -96,11 +96,11 @@ class Window_NumberInput extends Window_Selectable {
         var numButtons = this._buttons.length;
         var spacing = 16;
         var totalWidth = -spacing;
-        for (var i = 0; i < numButtons; i++) {
+        for (let i = 0; i < numButtons; i++) {
             totalWidth += this._buttons[i].width + spacing;
         }
         var x = (this.width - totalWidth) / 2;
-        for (var j = 0; j < numButtons; j++) {
+        for (let j = 0; j < numButtons; j++) {
             var button = this._buttons[j];
             button.x = x;
             button.y = this.buttonY();
@@ -117,13 +117,13 @@ class Window_NumberInput extends Window_Selectable {
     };
     
     showButtons() {
-        for (var i = 0; i < this._buttons.length; i++) {
+        for (let i = 0; i < this._buttons.length; i++) {
             this._buttons[i].visible = true;
         }
     };
     
     hideButtons() {
-        for (var i = 0; i < this._buttons.length; i++) {
+        for (let i = 0; i < this._buttons.length; i++) {
             this._buttons[i].visible = false;
         }
     };

@@ -90,7 +90,7 @@ class Window_Command extends Window_Selectable {
     };
 
     findSymbol(symbol: string) {
-        for (var i = 0; i < this._list.length; i++) {
+        for (let i = 0; i < this._list.length; i++) {
             if (this._list[i].symbol === symbol) {
                 return i;
             }
@@ -108,7 +108,7 @@ class Window_Command extends Window_Selectable {
     };
 
     findExt(ext: number) {
-        for (var i = 0; i < this._list.length; i++) {
+        for (let i = 0; i < this._list.length; i++) {
             if (this._list[i].ext === ext) {
                 return i;
             }

@@ -173,7 +173,7 @@ class Game_Map {
 
     setupEvents() {
         this._events = [];
-        for (var i = 0; i < $dataMap.events.length; i++) {
+        for (let i = 0; i < $dataMap.events.length; i++) {
             if ($dataMap.events[i]) {
                 this._events[i] = new Game_Event(this._mapId, i);
             }
@@ -539,7 +539,7 @@ class Game_Map {
     checkPassage(x: number, y: number, bit: number) {
         var flags = this.tilesetFlags();
         var tiles = this.allTiles(x, y);
-        for (var i = 0; i < tiles.length; i++) {
+        for (let i = 0; i < tiles.length; i++) {
             var flag = flags[tiles[i]];
             if ((flag & 0x10) !== 0)  // [*] No effect on passage
                 continue;
@@ -559,7 +559,7 @@ class Game_Map {
 
     layeredTiles(x: number, y: number) {
         var tiles = [];
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             tiles.push(this.tileId(x, y, 3 - i));
         }
         return tiles;
@@ -620,7 +620,7 @@ class Game_Map {
         if (this.isValid(x, y)) {
             var flags = this.tilesetFlags();
             var tiles = this.layeredTiles(x, y);
-            for (var i = 0; i < tiles.length; i++) {
+            for (let i = 0; i < tiles.length; i++) {
                 var tag = flags[tiles[i]] >> 12;
                 if (tag > 0) {
                     return tag;
@@ -788,7 +788,7 @@ class Game_Map {
 
     setupStartingMapEvent() {
         var events = this.events();
-        for (var i = 0; i < events.length; i++) {
+        for (let i = 0; i < events.length; i++) {
             var event = events[i];
             if (event.isStarting()) {
                 event.clearStartingFlag();
@@ -800,7 +800,7 @@ class Game_Map {
     };
 
     setupAutorunCommonEvent() {
-        for (var i = 0; i < $dataCommonEvents.length; i++) {
+        for (let i = 0; i < $dataCommonEvents.length; i++) {
             var event = $dataCommonEvents[i];
             if (event && event.trigger === 1 && $gameSwitches.value(event.switchId)) {
                 this._interpreter.setup(event.list);

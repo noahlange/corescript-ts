@@ -73,7 +73,7 @@ class Window_SavefileList extends Window_Selectable {
 
     drawPartyCharacters(info: SavefileInfo, x: number, y: number) {
         if (info.characters) {
-            for (var i = 0; i < info.characters.length; i++) {
+            for (let i = 0; i < info.characters.length; i++) {
                 var data = info.characters[i];
                 this.drawCharacter(data[0], data[1], x + i * 48, y);
             }

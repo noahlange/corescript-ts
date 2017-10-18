@@ -28,7 +28,7 @@ class DataManager {
     static loadDatabase() {
         var test = this.isBattleTest() || this.isEventTest();
         var prefix = test ? 'Test_' : '';
-        for (var i = 0; i < this._databaseFiles.length; i++) {
+        for (let i = 0; i < this._databaseFiles.length; i++) {
             var name = this._databaseFiles[i].name;
             var src = this._databaseFiles[i].src;
             this.loadDataFile(name, prefix + src);
@@ -59,7 +59,7 @@ class DataManager {
 
     static isDatabaseLoaded() {
         this.checkError();
-        for (var i = 0; i < this._databaseFiles.length; i++) {
+        for (let i = 0; i < this._databaseFiles.length; i++) {
             if (!(window as any)[this._databaseFiles[i].name]) {
                 return false;
             }
@@ -124,7 +124,7 @@ class DataManager {
             array = object;
         }
         if (Array.isArray(array)) {
-            for (var i = 0; i < array.length; i++) {
+            for (let i = 0; i < array.length; i++) {
                 var data = array[i];
                 if (data && data.note !== undefined) {
                     this.extractMetadata(data);
@@ -234,7 +234,7 @@ class DataManager {
         }
         if (json) {
             var globalInfo = JSON.parse(json);
-            for (var i = 1; i <= this.maxSavefiles(); i++) {
+            for (let i = 1; i <= this.maxSavefiles(); i++) {
                 if (!StorageManager.exists(i)) {
                     delete globalInfo[i];
                 }
@@ -267,7 +267,7 @@ class DataManager {
     static isAnySavefileExists(): boolean {
         var globalInfo = this.loadGlobalInfo();
         if (globalInfo) {
-            for (var i = 1; i < globalInfo.length; i++) {
+            for (let i = 1; i < globalInfo.length; i++) {
                 if (this.isThisGameFile(i)) {
                     return true;
                 }
@@ -281,7 +281,7 @@ class DataManager {
         var savefileId = 1;
         var timestamp = 0;
         if (globalInfo) {
-            for (var i = 1; i < globalInfo.length; i++) {
+            for (let i = 1; i < globalInfo.length; i++) {
                 if (this.isThisGameFile(i) && globalInfo[i].timestamp > timestamp) {
                     timestamp = globalInfo[i].timestamp;
                     savefileId = i;
@@ -294,7 +294,7 @@ class DataManager {
     static loadAllSavefileImages() {
         var globalInfo = this.loadGlobalInfo();
         if (globalInfo) {
-            for (var i = 1; i < globalInfo.length; i++) {
+            for (let i = 1; i < globalInfo.length; i++) {
                 if (this.isThisGameFile(i)) {
                     var info = globalInfo[i];
                     this.loadSavefileImages(info);
@@ -305,12 +305,12 @@ class DataManager {
 
     static loadSavefileImages(info: SavefileInfo) {
         if (info.characters) {
-            for (var i = 0; i < info.characters.length; i++) {
+            for (let i = 0; i < info.characters.length; i++) {
                 ImageManager.reserveCharacter(info.characters[i][0]);
             }
         }
         if (info.faces) {
-            for (var j = 0; j < info.faces.length; j++) {
+            for (let j = 0; j < info.faces.length; j++) {
                 ImageManager.reserveFace(info.faces[j][0]);
             }
         }
@@ -388,7 +388,7 @@ class DataManager {
                 this._lastAccessedId = numSavefiles + 1;
             } else {
                 var timestamp = Number.MAX_VALUE;
-                for (var i = 1; i < globalInfo.length; i++) {
+                for (let i = 1; i < globalInfo.length; i++) {
                     if (!globalInfo[i]) {
                         this._lastAccessedId = i;
                         break;

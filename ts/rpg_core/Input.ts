@@ -139,7 +139,7 @@ class Input {
         } else {
             this._latestButton = null;
         }
-        for (var name in this._currentState) {
+        for (let name in this._currentState) {
             if (this._currentState[name] && !this._previousState[name]) {
                 this._latestButton = name;
                 this._pressedTime = 0;
@@ -356,7 +356,7 @@ class Input {
         if (navigator.getGamepads) {
             var gamepads = navigator.getGamepads();
             if (gamepads) {
-                for (var i = 0; i < gamepads.length; i++) {
+                for (let i = 0; i < gamepads.length; i++) {
                     var gamepad = gamepads[i];
                     if (gamepad && gamepad.connected) {
                         this._updateGamepadState(gamepad);
@@ -383,7 +383,7 @@ class Input {
         newState[13] = false;
         newState[14] = false;
         newState[15] = false;
-        for (var i = 0; i < buttons.length; i++) {
+        for (let i = 0; i < buttons.length; i++) {
             newState[i] = buttons[i].pressed;
         }
         if (axes[1] < -threshold) {
@@ -396,7 +396,7 @@ class Input {
         } else if (axes[0] > threshold) {
             newState[15] = true;    // right
         }
-        for (var j = 0; j < newState.length; j++) {
+        for (let j = 0; j < newState.length; j++) {
             if (newState[j] !== lastState[j]) {
                 var buttonName = this.gamepadMapper[j];
                 if (buttonName) {

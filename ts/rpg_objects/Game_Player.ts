@@ -201,7 +201,7 @@ class Game_Player extends Game_Character {
         }, this);
         if (weightSum > 0) {
             var value = Math.randomInt(weightSum);
-            for (var i = 0; i < encounterList.length; i++) {
+            for (let i = 0; i < encounterList.length; i++) {
                 value -= encounterList[i].weight;
                 if (value < 0) {
                     return encounterList[i].troopId;

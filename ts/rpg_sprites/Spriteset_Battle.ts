@@ -208,11 +208,11 @@ class Spriteset_Battle extends Spriteset_Base {
     createEnemies() {
         var enemies = $gameTroop.members();
         var sprites = [];
-        for (var i = 0; i < enemies.length; i++) {
+        for (let i = 0; i < enemies.length; i++) {
             sprites[i] = new Sprite_Enemy(enemies[i]);
         }
         sprites.sort(this.compareEnemySprite.bind(this));
-        for (var j = 0; j < sprites.length; j++) {
+        for (let j = 0; j < sprites.length; j++) {
             this._battleField.addChild(sprites[j]);
         }
         this._enemySprites = sprites;
@@ -228,7 +228,7 @@ class Spriteset_Battle extends Spriteset_Base {
     
     createActors() {
         this._actorSprites = [];
-        for (var i = 0; i < $gameParty.maxBattleMembers(); i++) {
+        for (let i = 0; i < $gameParty.maxBattleMembers(); i++) {
             this._actorSprites[i] = new Sprite_Actor();
             this._battleField.addChild(this._actorSprites[i]);
         }
@@ -236,7 +236,7 @@ class Spriteset_Battle extends Spriteset_Base {
     
     updateActors() {
         var members = $gameParty.battleMembers();
-        for (var i = 0; i < this._actorSprites.length; i++) {
+        for (let i = 0; i < this._actorSprites.length; i++) {
             this._actorSprites[i].setBattler(members[i]);
         }
     };

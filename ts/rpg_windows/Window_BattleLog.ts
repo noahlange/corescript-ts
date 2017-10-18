@@ -273,7 +273,7 @@ class Window_BattleLog extends Window_Selectable {
     refresh() {
         this.drawBackground();
         this.contents.clear();
-        for (var i = 0; i < this._lines.length; i++) {
+        for (let i = 0; i < this._lines.length; i++) {
             this.drawLineText(i);
         }
     };

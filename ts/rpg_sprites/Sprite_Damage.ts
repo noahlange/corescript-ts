@@ -63,7 +63,7 @@ class Sprite_Damage extends Sprite {
         var row = baseRow + (value < 0 ? 1 : 0);
         var w = this.digitWidth();
         var h = this.digitHeight();
-        for (var i = 0; i < string.length; i++) {
+        for (let i = 0; i < string.length; i++) {
             var sprite = this.createChildSprite();
             var n = Number(string[i]);
             sprite.setFrame(n * w, row * h, w, h);
@@ -87,7 +87,7 @@ class Sprite_Damage extends Sprite {
         super.update();
         if (this._duration > 0) {
             this._duration--;
-            for (var i = 0; i < this.children.length; i++) {
+            for (let i = 0; i < this.children.length; i++) {
                 this.updateChild(this.children[i] as ISprite);
             }
         }

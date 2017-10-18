@@ -394,7 +394,7 @@ class Window_Selectable extends Window_Base {
             var cx = x - this.padding;
             var cy = y - this.padding;
             var topIndex = this.topIndex();
-            for (var i = 0; i < this.maxPageItems(); i++) {
+            for (let i = 0; i < this.maxPageItems(); i++) {
                 var index = topIndex + i;
                 if (index < this.maxItems()) {
                     var rect = this.itemRect(index);
@@ -539,7 +539,7 @@ class Window_Selectable extends Window_Base {
 
     drawAllItems() {
         var topIndex = this.topIndex();
-        for (var i = 0; i < this.maxPageItems(); i++) {
+        for (let i = 0; i < this.maxPageItems(); i++) {
             var index = topIndex + i;
             if (index < this.maxItems()) {
                 this.drawItem(index);

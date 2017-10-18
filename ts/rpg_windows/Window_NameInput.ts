@@ -131,7 +131,7 @@ class Window_NameInput extends Window_Selectable {
         var table = this.table();
         this.contents.clear();
         this.resetTextColor();
-        for (var i = 0; i < 90; i++) {
+        for (let i = 0; i < 90; i++) {
             var rect = this.itemRect(i);
             rect.x += 3;
             rect.width -= 6;

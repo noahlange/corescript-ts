@@ -194,7 +194,7 @@ class Game_Event extends Game_Character {
     
     findProperPageIndex() {
         var pages = this.event().pages;
-        for (var i = pages.length - 1; i >= 0; i--) {
+        for (let i = pages.length - 1; i >= 0; i--) {
             var page = pages[i];
             if (this.meetsConditions(page)) {
                 return i;

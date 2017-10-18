@@ -719,7 +719,7 @@ class Graphics {
      */
     protected static _modifyExistingElements() {
         var elements = document.getElementsByTagName('*');
-        for (var i = 0; i < elements.length; i++) {
+        for (let i = 0; i < elements.length; i++) {
             /// bungcip: diubah agar bisa dicompile
             if ((elements[i] as any).style.zIndex > 0) {
                 (elements[i] as any).style.zIndex = 0;
@@ -1009,7 +1009,7 @@ class Graphics {
     protected static _disableContextMenu() {
         var elements = document.body.getElementsByTagName('*');
         var oncontextmenu = () => false;
-        for (var i = 0; i < elements.length; i++) {
+        for (let i = 0; i < elements.length; i++) {
             (elements[i] as any)['oncontextmenu'] = oncontextmenu;
         }
     };

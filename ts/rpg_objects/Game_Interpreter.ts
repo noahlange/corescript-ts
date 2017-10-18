@@ -636,7 +636,7 @@ class Game_Interpreter {
     // Jump to Label
     command119() {
         var labelName = this._params[0];
-        for (var i = 0; i < this._list.length; i++) {
+        for (let i = 0; i < this._list.length; i++) {
             var command = this._list[i];
             if (command.code === 118 && command.parameters[0] === labelName) {
                 this.jumpTo(i);
@@ -651,7 +651,7 @@ class Game_Interpreter {
         var startIndex = Math.min(index, lastIndex);
         var endIndex = Math.max(index, lastIndex);
         var indent = this._indent;
-        for (var i = startIndex; i <= endIndex; i++) {
+        for (let i = startIndex; i <= endIndex; i++) {
             var newIndent = this._list[i].indent;
             if (newIndent !== indent) {
                 this._branch[indent] = null;
@@ -663,7 +663,7 @@ class Game_Interpreter {
 
     // Control Switches
     command121() {
-        for (var i = this._params[0]; i <= this._params[1]; i++) {
+        for (let i = this._params[0]; i <= this._params[1]; i++) {
             $gameSwitches.setValue(i, this._params[2] === 0);
         }
         return true;
@@ -689,7 +689,7 @@ class Game_Interpreter {
                 value = eval(this._params[4]);
                 break;
         }
-        for (var i = this._params[0]; i <= this._params[1]; i++) {
+        for (let i = this._params[0]; i <= this._params[1]; i++) {
             this.operateVariable(i, this._params[2], value);
         }
         return true;

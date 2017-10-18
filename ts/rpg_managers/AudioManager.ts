@@ -274,7 +274,7 @@ class AudioManager {
     static playStaticSe(se: DB.Audio) {
         if (se.name) {
             this.loadStaticSe(se);
-            for (var i = 0; i < this._staticBuffers.length; i++) {
+            for (let i = 0; i < this._staticBuffers.length; i++) {
                 var buffer = this._staticBuffers[i];
                 if ( (buffer as any)['_reservedSeName'] === se.name) {
                     buffer.stop();
@@ -298,7 +298,7 @@ class AudioManager {
     };
 
     static isStaticSe(se: DB.Audio) {
-        for (var i = 0; i < this._staticBuffers.length; i++) {
+        for (let i = 0; i < this._staticBuffers.length; i++) {
             var buffer = this._staticBuffers[i];
             if ((buffer as any)['_reservedSeName'] === se.name) {
                 return true;

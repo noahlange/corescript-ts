@@ -449,7 +449,7 @@ class Bitmap {
     getPixel(x: number, y: number): string {
         var data = this._context.getImageData(x, y, 1, 1).data;
         var result = '#';
-        for (var i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i++) {
             result += data[i].toString(16).padZero(2);
         }
         return result;
@@ -629,7 +629,7 @@ class Bitmap {
             var context = this._context;
             var imageData = context.getImageData(0, 0, this.width, this.height);
             var pixels = imageData.data;
-            for (var i = 0; i < pixels.length; i += 4) {
+            for (let i = 0; i < pixels.length; i += 4) {
                 pixels[i + 0] += r;
                 pixels[i + 1] += g;
                 pixels[i + 2] += b;
@@ -696,7 +696,7 @@ class Bitmap {
             var context = this._context;
             var imageData = context.getImageData(0, 0, this.width, this.height);
             var pixels = imageData.data;
-            for (var i = 0; i < pixels.length; i += 4) {
+            for (let i = 0; i < pixels.length; i += 4) {
                 var hsl = rgbToHsl(pixels[i + 0], pixels[i + 1], pixels[i + 2]);
                 var h = (hsl[0] + offset) % 360;
                 var s = hsl[1];
@@ -716,7 +716,7 @@ class Bitmap {
      * @method blur
      */
     blur() {
-        for (var i = 0; i < 2; i++) {
+        for (let i = 0; i < 2; i++) {
             var w = this.width;
             var h = this.height;
             var canvas = this._canvas;
@@ -735,8 +735,8 @@ class Bitmap {
             context.fillRect(0, 0, w, h);
             context.globalCompositeOperation = 'lighter';
             context.globalAlpha = 1 / 9;
-            for (var y = 0; y < 3; y++) {
-                for (var x = 0; x < 3; x++) {
+            for (let y = 0; y < 3; y++) {
+                for (let x = 0; x < 3; x++) {
                     context.drawImage(tempCanvas, x, y, w, h, 0, 0, w, h);
                 }
             }

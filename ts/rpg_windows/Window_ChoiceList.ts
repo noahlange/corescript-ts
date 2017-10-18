@@ -81,7 +81,7 @@ class Window_ChoiceList extends Window_Command {
     maxChoiceWidth() {
         var maxWidth = 96;
         var choices = $gameMessage.choices();
-        for (var i = 0; i < choices.length; i++) {
+        for (let i = 0; i < choices.length; i++) {
             var choiceWidth = this.textWidthEx(choices[i]) + this.textPadding() * 2;
             if (maxWidth < choiceWidth) {
                 maxWidth = choiceWidth;
@@ -100,7 +100,7 @@ class Window_ChoiceList extends Window_Command {
     
     makeCommandList() {
         var choices = $gameMessage.choices();
-        for (var i = 0; i < choices.length; i++) {
+        for (let i = 0; i < choices.length; i++) {
             this.addCommand(choices[i], 'choice');
         }
     };

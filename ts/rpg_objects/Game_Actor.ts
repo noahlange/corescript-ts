@@ -197,10 +197,10 @@ class Game_Actor extends Game_Battler {
         var slots = this.equipSlots();
         var maxSlots = slots.length;
         this._equips = [];
-        for (var i = 0; i < maxSlots; i++) {
+        for (let i = 0; i < maxSlots; i++) {
             this._equips[i] = new Game_Item();
         }
-        for (var j = 0; j < equips.length; j++) {
+        for (let j = 0; j < equips.length; j++) {
             if (j < maxSlots) {
                 this._equips[j].setEquip(slots[j] === 1, equips[j]);
             }
@@ -211,7 +211,7 @@ class Game_Actor extends Game_Battler {
 
     equipSlots() {
         var slots = [];
-        for (var i = 1; i < $dataSystem.equipTypes.length; i++) {
+        for (let i = 1; i < $dataSystem.equipTypes.length; i++) {
             slots.push(i);
         }
         if (slots.length >= 2 && this.isDualWield()) {
@@ -300,7 +300,7 @@ class Game_Actor extends Game_Battler {
             var slots = this.equipSlots();
             var equips = this.equips();
             var changed = false;
-            for (var i = 0; i < equips.length; i++) {
+            for (let i = 0; i < equips.length; i++) {
                 var item = equips[i];
                 if (item && (!this.canEquip(item) || item.etypeId !== slots[i])) {
                     if (!forcing) {
@@ -318,7 +318,7 @@ class Game_Actor extends Game_Battler {
 
     clearEquipments() {
         var maxSlots = this.equipSlots().length;
-        for (var i = 0; i < maxSlots; i++) {
+        for (let i = 0; i < maxSlots; i++) {
             if (this.isEquipChangeOk(i)) {
                 this.changeEquip(i, null);
             }
@@ -328,7 +328,7 @@ class Game_Actor extends Game_Battler {
     optimizeEquipments() {
         var maxSlots = this.equipSlots().length;
         this.clearEquipments();
-        for (var i = 0; i < maxSlots; i++) {
+        for (let i = 0; i < maxSlots; i++) {
             if (this.isEquipChangeOk(i)) {
                 this.changeEquip(i, this.bestEquipItem(i));
             }
@@ -342,7 +342,7 @@ class Game_Actor extends Game_Battler {
         }, this);
         var bestItem = null;
         var bestPerformance = -1000;
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i++) {
             var performance = this.calcEquipItemPerformance(items[i]);
             if (performance > bestPerformance) {
                 bestPerformance = performance;
@@ -435,7 +435,7 @@ class Game_Actor extends Game_Battler {
             [this.actor(), this.currentClass()] as any
         );
         var equips = this.equips();
-        for (var i = 0; i < equips.length; i++) {
+        for (let i = 0; i < equips.length; i++) {
             var item = equips[i];
             if (item) {
                 objects.push(item);
@@ -474,7 +474,7 @@ class Game_Actor extends Game_Battler {
     paramPlus(paramId: number) {
         var value = super.paramPlus(paramId);
         var equips = this.equips();
-        for (var i = 0; i < equips.length; i++) {
+        for (let i = 0; i < equips.length; i++) {
             var item = equips[i];
             if (item) {
                 value += item.params[paramId];
@@ -532,7 +532,7 @@ class Game_Actor extends Game_Battler {
 
     findNewSkills(lastSkills: DB.Skill[]) {
         var newSkills = this.skills();
-        for (var i = 0; i < lastSkills.length; i++) {
+        for (let i = 0; i < lastSkills.length; i++) {
             var index = newSkills.indexOf(lastSkills[i]);
             if (index >= 0) {
                 newSkills.splice(index, 1);
@@ -717,10 +717,10 @@ class Game_Actor extends Game_Battler {
     };
 
     makeAutoBattleActions() {
-        for (var i = 0; i < this.numActions(); i++) {
+        for (let i = 0; i < this.numActions(); i++) {
             var list = this.makeActionList();
             var maxValue = Number.MIN_VALUE;
-            for (var j = 0; j < list.length; j++) {
+            for (let j = 0; j < list.length; j++) {
                 var value = list[j].evaluate();
                 if (value > maxValue) {
                     maxValue = value;
@@ -732,7 +732,7 @@ class Game_Actor extends Game_Battler {
     };
 
     makeConfusionActions() {
-        for (var i = 0; i < this.numActions(); i++) {
+        for (let i = 0; i < this.numActions(); i++) {
             this.action(i).setConfusion();
         }
         this.setActionState('waiting');

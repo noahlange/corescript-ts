@@ -14,7 +14,7 @@ class Game_Followers {
         this._visible = $dataSystem.optFollowers;
         // this._gathering = false;
         // this._data = [];
-        for (var i = 1; i < $gameParty.maxBattleMembers(); i++) {
+        for (let i = 1; i < $gameParty.maxBattleMembers(); i++) {
             this._data.push(new Game_Follower(i));
         }
     }
@@ -66,7 +66,7 @@ class Game_Followers {
     };
     
     updateMove() {
-        for (var i = this._data.length - 1; i >= 0; i--) {
+        for (let i = this._data.length - 1; i >= 0; i--) {
             var precedingCharacter = (i > 0 ? this._data[i - 1] : $gamePlayer);
             this._data[i].chaseCharacter(precedingCharacter);
         }
@@ -74,7 +74,7 @@ class Game_Followers {
     
     jumpAll() {
         if ($gamePlayer.isJumping()) {
-            for (var i = 0; i < this._data.length; i++) {
+            for (let i = 0; i < this._data.length; i++) {
                 var follower = this._data[i];
                 var sx = $gamePlayer.deltaXFrom(follower.x);
                 var sy = $gamePlayer.deltaYFrom(follower.y);

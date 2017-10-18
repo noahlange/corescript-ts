@@ -74,7 +74,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
 
     items(): DB.Item[] {
         var list = [];
-        for (var id in this._items) {
+        for (let id in this._items) {
             list.push($dataItems[id]);
         }
         return list;
@@ -82,7 +82,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
 
     weapons(): DB.Weapon[] {
         var list = [];
-        for (var id in this._weapons) {
+        for (let id in this._weapons) {
             list.push($dataWeapons[id]);
         }
         return list;
@@ -90,7 +90,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
 
     armors(): DB.Armor[] {
         var list = [];
-        for (var id in this._armors) {
+        for (let id in this._armors) {
             list.push($dataArmors[id]);
         }
         return list;

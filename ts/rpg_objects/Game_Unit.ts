@@ -133,7 +133,7 @@ abstract class Game_Unit<T extends Game_Battler> {
     
     substituteBattler() {
         var members = this.members();
-        for (var i = 0; i < members.length; i++) {
+        for (let i = 0; i < members.length; i++) {
             if (members[i].isSubstitute()) {
                 return members[i];
             }

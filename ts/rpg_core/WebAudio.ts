@@ -672,10 +672,10 @@ class WebAudio {
                 var vorbisHeaderFound = false;
                 var numSegments = array[index++];
                 var segments = [];
-                for (var i = 0; i < numSegments; i++) {
+                for (let i = 0; i < numSegments; i++) {
                     segments.push(array[index++]);
                 }
-                for (i = 0; i < numSegments; i++) {
+                for (let i = 0; i < numSegments; i++) {
                     if (this._readFourCharacters(array, index + 1) === 'vorb') {
                         var headerType = array[index];
                         if (headerType === 1) {
@@ -733,7 +733,7 @@ class WebAudio {
      * @private
      */
     protected _readMetaData(array: Uint8Array, index: number, size: number) {
-        for (var i = index; i < index + size - 10; i++) {
+        for (let i = index; i < index + size - 10; i++) {
             if (this._readFourCharacters(array, i) === 'LOOP') {
                 var text = '';
                 while (array[i] > 0) {
@@ -791,7 +791,7 @@ class WebAudio {
      */
     protected _readFourCharacters(array: Uint8Array, index: number) {
         var string = '';
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             string += String.fromCharCode(array[index + i]);
         }
         return string;

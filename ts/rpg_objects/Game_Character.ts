@@ -474,7 +474,7 @@ class Game_Character extends Game_CharacterBase {
 
         while (nodeList.length > 0) {
             var bestIndex = 0;
-            for (var i = 0; i < nodeList.length; i++) {
+            for (let i = 0; i < nodeList.length; i++) {
                 if (nodeList[i].f < nodeList[bestIndex].f) {
                     bestIndex = i;
                 }
@@ -499,7 +499,7 @@ class Game_Character extends Game_CharacterBase {
                 continue;
             }
 
-            for (var j = 0; j < 4; j++) {
+            for (let j = 0; j < 4; j++) {
                 var direction = 2 + j * 2;
                 var x2 = $gameMap.roundXWithDirection(x1, direction);
                 var y2 = $gameMap.roundYWithDirection(y1, direction);

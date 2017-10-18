@@ -41,7 +41,7 @@ class Scene_Item extends Scene_ItemBase {
         var members = $gameParty.movableMembers();
         var bestActor = members[0];
         var bestPha = 0;
-        for (var i = 0; i < members.length; i++) {
+        for (let i = 0; i < members.length; i++) {
             if (members[i].pha > bestPha) {
                 bestPha = members[i].pha;
                 bestActor = members[i];

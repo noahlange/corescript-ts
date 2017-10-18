@@ -172,7 +172,7 @@ class Game_Picture {
     updateTone() {
         if (this._toneDuration > 0) {
             var d = this._toneDuration;
-            for (var i = 0; i < 4; i++) {
+            for (let i = 0; i < 4; i++) {
                 this._tone[i] = (this._tone[i] * (d - 1) + this._toneTarget[i]) / d;
             }
             this._toneDuration--;

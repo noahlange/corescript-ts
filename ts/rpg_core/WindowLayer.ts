@@ -120,7 +120,7 @@ class WindowLayer extends PIXI.Container {
         shift.x = Math.round((projectionMatrix.tx + 1) / 2 * rt.sourceFrame.width);
         shift.y = Math.round((projectionMatrix.ty + 1) / 2 * rt.sourceFrame.height);
 
-        for (var i = 0; i < this.children.length; i++) {
+        for (let i = 0; i < this.children.length; i++) {
             var child = this.children[i] as CoreWindow;
             /// bungcip: ada any agar bisa dicompile
             if ((child as any)._isWindow && child.visible && (child as any).openness > 0) {
@@ -138,7 +138,7 @@ class WindowLayer extends PIXI.Container {
         renderer.filterManager.popFilter();
         renderer.maskManager.popScissorMask();
 
-        for (var j = 0; j < this.children.length; j++) {
+        for (let j = 0; j < this.children.length; j++) {
             /// bungcip: ada any agar bisa dicompile
             if (!(this.children[j] as any)._isWindow) {
                 this.children[j].renderWebGL(renderer);

@@ -161,7 +161,7 @@ class Tilemap extends PIXI.Container {
      * @return {Boolean} True if the tilemap is ready
      */
     isReady() {
-        for (var i = 0; i < this.bitmaps.length; i++) {
+        for (let i = 0; i < this.bitmaps.length; i++) {
             if (this.bitmaps[i] && !this.bitmaps[i].isReady()) {
                 return false;
             }
@@ -183,7 +183,7 @@ class Tilemap extends PIXI.Container {
                 (child as any)['update']();
             }
         });
-        for (var i = 0; i < this.bitmaps.length; i++) {
+        for (let i = 0; i < this.bitmaps.length; i++) {
             if (this.bitmaps[i]) {
                 this.bitmaps[i].touch();
             }
@@ -280,7 +280,7 @@ class Tilemap extends PIXI.Container {
         this._upperLayer.move(-margin, -margin); /// bungcip: diedit
         (this._upperLayer as any)['z'] = 4;
 
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             this._lowerLayer.addChild(new Sprite(this._lowerBitmap));
             this._upperLayer.addChild(new Sprite(this._upperBitmap));
         }
@@ -306,7 +306,7 @@ class Tilemap extends PIXI.Container {
         var w2 = this._width - w1;
         var h2 = this._height - h1;
 
-        for (var i = 0; i < 2; i++) {
+        for (let i = 0; i < 2; i++) {
             var children;
             if (i === 0) {
                 children = this._lowerLayer.children as TilingSprite[];
@@ -333,8 +333,8 @@ class Tilemap extends PIXI.Container {
     protected _paintAllTiles(startX: number, startY: number) {
         var tileCols = Math.ceil(this._width / this._tileWidth) + 1;
         var tileRows = Math.ceil(this._height / this._tileHeight) + 1;
-        for (var y = 0; y < tileRows; y++) {
-            for (var x = 0; x < tileCols; x++) {
+        for (let y = 0; y < tileRows; y++) {
+            for (let x = 0; x < tileCols; x++) {
                 this._paintTiles(startX, startY, x, y);
             }
         }
@@ -404,7 +404,7 @@ class Tilemap extends PIXI.Container {
         if (!lowerTiles.equals(lastLowerTiles) ||
             (Tilemap.isTileA1(tileId0) && this._frameUpdated)) {
             this._lowerBitmap.clearRect(dx, dy, this._tileWidth, this._tileHeight);
-            for (var i = 0; i < lowerTiles.length; i++) {
+            for (let i = 0; i < lowerTiles.length; i++) {
                 var lowerTileId = lowerTiles[i];
                 if (lowerTileId < 0) {
                     this._drawShadow(this._lowerBitmap, shadowBits, dx, dy);
@@ -420,7 +420,7 @@ class Tilemap extends PIXI.Container {
         var lastUpperTiles = this._readLastTiles(1, lx, ly);
         if (!upperTiles.equals(lastUpperTiles)) {
             this._upperBitmap.clearRect(dx, dy, this._tileWidth, this._tileHeight);
-            for (var j = 0; j < upperTiles.length; j++) {
+            for (let j = 0; j < upperTiles.length; j++) {
                 this._drawTile(this._upperBitmap, upperTiles[j], dx, dy);
             }
             this._writeLastTiles(1, lx, ly, upperTiles);
@@ -585,7 +585,7 @@ class Tilemap extends PIXI.Container {
         if (table && source) {
             var w1 = this._tileWidth / 2;
             var h1 = this._tileHeight / 2;
-            for (var i = 0; i < 4; i++) {
+            for (let i = 0; i < 4; i++) {
                 var qsx = table[i][0];
                 var qsy = table[i][1];
                 var sx1 = (bx * 2 + qsx) * w1;
@@ -634,7 +634,7 @@ class Tilemap extends PIXI.Container {
                 var source = this.bitmaps[setNumber];
                 var w1 = this._tileWidth / 2;
                 var h1 = this._tileHeight / 2;
-                for (var i = 0; i < 2; i++) {
+                for (let i = 0; i < 2; i++) {
                     var qsx = table[2 + i][0];
                     var qsy = table[2 + i][1];
                     var sx1 = (bx * 2 + qsx) * w1;
@@ -660,7 +660,7 @@ class Tilemap extends PIXI.Container {
             var w1 = this._tileWidth / 2;
             var h1 = this._tileHeight / 2;
             var color = 'rgba(0,0,0,0.5)';
-            for (var i = 0; i < 4; i++) {
+            for (let i = 0; i < 4; i++) {
                 if (shadowBits & (1 << i)) {
                     var dx1 = dx + (i % 2) * w1;
                     var dy1 = dy + Math.floor(i / 2) * h1;

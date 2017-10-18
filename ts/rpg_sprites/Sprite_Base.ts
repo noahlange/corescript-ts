@@ -32,7 +32,7 @@ class Sprite_Base extends Sprite {
         if (this._animationSprites.length > 0) {
             var sprites = this._animationSprites.clone();
             this._animationSprites = [];
-            for (var i = 0; i < sprites.length; i++) {
+            for (let i = 0; i < sprites.length; i++) {
                 var sprite = sprites[i];
                 if (sprite.isPlaying()) {
                     this._animationSprites.push(sprite);

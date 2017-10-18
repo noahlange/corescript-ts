@@ -127,7 +127,7 @@ class JsonEx {
             if (constructorName !== 'Object' && constructorName !== 'Array') {
                 value['@'] = constructorName;
             }
-            for (var key in value) {
+            for (let key in value) {
                 if (value.hasOwnProperty(key) && !key.match(/^@./)) {
                     if (value[key] && typeof value[key] === 'object') {
                         if (value[key]['@c']) {
@@ -176,7 +176,7 @@ class JsonEx {
                     value = this._resetPrototype(value, constructor.prototype);
                 }
             }
-            for (var key in value) {
+            for (let key in value) {
                 if (value.hasOwnProperty(key)) {
                     if (value[key] && value[key]['@a']) {
                         //object is array wrapper
@@ -226,7 +226,7 @@ class JsonEx {
             value.__proto__ = prototype;
         } else {
             var newValue = Object.create(prototype);
-            for (var key in value) {
+            for (let key in value) {
                 if (value.hasOwnProperty(key)) {
                     newValue[key] = value[key];
                 }

@@ -252,7 +252,7 @@ class Game_Enemy extends Game_Battler {
         }, 0);
         if (sum > 0) {
             var value = Math.randomInt(sum);
-            for (var i = 0; i < actionList.length; i++) {
+            for (let i = 0; i < actionList.length; i++) {
                 var action = actionList[i];
                 value -= action.rating - ratingZero;
                 if (value < 0) {
@@ -272,7 +272,7 @@ class Game_Enemy extends Game_Battler {
         actionList = actionList.filter(function(a) {
             return a.rating > ratingZero;
         });
-        for (var i = 0; i < this.numActions(); i++) {
+        for (let i = 0; i < this.numActions(); i++) {
             this.action(i).setEnemyAction(this.selectAction(actionList, ratingZero));
         }
     };

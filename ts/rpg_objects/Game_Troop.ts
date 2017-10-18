@@ -161,7 +161,7 @@ class Game_Troop extends Game_Unit<Game_Enemy> {
                 return;
             }
             var pages = this.troop().pages;
-            for (var i = 0; i < pages.length; i++) {
+            for (let i = 0; i < pages.length; i++) {
                 var page = pages[i];
                 if (this.meetsConditions(page) && !this._eventFlags[i]) {
                     this._interpreter.setup(page.list);
@@ -176,7 +176,7 @@ class Game_Troop extends Game_Unit<Game_Enemy> {
 
     increaseTurn() {
         var pages = this.troop().pages;
-        for (var i = 0; i < pages.length; i++) {
+        for (let i = 0; i < pages.length; i++) {
             var page = pages[i];
             if (page.span === 1) {
                 this._eventFlags[i] = false;

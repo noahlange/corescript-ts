@@ -289,10 +289,10 @@ class Game_Action {
     repeatTargets(targets: any[]): any[] {
         var repeatedTargets = [];
         var repeats = this.numRepeats();
-        for (var i = 0; i < targets.length; i++) {
+        for (let i = 0; i < targets.length; i++) {
             var target = targets[i];
             if (target) {
-                for (var j = 0; j < repeats; j++) {
+                for (let j = 0; j < repeats; j++) {
                     repeatedTargets.push(target);
                 }
             }
@@ -318,7 +318,7 @@ class Game_Action {
         var targets = [];
         var unit = this.opponentsUnit();
         if (this.isForRandom()) {
-            for (var i = 0; i < this.numTargets(); i++) {
+            for (let i = 0; i < this.numTargets(); i++) {
                 targets.push(unit.randomTarget());
             }
         } else if (this.isForOne()) {

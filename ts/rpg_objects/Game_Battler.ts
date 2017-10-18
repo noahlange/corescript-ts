@@ -20,7 +20,7 @@ abstract class Game_Battler extends Game_BattlerBase {
     protected _animations: AnimationState[] = [];
     protected _damagePopup: boolean = false;
     protected _effectType: string | null = null;
-    protected _motionType: string | null = null;
+    protected _motionType: keyof MotionMap | null = null;
     protected _weaponImageId: number = 0;
     protected _motionRefresh: boolean = false;
     protected _selected: boolean = false;
@@ -66,7 +66,7 @@ abstract class Game_Battler extends Game_BattlerBase {
         this._effectType = effectType;
     };
     
-    requestMotion(motionType: string) {
+    requestMotion(motionType: keyof MotionMap) {
         this._motionType = motionType;
     };
     
@@ -263,7 +263,7 @@ abstract class Game_Battler extends Game_BattlerBase {
     };
     
     removeAllBuffs() {
-        for (var i = 0; i < this.buffLength(); i++) {
+        for (let i = 0; i < this.buffLength(); i++) {
             this.removeBuff(i);
         }
     };
@@ -277,7 +277,7 @@ abstract class Game_Battler extends Game_BattlerBase {
     };
     
     removeBuffsAuto() {
-        for (var i = 0; i < this.buffLength(); i++) {
+        for (let i = 0; i < this.buffLength(); i++) {
             if (this.isBuffExpired(i)) {
                 this.removeBuff(i);
             }
@@ -303,7 +303,7 @@ abstract class Game_Battler extends Game_BattlerBase {
         if (this.canMove()) {
             var actionTimes = this.makeActionTimes();
             this._actions = [];
-            for (var i = 0; i < actionTimes; i++) {
+            for (let i = 0; i < actionTimes; i++) {
                 this._actions.push(new Game_Action(this));
             }
         }
