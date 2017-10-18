@@ -16,14 +16,6 @@ class Scene_Map extends Scene_Base {
 
     public menuCalling: boolean;
 
-    // constructor() {
-    //     super();
-    //     this._waitCount = 0;
-    //     this._encounterEffectDuration = 0;
-    //     this._mapLoaded = false;
-    //     this._touchCount = 0;
-    // };
-
     create() {
         super.create();
         this._transfer = $gamePlayer.isTransferring();

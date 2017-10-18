@@ -94,4 +94,3 @@ class Window_ActorCommand extends Window_Command {
     };
     
 }
-

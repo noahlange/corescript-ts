@@ -12,7 +12,7 @@ class Scene_Base extends Stage {
     protected _fadeSign: number = 0;
     protected _fadeDuration: number = 0;
     protected _fadeSprite: ScreenSprite|null = null;
-    protected _imageReservationId: number;
+    protected _imageReservationId: number = Utils.generateRuntimeId();
     protected _windowLayer: WindowLayer;
 
     /**
@@ -24,11 +24,7 @@ class Scene_Base extends Stage {
     constructor() {
         super();
 
-        // this._active = false;
-        // this._fadeSign = 0;
-        // this._fadeDuration = 0;
-        // this._fadeSprite = null;
-        this._imageReservationId = Utils.generateRuntimeId();
+        // this._imageReservationId = Utils.generateRuntimeId();
     };
 
 

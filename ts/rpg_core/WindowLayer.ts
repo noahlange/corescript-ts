@@ -17,11 +17,6 @@ class WindowLayer extends PIXI.Container {
     constructor() {
         super();
 
-        // this._width = 0;
-        // this._height = 0;
-        // this._tempCanvas = null;
-        // this._translationMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
-
         this._windowMask = new PIXI.Graphics();
         this._windowMask.beginFill(0xffffff, 1);
         this._windowMask.drawRect(0, 0, 0, 0);
