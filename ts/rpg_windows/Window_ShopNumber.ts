@@ -41,14 +41,14 @@ class Window_ShopNumber extends Window_Selectable {
     };
     
     createButtons() {
-        var bitmap = ImageManager.loadSystem('ButtonSet');
-        var buttonWidth = 48;
-        var buttonHeight = 48;
+        const bitmap = ImageManager.loadSystem('ButtonSet');
+        const buttonWidth = 48;
+        const buttonHeight = 48;
         this._buttons = [];
         for (let i = 0; i < 5; i++) {
-            var button = new Sprite_Button();
-            var x = buttonWidth * i;
-            var w = buttonWidth * (i === 4 ? 2 : 1);
+            const button = new Sprite_Button();
+            const x = buttonWidth * i;
+            const w = buttonWidth * (i === 4 ? 2 : 1);
             button.bitmap = bitmap;
             button.setColdFrame(x, 0, w, buttonHeight);
             button.setHotFrame(x, buttonHeight, w, buttonHeight);
@@ -64,15 +64,15 @@ class Window_ShopNumber extends Window_Selectable {
     };
     
     placeButtons() {
-        var numButtons = this._buttons.length;
-        var spacing = 16;
-        var totalWidth = -spacing;
+        const numButtons = this._buttons.length;
+        const spacing = 16;
+        let totalWidth = -spacing;
         for (let i = 0; i < numButtons; i++) {
             totalWidth += this._buttons[i].width + spacing;
         }
-        var x = (this.width - totalWidth) / 2;
+        let x = (this.width - totalWidth) / 2;
         for (let j = 0; j < numButtons; j++) {
-            var button = this._buttons[j];
+            const button = this._buttons[j];
             button.x = x;
             button.y = this.buttonY();
             x += button.width + spacing;
@@ -108,25 +108,25 @@ class Window_ShopNumber extends Window_Selectable {
     };
     
     drawMultiplicationSign() {
-        var sign = '\u00d7';
-        var width = this.textWidth(sign);
-        var x = this.cursorX() - width * 2;
-        var y = this.itemY();
+        const sign = '\u00d7';
+        const width = this.textWidth(sign);
+        const x = this.cursorX() - width * 2;
+        const y = this.itemY();
         this.resetTextColor();
         this.drawText(sign, x, y, width);
     };
     
     drawNumber() {
-        var x = this.cursorX();
-        var y = this.itemY();
-        var width = this.cursorWidth() - this.textPadding();
+        const x = this.cursorX();
+        const y = this.itemY();
+        const width = this.cursorWidth() - this.textPadding();
         this.resetTextColor();
         this.drawText(this._number.toString(), x, y, width, 'right');
     };
     
     drawTotalPrice() {
-        var total = this._price * this._number;
-        var width = this.contentsWidth() - this.textPadding();
+        const total = this._price * this._number;
+        const width = this.contentsWidth() - this.textPadding();
         this.drawCurrencyValue(total, this._currencyUnit, 0, this.priceY(), width);
     };
     
@@ -143,7 +143,7 @@ class Window_ShopNumber extends Window_Selectable {
     };
     
     cursorWidth() {
-        var digitWidth = this.textWidth('0');
+        const digitWidth = this.textWidth('0');
         return this.maxDigits() * digitWidth + this.textPadding() * 2;
     };
     
@@ -185,7 +185,7 @@ class Window_ShopNumber extends Window_Selectable {
     };
     
     changeNumber(amount: number) {
-        var lastNumber = this._number;
+        const lastNumber = this._number;
         this._number = (this._number + amount).clamp(1, this._max);
         if (this._number !== lastNumber) {
             SoundManager.playCursor();

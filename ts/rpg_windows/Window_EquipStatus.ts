@@ -75,8 +75,8 @@ class Window_EquipStatus extends Window_Base {
     };
     
     drawNewParam(x: number, y: number, paramId: number) {
-        var newValue = this._tempActor.param(paramId);
-        var diffvalue = newValue - this._actor.param(paramId);
+        const newValue = this._tempActor.param(paramId);
+        const diffvalue = newValue - this._actor.param(paramId);
         this.changeTextColor(this.paramchangeTextColor(diffvalue));
         this.drawText(newValue.toString(), x, y, 48, 'right');
     };

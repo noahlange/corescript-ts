@@ -40,12 +40,12 @@ class Window_ActorCommand extends Window_Command {
     };
     
     addSkillCommands() {
-        var skillTypes = this._actor.addedSkillTypes();
+        const skillTypes = this._actor.addedSkillTypes();
         skillTypes.sort(function(a, b) {
             return a - b;
         });
         skillTypes.forEach(function(stypeId) {
-            var name = $dataSystem.skillTypes[stypeId];
+            const name = $dataSystem.skillTypes[stypeId];
             this.addCommand(name, 'skill', true, stypeId);
         }, this);
     };
@@ -82,10 +82,10 @@ class Window_ActorCommand extends Window_Command {
     selectLast() {
         this.select(0);
         if (this._actor && ConfigManager.commandRemember) {
-            var symbol = this._actor.lastCommandSymbol();
+            const symbol = this._actor.lastCommandSymbol();
             this.selectSymbol(symbol);
             if (symbol === 'skill') {
-                var skill = this._actor.lastBattleSkill();
+                const skill = this._actor.lastBattleSkill();
                 if (skill) {
                     this.selectExt(skill.stypeId);
                 }

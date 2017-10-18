@@ -258,11 +258,11 @@ class Input {
      */
     protected static _wrapNwjsAlert() {
         if (Utils.isNwjs()) {
-            var _alert = window.alert;
+            const _alert = window.alert;
             window.alert = function () {
                 let require = (window as any)['require'];
-                var gui = require('nw.gui');
-                var win = gui.Window.get();
+                const gui = require('nw.gui');
+                const win = gui.Window.get();
                 _alert.apply(this, arguments);
                 win.focus();
                 this.clear();
@@ -294,7 +294,7 @@ class Input {
         if (event.keyCode === 144) {    // Numlock
             this.clear();
         }
-        var buttonName = this.keyMapper[event.keyCode];
+        const buttonName = this.keyMapper[event.keyCode];
         if (ResourceHandler.exists() && buttonName === 'ok') {
             ResourceHandler.retry();
         } else if (buttonName) {
@@ -329,7 +329,7 @@ class Input {
      * @private
      */
     protected static _onKeyUp(event: KeyboardEvent) {
-        var buttonName = this.keyMapper[event.keyCode];
+        const buttonName = this.keyMapper[event.keyCode];
         if (buttonName) {
             this._currentState[buttonName] = false;
         }
@@ -354,10 +354,10 @@ class Input {
      */
     protected static _pollGamepads() {
         if (navigator.getGamepads) {
-            var gamepads = navigator.getGamepads();
+            const gamepads = navigator.getGamepads();
             if (gamepads) {
                 for (let i = 0; i < gamepads.length; i++) {
-                    var gamepad = gamepads[i];
+                    const gamepad = gamepads[i];
                     if (gamepad && gamepad.connected) {
                         this._updateGamepadState(gamepad);
                     }
@@ -374,11 +374,11 @@ class Input {
      * @private
      */
     protected static _updateGamepadState(gamepad: Gamepad) {
-        var lastState = this._gamepadStates[gamepad.index] || [];
-        var newState = [];
-        var buttons = gamepad.buttons;
-        var axes = gamepad.axes;
-        var threshold = 0.5;
+        const lastState = this._gamepadStates[gamepad.index] || [];
+        const newState = [];
+        const buttons = gamepad.buttons;
+        const axes = gamepad.axes;
+        const threshold = 0.5;
         newState[12] = false;
         newState[13] = false;
         newState[14] = false;
@@ -398,7 +398,7 @@ class Input {
         }
         for (let j = 0; j < newState.length; j++) {
             if (newState[j] !== lastState[j]) {
-                var buttonName = this.gamepadMapper[j];
+                const buttonName = this.gamepadMapper[j];
                 if (buttonName) {
                     this._currentState[buttonName] = newState[j];
                 }
@@ -413,8 +413,8 @@ class Input {
      * @private
      */
     protected static _updateDirection() {
-        var x = this._signX();
-        var y = this._signY();
+        let x = this._signX();
+        let y = this._signY();
 
         this._dir8 = this._makeNumpadDirection(x, y);
 
@@ -439,7 +439,7 @@ class Input {
      * @private
      */
     protected static _signX() {
-        var x = 0;
+        let x = 0;
 
         if (this.isPressed('left')) {
             x--;
@@ -456,7 +456,7 @@ class Input {
      * @private
      */
     protected static _signY() {
-        var y = 0;
+        let y = 0;
 
         if (this.isPressed('up')) {
             y--;

@@ -22,7 +22,7 @@ class Scene_Status extends Scene_MenuBase {
     };
 
     refreshActor() {
-        var actor = this.actor();
+        const actor = this.actor();
         this._statusWindow.setActor(actor);
     };
 

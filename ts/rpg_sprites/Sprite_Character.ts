@@ -61,8 +61,8 @@ class Sprite_Character extends Sprite_Base {
     };
     
     tilesetBitmap(tileId: number) {
-        var tileset = $gameMap.tileset();
-        var setNumber = 5 + Math.floor(tileId / 256);
+        const tileset = $gameMap.tileset();
+        const setNumber = 5 + Math.floor(tileId / 256);
         return ImageManager.loadTileset(tileset.tilesetNames[setNumber]);
     };
     
@@ -105,21 +105,21 @@ class Sprite_Character extends Sprite_Base {
     };
     
     updateTileFrame() {
-        var pw = this.patternWidth();
-        var ph = this.patternHeight();
-        var sx = (Math.floor(this._tileId / 128) % 2 * 8 + this._tileId % 8) * pw;
-        var sy = Math.floor(this._tileId % 256 / 8) % 16 * ph;
+        const pw = this.patternWidth();
+        const ph = this.patternHeight();
+        const sx = (Math.floor(this._tileId / 128) % 2 * 8 + this._tileId % 8) * pw;
+        const sy = Math.floor(this._tileId % 256 / 8) % 16 * ph;
         this.setFrame(sx, sy, pw, ph);
     };
     
     updateCharacterFrame() {
-        var pw = this.patternWidth();
-        var ph = this.patternHeight();
-        var sx = (this.characterBlockX() + this.characterPatternX()) * pw;
-        var sy = (this.characterBlockY() + this.characterPatternY()) * ph;
+        const pw = this.patternWidth();
+        const ph = this.patternHeight();
+        const sx = (this.characterBlockX() + this.characterPatternX()) * pw;
+        const sy = (this.characterBlockY() + this.characterPatternY()) * ph;
         this.updateHalfBodySprites();
         if (this._bushDepth > 0) {
-            var d = this._bushDepth;
+            const d = this._bushDepth;
             this._upperBody.setFrame(sx, sy, pw, ph - d);
             this._lowerBody.setFrame(sx, sy + ph - d, pw, d);
             this.setFrame(sx, sy, 0, ph);
@@ -132,7 +132,7 @@ class Sprite_Character extends Sprite_Base {
         if (this._isBigCharacter) {
             return 0;
         } else {
-            var index = this._character.characterIndex();
+            const index = this._character.characterIndex();
             return index % 4 * 3;
         }
     };
@@ -141,7 +141,7 @@ class Sprite_Character extends Sprite_Base {
         if (this._isBigCharacter) {
             return 0;
         } else {
-            var index = this._character.characterIndex();
+            const index = this._character.characterIndex();
             return Math.floor(index / 4) * 4;
         }
     };
@@ -232,7 +232,7 @@ class Sprite_Character extends Sprite_Base {
     
     setupAnimation() {
         if (this._character.animationId() > 0) {
-            var animation = $dataAnimations[this._character.animationId()];
+            const animation = $dataAnimations[this._character.animationId()];
             this.startAnimation(animation, false, 0);
             this._character.startAnimation();
         }

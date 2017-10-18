@@ -39,14 +39,14 @@ class Window_BattleEnemy extends Window_Selectable {
     };
     
     enemyIndex() {
-        var enemy = this.enemy();
+        const enemy = this.enemy();
         return enemy ? enemy.index() : -1;
     };
     
     drawItem(index: number) {
         this.resetTextColor();
-        var name = this._enemies[index].name();
-        var rect = this.itemRectForText(index);
+        const name = this._enemies[index].name();
+        const rect = this.itemRectForText(index);
         this.drawText(name, rect.x, rect.y, rect.width);
     };
     

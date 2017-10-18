@@ -72,8 +72,8 @@ class ImageManager {
 
     static loadBitmap(folder: string, filename: string, hue: number = 0, smooth: boolean): Bitmap {
         if (filename) {
-            var path = folder + encodeURIComponent(filename) + '.png';
-            var bitmap = this.loadNormalBitmap(path, hue);
+            const path = folder + encodeURIComponent(filename) + '.png';
+            const bitmap = this.loadNormalBitmap(path, hue);
             bitmap.smooth = smooth;
             return bitmap;
         } else {
@@ -82,7 +82,7 @@ class ImageManager {
     };
 
     static loadEmptyBitmap(): Bitmap {
-        var empty = this._imageCache.get('empty');
+        let empty = this._imageCache.get('empty');
         if (!empty) {
             empty = new Bitmap();
             this._imageCache.add('empty', empty);
@@ -93,8 +93,8 @@ class ImageManager {
     };
 
     static loadNormalBitmap(path: string, hue: number): Bitmap {
-        var key = this._generateCacheKey(path, hue);
-        var bitmap = this._imageCache.get(key);
+        const key = this._generateCacheKey(path, hue);
+        let bitmap = this._imageCache.get(key);
         if (!bitmap) {
             bitmap = Bitmap.load(path);
             bitmap.addLoadListener(function () {
@@ -117,12 +117,12 @@ class ImageManager {
     };
 
     static isObjectCharacter(filename: string) {
-        var sign = filename.match(/^[\!\$]+/);
+        const sign = filename.match(/^[\!\$]+/);
         return sign && sign[0].contains('!');
     };
 
     static isBigCharacter(filename: string) {
-        var sign = filename.match(/^[\!\$]+/);
+        const sign = filename.match(/^[\!\$]+/);
         return sign && sign[0].contains('$');
     };
 
@@ -190,8 +190,8 @@ class ImageManager {
     protected static _defaultReservationId: number;
     static reserveBitmap(folder: string, filename: string, hue: number = 0, smooth: boolean, reservationId: number = ImageManager._defaultReservationId) {
         if (filename) {
-            var path = folder + encodeURIComponent(filename) + '.png';
-            var bitmap = this.reserveNormalBitmap(path, hue, reservationId || this._defaultReservationId);
+            const path = folder + encodeURIComponent(filename) + '.png';
+            const bitmap = this.reserveNormalBitmap(path, hue, reservationId || this._defaultReservationId);
             bitmap.smooth = smooth;
             return bitmap;
         } else {
@@ -200,7 +200,7 @@ class ImageManager {
     };
 
     static reserveNormalBitmap(path: string, hue: number, reservationId: number) {
-        var bitmap = this.loadNormalBitmap(path, hue);
+        const bitmap = this.loadNormalBitmap(path, hue);
         this._imageCache.reserve(this._generateCacheKey(path, hue), bitmap, reservationId);
 
         return bitmap;
@@ -273,8 +273,8 @@ class ImageManager {
 
     static requestBitmap(folder: string, filename: string, hue: number, smooth: boolean) {
         if (filename) {
-            var path = folder + encodeURIComponent(filename) + '.png';
-            var bitmap = this.requestNormalBitmap(path, hue || 0);
+            const path = folder + encodeURIComponent(filename) + '.png';
+            const bitmap = this.requestNormalBitmap(path, hue || 0);
             bitmap.smooth = smooth;
             return bitmap;
         } else {
@@ -283,8 +283,8 @@ class ImageManager {
     };
 
     static requestNormalBitmap(path: string, hue: number) {
-        var key = this._generateCacheKey(path, hue);
-        var bitmap = this._imageCache.get(key);
+        const key = this._generateCacheKey(path, hue);
+        let bitmap = this._imageCache.get(key);
         if (!bitmap) {
             bitmap = Bitmap.request(path);
             bitmap.addLoadListener(function () {

@@ -39,20 +39,20 @@ class StorageManager {
     static backup(savefileId: number) {
         if (this.exists(savefileId)) {
             if (this.isLocalMode()) {
-                var data = this.loadFromLocalFile(savefileId);
-                var compressed = LZString.compressToBase64(data);
+                const data = this.loadFromLocalFile(savefileId);
+                const compressed = LZString.compressToBase64(data);
                 let require = (window as any)['require']; // bungcip: changed to make it compile
-                var fs = require('fs');
-                var dirPath = this.localFileDirectoryPath();
-                var filePath = this.localFilePath(savefileId) + ".bak";
+                const fs = require('fs');
+                const dirPath = this.localFileDirectoryPath();
+                const filePath = this.localFilePath(savefileId) + ".bak";
                 if (!fs.existsSync(dirPath)) {
                     fs.mkdirSync(dirPath);
                 }
                 fs.writeFileSync(filePath, compressed);
             } else {
-                var data = this.loadFromWebStorage(savefileId);
-                var compressed = LZString.compressToBase64(data);
-                var key = this.webStorageKey(savefileId) + "bak";
+                const data = this.loadFromWebStorage(savefileId);
+                const compressed = LZString.compressToBase64(data);
+                const key = this.webStorageKey(savefileId) + "bak";
                 localStorage.setItem(key, compressed);
             }
         }
@@ -70,12 +70,12 @@ class StorageManager {
         if (this.backupExists(savefileId)) {
             if (this.isLocalMode()) {
                 let require = (window as any)['require']; // bungcip: changed to make it compile
-                var fs = require('fs');
-                var dirPath = this.localFileDirectoryPath();
-                var filePath = this.localFilePath(savefileId);
+                const fs = require('fs');
+                const dirPath = this.localFileDirectoryPath();
+                const filePath = this.localFilePath(savefileId);
                 fs.unlinkSync(filePath + ".bak");
             } else {
-                var key = this.webStorageKey(savefileId);
+                const key = this.webStorageKey(savefileId);
                 localStorage.removeItem(key + "bak");
             }
         }
@@ -84,21 +84,21 @@ class StorageManager {
     static restoreBackup(savefileId: number) {
         if (this.backupExists(savefileId)) {
             if (this.isLocalMode()) {
-                var data = this.loadFromLocalBackupFile(savefileId);
-                var compressed = LZString.compressToBase64(data);
+                const data = this.loadFromLocalBackupFile(savefileId);
+                const compressed = LZString.compressToBase64(data);
                 let require = (window as any)['require']; // bungcip: changed to make it compile
-                var fs = require('fs');
-                var dirPath = this.localFileDirectoryPath();
-                var filePath = this.localFilePath(savefileId);
+                const fs = require('fs');
+                const dirPath = this.localFileDirectoryPath();
+                const filePath = this.localFilePath(savefileId);
                 if (!fs.existsSync(dirPath)) {
                     fs.mkdirSync(dirPath);
                 }
                 fs.writeFileSync(filePath, compressed);
                 fs.unlinkSync(filePath + ".bak");
             } else {
-                var data = this.loadFromWebStorageBackup(savefileId);
-                var compressed = LZString.compressToBase64(data);
-                var key = this.webStorageKey(savefileId);
+                const data = this.loadFromWebStorageBackup(savefileId);
+                const compressed = LZString.compressToBase64(data);
+                const key = this.webStorageKey(savefileId);
                 localStorage.setItem(key, compressed);
                 localStorage.removeItem(key + "bak");
             }
@@ -110,11 +110,11 @@ class StorageManager {
     };
     
     static saveToLocalFile(savefileId: number, json: Object) {
-        var data = LZString.compressToBase64(json);
+        const data = LZString.compressToBase64(json);
         let require = (window as any)['require']; // bungcip: changed to make it compile
-        var fs = require('fs');
-        var dirPath = this.localFileDirectoryPath();
-        var filePath = this.localFilePath(savefileId);
+        const fs = require('fs');
+        const dirPath = this.localFileDirectoryPath();
+        const filePath = this.localFilePath(savefileId);
         if (!fs.existsSync(dirPath)) {
             fs.mkdirSync(dirPath);
         }
@@ -122,10 +122,10 @@ class StorageManager {
     };
     
     static loadFromLocalFile(savefileId: number) {
-        var data = null;
-        var require = (window as any)['process']; // bungcip: changed to make it compile
-        var fs = require('fs');
-        var filePath = this.localFilePath(savefileId);
+        let data = null;
+        const require = (window as any)['process']; // bungcip: changed to make it compile
+        const fs = require('fs');
+        const filePath = this.localFilePath(savefileId);
         if (fs.existsSync(filePath)) {
             data = fs.readFileSync(filePath, { encoding: 'utf8' });
         }
@@ -133,10 +133,10 @@ class StorageManager {
     };
     
     static loadFromLocalBackupFile(savefileId: number) {
-        var data = null;
+        let data = null;
         let require = (window as any)['require']; // bungcip: changed to make it compile
-        var fs = require('fs');
-        var filePath = this.localFilePath(savefileId) + ".bak";
+        const fs = require('fs');
+        const filePath = this.localFilePath(savefileId) + ".bak";
         if (fs.existsSync(filePath)) {
             data = fs.readFileSync(filePath, { encoding: 'utf8' });
         }
@@ -145,69 +145,69 @@ class StorageManager {
     
     static localFileBackupExists(savefileId: number) {
         let require = (window as any)['require']; // bungcip: changed to make it compile
-        var fs = require('fs');
+        const fs = require('fs');
         return fs.existsSync(this.localFilePath(savefileId) + ".bak");
     };
     
     static localFileExists(savefileId: number) {
         let require = (window as any)['require']; // bungcip: changed to make it compile
-        var fs = require('fs');
+        const fs = require('fs');
         return fs.existsSync(this.localFilePath(savefileId));
     };
     
     static removeLocalFile(savefileId: number) {
         let require = (window as any)['require']; // bungcip: changed to make it compile
-        var fs = require('fs');
-        var filePath = this.localFilePath(savefileId);
+        const fs = require('fs');
+        const filePath = this.localFilePath(savefileId);
         if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath);
         }
     };
     
     static saveToWebStorage(savefileId: number, json: Object) {
-        var key = this.webStorageKey(savefileId);
-        var data = LZString.compressToBase64(json);
+        const key = this.webStorageKey(savefileId);
+        const data = LZString.compressToBase64(json);
         localStorage.setItem(key, data);
     };
     
     static loadFromWebStorage(savefileId: number) {
-        var key = this.webStorageKey(savefileId);
-        var data = localStorage.getItem(key);
+        const key = this.webStorageKey(savefileId);
+        const data = localStorage.getItem(key);
         return LZString.decompressFromBase64(data);
     };
     
     static loadFromWebStorageBackup(savefileId: number) {
-        var key = this.webStorageKey(savefileId) + "bak";
-        var data = localStorage.getItem(key);
+        const key = this.webStorageKey(savefileId) + "bak";
+        const data = localStorage.getItem(key);
         return LZString.decompressFromBase64(data);
     };
     
     static webStorageBackupExists(savefileId: number) {
-        var key = this.webStorageKey(savefileId) + "bak";
+        const key = this.webStorageKey(savefileId) + "bak";
         return !!localStorage.getItem(key);
     };
     
     static webStorageExists(savefileId: number) {
-        var key = this.webStorageKey(savefileId);
+        const key = this.webStorageKey(savefileId);
         return !!localStorage.getItem(key);
     };
     
     static removeWebStorage(savefileId: number) {
-        var key = this.webStorageKey(savefileId);
+        const key = this.webStorageKey(savefileId);
         localStorage.removeItem(key);
     };
     
     static localFileDirectoryPath() {
         let require = (window as any)['require']; // bungcip: changed to make it compile
         let process = (window as any)['process']; // bungcip: changed to make it compile
-        var path = require('path');
+        const path = require('path');
     
-        var base = path.dirname(process.mainModule.filename);
+        const base = path.dirname(process.mainModule.filename);
         return path.join(base, 'save/');
     };
     
     static localFilePath(savefileId: number) {
-        var name;
+        let name;
         if (savefileId < 0) {
             name = 'config.rpgsave';
         } else if (savefileId === 0) {

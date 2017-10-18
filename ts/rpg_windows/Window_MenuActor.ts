@@ -22,8 +22,8 @@ class Window_MenuActor extends Window_MenuStatus {
     };
     
     selectForItem(item: DB.Item | DB.Armor | DB.Weapon | DB.Skill) {
-        var actor = $gameParty.menuActor();
-        var action = new Game_Action(actor);
+        const actor = $gameParty.menuActor();
+        const action = new Game_Action(actor);
         action.setItemObject(item);
         this.setCursorFixed(false);
         this.setCursorAll(false);

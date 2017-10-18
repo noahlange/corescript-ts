@@ -113,16 +113,6 @@ class Graphics {
      */
     static frameCount = 0;
 
-    // /**
-    //  * The alias of PIXI.blendModes.NORMAL.
-    //  *
-    //  * @static
-    //  * @property BLEND_NORMAL
-    //  * @type Number
-    //  * @final
-    //  */
-    // static BLEND_NORMAL = 0;
-
     /**
      * The alias of PIXI.blendModes.ADD.
      *
@@ -132,26 +122,6 @@ class Graphics {
      * @final
      */
     static BLEND_ADD = 1;
-
-    // /**
-    //  * The alias of PIXI.blendModes.MULTIPLY.
-    //  *
-    //  * @static
-    //  * @property BLEND_MULTIPLY
-    //  * @type Number
-    //  * @final
-    //  */
-    // static BLEND_MULTIPLY = 2;
-
-    // /**
-    //  * The alias of PIXI.blendModes.SCREEN.
-    //  *
-    //  * @static
-    //  * @property BLEND_SCREEN
-    //  * @type Number
-    //  * @final
-    //  */
-    // static BLEND_SCREEN = 3;
 
     /**
      * Marks the beginning of each frame for FPSMeter.
@@ -186,15 +156,15 @@ class Graphics {
      */
     static render(stage: Stage) {
         if (this._skipCount === 0) {
-            var startTime = Date.now();
+            const startTime = Date.now();
             if (stage) {
                 this._renderer.render(stage);
                 if (this._renderer.gl && this._renderer.gl.flush) {
                     this._renderer.gl.flush();
                 }
             }
-            var endTime = Date.now();
-            var elapsed = endTime - startTime;
+            const endTime = Date.now();
+            const elapsed = endTime - startTime;
             this._skipCount = Math.min(Math.floor(elapsed / 15), this._maxSkip);
             this._rendered = true;
         } else {
@@ -213,7 +183,7 @@ class Graphics {
      */
     static hasWebGL() {
         try {
-            var canvas = document.createElement('canvas');
+            const canvas = document.createElement('canvas');
             return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
         } catch (e) {
             return false;
@@ -296,7 +266,7 @@ class Graphics {
     static printLoadingError(url: string) {
         if (this._errorPrinter && !this._errorShowed) {
             this._errorPrinter.innerHTML = this._makeErrorHtml('Loading Error', 'Failed to load: ' + url);
-            var button = document.createElement('button');
+            const button = document.createElement('button');
             button.innerHTML = 'Retry';
             button.style.fontSize = '24px';
             button.style.color = '#ffffff';
@@ -375,9 +345,9 @@ class Graphics {
      * @param {String} url The url of the font file
      */
     static loadFont(name: string, url: string) {
-        var style = document.createElement('style');
-        var head = document.getElementsByTagName('head');
-        var rule = '@font-face { font-family: "' + name + '"; src: url("' + url + '"); }';
+        const style = document.createElement('style');
+        const head = document.getElementsByTagName('head');
+        const rule = '@font-face { font-family: "' + name + '"; src: url("' + url + '"); }';
         style.type = 'text/css';
         head.item(0).appendChild(style);
         style.sheet.insertRule(rule, 0);
@@ -403,9 +373,9 @@ class Graphics {
             if (!this._hiddenCanvas) {
                 this._hiddenCanvas = document.createElement('canvas');
             }
-            var context = this._hiddenCanvas.getContext('2d');
-            var text = 'abcdefghijklmnopqrstuvwxyz';
-            var width1, width2;
+            const context = this._hiddenCanvas.getContext('2d');
+            const text = 'abcdefghijklmnopqrstuvwxyz';
+            let width1, width2;
             context.font = '40px ' + name + ', sans-serif';
             width1 = context.measureText(text).width;
             context.font = '40px sans-serif';
@@ -490,7 +460,7 @@ class Graphics {
      */
     static pageToCanvasX(x: number): number {
         if (this._canvas) {
-            var left = this._canvas.offsetLeft;
+            const left = this._canvas.offsetLeft;
             return Math.round((x - left) / this._realScale);
         } else {
             return 0;
@@ -508,7 +478,7 @@ class Graphics {
      */
     static pageToCanvasY(y: number): number {
         if (this._canvas) {
-            var top = this._canvas.offsetTop;
+            const top = this._canvas.offsetTop;
             return Math.round((y - top) / this._realScale);
         } else {
             return 0;
@@ -653,8 +623,8 @@ class Graphics {
      */
     protected static _updateRealScale() {
         if (this._stretchEnabled) {
-            var h = window.innerWidth / this._width;
-            var v = window.innerHeight / this._height;
+            const h = window.innerWidth / this._width;
+            const v = window.innerHeight / this._height;
             this._realScale = Math.min(h, v);
         } else {
             this._realScale = this._scale;
@@ -689,7 +659,7 @@ class Graphics {
      * @private
      */
     protected static _testCanvasBlendModes() {
-        var canvas, context, imageData1, imageData2;
+        let canvas, context, imageData1, imageData2;
         canvas = document.createElement('canvas');
         canvas.width = 1;
         canvas.height = 1;
@@ -718,7 +688,7 @@ class Graphics {
      * @private
      */
     protected static _modifyExistingElements() {
-        var elements = document.getElementsByTagName('*');
+        const elements = document.getElementsByTagName('*');
         for (let i = 0; i < elements.length; i++) {
             /// bungcip: diubah agar bisa dicompile
             if ((elements[i] as any).style.zIndex > 0) {
@@ -836,7 +806,7 @@ class Graphics {
      * @private
      */
     protected static _clearUpperCanvas() {
-        var context = this._upperCanvas.getContext('2d');
+        const context = this._upperCanvas.getContext('2d');
         context.clearRect(0, 0, this._width, this._height);
     };
 
@@ -848,10 +818,10 @@ class Graphics {
     protected static _paintUpperCanvas() {
         this._clearUpperCanvas();
         if (this._loadingImage && this._loadingCount >= 20) {
-            var context = this._upperCanvas.getContext('2d');
-            var dx = (this._width - this._loadingImage.width) / 2;
-            var dy = (this._height - this._loadingImage.height) / 2;
-            var alpha = ((this._loadingCount - 20) / 30).clamp(0, 1);
+            const context = this._upperCanvas.getContext('2d');
+            const dx = (this._width - this._loadingImage.width) / 2;
+            const dy = (this._height - this._loadingImage.height) / 2;
+            const alpha = ((this._loadingCount - 20) / 30).clamp(0, 1);
             context.save();
             context.globalAlpha = alpha;
             context.drawImage(this._loadingImage, dx, dy);
@@ -897,7 +867,7 @@ class Graphics {
      * @private
      */
     protected static _createFPSMeter() {
-        var options = { graph: 1, decimals: 0, theme: 'transparent', toggleOn: null as any };
+        const options = { graph: 1, decimals: 0, theme: 'transparent', toggleOn: null as any };
         this._fpsMeter = new FPSMeter(options);
         this._fpsMeter.hide();
     };
@@ -908,7 +878,7 @@ class Graphics {
      * @private
      */
     protected static _createModeBox() {
-        var box = document.createElement('div');
+        const box = document.createElement('div');
         box.id = 'modeTextBack';
         box.style.position = 'absolute';
         box.style.left = '5px';
@@ -919,7 +889,7 @@ class Graphics {
         box.style.zIndex = '9';
         box.style.opacity = '0';
 
-        var text = document.createElement('div');
+        const text = document.createElement('div');
         text.id = 'modeText';
         text.style.position = 'absolute';
         text.style.left = '0px';
@@ -954,8 +924,8 @@ class Graphics {
      * @private
      */
     protected static _createFontLoader(name: string) {
-        var div = document.createElement('div');
-        var text = document.createTextNode('.');
+        const div = document.createElement('div');
+        const text = document.createTextNode('.');
         div.style.fontFamily = name;
         div.style.fontSize = '0px';
         div.style.color = 'transparent';
@@ -976,8 +946,8 @@ class Graphics {
      * @private
      */
     protected static _centerElement(element: HTMLElement) {
-        var width = (element as any)['width'] * this._realScale;
-        var height = (element as any)['height'] * this._realScale;
+        const width = (element as any)['width'] * this._realScale;
+        const height = (element as any)['height'] * this._realScale;
         element.style.position = 'absolute';
         element.style.margin = 'auto';
         element.style.top = '0';
@@ -994,7 +964,7 @@ class Graphics {
      * @private
      */
     protected static _disableTextSelection() {
-        var body = document.body;
+        const body = document.body;
         body.style.userSelect = 'none';
         body.style.webkitUserSelect = 'none';
         body.style.msUserSelect = 'none';
@@ -1007,8 +977,8 @@ class Graphics {
      * @private
      */
     protected static _disableContextMenu() {
-        var elements = document.body.getElementsByTagName('*');
-        var oncontextmenu = () => false;
+        const elements = document.body.getElementsByTagName('*');
+        const oncontextmenu = () => false;
         for (let i = 0; i < elements.length; i++) {
             (elements[i] as any)['oncontextmenu'] = oncontextmenu;
         }
@@ -1199,7 +1169,7 @@ class Graphics {
      * @private
      */
     protected static _requestFullScreen() {
-        var element = document.body;
+        const element = document.body;
         if (element.requestFullscreen) {
             element.requestFullscreen();
         }

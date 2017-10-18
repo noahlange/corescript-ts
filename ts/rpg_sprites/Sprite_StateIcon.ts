@@ -51,7 +51,7 @@ class Sprite_StateIcon extends Sprite {
     };
 
     updateIcon() {
-        var icons: number[] = [];
+        let icons: number[] = [];
         if (this._battler && this._battler.isAlive()) {
             icons = this._battler.allIcons();
         }
@@ -68,10 +68,10 @@ class Sprite_StateIcon extends Sprite {
     };
 
     updateFrame() {
-        var pw = Sprite_StateIcon._iconWidth;
-        var ph = Sprite_StateIcon._iconHeight;
-        var sx = this._iconIndex % 16 * pw;
-        var sy = Math.floor(this._iconIndex / 16) * ph;
+        const pw = Sprite_StateIcon._iconWidth;
+        const ph = Sprite_StateIcon._iconHeight;
+        const sx = this._iconIndex % 16 * pw;
+        const sy = Math.floor(this._iconIndex / 16) * ph;
         this.setFrame(sx, sy, pw, ph);
     };
 

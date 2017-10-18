@@ -33,7 +33,7 @@ class Window_MenuCommand extends Window_Command {
     };
     
     addMainCommands() {
-        var enabled = this.areMainCommandsEnabled();
+        const enabled = this.areMainCommandsEnabled();
         if (this.needsCommand('item')) {
             this.addCommand(TextManager.item, 'item', enabled);
         }
@@ -50,7 +50,7 @@ class Window_MenuCommand extends Window_Command {
     
     addFormationCommand() {
         if (this.needsCommand('formation')) {
-            var enabled = this.isFormationEnabled();
+            const enabled = this.isFormationEnabled();
             this.addCommand(TextManager.formation, 'formation', enabled);
         }
     };
@@ -60,25 +60,25 @@ class Window_MenuCommand extends Window_Command {
     
     addOptionsCommand() {
         if (this.needsCommand('options')) {
-            var enabled = this.isOptionsEnabled();
+            const enabled = this.isOptionsEnabled();
             this.addCommand(TextManager.options, 'options', enabled);
         }
     };
     
     addSaveCommand() {
         if (this.needsCommand('save')) {
-            var enabled = this.isSaveEnabled();
+            const enabled = this.isSaveEnabled();
             this.addCommand(TextManager.save, 'save', enabled);
         }
     };
     
     addGameEndCommand() {
-        var enabled = this.isGameEndEnabled();
+        const enabled = this.isGameEndEnabled();
         this.addCommand(TextManager.gameEnd, 'gameEnd', enabled);
     };
     
     needsCommand(name: string) {
-        var flags = $dataSystem.menuCommands;
+        const flags = $dataSystem.menuCommands;
         if (flags) {
             switch (name) {
             case 'item':

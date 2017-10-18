@@ -127,7 +127,7 @@ abstract class Game_Battler extends Game_BattlerBase {
     };
     
     startAnimation(animationId: number, mirror: boolean, delay: number) {
-        var data = { animationId: animationId, mirror: mirror, delay: delay };
+        const data = { animationId: animationId, mirror: mirror, delay: delay };
         this._animations.push(data);
     };
     
@@ -301,7 +301,7 @@ abstract class Game_Battler extends Game_BattlerBase {
     makeActions() {
         this.clearActions();
         if (this.canMove()) {
-            var actionTimes = this.makeActionTimes();
+            const actionTimes = this.makeActionTimes();
             this._actions = [];
             for (let i = 0; i < actionTimes; i++) {
                 this._actions.push(new Game_Action(this));
@@ -342,7 +342,7 @@ abstract class Game_Battler extends Game_BattlerBase {
     
     forceAction(skillId: number, targetIndex: number) {
         this.clearActions();
-        var action = new Game_Action(this, true);
+        const action = new Game_Action(this, true);
         action.setSkill(skillId);
         if (targetIndex === -2) {
             action.setTarget(this._lastTargetIndex);
@@ -395,12 +395,12 @@ abstract class Game_Battler extends Game_BattlerBase {
     };
     
     chargeTpByDamage(damageRate: number) {
-        var value = Math.floor(50 * damageRate * this.tcr);
+        const value = Math.floor(50 * damageRate * this.tcr);
         this.gainSilentTp(value);
     };
     
     regenerateHp() {
-        var value = Math.floor(this.mhp * this.hrg);
+        let value = Math.floor(this.mhp * this.hrg);
         value = Math.max(value, -this.maxSlipDamage());
         if (value !== 0) {
             this.gainHp(value);
@@ -412,14 +412,14 @@ abstract class Game_Battler extends Game_BattlerBase {
     };
     
     regenerateMp() {
-        var value = Math.floor(this.mmp * this.mrg);
+        const value = Math.floor(this.mmp * this.mrg);
         if (value !== 0) {
             this.gainMp(value);
         }
     };
     
     regenerateTp() {
-        var value = Math.floor(100 * this.trg);
+        const value = Math.floor(100 * this.trg);
         this.gainSilentTp(value);
     };
     

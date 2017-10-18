@@ -58,10 +58,10 @@ class Scene_Title extends Scene_Base {
     };
 
     drawGameTitle() {
-        var x = 20;
-        var y = Graphics.height / 4;
-        var maxWidth = Graphics.width - x * 2;
-        var text = $dataSystem.gameTitle;
+        const x = 20;
+        const y = Graphics.height / 4;
+        const maxWidth = Graphics.width - x * 2;
+        const text = $dataSystem.gameTitle;
         this._gameTitleSprite.bitmap.outlineColor = 'black';
         this._gameTitleSprite.bitmap.outlineWidth = 8;
         this._gameTitleSprite.bitmap.fontSize = 72;

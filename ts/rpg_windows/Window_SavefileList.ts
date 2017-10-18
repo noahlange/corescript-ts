@@ -25,15 +25,15 @@ class Window_SavefileList extends Window_Selectable {
     };
 
     itemHeight() {
-        var innerHeight = this.height - this.padding * 2;
+        const innerHeight = this.height - this.padding * 2;
         return Math.floor(innerHeight / this.maxVisibleItems());
     };
 
     drawItem(index: number) {
-        var id = index + 1;
-        var valid = DataManager.isThisGameFile(id);
-        var info = DataManager.loadSavefileInfo(id);
-        var rect = this.itemRectForText(index);
+        const id = index + 1;
+        const valid = DataManager.isThisGameFile(id);
+        const info = DataManager.loadSavefileInfo(id);
+        const rect = this.itemRectForText(index);
         this.resetTextColor();
         if (this._mode === 'load') {
             this.changePaintOpacity(valid);
@@ -51,15 +51,15 @@ class Window_SavefileList extends Window_Selectable {
     };
 
     drawContents(info: SavefileInfo, rect: PIXI.Rectangle, valid: boolean) {
-        var bottom = rect.y + rect.height;
+        const bottom = rect.y + rect.height;
         if (rect.width >= 420) {
             this.drawGameTitle(info, rect.x + 192, rect.y, rect.width - 192);
             if (valid) {
                 this.drawPartyCharacters(info, rect.x + 220, bottom - 4);
             }
         }
-        var lineHeight = Window_Base.lineHeight();
-        var y2 = bottom - lineHeight;
+        const lineHeight = Window_Base.lineHeight();
+        const y2 = bottom - lineHeight;
         if (y2 >= lineHeight) {
             this.drawPlaytime(info, rect.x, y2, rect.width);
         }
@@ -74,7 +74,7 @@ class Window_SavefileList extends Window_Selectable {
     drawPartyCharacters(info: SavefileInfo, x: number, y: number) {
         if (info.characters) {
             for (let i = 0; i < info.characters.length; i++) {
-                var data = info.characters[i];
+                const data = info.characters[i];
                 this.drawCharacter(data[0], data[1], x + i * 48, y);
             }
         }

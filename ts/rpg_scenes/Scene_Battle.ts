@@ -30,7 +30,7 @@ class Scene_Battle extends Scene_Base {
     };
 
     update() {
-        var active = this.isActive();
+        const active = this.isActive();
         $gameTimer.update(active);
         $gameScreen.update();
         this.updateStatusWindow();
@@ -107,7 +107,7 @@ class Scene_Battle extends Scene_Base {
     };
 
     updateWindowPositions() {
-        var statusX = 0;
+        let statusX = 0;
         if (BattleManager.isInputting()) {
             statusX = this._partyCommandWindow.width;
         } else {
@@ -191,8 +191,8 @@ class Scene_Battle extends Scene_Base {
     };
 
     createSkillWindow() {
-        var wy = this._helpWindow.y + this._helpWindow.height;
-        var wh = this._statusWindow.y - wy;
+        const wy = this._helpWindow.y + this._helpWindow.height;
+        const wh = this._statusWindow.y - wy;
         this._skillWindow = new Window_BattleSkill(0, wy, Graphics.boxWidth, wh);
         this._skillWindow.setHelpWindow(this._helpWindow);
         this._skillWindow.setHandler('ok', this.onSkillOk.bind(this));
@@ -201,8 +201,8 @@ class Scene_Battle extends Scene_Base {
     };
 
     createItemWindow() {
-        var wy = this._helpWindow.y + this._helpWindow.height;
-        var wh = this._statusWindow.y - wy;
+        const wy = this._helpWindow.y + this._helpWindow.height;
+        const wh = this._statusWindow.y - wy;
         this._itemWindow = new Window_BattleItem(0, wy, Graphics.boxWidth, wh);
         this._itemWindow.setHelpWindow(this._helpWindow);
         this._itemWindow.setHandler('ok', this.onItemOk.bind(this));
@@ -306,7 +306,7 @@ class Scene_Battle extends Scene_Base {
     };
 
     onActorOk() {
-        var action = BattleManager.inputtingAction();
+        const action = BattleManager.inputtingAction();
         action.setTarget(this._actorWindow.index());
         this._actorWindow.hide();
         this._skillWindow.hide();
@@ -336,7 +336,7 @@ class Scene_Battle extends Scene_Base {
     };
 
     onEnemyOk() {
-        var action = BattleManager.inputtingAction();
+        const action = BattleManager.inputtingAction();
         action.setTarget(this._enemyWindow.enemyIndex());
         this._enemyWindow.hide();
         this._skillWindow.hide();
@@ -362,8 +362,8 @@ class Scene_Battle extends Scene_Base {
     };
 
     onSkillOk() {
-        var skill = this._skillWindow.item();
-        var action = BattleManager.inputtingAction();
+        const skill = this._skillWindow.item();
+        const action = BattleManager.inputtingAction();
         action.setSkill(skill.id);
         BattleManager.actor().setLastBattleSkill(skill);
         this.onSelectAction();
@@ -375,8 +375,8 @@ class Scene_Battle extends Scene_Base {
     };
 
     onItemOk() {
-        var item = this._itemWindow.item();
-        var action = BattleManager.inputtingAction();
+        const item = this._itemWindow.item();
+        const action = BattleManager.inputtingAction();
         action.setItem(item.id);
         $gameParty.setLastItem(item);
         this.onSelectAction();

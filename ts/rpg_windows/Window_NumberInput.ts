@@ -13,8 +13,6 @@ class Window_NumberInput extends Window_Selectable {
         super( 0, 0, 0, 0, function(){
             this._messageWindow = messageWindow;
         });
-        // this._number = 0;
-        // this._maxDigits = 1;
         this.openness = 0;
         this.createButtons();
         this.deactivate();
@@ -35,8 +33,8 @@ class Window_NumberInput extends Window_Selectable {
     };
     
     updatePlacement() {
-        var messageY = this._messageWindow.y;
-        var spacing = 8;
+        const messageY = this._messageWindow.y;
+        const spacing = 8;
         this.width = this.windowWidth();
         this.height = this.windowHeight();
         this.x = (Graphics.boxWidth - this.width) / 2;
@@ -72,14 +70,14 @@ class Window_NumberInput extends Window_Selectable {
     };
     
     createButtons() {
-        var bitmap = ImageManager.loadSystem('ButtonSet');
-        var buttonWidth = 48;
-        var buttonHeight = 48;
+        const bitmap = ImageManager.loadSystem('ButtonSet');
+        const buttonWidth = 48;
+        const buttonHeight = 48;
         this._buttons = [];
         for (let i = 0; i < 3; i++) {
-            var button = new Sprite_Button();
-            var x = buttonWidth * [1, 2, 4][i];
-            var w = buttonWidth * (i === 2 ? 2 : 1);
+            const button = new Sprite_Button();
+            const x = buttonWidth * [1, 2, 4][i];
+            const w = buttonWidth * (i === 2 ? 2 : 1);
             button.bitmap = bitmap;
             button.setColdFrame(x, 0, w, buttonHeight);
             button.setHotFrame(x, buttonHeight, w, buttonHeight);
@@ -93,15 +91,15 @@ class Window_NumberInput extends Window_Selectable {
     };
     
     placeButtons() {
-        var numButtons = this._buttons.length;
-        var spacing = 16;
-        var totalWidth = -spacing;
+        const numButtons = this._buttons.length;
+        const spacing = 16;
+        let totalWidth = -spacing;
         for (let i = 0; i < numButtons; i++) {
             totalWidth += this._buttons[i].width + spacing;
         }
-        var x = (this.width - totalWidth) / 2;
+        let x = (this.width - totalWidth) / 2;
         for (let j = 0; j < numButtons; j++) {
-            var button = this._buttons[j];
+            const button = this._buttons[j];
             button.x = x;
             button.y = this.buttonY();
             x += button.width + spacing;
@@ -129,7 +127,7 @@ class Window_NumberInput extends Window_Selectable {
     };
     
     buttonY() {
-        var spacing = 8;
+        const spacing = 8;
         if (this._messageWindow.y >= Graphics.boxHeight / 2) {
             return 0 - this._buttons[0].height - spacing;
         } else {
@@ -153,9 +151,9 @@ class Window_NumberInput extends Window_Selectable {
     };
     
     changeDigit(up: boolean) {
-        var index = this.index();
-        var place = Math.pow(10, this._maxDigits - 1 - index);
-        var n = Math.floor(this._number / place) % 10;
+        const index = this.index();
+        const place = Math.pow(10, this._maxDigits - 1 - index);
+        let n = Math.floor(this._number / place) % 10;
         this._number -= n * place;
         if (up) {
             n = (n + 1) % 10;
@@ -193,10 +191,10 @@ class Window_NumberInput extends Window_Selectable {
     };
     
     drawItem(index: number) {
-        var rect = this.itemRect(index);
-        var align = 'center';
-        var s = this._number.padZero(this._maxDigits);
-        var c = s.slice(index, index + 1);
+        const rect = this.itemRect(index);
+        const align = 'center';
+        const s = this._number.padZero(this._maxDigits);
+        const c = s.slice(index, index + 1);
         this.resetTextColor();
         this.drawText(c, rect.x, rect.y, rect.width, align);
     };

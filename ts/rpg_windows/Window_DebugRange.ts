@@ -48,7 +48,7 @@ class Window_DebugRange extends Window_Selectable {
     };
 
     topId() {
-        var index = this.index();
+        const index = this.index();
         if (index < this._maxSwitches) {
             return index * 10 + 1;
         } else {
@@ -62,9 +62,9 @@ class Window_DebugRange extends Window_Selectable {
     };
 
     drawItem(index: number) {
-        var rect = this.itemRectForText(index);
-        var start;
-        var text;
+        const rect = this.itemRectForText(index);
+        let start;
+        let text;
         if (index < this._maxSwitches) {
             start = index * 10 + 1;
             text = 'S';
@@ -72,7 +72,7 @@ class Window_DebugRange extends Window_Selectable {
             start = (index - this._maxSwitches) * 10 + 1;
             text = 'V';
         }
-        var end = start + 9;
+        const end = start + 9;
         text += ' [' + start.padZero(4) + '-' + end.padZero(4) + ']';
         this.drawText(text, rect.x, rect.y, rect.width);
     };

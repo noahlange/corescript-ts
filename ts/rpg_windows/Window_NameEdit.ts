@@ -77,13 +77,13 @@ class Window_NameEdit extends Window_Base {
     };
 
     charWidth(): number {
-        var text = $gameSystem.isJapanese() ? '\uff21' : 'A';
+        const text = $gameSystem.isJapanese() ? '\uff21' : 'A';
         return this.textWidth(text);
     };
 
     left() {
-        var nameCenter = (this.contentsWidth() + this.faceWidth()) / 2;
-        var nameWidth = (this._maxLength + 1) * this.charWidth();
+        const nameCenter = (this.contentsWidth() + this.faceWidth()) / 2;
+        const nameWidth = (this._maxLength + 1) * this.charWidth();
         return Math.min(nameCenter - nameWidth / 2, this.contentsWidth() - nameWidth);
     };
 
@@ -97,7 +97,7 @@ class Window_NameEdit extends Window_Base {
     };
 
     underlineRect(index: number) {
-        var rect = this.itemRect(index);
+        const rect = this.itemRect(index);
         rect.x++;
         rect.y += rect.height - 4;
         rect.width -= 2;
@@ -110,15 +110,15 @@ class Window_NameEdit extends Window_Base {
     };
 
     drawUnderline(index: number) {
-        var rect = this.underlineRect(index);
-        var color = this.underlineColor();
+        const rect = this.underlineRect(index);
+        const color = this.underlineColor();
         this.contents.paintOpacity = 48;
         this.contents.fillRect(rect.x, rect.y, rect.width, rect.height, color);
         this.contents.paintOpacity = 255;
     };
 
     drawChar(index: number) {
-        var rect = this.itemRect(index);
+        const rect = this.itemRect(index);
         this.resetTextColor();
         this.drawText(this._name[index] || '', rect.x, rect.y);
     };
@@ -132,7 +132,7 @@ class Window_NameEdit extends Window_Base {
         for (let j = 0; j < this._name.length; j++) {
             this.drawChar(j);
         }
-        var rect = this.itemRect(this._index);
+        const rect = this.itemRect(this._index);
         this.setCursorRect(rect.x, rect.y, rect.width, rect.height);
     };
 

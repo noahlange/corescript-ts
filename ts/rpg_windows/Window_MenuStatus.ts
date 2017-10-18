@@ -27,7 +27,7 @@ class Window_MenuStatus extends Window_Selectable {
     };
 
     itemHeight(): number {
-        var clientHeight = this.height - this.padding * 2;
+        const clientHeight = this.height - this.padding * 2;
         return Math.floor(clientHeight / this.numVisibleRows());
     };
 
@@ -49,8 +49,8 @@ class Window_MenuStatus extends Window_Selectable {
 
     drawItemBackground(index: number) {
         if (index === this._pendingIndex) {
-            var rect = this.itemRect(index);
-            var color = this.pendingColor();
+            const rect = this.itemRect(index);
+            const color = this.pendingColor();
             this.changePaintOpacity(false);
             this.contents.fillRect(rect.x, rect.y, rect.width, rect.height, color);
             this.changePaintOpacity(true);
@@ -58,19 +58,19 @@ class Window_MenuStatus extends Window_Selectable {
     };
 
     drawItemImage(index: number) {
-        var actor = $gameParty.members()[index];
-        var rect = this.itemRect(index);
+        const actor = $gameParty.members()[index];
+        const rect = this.itemRect(index);
         this.changePaintOpacity(actor.isBattleMember());
         this.drawActorFace(actor, rect.x + 1, rect.y + 1, Window_Base._faceWidth, Window_Base._faceHeight);
         this.changePaintOpacity(true);
     };
 
     drawItemStatus(index: number) {
-        var actor = $gameParty.members()[index];
-        var rect = this.itemRect(index);
-        var x = rect.x + 162;
-        var y = rect.y + rect.height / 2 - Window_Base.lineHeight() * 1.5;
-        var width = rect.width - x - this.textPadding();
+        const actor = $gameParty.members()[index];
+        const rect = this.itemRect(index);
+        const x = rect.x + 162;
+        const y = rect.y + rect.height / 2 - Window_Base.lineHeight() * 1.5;
+        const width = rect.width - x - this.textPadding();
         this.drawActorSimpleStatus(actor, x, y, width);
     };
 
@@ -81,7 +81,7 @@ class Window_MenuStatus extends Window_Selectable {
 
     isCurrentItemEnabled() {
         if (this._formationMode) {
-            var actor = $gameParty.members()[this.index()];
+            const actor = $gameParty.members()[this.index()];
             return actor && actor.isFormationChangeOk();
         } else {
             return true;
@@ -105,7 +105,7 @@ class Window_MenuStatus extends Window_Selectable {
     };
 
     setPendingIndex(index: number) {
-        var lastPendingIndex = this._pendingIndex;
+        const lastPendingIndex = this._pendingIndex;
         this._pendingIndex = index;
         this.redrawItem(this._pendingIndex);
         this.redrawItem(lastPendingIndex);

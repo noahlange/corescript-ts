@@ -140,7 +140,7 @@ class TilingSprite extends PIXI.extras.PictureTilingSprite {
      * @private
      */
     protected _refresh() {
-        var frame = this._frame.clone();
+        const frame = this._frame.clone();
         if (frame.width === 0 && frame.height === 0 && this._bitmap) {
             frame.width = this._bitmap.width;
             frame.height = this._bitmap.height;

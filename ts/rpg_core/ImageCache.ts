@@ -27,7 +27,7 @@ class ImageCache {
 
     get(key: string) {
         if (this._items[key]) {
-            var item = this._items[key];
+            const item = this._items[key];
             item.touch = Date.now();
             return item.bitmap;
         }
@@ -48,7 +48,7 @@ class ImageCache {
     };
 
     releaseReservation(reservationId: number) {
-        var items = this._items;
+        const items = this._items;
 
         Object.keys(items)
             .map(function (key) { return items[key]; })
@@ -60,8 +60,8 @@ class ImageCache {
     };
 
     _truncateCache() {
-        var items = this._items;
-        var sizeLeft = ImageCache.limit;
+        const items = this._items;
+        let sizeLeft = ImageCache.limit;
 
         Object.keys(items).map(function (key) {
             return items[key];
@@ -69,7 +69,7 @@ class ImageCache {
             return b.touch - a.touch;
         }).forEach(function (item: any) {
             if (sizeLeft > 0 || this._mustBeHeld(item)) {
-                var bitmap = item.bitmap;
+                const bitmap = item.bitmap;
                 sizeLeft -= bitmap.width * bitmap.height;
             } else {
                 delete items[item.key];
@@ -89,15 +89,15 @@ class ImageCache {
     };
 
     isReady(): boolean {
-        var items = this._items;
+        const items = this._items;
         return !Object.keys(items).some(function (key) {
             return !items[key].bitmap.isRequestOnly() && !items[key].bitmap.isReady();
         });
     };
 
     getErrorBitmap(): null | boolean | Bitmap {
-        var items = this._items;
-        var bitmap = null;
+        const items = this._items;
+        let bitmap = null;
         if (Object.keys(items).some(function (key) {
             if (items[key].bitmap.isError()) {
                 bitmap = items[key].bitmap;

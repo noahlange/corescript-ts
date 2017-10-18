@@ -26,9 +26,9 @@ class Scene_Equip extends Scene_MenuBase {
     };
 
     createCommandWindow() {
-        var wx = this._statusWindow.width;
-        var wy = this._helpWindow.height;
-        var ww = Graphics.boxWidth - this._statusWindow.width;
+        const wx = this._statusWindow.width;
+        const wy = this._helpWindow.height;
+        const ww = Graphics.boxWidth - this._statusWindow.width;
         this._commandWindow = new Window_EquipCommand(wx, wy, ww);
         this._commandWindow.setHelpWindow(this._helpWindow);
         this._commandWindow.setHandler('equip', this.commandEquip.bind(this));
@@ -41,10 +41,10 @@ class Scene_Equip extends Scene_MenuBase {
     };
 
     createSlotWindow() {
-        var wx = this._statusWindow.width;
-        var wy = this._commandWindow.y + this._commandWindow.height;
-        var ww = Graphics.boxWidth - this._statusWindow.width;
-        var wh = this._statusWindow.height - this._commandWindow.height;
+        const wx = this._statusWindow.width;
+        const wy = this._commandWindow.y + this._commandWindow.height;
+        const ww = Graphics.boxWidth - this._statusWindow.width;
+        const wh = this._statusWindow.height - this._commandWindow.height;
         this._slotWindow = new Window_EquipSlot(wx, wy, ww, wh);
         this._slotWindow.setHelpWindow(this._helpWindow);
         this._slotWindow.setStatusWindow(this._statusWindow);
@@ -54,10 +54,10 @@ class Scene_Equip extends Scene_MenuBase {
     };
 
     createItemWindow() {
-        var wx = 0;
-        var wy = this._statusWindow.y + this._statusWindow.height;
-        var ww = Graphics.boxWidth;
-        var wh = Graphics.boxHeight - wy;
+        const wx = 0;
+        const wy = this._statusWindow.y + this._statusWindow.height;
+        const ww = Graphics.boxWidth;
+        const wh = Graphics.boxHeight - wy;
         this._itemWindow = new Window_EquipItem(wx, wy, ww, wh);
         this._itemWindow.setHelpWindow(this._helpWindow);
         this._itemWindow.setStatusWindow(this._statusWindow);
@@ -68,7 +68,7 @@ class Scene_Equip extends Scene_MenuBase {
     };
 
     refreshActor() {
-        var actor = this.actor();
+        const actor = this.actor();
         this._statusWindow.setActor(actor);
         this._slotWindow.setActor(actor);
         this._itemWindow.setActor(actor);

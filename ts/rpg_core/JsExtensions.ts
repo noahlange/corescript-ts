@@ -62,7 +62,7 @@ Number.prototype.mod = function (n: number): number {
  * @return {String} A formatted string
  */
 String.prototype.format = function (): string {
-    var args = arguments;
+    const args = arguments;
     return this.replace(/%([0-9]+)/g, function (s: any, n: string) {
         return args[Number(n) - 1];
     });
@@ -76,7 +76,7 @@ String.prototype.format = function (): string {
  * @return {String} A string with leading zeros
  */
 String.prototype.padZero = function (length: number): string {
-    var s = this;
+    let s = this;
     while (s.length < length) {
         s = '0' + s;
     }

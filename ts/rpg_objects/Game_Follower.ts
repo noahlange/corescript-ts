@@ -15,8 +15,8 @@ class Game_Follower extends Game_Character {
     };
     
     refresh() {
-        var characterName = this.isVisible() ? this.actor().characterName() : '';
-        var characterIndex = this.isVisible() ? this.actor().characterIndex() : 0;
+        const characterName = this.isVisible() ? this.actor().characterName() : '';
+        const characterIndex = this.isVisible() ? this.actor().characterIndex() : 0;
         this.setImage(characterName, characterIndex);
     };
     
@@ -40,8 +40,8 @@ class Game_Follower extends Game_Character {
     };
     
     chaseCharacter(character: Game_Character) {
-        var sx = this.deltaXFrom(character.x);
-        var sy = this.deltaYFrom(character.y);
+        const sx = this.deltaXFrom(character.x);
+        const sy = this.deltaYFrom(character.y);
         if (sx !== 0 && sy !== 0) {
             this.moveDiagonally(sx > 0 ? 4 : 6, sy > 0 ? 8 : 2);
         } else if (sx !== 0) {

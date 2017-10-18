@@ -39,11 +39,11 @@ abstract class Game_Unit<T extends Game_Battler> {
     };
     
     agility() {
-        var members = this.members();
+        const members = this.members();
         if (members.length === 0) {
             return 1;
         }
-        var sum = members.reduce(function(r, member) {
+        const sum = members.reduce(function(r, member) {
             return r + member.agi;
         }, 0);
         return sum / members.length;
@@ -56,8 +56,8 @@ abstract class Game_Unit<T extends Game_Battler> {
     };
     
     randomTarget(): T | null {
-        var tgrRand = Math.random() * this.tgrSum();
-        var target: T | null = null;
+        let tgrRand = Math.random() * this.tgrSum();
+        let target: T | null = null;
         this.aliveMembers().forEach(function(member) {
             tgrRand -= member.tgr;
             if (tgrRand <= 0 && !target) {
@@ -68,7 +68,7 @@ abstract class Game_Unit<T extends Game_Battler> {
     };
     
     randomDeadTarget(): T {
-        var members = this.deadMembers();
+        const members = this.deadMembers();
         if (members.length === 0) {
             return null;
         }
@@ -79,7 +79,7 @@ abstract class Game_Unit<T extends Game_Battler> {
         if (index < 0) {
             index = 0;
         }
-        var member = this.members()[index];
+        const member = this.members()[index];
         return (member && member.isAlive()) ? member : this.aliveMembers()[0];
     };
     
@@ -87,7 +87,7 @@ abstract class Game_Unit<T extends Game_Battler> {
         if (index < 0) {
             index = 0;
         }
-        var member = this.members()[index];
+        const member = this.members()[index];
         return (member && member.isDead()) ? member : this.deadMembers()[0];
     };
     
@@ -132,7 +132,7 @@ abstract class Game_Unit<T extends Game_Battler> {
     };
     
     substituteBattler() {
-        var members = this.members();
+        const members = this.members();
         for (let i = 0; i < members.length; i++) {
             if (members[i].isSubstitute()) {
                 return members[i];

@@ -99,7 +99,7 @@ class Window_Command extends Window_Selectable {
     };
 
     selectSymbol(symbol: string) {
-        var index = this.findSymbol(symbol);
+        const index = this.findSymbol(symbol);
         if (index >= 0) {
             this.select(index);
         } else {
@@ -117,7 +117,7 @@ class Window_Command extends Window_Selectable {
     };
 
     selectExt(ext: number) {
-        var index = this.findExt(ext);
+        const index = this.findExt(ext);
         if (index >= 0) {
             this.select(index);
         } else {
@@ -126,8 +126,8 @@ class Window_Command extends Window_Selectable {
     };
 
     drawItem(index: number) {
-        var rect = this.itemRectForText(index);
-        var align = this.itemTextAlign();
+        const rect = this.itemRectForText(index);
+        const align = this.itemTextAlign();
         this.resetTextColor();
         this.changePaintOpacity(this.isCommandEnabled(index));
         this.drawText(this.commandName(index), rect.x, rect.y, rect.width, align);
@@ -142,7 +142,7 @@ class Window_Command extends Window_Selectable {
     };
 
     callOkHandler() {
-        var symbol = this.currentSymbol();
+        const symbol = this.currentSymbol();
         if (this.isHandled(symbol)) {
             this.callHandler(symbol);
         } else if (this.isHandled('ok')) {

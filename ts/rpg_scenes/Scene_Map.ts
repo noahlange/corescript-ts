@@ -19,7 +19,7 @@ class Scene_Map extends Scene_Base {
     create() {
         super.create();
         this._transfer = $gamePlayer.isTransferring();
-        var mapId = this._transfer ? $gamePlayer.newMapId() : $gameMap.mapId();
+        const mapId = this._transfer ? $gamePlayer.newMapId() : $gameMap.mapId();
         DataManager.loadMapData(mapId);
     };
 
@@ -71,7 +71,7 @@ class Scene_Map extends Scene_Base {
     };
 
     updateMain() {
-        var active = this.isActive();
+        const active = this.isActive();
         $gameMap.update(active);
         $gamePlayer.update(active);
         $gameTimer.update(active);
@@ -159,8 +159,8 @@ class Scene_Map extends Scene_Base {
         if (TouchInput.isTriggered() || this._touchCount > 0) {
             if (TouchInput.isPressed()) {
                 if (this._touchCount === 0 || this._touchCount >= 15) {
-                    var x = $gameMap.canvasToMapX(TouchInput.x);
-                    var y = $gameMap.canvasToMapY(TouchInput.y);
+                    const x = $gameMap.canvasToMapX(TouchInput.x);
+                    const y = $gameMap.canvasToMapY(TouchInput.y);
                     $gameTemp.setDestination(x, y);
                 }
                 this._touchCount++;
@@ -278,7 +278,7 @@ class Scene_Map extends Scene_Base {
     };
 
     fadeInForTransfer() {
-        var fadeType = $gamePlayer.fadeType();
+        const fadeType = $gamePlayer.fadeType();
         switch (fadeType) {
             case 0: case 1:
                 this.startFadeIn(this.fadeSpeed(), fadeType === 1);
@@ -287,7 +287,7 @@ class Scene_Map extends Scene_Base {
     };
 
     fadeOutForTransfer() {
-        var fadeType = $gamePlayer.fadeType();
+        const fadeType = $gamePlayer.fadeType();
         switch (fadeType) {
             case 0: case 1:
                 this.startFadeOut(this.fadeSpeed(), fadeType === 1);
@@ -320,12 +320,12 @@ class Scene_Map extends Scene_Base {
     updateEncounterEffect() {
         if (this._encounterEffectDuration > 0) {
             this._encounterEffectDuration--;
-            var speed = this.encounterEffectSpeed();
-            var n = speed - this._encounterEffectDuration;
-            var p = n / speed;
-            var q = ((p - 1) * 20 * p + 5) * p + 1;
-            var zoomX = $gamePlayer.screenX();
-            var zoomY = $gamePlayer.screenY() - 24;
+            const speed = this.encounterEffectSpeed();
+            const n = speed - this._encounterEffectDuration;
+            const p = n / speed;
+            const q = ((p - 1) * 20 * p + 5) * p + 1;
+            const zoomX = $gamePlayer.screenX();
+            const zoomY = $gamePlayer.screenY() - 24;
             if (n === 2) {
                 $gameScreen.setZoom(zoomX, zoomY, 1);
                 this.snapForBattleBackground();
@@ -349,7 +349,7 @@ class Scene_Map extends Scene_Base {
     };
 
     startFlashForEncounter(duration: number) {
-        var color = [255, 255, 255, 255];
+        const color = [255, 255, 255, 255];
         $gameScreen.startFlash(color, duration);
     };
 

@@ -143,7 +143,7 @@ class WebAudio {
      * @private
      */
     protected static _detectCodecs() {
-        var audio = document.createElement('audio');
+        const audio = document.createElement('audio');
         if (audio.canPlayType) {
             this._canPlayOgg = audio.canPlayType('audio/ogg');
             this._canPlayM4a = audio.canPlayType('audio/mp4');
@@ -156,7 +156,7 @@ class WebAudio {
      * @private
      */
     protected static _createMasterGainNode() {
-        var context = this._context;
+        const context = this._context;
         if (context) {
             this._masterGainNode = context.createGain();
             this._masterGainNode.gain.setValueAtTime(this._masterVolume, context.currentTime);
@@ -171,7 +171,7 @@ class WebAudio {
      */
     protected static _setupEventHandlers() {
         document.addEventListener("touchend", () => {
-            var context = this._context;
+            const context = this._context;
             if (context && context.state === "suspended" && typeof context.resume === "function") {
                 context.resume().then(function () {
                     this._onTouchStart();
@@ -190,10 +190,10 @@ class WebAudio {
      * @private
      */
     protected static _onTouchStart() {
-        var context = this._context;
+        const context = this._context;
         if (context && !this._unlocked) {
             // Unlock Web Audio on iOS
-            var node = context.createBufferSource();
+            const node = context.createBufferSource();
             node.start(0);
             this._unlocked = true;
         }
@@ -251,8 +251,8 @@ class WebAudio {
      */
     protected static _fadeIn(duration: number) {
         if (this._masterGainNode) {
-            var gain = this._masterGainNode.gain;
-            var currentTime = this._context.currentTime;
+            const gain = this._masterGainNode.gain;
+            const currentTime = this._context.currentTime;
             gain.setValueAtTime(0, currentTime);
             gain.linearRampToValueAtTime(this._masterVolume, currentTime + duration);
         }
@@ -266,8 +266,8 @@ class WebAudio {
      */
     protected static _fadeOut(duration: number) {
         if (this._masterGainNode) {
-            var gain = this._masterGainNode.gain;
-            var currentTime = this._context.currentTime;
+            const gain = this._masterGainNode.gain;
+            const currentTime = this._context.currentTime;
             gain.setValueAtTime(this._masterVolume, currentTime);
             gain.linearRampToValueAtTime(0, currentTime + duration);
         }
@@ -419,7 +419,7 @@ class WebAudio {
         this._removeNodes();
         if (this._stopListeners) {
             while (this._stopListeners.length > 0) {
-                var listner = this._stopListeners.shift();
+                const listner = this._stopListeners.shift();
                 listner();
             }
         }
@@ -434,8 +434,8 @@ class WebAudio {
     fadeIn(duration: number) {
         if (this.isReady()) {
             if (this._gainNode) {
-                var gain = this._gainNode.gain;
-                var currentTime = WebAudio._context.currentTime;
+                const gain = this._gainNode.gain;
+                const currentTime = WebAudio._context.currentTime;
                 gain.setValueAtTime(0, currentTime);
                 gain.linearRampToValueAtTime(this._volume, currentTime + duration);
             }
@@ -454,8 +454,8 @@ class WebAudio {
      */
     fadeOut(duration: number) {
         if (this._gainNode) {
-            var gain = this._gainNode.gain;
-            var currentTime = WebAudio._context.currentTime;
+            const gain = this._gainNode.gain;
+            const currentTime = WebAudio._context.currentTime;
             gain.setValueAtTime(this._volume, currentTime);
             gain.linearRampToValueAtTime(0, currentTime + duration);
         }
@@ -469,7 +469,7 @@ class WebAudio {
      */
     seek() {
         if (WebAudio._context) {
-            var pos = (WebAudio._context.currentTime - this._startTime) * this._pitch;
+            let pos = (WebAudio._context.currentTime - this._startTime) * this._pitch;
             if (this._loopLength > 0) {
                 while (pos >= this._loopStart + this._loopLength) {
                     pos -= this._loopLength;
@@ -508,7 +508,7 @@ class WebAudio {
      */
     protected _load(url: string) {
         if (WebAudio._context) {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open('GET', url);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function () {
@@ -527,7 +527,7 @@ class WebAudio {
      * @private
      */
     protected _onXhrLoad(xhr: XMLHttpRequest) {
-        var array = xhr.response;
+        const array = xhr.response;
         this._readLoopComments(new Uint8Array(array));
         WebAudio._context.decodeAudioData(array, function (buffer: AudioBuffer) {
             this._buffer = buffer;
@@ -565,7 +565,7 @@ class WebAudio {
      * @private
      */
     protected _createNodes() {
-        var context = WebAudio._context;
+        const context = WebAudio._context;
         this._sourceNode = context.createBufferSource();
         this._sourceNode.buffer = this._buffer;
         this._sourceNode.loopStart = this._loopStart;
@@ -607,8 +607,8 @@ class WebAudio {
      */
     protected _createEndTimer() {
         if (this._sourceNode && !this._sourceNode.loop) {
-            var endTime = this._startTime + this._totalTime / this._pitch;
-            var delay = endTime - WebAudio._context.currentTime;
+            const endTime = this._startTime + this._totalTime / this._pitch;
+            const delay = endTime - WebAudio._context.currentTime;
             this._endTimer = setTimeout(function () {
                 this.stop();
             }.bind(this), delay * 1000);
@@ -632,8 +632,8 @@ class WebAudio {
      */
     protected _updatePanner() {
         if (this._pannerNode) {
-            var x = this._pan;
-            var z = 1 - Math.abs(x);
+            const x = this._pan;
+            const z = 1 - Math.abs(x);
             this._pannerNode.setPosition(x, 0, z);
         }
     };
@@ -644,7 +644,7 @@ class WebAudio {
      */
     protected _onLoad() {
         while (this._loadListeners.length > 0) {
-            var listner = this._loadListeners.shift();
+            const listner = this._loadListeners.shift();
             listner();
         }
     };
@@ -665,19 +665,19 @@ class WebAudio {
      * @private
      */
     protected _readOgg(array: Uint8Array) {
-        var index = 0;
+        let index = 0;
         while (index < array.length) {
             if (this._readFourCharacters(array, index) === 'OggS') {
                 index += 26;
-                var vorbisHeaderFound = false;
-                var numSegments = array[index++];
-                var segments = [];
+                let vorbisHeaderFound = false;
+                const numSegments = array[index++];
+                const segments = [];
                 for (let i = 0; i < numSegments; i++) {
                     segments.push(array[index++]);
                 }
                 for (let i = 0; i < numSegments; i++) {
                     if (this._readFourCharacters(array, index + 1) === 'vorb') {
-                        var headerType = array[index];
+                        const headerType = array[index];
                         if (headerType === 1) {
                             this._sampleRate = this._readLittleEndian(array, index + 12);
                         } else if (headerType === 3) {
@@ -703,10 +703,10 @@ class WebAudio {
      */
     protected _readMp4(array: Uint8Array) {
         if (this._readFourCharacters(array, 4) === 'ftyp') {
-            var index = 0;
+            let index = 0;
             while (index < array.length) {
-                var size = this._readBigEndian(array, index);
-                var name = this._readFourCharacters(array, index + 4);
+                const size = this._readBigEndian(array, index);
+                const name = this._readFourCharacters(array, index + 4);
                 if (name === 'moov') {
                     index += 8;
                 } else {
@@ -735,7 +735,7 @@ class WebAudio {
     protected _readMetaData(array: Uint8Array, index: number, size: number) {
         for (let i = index; i < index + size - 10; i++) {
             if (this._readFourCharacters(array, i) === 'LOOP') {
-                var text = '';
+                let text = '';
                 while (array[i] > 0) {
                     text += String.fromCharCode(array[i++]);
                 }
@@ -746,7 +746,7 @@ class WebAudio {
                     this._loopLength = parseInt(RegExp.$1);
                 }
                 if (text == 'LOOPSTART' || text == 'LOOPLENGTH') {
-                    var text2 = '';
+                    let text2 = '';
                     i += 16;
                     while (array[i] > 0) {
                         text2 += String.fromCharCode(array[i++]);
@@ -790,7 +790,7 @@ class WebAudio {
      * @private
      */
     protected _readFourCharacters(array: Uint8Array, index: number) {
-        var string = '';
+        let string = '';
         for (let i = 0; i < 4; i++) {
             string += String.fromCharCode(array[index + i]);
         }

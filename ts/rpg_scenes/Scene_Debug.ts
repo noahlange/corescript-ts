@@ -24,8 +24,8 @@ class Scene_Debug extends Scene_MenuBase {
     };
     
     createEditWindow() {
-        var wx = this._rangeWindow.width;
-        var ww = Graphics.boxWidth - wx;
+        const wx = this._rangeWindow.width;
+        const ww = Graphics.boxWidth - wx;
         this._editWindow = new Window_DebugEdit(wx, 0, ww);
         this._editWindow.setHandler('cancel', this.onEditCancel.bind(this));
         this._rangeWindow.setEditWindow(this._editWindow);
@@ -33,10 +33,10 @@ class Scene_Debug extends Scene_MenuBase {
     };
     
     createDebugHelpWindow() {
-        var wx = this._editWindow.x;
-        var wy = this._editWindow.height;
-        var ww = this._editWindow.width;
-        var wh = Graphics.boxHeight - wy;
+        const wx = this._editWindow.x;
+        const wy = this._editWindow.height;
+        const ww = this._editWindow.width;
+        const wh = Graphics.boxHeight - wy;
         this._debugHelpWindow = new Window_Base(wx, wy, ww, wh);
         this.addWindow(this._debugHelpWindow);
     };

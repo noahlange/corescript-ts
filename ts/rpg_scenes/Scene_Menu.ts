@@ -98,9 +98,9 @@ class Scene_Menu extends Scene_MenuBase {
     };
 
     onFormationOk() {
-        var index = this._statusWindow.index();
-        var actor = $gameParty.members()[index];
-        var pendingIndex = this._statusWindow.pendingIndex();
+        const index = this._statusWindow.index();
+        const actor = $gameParty.members()[index];
+        const pendingIndex = this._statusWindow.pendingIndex();
         if (pendingIndex >= 0) {
             $gameParty.swapOrder(index, pendingIndex);
             this._statusWindow.setPendingIndex(-1);

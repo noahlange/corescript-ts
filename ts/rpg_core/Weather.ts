@@ -99,7 +99,7 @@ class Weather extends PIXI.Container {
      * @private
      */
     protected _updateAllSprites() {
-        var maxSprites = Math.floor(this.power * 10);
+        const maxSprites = Math.floor(this.power * 10);
         while (this._sprites.length < maxSprites) {
             this._addSprite();
         }
@@ -119,8 +119,8 @@ class Weather extends PIXI.Container {
      */
     protected _addSprite() {
         /// bungcip: viewport itu tidak ada? sementara didefinisikan dulu....
-        // var sprite = new Sprite(this.viewport);
-        var sprite = new Sprite();
+        // const sprite = new Sprite(this.viewport);
+        const sprite = new Sprite();
         sprite.opacity = 0;
         this._sprites.push(sprite);
         this.addChild(sprite);

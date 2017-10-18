@@ -50,8 +50,8 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
     };
 
     determineItem() {
-        var action = new Game_Action(this.user());
-        var item = this.item();
+        const action = new Game_Action(this.user());
+        const item = this.item();
         action.setItemObject(item);
         if (action.isForFriend()) {
             this.showSubWindow(this._actorWindow);
@@ -80,7 +80,7 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
     };
 
     itemTargetActors(): Game_Actor[] {
-        var action = new Game_Action(this.user());
+        const action = new Game_Action(this.user());
         action.setItemObject(this.item());
         if (!action.isForFriend()) {
             return [];
@@ -96,7 +96,7 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
     };
 
     isItemEffectsValid(): boolean {
-        var action = new Game_Action(this.user());
+        const action = new Game_Action(this.user());
         action.setItemObject(this.item());
         return this.itemTargetActors().some(function (target) {
             return action.testApply(target);
@@ -104,7 +104,7 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
     };
 
     applyItem() {
-        var action = new Game_Action(this.user());
+        const action = new Game_Action(this.user());
         action.setItemObject(this.item());
         this.itemTargetActors().forEach(function (target) {
             for (let i = 0; i < action.numRepeats(); i++) {

@@ -32,7 +32,7 @@ class Game_CommonEvent {
     };
     
     isActive() {
-        var event = this.event();
+        const event = this.event();
         return event.trigger === 2 && $gameSwitches.value(event.switchId);
     };
     

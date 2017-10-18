@@ -42,8 +42,8 @@ class Bitmap {
         this.__canvas.width = Math.max(width, 1);
         this.__canvas.height = Math.max(height, 1);
         if (this._image) {
-            var w = Math.max(this._image.width || 0, 1);
-            var h = Math.max(this._image.height || 0, 1);
+            const w = Math.max(this._image.width || 0, 1);
+            const h = Math.max(this._image.height || 0, 1);
             this.__canvas.width = w;
             this.__canvas.height = h;
             this._createBaseTexture(this._canvas);
@@ -96,7 +96,7 @@ class Bitmap {
     }
 
     private _renewCanvas() {
-        var newImage = this._image;
+        const newImage = this._image;
         if (newImage && this.__canvas && (this.__canvas.width < newImage.width || this.__canvas.height < newImage.height)) {
             this._createCanvas();
         }
@@ -215,16 +215,16 @@ class Bitmap {
      * @return Bitmap
      */
     static snap(stage: Stage) {
-        var width = Graphics.width;
-        var height = Graphics.height;
-        var bitmap = new Bitmap(width, height);
-        var context = bitmap._context;
-        var renderTexture = PIXI.RenderTexture.create(width, height);
+        const width = Graphics.width;
+        const height = Graphics.height;
+        const bitmap = new Bitmap(width, height);
+        const context = bitmap._context;
+        const renderTexture = PIXI.RenderTexture.create(width, height);
         if (stage) {
             Graphics._renderer.render(stage, renderTexture);
             stage.worldTransform.identity();
-            var canvas = null;
-            canvas = Graphics._renderer.extract.canvas(renderTexture);
+            // let canvas = null;
+            const canvas = Graphics._renderer.extract.canvas(renderTexture);
             context.drawImage(canvas, 0, 0);
         }
         else {
@@ -447,8 +447,8 @@ class Bitmap {
      * @return {String} The pixel color (hex format)
      */
     getPixel(x: number, y: number): string {
-        var data = this._context.getImageData(x, y, 1, 1).data;
-        var result = '#';
+        const data = this._context.getImageData(x, y, 1, 1).data;
+        let result = '#';
         for (let i = 0; i < 3; i++) {
             result += data[i].toString(16).padZero(2);
         }
@@ -463,7 +463,7 @@ class Bitmap {
      * @return {String} The alpha value
      */
     getAlphaPixel(x: number, y: number) {
-        var data = this._context.getImageData(x, y, 1, 1).data;
+        const data = this._context.getImageData(x, y, 1, 1).data;
         return data[3];
     };
     /**
@@ -498,7 +498,7 @@ class Bitmap {
      * @param {String} color The color of the rectangle in CSS format
      */
     fillRect(x: number, y: number, width: number, height: number, color: string) {
-        var context = this._context;
+        const context = this._context;
         context.save();
         context.fillStyle = color;
         context.fillRect(x, y, width, height);
@@ -528,8 +528,8 @@ class Bitmap {
      */
     gradientFillRect(x: number, y: number, width: number, height: number, color1: string, color2: string,
         vertical: boolean = false) {
-        var context = this._context;
-        var grad;
+        const context = this._context;
+        let grad;
         if (vertical) {
             grad = context.createLinearGradient(x, y, x, y + height);
         }
@@ -554,7 +554,7 @@ class Bitmap {
      * @param {String} color The color of the circle in CSS format
      */
     drawCircle(x: number, y: number, radius: number, color: string) {
-        var context = this._context;
+        const context = this._context;
         context.save();
         context.fillStyle = color;
         context.beginPath();
@@ -578,10 +578,10 @@ class Bitmap {
         // Note: Firefox has a bug with textBaseline: Bug 737852
         //       So we use 'alphabetic' here.
         if (text !== undefined) {
-            var tx = x;
-            var ty = y + lineHeight - (lineHeight - this.fontSize * 0.7) / 2;
-            var context = this._context;
-            var alpha = context.globalAlpha;
+            let tx = x;
+            const ty = y + lineHeight - (lineHeight - this.fontSize * 0.7) / 2;
+            const context = this._context;
+            const alpha = context.globalAlpha;
             maxWidth = maxWidth || 0xffffffff;
             if (align === 'center') {
                 tx += maxWidth / 2;
@@ -609,10 +609,10 @@ class Bitmap {
      * @return {Number} The width of the text in pixels
      */
     measureTextWidth(text: string): number {
-        var context = this._context;
+        const context = this._context;
         context.save();
         context.font = this._makeFontNameText();
-        var width = context.measureText(text).width;
+        const width = context.measureText(text).width;
         context.restore();
         return width;
     };
@@ -626,9 +626,9 @@ class Bitmap {
      */
     adjustTone(r: number, g: number, b: number) {
         if ((r || g || b) && this.width > 0 && this.height > 0) {
-            var context = this._context;
-            var imageData = context.getImageData(0, 0, this.width, this.height);
-            var pixels = imageData.data;
+            const context = this._context;
+            const imageData = context.getImageData(0, 0, this.width, this.height);
+            const pixels = imageData.data;
             for (let i = 0; i < pixels.length; i += 4) {
                 pixels[i + 0] += r;
                 pixels[i + 1] += g;
@@ -646,12 +646,12 @@ class Bitmap {
      */
     rotateHue(offset: number) {
         function rgbToHsl(r: number, g: number, b: number) {
-            var cmin = Math.min(r, g, b);
-            var cmax = Math.max(r, g, b);
-            var h = 0;
-            var s = 0;
-            var l = (cmin + cmax) / 2;
-            var delta = cmax - cmin;
+            const cmin = Math.min(r, g, b);
+            const cmax = Math.max(r, g, b);
+            let h = 0;
+            let s = 0;
+            const l = (cmin + cmax) / 2;
+            const delta = cmax - cmin;
             if (delta > 0) {
                 if (r === cmax) {
                     h = 60 * (((g - b) / delta + 6) % 6);
@@ -667,11 +667,11 @@ class Bitmap {
             return [h, s, l];
         }
         function hslToRgb(h: number, s: number, l: number) {
-            var c = (255 - Math.abs(2 * l - 255)) * s;
-            var x = c * (1 - Math.abs((h / 60) % 2 - 1));
-            var m = l - c / 2;
-            var cm = c + m;
-            var xm = x + m;
+            const c = (255 - Math.abs(2 * l - 255)) * s;
+            const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+            const m = l - c / 2;
+            const cm = c + m;
+            const xm = x + m;
             if (h < 60) {
                 return [cm, xm, m];
             }
@@ -693,15 +693,15 @@ class Bitmap {
         }
         if (offset && this.width > 0 && this.height > 0) {
             offset = ((offset % 360) + 360) % 360;
-            var context = this._context;
-            var imageData = context.getImageData(0, 0, this.width, this.height);
-            var pixels = imageData.data;
+            const context = this._context;
+            const imageData = context.getImageData(0, 0, this.width, this.height);
+            const pixels = imageData.data;
             for (let i = 0; i < pixels.length; i += 4) {
-                var hsl = rgbToHsl(pixels[i + 0], pixels[i + 1], pixels[i + 2]);
-                var h = (hsl[0] + offset) % 360;
-                var s = hsl[1];
-                var l = hsl[2];
-                var rgb = hslToRgb(h, s, l);
+                const hsl = rgbToHsl(pixels[i + 0], pixels[i + 1], pixels[i + 2]);
+                const h = (hsl[0] + offset) % 360;
+                const s = hsl[1];
+                const l = hsl[2];
+                const rgb = hslToRgb(h, s, l);
                 pixels[i + 0] = rgb[0];
                 pixels[i + 1] = rgb[1];
                 pixels[i + 2] = rgb[2];
@@ -717,12 +717,12 @@ class Bitmap {
      */
     blur() {
         for (let i = 0; i < 2; i++) {
-            var w = this.width;
-            var h = this.height;
-            var canvas = this._canvas;
-            var context = this._context;
-            var tempCanvas = document.createElement('canvas');
-            var tempContext = tempCanvas.getContext('2d');
+            const w = this.width;
+            const h = this.height;
+            const canvas = this._canvas;
+            const context = this._context;
+            const tempCanvas = document.createElement('canvas');
+            const tempContext = tempCanvas.getContext('2d');
             tempCanvas.width = w + 2;
             tempCanvas.height = h + 2;
             tempContext.drawImage(canvas, 0, 0, w, h, 1, 1, w, h);
@@ -775,7 +775,7 @@ class Bitmap {
      * @private
      */
     private _drawTextOutline(text: string, tx: number, ty: number, maxWidth: number) {
-        var context = this._context;
+        const context = this._context;
         context.strokeStyle = this.outlineColor;
         context.lineWidth = this.outlineWidth;
         context.lineJoin = 'round';
@@ -790,7 +790,7 @@ class Bitmap {
      * @private
      */
     private _drawTextBody(text: string, tx: number, ty: number, maxWidth: number) {
-        var context = this._context;
+        const context = this._context;
         context.fillStyle = this.textColor;
         context.fillText(text, tx, ty, maxWidth);
     };
@@ -846,7 +846,7 @@ class Bitmap {
      */
     private _callLoadListeners() {
         while (this._loadListeners.length > 0) {
-            var listener = this._loadListeners.shift();
+            const listener = this._loadListeners.shift();
             listener(this);
         }
     };

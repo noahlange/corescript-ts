@@ -179,9 +179,9 @@ class Game_System {
     };
     
     playtimeText() {
-        var hour = Math.floor(this.playtime() / 60 / 60);
-        var min = Math.floor(this.playtime() / 60) % 60;
-        var sec = this.playtime() % 60;
+        const hour = Math.floor(this.playtime() / 60 / 60);
+        const min = Math.floor(this.playtime() / 60) % 60;
+        const sec = this.playtime() % 60;
         return hour.padZero(2) + ':' + min.padZero(2) + ':' + sec.padZero(2);
     };
     

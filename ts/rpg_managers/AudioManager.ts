@@ -253,7 +253,7 @@ class AudioManager {
             this._seBuffers = this._seBuffers.filter(function (audio) {
                 return audio.isPlaying();
             });
-            var buffer = this.createBuffer('se', se.name);
+            const buffer = this.createBuffer('se', se.name);
             this.updateSeParameters(buffer, se);
             buffer.play(false, 0); /// bungcip: edited to make it compile
             this._seBuffers.push(buffer);
@@ -275,7 +275,7 @@ class AudioManager {
         if (se.name) {
             this.loadStaticSe(se);
             for (let i = 0; i < this._staticBuffers.length; i++) {
-                var buffer = this._staticBuffers[i];
+                const buffer = this._staticBuffers[i];
                 if ( (buffer as any)['_reservedSeName'] === se.name) {
                     buffer.stop();
                     this.updateSeParameters(buffer, se);
@@ -288,7 +288,7 @@ class AudioManager {
 
     static loadStaticSe(se: DB.Audio) {
         if (se.name && !this.isStaticSe(se)) {
-            var buffer = this.createBuffer('se', se.name);
+            const buffer = this.createBuffer('se', se.name);
             (buffer as any)['_reservedSeName'] = se.name;
             this._staticBuffers.push(buffer);
             if (this.shouldUseHtml5Audio()) {
@@ -299,7 +299,7 @@ class AudioManager {
 
     static isStaticSe(se: DB.Audio) {
         for (let i = 0; i < this._staticBuffers.length; i++) {
-            var buffer = this._staticBuffers[i];
+            const buffer = this._staticBuffers[i];
             if ((buffer as any)['_reservedSeName'] === se.name) {
                 return true;
             }
@@ -316,7 +316,7 @@ class AudioManager {
 
     static saveBgm(): DB.Audio {
         if (this._currentBgm) {
-            var bgm = this._currentBgm;
+            const bgm = this._currentBgm;
             return {
                 name: bgm.name,
                 volume: bgm.volume,
@@ -331,7 +331,7 @@ class AudioManager {
 
     static saveBgs(): DB.Audio {
         if (this._currentBgs) {
-            var bgs = this._currentBgs;
+            const bgs = this._currentBgs;
             return {
                 name: bgs.name,
                 volume: bgs.volume,
@@ -349,8 +349,8 @@ class AudioManager {
     };
 
     static createBuffer(folder: string, name: string): CoreAudioBuffer {
-        var ext = this.audioFileExt();
-        var url = this._path + folder + '/' + encodeURIComponent(name) + ext;
+        const ext = this.audioFileExt();
+        const url = this._path + folder + '/' + encodeURIComponent(name) + ext;
         if (this.shouldUseHtml5Audio() && folder === 'bgm') {
             if (this._blobUrl) Html5Audio.setup(this._blobUrl);
             else Html5Audio.setup(url);

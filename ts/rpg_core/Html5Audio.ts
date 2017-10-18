@@ -402,7 +402,7 @@ class Html5Audio {
     protected static _onLoad() {
         this._isLoading = false;
         while (this._loadListeners.length > 0) {
-            var listener = this._loadListeners.shift();
+            const listener = this._loadListeners.shift();
             listener();
         }
     };

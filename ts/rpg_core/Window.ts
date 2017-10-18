@@ -277,11 +277,11 @@ class CoreWindow extends PIXI.Container {
      * @param {Number} height The height of the cursor
      */
     setCursorRect(x: number, y: number, width: number, height: number) {
-        var cx = Math.floor(x || 0);
-        var cy = Math.floor(y || 0);
-        var cw = Math.floor(width || 0);
-        var ch = Math.floor(height || 0);
-        var rect = this._cursorRect;
+        const cx = Math.floor(x || 0);
+        const cy = Math.floor(y || 0);
+        const cw = Math.floor(width || 0);
+        const ch = Math.floor(height || 0);
+        const rect = this._cursorRect;
         if (rect.x !== cx || rect.y !== cy || rect.width !== cw || rect.height !== ch) {
             this._cursorRect.x = cx;
             this._cursorRect.y = cy;
@@ -300,7 +300,7 @@ class CoreWindow extends PIXI.Container {
      * @param {Number} b The blue value in the range (-255, 255)
      */
     setTone(r: number, g: number, b: number) {
-        var tone = this._colorTone;
+        const tone = this._colorTone;
         if (r !== tone[0] || g !== tone[1] || b !== tone[2]) {
             this._colorTone = [r, g, b];
             this._refreshBack();
@@ -315,7 +315,7 @@ class CoreWindow extends PIXI.Container {
      * @return {Object} The child that was added
      */
     addChildToBack(child: PIXI.DisplayObject): Object {
-        var containerIndex = this.children.indexOf(this._windowSpriteContainer);
+        const containerIndex = this.children.indexOf(this._windowSpriteContainer);
         return this.addChildAt(child, containerIndex + 1);
     };
 
@@ -385,24 +385,24 @@ class CoreWindow extends PIXI.Container {
      * @private
      */
     protected _refreshBack() {
-        var m = this._margin;
-        var w = this._width - m * 2;
-        var h = this._height - m * 2;
-        var bitmap = new Bitmap(w, h);
+        const m = this._margin;
+        const w = this._width - m * 2;
+        const h = this._height - m * 2;
+        const bitmap = new Bitmap(w, h);
 
         this._windowBackSprite.bitmap = bitmap;
         this._windowBackSprite.setFrame(0, 0, w, h);
         this._windowBackSprite.move(m, m);
 
         if (w > 0 && h > 0 && this._windowskin) {
-            var p = 96;
+            const p = 96;
             bitmap.blt(this._windowskin, 0, 0, p, p, 0, 0, w, h);
             for (let y = 0; y < h; y += p) {
                 for (let x = 0; x < w; x += p) {
                     bitmap.blt(this._windowskin, 0, p, p, p, x, y, p, p);
                 }
             }
-            var tone = this._colorTone;
+            const tone = this._colorTone;
             bitmap.adjustTone(tone[0], tone[1], tone[2]);
         }
     };
@@ -412,18 +412,18 @@ class CoreWindow extends PIXI.Container {
      * @private
      */
     protected _refreshFrame() {
-        var w = this._width;
-        var h = this._height;
-        var m = 24;
-        var bitmap = new Bitmap(w, h);
+        const w = this._width;
+        const h = this._height;
+        const m = 24;
+        const bitmap = new Bitmap(w, h);
 
         this._windowFrameSprite.bitmap = bitmap;
         this._windowFrameSprite.setFrame(0, 0, w, h);
 
         if (w > 0 && h > 0 && this._windowskin) {
-            var skin = this._windowskin;
-            var p = 96;
-            var q = 96;
+            const skin = this._windowskin;
+            const p = 96;
+            const q = 96;
             bitmap.blt(skin, p + m, 0 + 0, p - m * 2, m, m, 0, w - m * 2, m);
             bitmap.blt(skin, p + m, 0 + q - m, p - m * 2, m, m, h - m, w - m * 2, m);
             bitmap.blt(skin, p + 0, 0 + m, m, p - m * 2, 0, m, m, h - m * 2);
@@ -440,28 +440,28 @@ class CoreWindow extends PIXI.Container {
      * @private
      */
     protected _refreshCursor() {
-        var pad = this._padding;
-        var x = this._cursorRect.x + pad - this.origin.x;
-        var y = this._cursorRect.y + pad - this.origin.y;
-        var w = this._cursorRect.width;
-        var h = this._cursorRect.height;
-        var m = 4;
-        var x2 = Math.max(x, pad);
-        var y2 = Math.max(y, pad);
-        var ox = x - x2;
-        var oy = y - y2;
-        var w2 = Math.min(w, this._width - pad - x2);
-        var h2 = Math.min(h, this._height - pad - y2);
-        var bitmap = new Bitmap(w2, h2);
+        const pad = this._padding;
+        const x = this._cursorRect.x + pad - this.origin.x;
+        const y = this._cursorRect.y + pad - this.origin.y;
+        const w = this._cursorRect.width;
+        const h = this._cursorRect.height;
+        const m = 4;
+        const x2 = Math.max(x, pad);
+        const y2 = Math.max(y, pad);
+        const ox = x - x2;
+        const oy = y - y2;
+        const w2 = Math.min(w, this._width - pad - x2);
+        const h2 = Math.min(h, this._height - pad - y2);
+        const bitmap = new Bitmap(w2, h2);
 
         this._windowCursorSprite.bitmap = bitmap;
         this._windowCursorSprite.setFrame(0, 0, w2, h2);
         this._windowCursorSprite.move(x2, y2);
 
         if (w > 0 && h > 0 && this._windowskin) {
-            var skin = this._windowskin;
-            var p = 96;
-            var q = 48;
+            const skin = this._windowskin;
+            const p = 96;
+            const q = 48;
             bitmap.blt(skin, p + m, p + m, q - m * 2, q - m * 2, ox + m, oy + m, w - m * 2, h - m * 2);
             bitmap.blt(skin, p + m, p + 0, q - m * 2, m, ox + m, oy + 0, w - m * 2, m);
             bitmap.blt(skin, p + m, p + q - m, q - m * 2, m, ox + m, oy + h - m, w - m * 2, m);
@@ -487,12 +487,12 @@ class CoreWindow extends PIXI.Container {
      * @private
      */
     protected _refreshArrows() {
-        var w = this._width;
-        var h = this._height;
-        var p = 24;
-        var q = p / 2;
-        var sx = 96 + p;
-        var sy = 0 + p;
+        const w = this._width;
+        const h = this._height;
+        const p = 24;
+        const q = p / 2;
+        const sx = 96 + p;
+        const sy = 0 + p;
         this._downArrowSprite.bitmap = this._windowskin;
         this._downArrowSprite.anchor.x = 0.5;
         this._downArrowSprite.anchor.y = 0.5;
@@ -510,9 +510,9 @@ class CoreWindow extends PIXI.Container {
      * @private
      */
     protected _refreshPauseSign() {
-        var sx = 144;
-        var sy = 96;
-        var p = 24;
+        const sx = 144;
+        const sy = 96;
+        const p = 24;
         this._windowPauseSignSprite.bitmap = this._windowskin;
         this._windowPauseSignSprite.anchor.x = 0.5;
         this._windowPauseSignSprite.anchor.y = 1;
@@ -526,8 +526,8 @@ class CoreWindow extends PIXI.Container {
      * @private
      */
     protected _updateCursor() {
-        var blinkCount = this._animationCount % 40;
-        var cursorOpacity = this.contentsOpacity;
+        const blinkCount = this._animationCount % 40;
+        let cursorOpacity = this.contentsOpacity;
         if (this.active) {
             if (blinkCount < 20) {
                 cursorOpacity -= blinkCount * 8;
@@ -544,8 +544,8 @@ class CoreWindow extends PIXI.Container {
      * @private
      */
     protected _updateContents() {
-        var w = this._width - this._padding * 2;
-        var h = this._height - this._padding * 2;
+        const w = this._width - this._padding * 2;
+        const h = this._height - this._padding * 2;
         if (w > 0 && h > 0) {
             this._windowContentsSprite.setFrame(this.origin.x, this.origin.y, w, h);
             this._windowContentsSprite.visible = this.isOpen();
@@ -568,12 +568,12 @@ class CoreWindow extends PIXI.Container {
      * @private
      */
     protected _updatePauseSign() {
-        var sprite = this._windowPauseSignSprite;
-        var x = Math.floor(this._animationCount / 16) % 2;
-        var y = Math.floor(this._animationCount / 16 / 2) % 2;
-        var sx = 144;
-        var sy = 96;
-        var p = 24;
+        const sprite = this._windowPauseSignSprite;
+        const x = Math.floor(this._animationCount / 16) % 2;
+        const y = Math.floor(this._animationCount / 16 / 2) % 2;
+        const sx = 144;
+        const sy = 96;
+        const p = 24;
         if (!this.pause) {
             sprite.alpha = 0;
         } else if (sprite.alpha < 1) {

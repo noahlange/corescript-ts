@@ -123,7 +123,7 @@ class Game_Character extends Game_CharacterBase {
             this._waitCount--;
         } else {
             this.setMovementSuccess(true);
-            var command = this._moveRoute.list[this._moveRouteIndex];
+            const command = this._moveRoute.list[this._moveRouteIndex];
             if (command) {
                 this.processMoveCommand(command);
                 this.advanceMoveRouteIndex();
@@ -132,8 +132,8 @@ class Game_Character extends Game_CharacterBase {
     };
 
     processMoveCommand(command: DB.List) {
-        // var gc = Game_Character;
-        var params = command.parameters;
+        // const gc = Game_Character;
+        const params = command.parameters;
         switch (command.code) {
             case Route.END:
                 this.processRouteEnd();
@@ -285,15 +285,15 @@ class Game_Character extends Game_CharacterBase {
     };
 
     moveRandom() {
-        var d = 2 + Math.randomInt(4) * 2;
+        const d = 2 + Math.randomInt(4) * 2;
         if (this.canPass(this.x, this.y, d)) {
             this.moveStraight(d);
         }
     };
 
     moveTowardCharacter(character: Game_Character) {
-        var sx = this.deltaXFrom(character.x);
-        var sy = this.deltaYFrom(character.y);
+        const sx = this.deltaXFrom(character.x);
+        const sy = this.deltaYFrom(character.y);
         if (Math.abs(sx) > Math.abs(sy)) {
             this.moveStraight(sx > 0 ? 4 : 6);
             if (!this.isMovementSucceeded() && sy !== 0) {
@@ -308,8 +308,8 @@ class Game_Character extends Game_CharacterBase {
     };
 
     moveAwayFromCharacter(character: Game_Character) {
-        var sx = this.deltaXFrom(character.x);
-        var sy = this.deltaYFrom(character.y);
+        const sx = this.deltaXFrom(character.x);
+        const sy = this.deltaYFrom(character.y);
         if (Math.abs(sx) > Math.abs(sy)) {
             this.moveStraight(sx > 0 ? 6 : 4);
             if (!this.isMovementSucceeded() && sy !== 0) {
@@ -324,8 +324,8 @@ class Game_Character extends Game_CharacterBase {
     };
 
     turnTowardCharacter(character: Game_Character) {
-        var sx = this.deltaXFrom(character.x);
-        var sy = this.deltaYFrom(character.y);
+        const sx = this.deltaXFrom(character.x);
+        const sy = this.deltaYFrom(character.y);
         if (Math.abs(sx) > Math.abs(sy)) {
             this.setDirection(sx > 0 ? 4 : 6);
         } else if (sy !== 0) {
@@ -334,8 +334,8 @@ class Game_Character extends Game_CharacterBase {
     };
 
     turnAwayFromCharacter(character: Game_Character) {
-        var sx = this.deltaXFrom(character.x);
-        var sy = this.deltaYFrom(character.y);
+        const sx = this.deltaXFrom(character.x);
+        const sy = this.deltaYFrom(character.y);
         if (Math.abs(sx) > Math.abs(sy)) {
             this.setDirection(sx > 0 ? 6 : 4);
         } else if (sy !== 0) {
@@ -364,7 +364,7 @@ class Game_Character extends Game_CharacterBase {
     };
 
     moveBackward() {
-        var lastDirectionFix = this.isDirectionFixed();
+        const lastDirectionFix = this.isDirectionFixed();
         this.setDirectionFix(true);
         this.moveStraight(this.reverseDir(this.direction()));
         this.setDirectionFix(lastDirectionFix);
@@ -380,9 +380,9 @@ class Game_Character extends Game_CharacterBase {
     };
 
     advanceMoveRouteIndex() {
-        var moveRoute = this._moveRoute;
+        const moveRoute = this._moveRoute;
         if (moveRoute && (this.isMovementSucceeded() || moveRoute.skippable)) {
-            var numCommands = moveRoute.list.length - 1;
+            const numCommands = moveRoute.list.length - 1;
             this._moveRouteIndex++;
             if (moveRoute.repeat && this._moveRouteIndex >= numCommands) {
                 this._moveRouteIndex = 0;
@@ -444,47 +444,47 @@ class Game_Character extends Game_CharacterBase {
     };
 
     swap(character: Game_Character) {
-        var newX = character.x;
-        var newY = character.y;
+        const newX = character.x;
+        const newY = character.y;
         character.locate(this.x, this.y);
         this.locate(newX, newY);
     };
 
     findDirectionTo(goalX: number, goalY: number) {
-        var searchLimit = this.searchLimit();
-        var mapWidth = $gameMap.width();
-        var nodeList: IMapCoord[] = [];
-        var openList: number[] = [];
-        var closedList = [];
+        const searchLimit = this.searchLimit();
+        const mapWidth = $gameMap.width();
+        const nodeList: IMapCoord[] = [];
+        const openList: number[] = [];
+        const closedList = [];
         if (this.x === goalX && this.y === goalY) {
             return 0;
         }
 
-        var start : IMapCoord = {
+        const start : IMapCoord = {
             parent: null,
             x: this.x,
             y: this.y,
             g: 0,
             f: $gameMap.distance(this.x, this.y, goalX, goalY)
         };
-        var best : IMapCoord = start;
+        let best : IMapCoord = start;
 
         nodeList.push(start);
         openList.push(start['y'] * mapWidth + start['x']);
 
         while (nodeList.length > 0) {
-            var bestIndex = 0;
+            let bestIndex = 0;
             for (let i = 0; i < nodeList.length; i++) {
                 if (nodeList[i].f < nodeList[bestIndex].f) {
                     bestIndex = i;
                 }
             }
 
-            var current = nodeList[bestIndex];
-            var x1 = current.x;
-            var y1 = current.y;
-            var pos1 = y1 * mapWidth + x1;
-            var g1 = current.g;
+            const current = nodeList[bestIndex];
+            const x1 = current.x;
+            const y1 = current.y;
+            const pos1 = y1 * mapWidth + x1;
+            const g1 = current.g;
 
             nodeList.splice(bestIndex, 1);
             openList.splice(openList.indexOf(pos1), 1);
@@ -500,10 +500,10 @@ class Game_Character extends Game_CharacterBase {
             }
 
             for (let j = 0; j < 4; j++) {
-                var direction = 2 + j * 2;
-                var x2 = $gameMap.roundXWithDirection(x1, direction);
-                var y2 = $gameMap.roundYWithDirection(y1, direction);
-                var pos2 = y2 * mapWidth + x2;
+                const direction = 2 + j * 2;
+                const x2 = $gameMap.roundXWithDirection(x1, direction);
+                const y2 = $gameMap.roundYWithDirection(y1, direction);
+                const pos2 = y2 * mapWidth + x2;
 
                 if (closedList.contains(pos2)) {
                     continue;
@@ -512,11 +512,11 @@ class Game_Character extends Game_CharacterBase {
                     continue;
                 }
 
-                var g2 = g1 + 1;
-                var index2 = openList.indexOf(pos2);
+                const g2 = g1 + 1;
+                const index2 = openList.indexOf(pos2);
 
                 if (index2 < 0 || g2 < nodeList[index2].g) {
-                    var neighbor: IMapCoord;
+                    let neighbor: IMapCoord;
                     if (index2 >= 0) {
                         neighbor = nodeList[index2];
                     } else {
@@ -536,13 +536,13 @@ class Game_Character extends Game_CharacterBase {
             }
         }
 
-        var node = best;
+        let node = best;
         while (node['parent'] && node['parent'] !== start) {
             node = node['parent'];
         }
 
-        var deltaX1 = $gameMap.deltaX(node['x'], start['x']);
-        var deltaY1 = $gameMap.deltaY(node['y'], start['y']);
+        const deltaX1 = $gameMap.deltaX(node['x'], start['x']);
+        const deltaY1 = $gameMap.deltaY(node['y'], start['y']);
         if (deltaY1 > 0) {
             return 2;
         } else if (deltaX1 < 0) {
@@ -553,8 +553,8 @@ class Game_Character extends Game_CharacterBase {
             return 8;
         }
 
-        var deltaX2 = this.deltaXFrom(goalX);
-        var deltaY2 = this.deltaYFrom(goalY);
+        const deltaX2 = this.deltaXFrom(goalX);
+        const deltaY2 = this.deltaYFrom(goalY);
         if (Math.abs(deltaX2) > Math.abs(deltaY2)) {
             return deltaX2 > 0 ? 4 : 6;
         } else if (deltaY2 !== 0) {

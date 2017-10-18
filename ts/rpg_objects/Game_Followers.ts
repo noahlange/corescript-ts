@@ -67,7 +67,7 @@ class Game_Followers {
     
     updateMove() {
         for (let i = this._data.length - 1; i >= 0; i--) {
-            var precedingCharacter = (i > 0 ? this._data[i - 1] : $gamePlayer);
+            const precedingCharacter = (i > 0 ? this._data[i - 1] : $gamePlayer);
             this._data[i].chaseCharacter(precedingCharacter);
         }
     };
@@ -75,9 +75,9 @@ class Game_Followers {
     jumpAll() {
         if ($gamePlayer.isJumping()) {
             for (let i = 0; i < this._data.length; i++) {
-                var follower = this._data[i];
-                var sx = $gamePlayer.deltaXFrom(follower.x);
-                var sy = $gamePlayer.deltaYFrom(follower.y);
+                const follower = this._data[i];
+                const sx = $gamePlayer.deltaXFrom(follower.x);
+                const sy = $gamePlayer.deltaYFrom(follower.y);
                 follower.jump(sx, sy);
             }
         }

@@ -89,7 +89,7 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     updateWaitMode() {
-        var waiting = false;
+        let waiting = false;
         switch (this._waitMode) {
         case 'effect':
             waiting = this._spriteset.isEffecting();
@@ -110,7 +110,7 @@ class Window_BattleLog extends Window_Selectable {
     
     callNextMethod() {
         if (this._methods.length > 0) {
-            var method = this._methods.shift();
+            const method = this._methods.shift();
             if (method.name && (this as any)[method.name]) {
                 (this as any)[method.name].apply(this, method.params);
             } else {
@@ -157,14 +157,14 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     popBaseLine() {
-        var baseLine = this._baseLineStack.pop();
+        const baseLine = this._baseLineStack.pop();
         while (this._lines.length > baseLine) {
             this._lines.pop();
         }
     };
     
     waitForNewLine() {
-        var baseLine = 0;
+        let baseLine = 0;
         if (this._baseLineStack.length > 0) {
             baseLine = this._baseLineStack[this._baseLineStack.length - 1];
         }
@@ -251,10 +251,10 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     showNormalAnimation(targets: Game_Battler[], animationId: number, mirror?: boolean) {
-        var animation = $dataAnimations[animationId];
+        const animation = $dataAnimations[animationId];
         if (animation) {
-            var delay = this.animationBaseDelay();
-            var nextDelay = this.animationNextDelay();
+            let delay = this.animationBaseDelay();
+            const nextDelay = this.animationNextDelay();
             targets.forEach(function(target) {
                 target.startAnimation(animationId, mirror, delay);
                 delay += nextDelay;
@@ -279,8 +279,8 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     drawBackground() {
-        var rect = this.backRect();
-        var color = this.backColor();
+        const rect = this.backRect();
+        const color = this.backColor();
         this._backBitmap.clear();
         this._backBitmap.paintOpacity = this.backPaintOpacity();
         this._backBitmap.fillRect(rect.x, rect.y, rect.width, rect.height, color);
@@ -305,7 +305,7 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     drawLineText(index: number) {
-        var rect = this.itemRectForText(index);
+        const rect = this.itemRectForText(index);
         this.contents.clearRect(rect.x, rect.y, rect.width, rect.height);
         /// NOTE: changed to make it compiled
         // this.drawTextEx(this._lines[index], rect.x, rect.y, rect.width);
@@ -317,7 +317,7 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     startAction(subject: Game_Battler, action: Game_Action, targets: Game_Battler[]) {
-        var item = action.item() as DB.Item;
+        const item = action.item() as DB.Item;
         this.push('performActionStart', subject, action);
         this.push('waitForMovement');
         this.push('performAction', subject, action);
@@ -332,7 +332,7 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     displayCurrentState(subject: Game_Battler) {
-        var stateText = subject.mostImportantStateText();
+        const stateText = subject.mostImportantStateText();
         if (stateText) {
             this.push('addText', subject.name() + stateText);
             this.push('wait');
@@ -345,7 +345,7 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     displayAction(subject: Game_Battler, item: DB.Item) {
-        var numMethods = this._methods.length;
+        const numMethods = this._methods.length;
         if (DataManager.isSkill(item)) {
             if (item.message1) {
                 this.push('addText', subject.name() + item.message1.format(item.name));
@@ -372,7 +372,7 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     displaySubstitute(substitute: Game_Battler, target: Game_Battler) {
-        var substName = substitute.name();
+        const substName = substitute.name();
         this.push('performSubstitute', substitute, target);
         this.push('addText', TextManager.substitute.format(substName, target.name()));
     };
@@ -420,7 +420,7 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     displayMiss(target: Game_Battler) {
-        var fmt;
+        let fmt;
         if (target.result().physical) {
             fmt = target.isActor() ? TextManager.actorNoHit : TextManager.enemyNoHit;
             this.push('performMiss', target);
@@ -431,7 +431,7 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     displayEvasion(target: Game_Battler) {
-        var fmt;
+        let fmt;
         if (target.result().physical) {
             fmt = TextManager.evasion;
             this.push('performEvasion', target);
@@ -497,7 +497,7 @@ class Window_BattleLog extends Window_Selectable {
     
     displayAddedStates(target: Game_Battler) {
         target.result().addedStateObjects().forEach(function(state) {
-            var stateMsg = target.isActor() ? state.message1 : state.message2;
+            const stateMsg = target.isActor() ? state.message1 : state.message2;
             if (state.id === target.deathStateId()) {
                 this.push('performCollapse', target);
             }
@@ -521,7 +521,7 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     displayChangedBuffs(target: Game_Battler) {
-        var result = target.result();
+        const result = target.result();
         this.displayBuffs(target, result.addedBuffs, TextManager.buffAdd);
         this.displayBuffs(target, result.addedDebuffs, TextManager.debuffAdd);
         this.displayBuffs(target, result.removedBuffs, TextManager.buffRemove);
@@ -536,10 +536,10 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     makeHpDamageText(target: Game_Battler) {
-        var result = target.result();
-        var damage = result.hpDamage;
-        var isActor = target.isActor();
-        var fmt;
+        const result = target.result();
+        const damage = result.hpDamage;
+        const isActor = target.isActor();
+        let fmt;
         if (damage > 0 && result.drain) {
             fmt = isActor ? TextManager.actorDrain : TextManager.enemyDrain;
             return fmt.format(target.name(), TextManager.hp, damage);
@@ -556,10 +556,10 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     makeMpDamageText(target: Game_Battler) {
-        var result = target.result();
-        var damage = result.mpDamage;
-        var isActor = target.isActor();
-        var fmt;
+        const result = target.result();
+        const damage = result.mpDamage;
+        const isActor = target.isActor();
+        let fmt;
         if (damage > 0 && result.drain) {
             fmt = isActor ? TextManager.actorDrain : TextManager.enemyDrain;
             return fmt.format(target.name(), TextManager.mp, damage);
@@ -575,10 +575,10 @@ class Window_BattleLog extends Window_Selectable {
     };
     
     makeTpDamageText(target: Game_Battler) {
-        var result = target.result();
-        var damage = result.tpDamage;
-        var isActor = target.isActor();
-        var fmt;
+        const result = target.result();
+        const damage = result.tpDamage;
+        const isActor = target.isActor();
+        let fmt;
         if (damage > 0) {
             fmt = isActor ? TextManager.actorLoss : TextManager.enemyLoss;
             return fmt.format(target.name(), TextManager.tp, damage);

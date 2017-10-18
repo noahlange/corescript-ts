@@ -73,7 +73,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     items(): DB.Item[] {
-        var list = [];
+        const list = [];
         for (let id in this._items) {
             list.push($dataItems[id]);
         }
@@ -81,7 +81,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     weapons(): DB.Weapon[] {
-        var list = [];
+        const list = [];
         for (let id in this._weapons) {
             list.push($dataWeapons[id]);
         }
@@ -89,7 +89,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     armors(): DB.Armor[] {
-        var list = [];
+        const list = [];
         for (let id in this._armors) {
             list.push($dataArmors[id]);
         }
@@ -132,7 +132,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     name() {
-        var numBattleMembers = this.battleMembers().length;
+        const numBattleMembers = this.battleMembers().length;
         if (numBattleMembers === 0) {
             return '';
         } else if (numBattleMembers === 1) {
@@ -149,7 +149,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
 
     setupBattleTestMembers() {
         $dataSystem.testBattlers.forEach(function (battler) {
-            var actor = $gameActors.actor(battler.actorId);
+            const actor = $gameActors.actor(battler.actorId);
             if (actor) {
                 actor.changeLevel(battler.level, false);
                 actor.initEquips(battler.equips);
@@ -214,7 +214,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     numItems(item: DB.Item | DB.Weapon | DB.Armor): number {
-        var container = this.itemContainer(item);
+        const container = this.itemContainer(item);
         return container ? container[item.id] || 0 : 0;
     };
 
@@ -243,10 +243,10 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     gainItem(item: DB.Item | DB.Weapon | DB.Armor, amount: number, includeEquip: boolean = false) {
-        var container = this.itemContainer(item);
+        const container = this.itemContainer(item);
         if (container) {
-            var lastNumber = this.numItems(item);
-            var newNumber = lastNumber + amount;
+            const lastNumber = this.numItems(item);
+            const newNumber = lastNumber + amount;
             container[item.id] = newNumber.clamp(0, this.maxItems(item));
             if (container[item.id] === 0) {
                 delete container[item.id];
@@ -259,7 +259,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     discardMembersEquip(item: DB.Armor | DB.Weapon, amount: number) {
-        var n = amount;
+        let n = amount;
         this.members().forEach(function (actor) {
             while (n > 0 && actor.isEquipped(item)) {
                 actor.discardEquip(item);
@@ -305,7 +305,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     menuActor() {
-        var actor = $gameActors.actor(this._menuActorId);
+        let actor = $gameActors.actor(this._menuActorId);
         if (!this.members().contains(actor)) {
             actor = this.members()[0];
         }
@@ -317,7 +317,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     makeMenuActorNext() {
-        var index = this.members().indexOf(this.menuActor());
+        let index = this.members().indexOf(this.menuActor());
         if (index >= 0) {
             index = (index + 1) % this.members().length;
             this.setMenuActor(this.members()[index]);
@@ -327,7 +327,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     makeMenuActorPrevious() {
-        var index = this.members().indexOf(this.menuActor());
+        let index = this.members().indexOf(this.menuActor());
         if (index >= 0) {
             index = (index + this.members().length - 1) % this.members().length;
             this.setMenuActor(this.members()[index]);
@@ -337,7 +337,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     targetActor() {
-        var actor = $gameActors.actor(this._targetActorId);
+        let actor = $gameActors.actor(this._targetActorId);
         if (!this.members().contains(actor)) {
             actor = this.members()[0];
         }
@@ -357,7 +357,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     swapOrder(index1: number, index2: number) {
-        var temp = this._actors[index1];
+        const temp = this._actors[index1];
         this._actors[index1] = this._actors[index2];
         this._actors[index2] = temp;
         $gamePlayer.refresh();
@@ -406,7 +406,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     ratePreemptive(troopAgi: number): number {
-        var rate = this.agility() >= troopAgi ? 0.05 : 0.03;
+        let rate = this.agility() >= troopAgi ? 0.05 : 0.03;
         if (this.hasRaisePreemptive()) {
             rate *= 4;
         }
@@ -414,7 +414,7 @@ class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     rateSurprise(troopAgi: number): number {
-        var rate = this.agility() >= troopAgi ? 0.03 : 0.05;
+        let rate = this.agility() >= troopAgi ? 0.03 : 0.05;
         if (this.hasCancelSurprise()) {
             rate = 0;
         }

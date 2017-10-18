@@ -58,9 +58,9 @@ class Utils {
      * @return {Boolean} True if the browser can read files in the game folder
      */
     static canReadGameFiles(): boolean {
-        var scripts = document.getElementsByTagName('script');
-        var lastScript = scripts[scripts.length - 1];
-        var xhr = new XMLHttpRequest();
+        const scripts = document.getElementsByTagName('script');
+        const lastScript = scripts[scripts.length - 1];
+        const xhr = new XMLHttpRequest();
         try {
             xhr.open('GET', lastScript.src);
             xhr.overrideMimeType('text/javascript');
@@ -107,8 +107,8 @@ class Utils {
         }
         // test support passive event
         // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
-        var passive = false;
-        var options = Object.defineProperty({}, "passive", {
+        let passive = false;
+        const options = Object.defineProperty({}, "passive", {
             get: function () { passive = true; }
         });
         window.addEventListener("test", null, options);

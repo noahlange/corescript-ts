@@ -52,15 +52,15 @@ class Window_MapName extends Window_Base {
     refresh() {
         this.contents.clear();
         if ($gameMap.displayName()) {
-            var width = this.contentsWidth();
+            const width = this.contentsWidth();
             this.drawBackground(0, 0, width, Window_Base.lineHeight());
             this.drawText($gameMap.displayName(), 0, 0, width, 'center');
         }
     };
     
     drawBackground(x: number, y: number, width: number, height: number) {
-        var color1 = this.dimColor1();
-        var color2 = this.dimColor2();
+        const color1 = this.dimColor1();
+        const color2 = this.dimColor2();
         this.contents.gradientFillRect(x, y, width / 2, height, color2, color1);
         this.contents.gradientFillRect(x + width / 2, y, width / 2, height, color1, color2);
     };

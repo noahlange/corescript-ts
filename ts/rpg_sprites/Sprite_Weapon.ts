@@ -52,7 +52,7 @@ class Sprite_Weapon extends Sprite_Base {
     };
 
     loadBitmap() {
-        var pageId = Math.floor((this._weaponImageId - 1) / 12) + 1;
+        const pageId = Math.floor((this._weaponImageId - 1) / 12) + 1;
         if (pageId >= 1) {
             this.bitmap = ImageManager.loadSystem('Weapons' + pageId);
         } else {
@@ -62,11 +62,11 @@ class Sprite_Weapon extends Sprite_Base {
 
     updateFrame() {
         if (this._weaponImageId > 0) {
-            var index = (this._weaponImageId - 1) % 12;
-            var w = 96;
-            var h = 64;
-            var sx = (Math.floor(index / 6) * 3 + this._pattern) * w;
-            var sy = Math.floor(index % 6) * h;
+            const index = (this._weaponImageId - 1) % 12;
+            const w = 96;
+            const h = 64;
+            const sx = (Math.floor(index / 6) * 3 + this._pattern) * w;
+            const sy = Math.floor(index % 6) * h;
             this.setFrame(sx, sy, w, h);
         } else {
             this.setFrame(0, 0, 0, 0);

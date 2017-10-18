@@ -34,7 +34,7 @@ class Spriteset_Map extends Spriteset_Base {
 
     hideCharacters() {
         for (let i = 0; i < this._characterSprites.length; i++) {
-            var sprite = this._characterSprites[i];
+            const sprite = this._characterSprites[i];
             if (!sprite.isTile()) {
                 sprite.hide();
             }
@@ -61,11 +61,11 @@ class Spriteset_Map extends Spriteset_Base {
     loadTileset() {
         this._tileset = $gameMap.tileset();
         if (this._tileset) {
-            var tilesetNames = this._tileset.tilesetNames;
+            const tilesetNames = this._tileset.tilesetNames;
             for (let i = 0; i < tilesetNames.length; i++) {
                 this._tilemap.bitmaps[i] = ImageManager.loadTileset(tilesetNames[i]);
             }
-            var newTilesetFlags = $gameMap.tilesetFlags();
+            const newTilesetFlags = $gameMap.tilesetFlags();
             this._tilemap.refreshTileset();
             if (!this._tilemap.flags.equals(newTilesetFlags)) {
                 this._tilemap.refresh();
@@ -135,7 +135,7 @@ class Spriteset_Map extends Spriteset_Base {
     };
 
     updateShadow() {
-        var airship = $gameMap.airship();
+        const airship = $gameMap.airship();
         this._shadowSprite.x = airship.shadowX();
         this._shadowSprite.y = airship.shadowY();
         this._shadowSprite.opacity = airship.shadowOpacity();

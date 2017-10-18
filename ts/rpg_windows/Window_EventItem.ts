@@ -7,7 +7,7 @@ class Window_EventItem extends Window_ItemList {
     protected _messageWindow: Window_Message;
 
     constructor(messageWindow: Window_Message) {
-        var width = Graphics.boxWidth;
+        const width = Graphics.boxWidth;
         super(0, 0, width, undefined, function() {
             this._messageWindow = messageWindow;
         });
@@ -42,7 +42,7 @@ class Window_EventItem extends Window_ItemList {
     };
     
     includes(item: any): item is DB.Item {
-        var itypeId = $gameMessage.itemChoiceItypeId();
+        const itypeId = $gameMessage.itemChoiceItypeId();
         return DataManager.isItem(item) && item.itypeId === itypeId;
     };
     
@@ -51,8 +51,8 @@ class Window_EventItem extends Window_ItemList {
     };
     
     onOk() {
-        var item = this.item();
-        var itemId = item ? item.id : 0;
+        const item = this.item();
+        const itemId = item ? item.id : 0;
         $gameVariables.setValue($gameMessage.itemChoiceVariableId(), itemId);
         this._messageWindow.terminateMessage();
         this.close();

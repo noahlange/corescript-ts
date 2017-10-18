@@ -33,16 +33,16 @@ class Sprite_Timer extends Sprite {
     };
 
     redraw() {
-        var text = this.timerText();
-        var width = this.bitmap.width;
-        var height = this.bitmap.height;
+        const text = this.timerText();
+        const width = this.bitmap.width;
+        const height = this.bitmap.height;
         this.bitmap.clear();
         this.bitmap.drawText(text, 0, 0, width, height, 'center');
     };
 
     timerText() {
-        var min = Math.floor(this._seconds / 60) % 60;
-        var sec = this._seconds % 60;
+        const min = Math.floor(this._seconds / 60) % 60;
+        const sec = this._seconds % 60;
         return min.padZero(2) + ':' + sec.padZero(2);
     };
 

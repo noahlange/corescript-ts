@@ -24,7 +24,7 @@ class PluginManager {
     };
 
     static checkErrors() {
-        var url = this._errorUrls.shift();
+        const url = this._errorUrls.shift();
         if (url) {
             throw new Error('Failed to load: ' + url);
         }
@@ -39,8 +39,8 @@ class PluginManager {
     };
 
     static loadScript(name: string) {
-        var url = this._path + name;
-        var script = document.createElement('script');
+        const url = this._path + name;
+        const script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = url;
         script.async = false;

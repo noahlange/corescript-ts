@@ -38,7 +38,7 @@ class Window_EquipSlot extends Window_Selectable {
     
     drawItem(index: number) {
         if (this._actor) {
-            var rect = this.itemRectForText(index);
+            const rect = this.itemRectForText(index);
             this.changeTextColor(this.systemColor());
             this.changePaintOpacity(this.isEnabled(index));
             // this.drawText(this.slotName(index), rect.x, rect.y, 138, Window_Base.lineHeight());
@@ -50,7 +50,7 @@ class Window_EquipSlot extends Window_Selectable {
     };
     
     slotName(index: number) {
-        var slots = this._actor.equipSlots();
+        const slots = this._actor.equipSlots();
         return this._actor ? $dataSystem.equipTypes[slots[index]] : '';
     };
     

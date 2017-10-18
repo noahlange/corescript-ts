@@ -22,13 +22,13 @@ class Window_DebugEdit extends Window_Selectable {
     };
 
     drawItem(index: number) {
-        var dataId = this._topId + index;
-        var idText = dataId.padZero(4) + ':';
-        var idWidth = this.textWidth(idText);
-        var statusWidth = this.textWidth('-00000000');
-        var name = this.itemName(dataId);
-        var status = this.itemStatus(dataId);
-        var rect = this.itemRectForText(index);
+        const dataId = this._topId + index;
+        const idText = dataId.padZero(4) + ':';
+        const idWidth = this.textWidth(idText);
+        const statusWidth = this.textWidth('-00000000');
+        const name = this.itemName(dataId);
+        const status = this.itemStatus(dataId);
+        const rect = this.itemRectForText(index);
         this.resetTextColor();
         this.drawText(idText, rect.x, rect.y, rect.width);
         rect.x += idWidth;
@@ -84,7 +84,7 @@ class Window_DebugEdit extends Window_Selectable {
 
     updateSwitch() {
         if (Input.isRepeated('ok')) {
-            var switchId = this.currentId();
+            const switchId = this.currentId();
             SoundManager.playCursor();
             $gameSwitches.setValue(switchId, !$gameSwitches.value(switchId));
             this.redrawCurrentItem();
@@ -92,8 +92,8 @@ class Window_DebugEdit extends Window_Selectable {
     };
 
     updateVariable() {
-        var variableId = this.currentId();
-        var value = $gameVariables.value(variableId);
+        const variableId = this.currentId();
+        let value = $gameVariables.value(variableId);
         if (typeof value === 'number') {
             if (Input.isRepeated('right')) {
                 value++;

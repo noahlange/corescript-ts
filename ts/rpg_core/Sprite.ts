@@ -139,7 +139,7 @@ class Sprite extends PIXI.Sprite {
      */
     setFrame(x: number, y: number, width: number, height: number) {
         this._refreshFrame = false;
-        var frame = this._frame;
+        const frame = this._frame;
         if (x !== frame.x || y !== frame.y ||
             width !== frame.width || height !== frame.height) {
             frame.x = x;
@@ -223,16 +223,16 @@ class Sprite extends PIXI.Sprite {
      * @private
      */
     protected _refresh() {
-        var frameX = Math.floor(this._frame.x);
-        var frameY = Math.floor(this._frame.y);
-        var frameW = Math.floor(this._frame.width);
-        var frameH = Math.floor(this._frame.height);
-        var bitmapW = this._bitmap ? this._bitmap.width : 0;
-        var bitmapH = this._bitmap ? this._bitmap.height : 0;
-        var realX = frameX.clamp(0, bitmapW);
-        var realY = frameY.clamp(0, bitmapH);
-        var realW = (frameW - realX + frameX).clamp(0, bitmapW - realX);
-        var realH = (frameH - realY + frameY).clamp(0, bitmapH - realY);
+        const frameX = Math.floor(this._frame.x);
+        const frameY = Math.floor(this._frame.y);
+        const frameW = Math.floor(this._frame.width);
+        const frameH = Math.floor(this._frame.height);
+        const bitmapW = this._bitmap ? this._bitmap.width : 0;
+        const bitmapH = this._bitmap ? this._bitmap.height : 0;
+        const realX = frameX.clamp(0, bitmapW);
+        const realY = frameY.clamp(0, bitmapH);
+        const realW = (frameW - realX + frameX).clamp(0, bitmapW - realX);
+        const realH = (frameH - realY + frameY).clamp(0, bitmapH - realY);
 
         this._realFrame.x = realX;
         this._realFrame.y = realY;
@@ -285,7 +285,7 @@ class Sprite extends PIXI.Sprite {
      * @private
      */
     protected _needsTint() {
-        var tone = this._colorTone;
+        const tone = this._colorTone;
         return tone[0] || tone[1] || tone[2] || tone[3] || this._blendColor[3] > 0;
     };
 
@@ -322,23 +322,23 @@ class Sprite extends PIXI.Sprite {
      * @private
      */
     protected _executeTint(x: number, y: number, w: number, h: number) {
-        var context = this._context;
-        var tone = this._colorTone;
-        var color = this._blendColor;
+        const context = this._context;
+        const tone = this._colorTone;
+        const color = this._blendColor;
 
         context.globalCompositeOperation = 'copy';
         context.drawImage(this._bitmap.canvas, x, y, w, h, 0, 0, w, h);
 
         if (Graphics.canUseSaturationBlend()) {
-            var gray = Math.max(0, tone[3]);
+            const gray = Math.max(0, tone[3]);
             context.globalCompositeOperation = 'saturation';
             context.fillStyle = 'rgba(255,255,255,' + gray / 255 + ')';
             context.fillRect(0, 0, w, h);
         }
 
-        var r1 = Math.max(0, tone[0]);
-        var g1 = Math.max(0, tone[1]);
-        var b1 = Math.max(0, tone[2]);
+        const r1 = Math.max(0, tone[0]);
+        const g1 = Math.max(0, tone[1]);
+        const b1 = Math.max(0, tone[2]);
         context.globalCompositeOperation = 'lighter';
         context.fillStyle = Utils.rgbToCssColor(r1, g1, b1);
         context.fillRect(0, 0, w, h);
@@ -348,9 +348,9 @@ class Sprite extends PIXI.Sprite {
             context.fillStyle = 'white';
             context.fillRect(0, 0, w, h);
 
-            var r2 = Math.max(0, -tone[0]);
-            var g2 = Math.max(0, -tone[1]);
-            var b2 = Math.max(0, -tone[2]);
+            const r2 = Math.max(0, -tone[0]);
+            const g2 = Math.max(0, -tone[1]);
+            const b2 = Math.max(0, -tone[2]);
             context.globalCompositeOperation = 'lighter';
             context.fillStyle = Utils.rgbToCssColor(r2, g2, b2);
             context.fillRect(0, 0, w, h);
@@ -360,10 +360,10 @@ class Sprite extends PIXI.Sprite {
             context.fillRect(0, 0, w, h);
         }
 
-        var r3 = Math.max(0, color[0]);
-        var g3 = Math.max(0, color[1]);
-        var b3 = Math.max(0, color[2]);
-        var a3 = Math.max(0, color[3]);
+        const r3 = Math.max(0, color[0]);
+        const g3 = Math.max(0, color[1]);
+        const b3 = Math.max(0, color[2]);
+        const a3 = Math.max(0, color[3]);
         context.globalCompositeOperation = 'source-atop';
         context.fillStyle = Utils.rgbToCssColor(r3, g3, b3);
         context.globalAlpha = a3 / 255;
@@ -383,15 +383,15 @@ class Sprite extends PIXI.Sprite {
      */
     /// bungcip: jadi public karena dipakai di TilingSprite
     public _speedUpCustomBlendModes(renderer: any) {
-        var picture = renderer.plugins.picture;
-        var blend = this.blendMode;
+        const picture = renderer.plugins.picture;
+        const blend = this.blendMode;
         if (renderer.renderingToScreen && renderer._activeRenderTarget.root) {
             if (picture.drawModes[blend]) {
-                var stage = renderer._lastObjectRendered;
-                var f = stage._filters;
+                const stage = renderer._lastObjectRendered;
+                const f = stage._filters;
                 if (!f || !f[0]) {
                     setTimeout(function () {
-                        var f = stage._filters;
+                        const f = stage._filters;
                         if (!f || !f[0]) {
                             stage.filters = [Sprite.voidFilter];
                             stage.filterArea = new PIXI.Rectangle(0, 0, Graphics.width, Graphics.height);

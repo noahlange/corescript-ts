@@ -68,7 +68,7 @@ class Game_Vehicle extends Game_Character {
     };
 
     loadSystemSettings() {
-        var vehicle = this.vehicle();
+        const vehicle = this.vehicle();
         this._mapId = vehicle.startMapId;
         this.setPosition(vehicle.startX, vehicle.startY);
         this.setImage(vehicle.characterName, vehicle.characterIndex);
@@ -106,8 +106,8 @@ class Game_Vehicle extends Game_Character {
     };
 
     isMapPassable(x: number, y: number, d: number) {
-        var x2 = $gameMap.roundXWithDirection(x, d);
-        var y2 = $gameMap.roundYWithDirection(y, d);
+        const x2 = $gameMap.roundXWithDirection(x, d);
+        const y2 = $gameMap.roundYWithDirection(y, d);
         if (this.isBoat()) {
             return $gameMap.isBoatPassable(x2, y2);
         } else if (this.isShip()) {
@@ -219,8 +219,8 @@ class Game_Vehicle extends Game_Character {
                 return false;
             }
         } else {
-            var x2 = $gameMap.roundXWithDirection(x, d);
-            var y2 = $gameMap.roundYWithDirection(y, d);
+            const x2 = $gameMap.roundXWithDirection(x, d);
+            const y2 = $gameMap.roundYWithDirection(y, d);
             if (!$gameMap.isValid(x2, y2)) {
                 return false;
             }

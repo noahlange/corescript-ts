@@ -22,7 +22,7 @@ class Window_Status extends Window_Selectable {
     refresh() {
         this.contents.clear();
         if (this._actor) {
-            var lineHeight = Window_Base.lineHeight();
+            const lineHeight = Window_Base.lineHeight();
             this.drawBlock1(lineHeight * 0);
             this.drawHorzLine(lineHeight * 1);
             this.drawBlock2(lineHeight * 2);
@@ -55,7 +55,7 @@ class Window_Status extends Window_Selectable {
     };
     
     drawHorzLine(y: number) {
-        var lineY = y + Window_Base.lineHeight() / 2 - 1;
+        const lineY = y + Window_Base.lineHeight() / 2 - 1;
         this.contents.paintOpacity = 48;
         this.contents.fillRect(0, lineY, this.contentsWidth(), 2, this.lineColor());
         this.contents.paintOpacity = 255;
@@ -66,7 +66,7 @@ class Window_Status extends Window_Selectable {
     };
     
     drawBasicInfo(x: number, y: number) {
-        var lineHeight = Window_Base.lineHeight();
+        const lineHeight = Window_Base.lineHeight();
         this.drawActorLevel(this._actor, x, y + lineHeight * 0);
         this.drawActorIcons(this._actor, x, y + lineHeight * 1);
         this.drawActorHp(this._actor, x, y + lineHeight * 2);
@@ -74,10 +74,10 @@ class Window_Status extends Window_Selectable {
     };
     
     drawParameters(x: number, y: number) {
-        var lineHeight = Window_Base.lineHeight();
+        const lineHeight = Window_Base.lineHeight();
         for (let i = 0; i < 6; i++) {
-            var paramId = i + 2;
-            var y2 = y + lineHeight * i;
+            const paramId = i + 2;
+            const y2 = y + lineHeight * i;
             this.changeTextColor(this.systemColor());
             this.drawText(TextManager.param(paramId), x, y2, 160);
             this.resetTextColor();
@@ -86,11 +86,11 @@ class Window_Status extends Window_Selectable {
     };
     
     drawExpInfo(x: number, y: number) {
-        var lineHeight = Window_Base.lineHeight();
-        var expTotal = TextManager.expTotal.format(TextManager.exp);
-        var expNext = TextManager.expNext.format(TextManager.level);
-        var value1 = this._actor.currentExp().toString();
-        var value2 = this._actor.nextRequiredExp().toString();
+        const lineHeight = Window_Base.lineHeight();
+        const expTotal = TextManager.expTotal.format(TextManager.exp);
+        const expNext = TextManager.expNext.format(TextManager.level);
+        let value1 = this._actor.currentExp().toString();
+        let value2 = this._actor.nextRequiredExp().toString();
         if (this._actor.isMaxLevel()) {
             value1 = '-------';
             value2 = '-------';
@@ -104,8 +104,8 @@ class Window_Status extends Window_Selectable {
     };
     
     drawEquipments(x: number, y: number) {
-        var equips = this._actor.equips();
-        var count = Math.min(equips.length, this.maxEquipmentLines());
+        const equips = this._actor.equips();
+        const count = Math.min(equips.length, this.maxEquipmentLines());
         for (let i = 0; i < count; i++) {
             this.drawItemName(equips[i], x, y + Window_Base.lineHeight() * i);
         }

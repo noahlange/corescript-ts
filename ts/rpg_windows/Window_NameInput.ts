@@ -128,11 +128,11 @@ class Window_NameInput extends Window_Selectable {
     };
 
     refresh() {
-        var table = this.table();
+        const table = this.table();
         this.contents.clear();
         this.resetTextColor();
         for (let i = 0; i < 90; i++) {
-            var rect = this.itemRect(i);
+            const rect = this.itemRect(i);
             rect.x += 3;
             rect.width -= 6;
             this.drawText(table[this._page][i], rect.x, rect.y, rect.width, 'center');
@@ -140,7 +140,7 @@ class Window_NameInput extends Window_Selectable {
     };
 
     updateCursor() {
-        var rect = this.itemRect(this._index);
+        const rect = this.itemRect(this._index);
         this.setCursorRect(rect.x, rect.y, rect.width, rect.height);
     };
 
@@ -187,7 +187,7 @@ class Window_NameInput extends Window_Selectable {
     };
 
     processCursorMove() {
-        var lastPage = this._page;
+        const lastPage = this._page;
         super.processCursorMove();
         this.updateCursor();
         if (this._page !== lastPage) {

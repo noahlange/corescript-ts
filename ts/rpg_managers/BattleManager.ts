@@ -232,9 +232,9 @@ class BattleManager {
     };
     
     static changeActor(newActorIndex: number, lastActorActionState: string) {
-        var lastActor = this.actor();
+        const lastActor = this.actor();
         this._actorIndex = newActorIndex;
-        var newActor = this.actor();
+        const newActor = this.actor();
         if (lastActor) {
             lastActor.setActionState(lastActorActionState);
         }
@@ -325,8 +325,8 @@ class BattleManager {
     };
     
     static processTurn() {
-        var subject = this._subject;
-        var action = subject.currentAction();
+        const subject = this._subject;
+        const action = subject.currentAction();
         if (action) {
             action.prepare();
             if (action.isValid()) {
@@ -361,7 +361,7 @@ class BattleManager {
     
     static getNextSubject() {
         for (;;) {
-            var battler = this._actionBattlers.shift();
+            const battler = this._actionBattlers.shift();
             if (!battler) {
                 return null;
             }
@@ -378,7 +378,7 @@ class BattleManager {
     };
     
     static makeActionOrders() {
-        var battlers: Game_Battler[] = [];
+        let battlers: Game_Battler[] = [];
         if (!this._surprise) {
             battlers = battlers.concat($gameParty.members());
         }
@@ -395,9 +395,9 @@ class BattleManager {
     };
     
     static startAction() {
-        var subject = this._subject;
-        var action = subject.currentAction();
-        var targets = action.makeTargets();
+        const subject = this._subject;
+        const action = subject.currentAction();
+        const targets = action.makeTargets();
         this._phase = 'action';
         this._action = action;
         this._targets = targets;
@@ -408,7 +408,7 @@ class BattleManager {
     };
     
     static updateAction() {
-        var target = this._targets.shift();
+        const target = this._targets.shift();
         if (target) {
             this.invokeAction(this._subject, target);
         } else {
@@ -437,14 +437,14 @@ class BattleManager {
     
     static invokeNormalAction(subject: Game_Battler, target: Game_Actor) {
         /// bungcip: changed to make it compiled
-        // var realTarget = this.applySubstitute(target);
-        var realTarget = this.applySubstitute(subject, target);
+        // const realTarget = this.applySubstitute(target);
+        const realTarget = this.applySubstitute(subject, target);
         this._action.apply(realTarget);
         this._logWindow.displayActionResults(subject, realTarget);
     };
     
     static invokeCounterAttack(subject: Game_Battler, target: Game_Battler) {
-        var action = new Game_Action(target);
+        const action = new Game_Action(target);
         action.setAttack();
         action.apply(subject);
         this._logWindow.displayCounter(target);
@@ -460,7 +460,7 @@ class BattleManager {
     
     static applySubstitute(subject: Game_Battler, target: Game_Actor) {
         if (this.checkSubstitute(target)) {
-            var substitute = target.friendsUnit().substituteBattler();
+            const substitute = target.friendsUnit().substituteBattler();
             if (substitute && target !== substitute) {
                 this._logWindow.displaySubstitute(substitute, target);
                 return substitute;
@@ -479,7 +479,7 @@ class BattleManager {
     
     static forceAction(battler: Game_Battler) {
         this._actionForcedBattler = battler;
-        var index = this._actionBattlers.indexOf(battler);
+        const index = this._actionBattlers.indexOf(battler);
         if (index >= 0) {
             this._actionBattlers.splice(index, 1);
         }
@@ -545,7 +545,7 @@ class BattleManager {
     static processEscape() {
         $gameParty.performEscape();
         SoundManager.playEscape();
-        var success = this._preemptive ? true : (Math.random() < this._escapeRatio);
+        const success = this._preemptive ? true : (Math.random() < this._escapeRatio);
         if (success) {
             this.displayEscapeSuccessMessage();
             this._escaped = true;
@@ -637,22 +637,22 @@ class BattleManager {
     };
     
     static displayExp() {
-        var exp = this._rewards.exp;
+        const exp = this._rewards.exp;
         if (exp > 0) {
-            var text = TextManager.obtainExp.format(exp, TextManager.exp);
+            const text = TextManager.obtainExp.format(exp, TextManager.exp);
             $gameMessage.add('\\.' + text);
         }
     };
     
     static displayGold() {
-        var gold = this._rewards.gold;
+        const gold = this._rewards.gold;
         if (gold > 0) {
             $gameMessage.add('\\.' + TextManager.obtainGold.format(gold));
         }
     };
     
     static displayDropItems() {
-        var items = this._rewards.items;
+        const items = this._rewards.items;
         if (items.length > 0) {
             $gameMessage.newPage();
             items.forEach(function(item: DB.Item) {
@@ -668,7 +668,7 @@ class BattleManager {
     };
     
     static gainExp() {
-        var exp = this._rewards.exp;
+        const exp = this._rewards.exp;
         $gameParty.allMembers().forEach(function(actor) {
             actor.gainExp(exp);
         });
@@ -679,7 +679,7 @@ class BattleManager {
     };
     
     static gainDropItems() {
-        var items = this._rewards.items;
+        const items = this._rewards.items;
         items.forEach(function(item: DB.Item) {
             $gameParty.gainItem(item, 1);
         });

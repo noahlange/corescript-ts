@@ -35,7 +35,7 @@ class Window_ScrollText extends Window_Base {
     };
 
     refresh() {
-        var textState : TextState = { 
+        const textState : TextState = { 
             index: 0,
             text: this.convertEscapeCharacters(this._text)
         };
@@ -58,7 +58,7 @@ class Window_ScrollText extends Window_Base {
     };
 
     scrollSpeed() {
-        var speed = $gameMessage.scrollSpeed() / 2;
+        let speed = $gameMessage.scrollSpeed() / 2;
         if (this.isFastForward()) {
             speed *= this.fastForwardRate();
         }

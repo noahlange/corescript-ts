@@ -82,7 +82,7 @@ class Sprite_Battler extends Sprite_Base {
     
     updateMove() {
         if (this._movementDuration > 0) {
-            var d = this._movementDuration;
+            const d = this._movementDuration;
             this._offsetX = (this._offsetX * (d - 1) + this._targetOffsetX) / d;
             this._offsetY = (this._offsetY * (d - 1) + this._targetOffsetY) / d;
             this._movementDuration--;
@@ -115,7 +115,7 @@ class Sprite_Battler extends Sprite_Base {
     };
     
     updateSelectionEffect() {
-        var target = this._effectTarget;
+        const target = this._effectTarget;
         if (this._battler.isSelected()) {
             this._selectionEffectCount++;
             if (this._selectionEffectCount % 30 < 15) {
@@ -131,13 +131,13 @@ class Sprite_Battler extends Sprite_Base {
     
     setupAnimation() {
         while (this._battler.isAnimationRequested()) {
-            var data = this._battler.shiftAnimation();
-            var animation = $dataAnimations[data.animationId];
-            var mirror = data.mirror;
-            var delay = animation.position === 3 ? 0 : data.delay;
+            const data = this._battler.shiftAnimation();
+            const animation = $dataAnimations[data.animationId];
+            const mirror = data.mirror;
+            const delay = animation.position === 3 ? 0 : data.delay;
             this.startAnimation(animation, mirror, delay);
             for (let i = 0; i < this._animationSprites.length; i++) {
-                var sprite = this._animationSprites[i];
+                const sprite = this._animationSprites[i];
                 sprite.visible = this._battler.isSpriteVisible();
             }
         }
@@ -146,7 +146,7 @@ class Sprite_Battler extends Sprite_Base {
     setupDamagePopup() {
         if (this._battler.isDamagePopupRequested()) {
             if (this._battler.isSpriteVisible()) {
-                var sprite = new Sprite_Damage();
+                const sprite = new Sprite_Damage();
                 sprite.x = this.x + this.damageOffsetX();
                 sprite.y = this.y + this.damageOffsetY();
                 sprite.setup(this._battler);

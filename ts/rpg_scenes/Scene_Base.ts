@@ -151,10 +151,10 @@ class Scene_Base extends Stage {
      * @memberof Scene_Base
      */
     createWindowLayer() {
-        var width = Graphics.boxWidth;
-        var height = Graphics.boxHeight;
-        var x = (Graphics.width - width) / 2;
-        var y = (Graphics.height - height) / 2;
+        const width = Graphics.boxWidth;
+        const height = Graphics.boxHeight;
+        const x = (Graphics.width - width) / 2;
+        const y = (Graphics.height - height) / 2;
         this._windowLayer = new WindowLayer();
         this._windowLayer.move(x, y, width, height);
         this.addChild(this._windowLayer);
@@ -234,7 +234,7 @@ class Scene_Base extends Stage {
      */
     updateFade() {
         if (this._fadeDuration > 0) {
-            var d = this._fadeDuration;
+            const d = this._fadeDuration;
             if (this._fadeSign > 0) {
                 this._fadeSprite.opacity -= this._fadeSprite.opacity / d;
             } else {
@@ -292,7 +292,7 @@ class Scene_Base extends Stage {
      * @memberof Scene_Base
      */
     fadeOutAll() {
-        var time = this.slowFadeSpeed() / 60;
+        const time = this.slowFadeSpeed() / 60;
         AudioManager.fadeOutBgm(time);
         AudioManager.fadeOutBgs(time);
         AudioManager.fadeOutMe(time);

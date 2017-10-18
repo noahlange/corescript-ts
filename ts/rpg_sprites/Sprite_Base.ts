@@ -30,10 +30,10 @@ class Sprite_Base extends Sprite {
 
     updateAnimationSprites() {
         if (this._animationSprites.length > 0) {
-            var sprites = this._animationSprites.clone();
+            const sprites = this._animationSprites.clone();
             this._animationSprites = [];
             for (let i = 0; i < sprites.length; i++) {
-                var sprite = sprites[i];
+                const sprite = sprites[i];
                 if (sprite.isPlaying()) {
                     this._animationSprites.push(sprite);
                 } else {
@@ -44,7 +44,7 @@ class Sprite_Base extends Sprite {
     };
 
     startAnimation(animation: DB.Animation, mirror: boolean, delay: number) {
-        var sprite = new Sprite_Animation();
+        const sprite = new Sprite_Animation();
         sprite.setup(this._effectTarget, animation, mirror, delay);
         this.parent.addChild(sprite);
         this._animationSprites.push(sprite);

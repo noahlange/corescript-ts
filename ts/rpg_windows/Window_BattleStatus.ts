@@ -42,19 +42,19 @@ class Window_BattleStatus extends Window_Selectable {
     };
     
     drawItem(index: number) {
-        var actor = $gameParty.battleMembers()[index];
+        const actor = $gameParty.battleMembers()[index];
         this.drawBasicArea(this.basicAreaRect(index), actor);
         this.drawGaugeArea(this.gaugeAreaRect(index), actor);
     };
     
     basicAreaRect(index: number) {
-        var rect = this.itemRectForText(index);
+        const rect = this.itemRectForText(index);
         rect.width -= this.gaugeAreaWidth() + 15;
         return rect;
     };
     
     gaugeAreaRect(index: number) {
-        var rect = this.itemRectForText(index);
+        const rect = this.itemRectForText(index);
         rect.x += rect.width - this.gaugeAreaWidth();
         rect.width = this.gaugeAreaWidth();
         return rect;

@@ -49,8 +49,8 @@ class ConfigManager {
     }
 
     static load() {
-        var json;
-        var config = {};
+        let json;
+        let config = {};
         try {
             json = StorageManager.load(-1);
         } catch (e) {
@@ -67,7 +67,7 @@ class ConfigManager {
     };
 
     static makeData(): ConfigOption {
-        var config = {
+        const config = {
             alwaysDash:this.alwaysDash,
             commandRemember:this.commandRemember,
             bgmVolume:this.bgmVolume,
@@ -92,7 +92,7 @@ class ConfigManager {
     };
 
     static readVolume(config: ConfigOption, name: string): number {
-        var value = config[name];
+        const value = config[name];
         if (value !== undefined) {
             return Number(value).clamp(0, 100);
         } else {

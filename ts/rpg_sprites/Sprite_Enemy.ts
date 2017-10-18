@@ -47,8 +47,8 @@ class Sprite_Enemy extends Sprite_Battler {
 
     updateBitmap() {
         super.updateBitmap();
-        var name = this._enemy.battlerName();
-        var hue = this._enemy.battlerHue();
+        const name = this._enemy.battlerName();
+        const hue = this._enemy.battlerHue();
         if (this._battlerName !== name || this._battlerHue !== hue) {
             this._battlerName = name;
             this._battlerHue = hue;
@@ -67,7 +67,7 @@ class Sprite_Enemy extends Sprite_Battler {
 
     updateFrame() {
         super.updateFrame();
-        var frameHeight = this.bitmap.height;
+        let frameHeight = this.bitmap.height;
         if (this._effectType === 'bossCollapse') {
             frameHeight = this._effectDuration;
         }
@@ -211,7 +211,7 @@ class Sprite_Enemy extends Sprite_Battler {
     };
 
     updateWhiten() {
-        var alpha = 128 - (16 - this._effectDuration) * 10;
+        const alpha = 128 - (16 - this._effectDuration) * 10;
         this.setBlendColor([255, 255, 255, alpha]);
     };
 

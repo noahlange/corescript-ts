@@ -61,7 +61,7 @@ class Game_Event extends Game_Character {
     };
     
     isCollidedWithEvents(x: number, y: number) {
-        var events = $gameMap.eventsXyNt(x, y);
+        const events = $gameMap.eventsXyNt(x, y);
         return events.length > 0;
     };
     
@@ -148,8 +148,8 @@ class Game_Event extends Game_Character {
     };
     
     isNearThePlayer() {
-        var sx = Math.abs(this.deltaXFrom($gamePlayer.x));
-        var sy = Math.abs(this.deltaYFrom($gamePlayer.y));
+        const sx = Math.abs(this.deltaXFrom($gamePlayer.x));
+        const sy = Math.abs(this.deltaYFrom($gamePlayer.y));
         return sx + sy < 20;
     };
     
@@ -170,7 +170,7 @@ class Game_Event extends Game_Character {
     };
     
     start() {
-        var list = this.list();
+        const list = this.list();
         if (list && list.length > 1) {
             this._starting = true;
             if (this.isTriggerIn([0,1,2])) {
@@ -185,7 +185,7 @@ class Game_Event extends Game_Character {
     };
     
     refresh() {
-        var newPageIndex = this._erased ? -1 : this.findProperPageIndex();
+        const newPageIndex = this._erased ? -1 : this.findProperPageIndex();
         if (this._pageIndex !== newPageIndex) {
             this._pageIndex = newPageIndex;
             this.setupPage();
@@ -193,9 +193,9 @@ class Game_Event extends Game_Character {
     };
     
     findProperPageIndex() {
-        var pages = this.event().pages;
+        const pages = this.event().pages;
         for (let i = pages.length - 1; i >= 0; i--) {
-            var page = pages[i];
+            const page = pages[i];
             if (this.meetsConditions(page)) {
                 return i;
             }
@@ -204,7 +204,7 @@ class Game_Event extends Game_Character {
     };
     
     meetsConditions(page: DB.Page) {
-        var c = page.conditions;
+        const c = page.conditions;
         if (c.switch1Valid) {
             if (!$gameSwitches.value(c.switch1Id)) {
                 return false;
@@ -221,19 +221,19 @@ class Game_Event extends Game_Character {
             }
         }
         if (c.selfSwitchValid) {
-            var key = [this._mapId, this._eventId, c.selfSwitchCh];
+            const key = [this._mapId, this._eventId, c.selfSwitchCh];
             if ($gameSelfSwitches.value(key) !== true) {
                 return false;
             }
         }
         if (c.itemValid) {
-            var item = $dataItems[c.itemId];
+            const item = $dataItems[c.itemId];
             if (!$gameParty.hasItem(item)) {
                 return false;
             }
         }
         if (c.actorValid) {
-            var actor = $gameActors.actor(c.actorId);
+            const actor = $gameActors.actor(c.actorId);
             if (!$gameParty.members().contains(actor)) {
                 return false;
             }
@@ -261,8 +261,8 @@ class Game_Event extends Game_Character {
     };
     
     setupPageSettings() {
-        var page = this.page();
-        var image = page.image;
+        const page = this.page();
+        const image = page.image;
         if (image.tileId > 0) {
             this.setTileImage(image.tileId);
         } else {

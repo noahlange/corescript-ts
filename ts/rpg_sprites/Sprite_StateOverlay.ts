@@ -57,10 +57,10 @@ class Sprite_StateOverlay extends Sprite_Base {
 
     updateFrame() {
         if (this._overlayIndex > 0) {
-            var w = 96;
-            var h = 96;
-            var sx = this._pattern * w;
-            var sy = (this._overlayIndex - 1) * h;
+            const w = 96;
+            const h = 96;
+            const sx = this._pattern * w;
+            const sy = (this._overlayIndex - 1) * h;
             this.setFrame(sx, sy, w, h);
         } else {
             this.setFrame(0, 0, 0, 0);

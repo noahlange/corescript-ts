@@ -63,21 +63,21 @@ class Window_SkillList extends Window_Selectable {
     };
     
     selectLast() {
-        var skill;
+        let skill;
         if ($gameParty.inBattle()) {
             skill = this._actor.lastBattleSkill();
         } else {
             skill = this._actor.lastMenuSkill();
         }
-        var index = this._data.indexOf(skill);
+        const index = this._data.indexOf(skill);
         this.select(index >= 0 ? index : 0);
     };
     
     drawItem(index: number) {
-        var skill = this._data[index];
+        const skill = this._data[index];
         if (skill) {
-            var costWidth = this.costWidth();
-            var rect = this.itemRect(index);
+            const costWidth = this.costWidth();
+            const rect = this.itemRect(index);
             rect.width -= this.textPadding();
             this.changePaintOpacity(this.isEnabled(skill));
             this.drawItemName(skill, rect.x, rect.y, rect.width - costWidth);

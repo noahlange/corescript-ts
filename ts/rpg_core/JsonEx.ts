@@ -29,9 +29,9 @@ class JsonEx {
      * @return {String} The JSON string
      */
     static stringify(object: any): string {
-        var circular: any[] = [];
+        const circular: any[] = [];
         JsonEx._id = 1;
-        var json = JSON.stringify(this._encode(object, circular, 0));
+        const json = JSON.stringify(this._encode(object, circular, 0));
         this._cleanMetadata(object);
         this._restoreCircularReference(circular);
 
@@ -40,9 +40,9 @@ class JsonEx {
 
     static _restoreCircularReference(circulars: any[]) {
         circulars.forEach(function (circular) {
-            var key = circular[0];
-            var value = circular[1];
-            var content = circular[2];
+            const key = circular[0];
+            const value = circular[1];
+            const content = circular[2];
 
             value[key] = content;
         });
@@ -57,9 +57,9 @@ class JsonEx {
      * @return {Object} The reconstructed object
      */
     static parse(json: string) {
-        var circular: any[] = [];
-        var registry = {};
-        var contents = this._decode(JSON.parse(json), circular, registry);
+        const circular: any[] = [];
+        const registry = {};
+        const contents = this._decode(JSON.parse(json), circular, registry);
         this._cleanMetadata(contents);
         this._linkCircularReference(contents, circular, registry);
 
@@ -68,9 +68,9 @@ class JsonEx {
 
     static _linkCircularReference(contents: any, circulars: any, registry: any) {
         circulars.forEach(function (circular: any[]) {
-            var key = circular[0];
-            var value = circular[1];
-            var id = circular[2];
+            const key = circular[0];
+            const value = circular[1];
+            const id = circular[2];
 
             value[key] = registry[id];
         });
@@ -84,7 +84,7 @@ class JsonEx {
 
         if (typeof object === 'object') {
             Object.keys(object).forEach((key) => {
-                var value = object[key];
+                const value = object[key];
                 if (typeof value === 'object') {
                     JsonEx._cleanMetadata(value);
                 }
@@ -119,11 +119,11 @@ class JsonEx {
         if (++depth >= this.maxDepth) {
             throw new Error('Object too deep');
         }
-        var type = Object.prototype.toString.call(value);
+        const type = Object.prototype.toString.call(value);
         if (type === '[object Object]' || type === '[object Array]') {
             value['@c'] = JsonEx._generateId();
 
-            var constructorName = this._getConstructorName(value);
+            const constructorName = this._getConstructorName(value);
             if (constructorName !== 'Object' && constructorName !== 'Array') {
                 value['@'] = constructorName;
             }
@@ -166,12 +166,12 @@ class JsonEx {
      * @private
      */
     static _decode(value: any, circular: any, registry: any) {
-        var type = Object.prototype.toString.call(value);
+        const type = Object.prototype.toString.call(value);
         if (type === '[object Object]' || type === '[object Array]') {
             registry[value['@c']] = value;
 
             if (value['@']) {
-                var constructor = (window as any)[value['@']];
+                const constructor = (window as any)[value['@']];
                 if (constructor) {
                     value = this._resetPrototype(value, constructor.prototype);
                 }
@@ -180,7 +180,7 @@ class JsonEx {
                 if (value.hasOwnProperty(key)) {
                     if (value[key] && value[key]['@a']) {
                         //object is array wrapper
-                        var body = value[key]['@a'];
+                        const body = value[key]['@a'];
                         body['@c'] = value[key]['@c'];
                         value[key] = body;
                     }
@@ -203,9 +203,9 @@ class JsonEx {
      * @private
      */
     static _getConstructorName(value: any): string {
-        var name = value.constructor.name;
+        let name = value.constructor.name;
         if (name === undefined) {
-            var func = /^\s*function\s*([A-Za-z0-9_$]*)/;
+            const func = /^\s*function\s*([A-Za-z0-9_$]*)/;
             name = func.exec(value.constructor)[1];
         }
         return name;
@@ -225,7 +225,7 @@ class JsonEx {
         } else if ('__proto__' in value) {
             value.__proto__ = prototype;
         } else {
-            var newValue = Object.create(prototype);
+            const newValue = Object.create(prototype);
             for (let key in value) {
                 if (value.hasOwnProperty(key)) {
                     newValue[key] = value[key];

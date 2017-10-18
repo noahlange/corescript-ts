@@ -78,7 +78,7 @@ class SceneManager {
     };
 
     static initAudio() {
-        var noAudio = Utils.isOptionValid('noaudio');
+        const noAudio = Utils.isOptionValid('noaudio');
         if (!WebAudio.initialize(noAudio) && !noAudio) {
             throw new Error('Your browser does not support Web Audio API.');
         }
@@ -94,11 +94,11 @@ class SceneManager {
             let require = (window as any)['require']; // bungcip: changed to make it compile
             let process = (window as any)['process']; // bungcip: changed to make it compile
 
-            var gui = require('nw.gui');
-            var win = gui.Window.get();
+            const gui = require('nw.gui');
+            const win = gui.Window.get();
             if (process.platform === 'darwin' && !win.menu) {
-                var menubar = new gui.Menu({ type: 'menubar' });
-                var option = { hideEdit: true, hideWindow: true };
+                const menubar = new gui.Menu({ type: 'menubar' });
+                const option = { hideEdit: true, hideWindow: true };
                 menubar.createMacBuiltin('Game', option);
                 win.menu = menubar;
             }
@@ -189,9 +189,11 @@ class SceneManager {
     };
 
     static updateMain() {
-        var newTime = this._getTimeInMsWithoutMobileSafari();
-        var fTime = (newTime - this._currentTime) / 1000;
-        if (fTime > 0.25) fTime = 0.25;
+        const newTime = this._getTimeInMsWithoutMobileSafari();
+        let fTime = (newTime - this._currentTime) / 1000;
+        if (fTime > 0.25){
+            fTime = 0.25;
+        } 
         this._currentTime = newTime;
         this._accumulator += fTime;
         while (this._accumulator >= this._deltaTime) {
