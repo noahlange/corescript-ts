@@ -1,7 +1,8 @@
 let fs = require('fs');
 let assert = require('assert');
 
-eval(fs.readFileSync('./js/rpg_core/JsonEx.js').toString());
+require('../out/rpg_core/JsonEx.js');
+// eval(fs.readFileSync('./out/rpg_core/JsonEx.js').toString());
 
 (function duplicatedArray(){
     let array = [1, 2, 3];

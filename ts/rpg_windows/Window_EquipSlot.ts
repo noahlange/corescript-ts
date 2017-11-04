@@ -10,7 +10,6 @@ class Window_EquipSlot extends Window_Selectable {
 
     constructor(x: number, y: number, width: number, height: number) {
         super(x, y, width, height);
-        // this._actor = null;
         this.refresh();
     };
     

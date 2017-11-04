@@ -12,8 +12,6 @@ class Game_Followers {
 
     constructor() {
         this._visible = $dataSystem.optFollowers;
-        // this._gathering = false;
-        // this._data = [];
         for (let i = 1; i < $gameParty.maxBattleMembers(); i++) {
             this._data.push(new Game_Follower(i));
         }

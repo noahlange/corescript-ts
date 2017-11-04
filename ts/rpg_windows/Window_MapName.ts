@@ -10,7 +10,6 @@ class Window_MapName extends Window_Base {
         super(0, 0);
         this.opacity = 0;
         this.contentsOpacity = 0;
-        // this._showCount = 0;
         this.refresh();
     };
     

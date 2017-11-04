@@ -9,8 +9,6 @@ class Window_MenuStatus extends Window_Selectable {
 
     constructor(x: number, y: number) {
         super(x, y);
-        // this._formationMode = false;
-        // this._pendingIndex = -1;
         this.refresh();
     };
 

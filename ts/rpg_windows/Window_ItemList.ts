@@ -9,8 +9,6 @@ class Window_ItemList extends Window_Selectable {
 
     constructor(x: number, y: number, width: number, height?: number, callback?: Function) {
         super(x, y, width, height, callback);
-        // this._category = 'none';
-        // this._data = [];
     };
     
     setCategory(category: string) {

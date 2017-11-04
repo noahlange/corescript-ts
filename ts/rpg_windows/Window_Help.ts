@@ -9,7 +9,6 @@ class Window_Help extends Window_Base {
     /// NOTE (bungcip) : useless numLines?
     constructor(numLines?: any) {
         super(0, 0, Graphics.boxWidth);
-        // this._text = '';
     };
 
     windowHeight() {

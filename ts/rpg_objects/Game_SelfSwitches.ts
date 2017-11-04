@@ -6,10 +6,6 @@
 class Game_SelfSwitches {
     protected _data: object = {};
 
-    // constructor() {
-    //     this.clear();
-    // };
-    
     clear() {
         this._data = {};
     };

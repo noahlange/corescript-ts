@@ -12,9 +12,6 @@ class Game_Temp {
 
     constructor() {
         this._isPlaytest = Utils.isOptionValid('test');
-        // this._commonEventId = 0;
-        // this._destinationX = null;
-        // this._destinationY = null;
     };
 
     isPlaytest() {

@@ -4,7 +4,6 @@
 // The game object class for a battle action.
 
 
-
 enum ActionEffect {
     RECOVER_HP = 11,
     RECOVER_MP = 12,
@@ -41,8 +40,6 @@ class Game_Action {
     public _reflectionTarget: Game_Actor | Game_Enemy | null;
 
     constructor(subject: Game_Battler, forcing: boolean = false) {
-        // this._subjectActorId = 0;
-        // this._subjectEnemyIndex = -1;
         this._forcing = forcing;
         this.setSubject(subject);
         this.clear();

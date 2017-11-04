@@ -23,8 +23,6 @@ class Scene_Base extends Stage {
      */
     constructor() {
         super();
-
-        // this._imageReservationId = Utils.generateRuntimeId();
     };
 
 

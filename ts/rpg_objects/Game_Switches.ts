@@ -6,10 +6,6 @@
 class Game_Switches {
     protected _data: boolean[] = [];
 
-    // constructor() {
-    //     this.clear();
-    // };
-    
     clear() {
         this._data = [];
     };

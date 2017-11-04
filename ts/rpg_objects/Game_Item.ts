@@ -9,8 +9,6 @@ class Game_Item {
     protected _itemId: number = 0;
 
     constructor(item?: DB.Item | DB.Weapon | DB.Armor | DB.Skill) {
-        // this._dataClass = '';
-        // this._itemId = 0;
         if (item) {
             this.setObject(item);
         }
