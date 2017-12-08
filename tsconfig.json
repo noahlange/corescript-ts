@@ -1,31 +1,34 @@
 {
     "compilerOptions": {
-        "module": "es2015",
-        "target": "es5",
+        "module": "esnext",
+        "target": "esnext",
         "noImplicitUseStrict": false,
         "noImplicitAny": true,
         "removeComments": false,
         "preserveConstEnums": false,
-        "sourceMap": false,
         "allowJs": true,
         "strict": false,
-        "outDir": "out",
-
         "suppressExcessPropertyErrors": false,
         "suppressImplicitAnyIndexErrors": false,
-
+        "rootDir": "src",
+        "outDir": "lib",
         "lib": [
-            "dom", "es6"
-        ]
+            "dom",
+            "es6"
+        ],
+        "baseUrl": "src",
+        "paths": {
+            "rpg_core": ["rpg_core/index"],
+            "rpg_managers": ["rpg_managers/index"],
+            "rpg_windows": ["rpg_windows/index"],
+            "rpg_scenes": ["rpg_scenes/index"],
+            "rpg_sprites": ["rpg_sprites/index"],
+            "rpg_objects": ["rpg_objects/index"]
+        }
     },
-
     "include": [
-        "ts/**/*.ts",
-        "ts/**/*.js"
-    ],
-    "exclude": [
-        "node_modules",
-        "tests",
-        "dist"
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.js"
     ]
 }

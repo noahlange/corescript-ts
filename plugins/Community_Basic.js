@@ -1,3 +1,5 @@
+// @ts-check
+
 /*:
  * @plugindesc Basic plugin for manipulating important parameters..
  * @author RM CoreScript team
@@ -69,6 +71,18 @@
  */
 
 (function() {
+    const {
+        Core: {
+            ImageCache,
+            Utils
+        },
+        Managers: {
+            ConfigManager,
+            PluginManager,
+            SceneManager
+        }
+    } = Corescript;
+
     function toNumber(str, def) {
         return isNaN(str) ? def : +(str || def);
     }
@@ -96,7 +110,6 @@
     }else if(screenHeight !== SceneManager._screenHeight){
         windowHeight = screenHeight;
     }
-
 
     ImageCache.limit = cacheLimit * 1000 * 1000;
     SceneManager._screenWidth = screenWidth;
@@ -126,12 +139,11 @@
         }
     };
 
-
     var _SceneManager_initNwjs = SceneManager.initNwjs;
     SceneManager.initNwjs = function() {
         _SceneManager_initNwjs.apply(this, arguments);
 
-        if (Utils.isNwjs() && windowWidth && windowHeight) {
+        if ((Utils.isNwjs() || Utils.isElectron() && windowWidth && windowHeight) {
             var dw = windowWidth - window.innerWidth;
             var dh = windowHeight - window.innerHeight;
             window.moveBy(-dw / 2, -dh / 2);

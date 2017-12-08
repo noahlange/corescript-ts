@@ -1,0 +1,62 @@
+import { Utils } from 'rpg_core';
+
+//-----------------------------------------------------------------------------
+// Game_Temp
+//
+// The game object class for temporary data that is not included in save data.
+
+export default class Game_Temp {
+    protected _isPlaytest: boolean;
+    protected _commonEventId: number = 0;
+    protected _destinationX: number|null = null;
+    protected _destinationY: number|null = null;
+
+
+    constructor() {
+        this._isPlaytest = Utils.isOptionValid('test');
+    };
+
+    isPlaytest() {
+        return this._isPlaytest;
+    };
+
+    reserveCommonEvent(commonEventId: number) {
+        this._commonEventId = commonEventId;
+    };
+
+    clearCommonEvent() {
+        this._commonEventId = 0;
+    };
+
+    isCommonEventReserved() {
+        return this._commonEventId > 0;
+    };
+
+    reservedCommonEvent() {
+        return $dataCommonEvents[this._commonEventId];
+    };
+
+    setDestination(x: number, y: number) {
+        this._destinationX = x;
+        this._destinationY = y;
+    };
+
+    clearDestination() {
+        this._destinationX = null;
+        this._destinationY = null;
+    };
+
+    isDestinationValid() {
+        return this._destinationX !== null;
+    };
+
+    destinationX(): number {
+        return this._destinationX;
+    };
+
+    destinationY(): number {
+        return this._destinationY;
+    };
+
+}
+

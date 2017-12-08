@@ -1,17 +1,15 @@
 # CoreScript In TS
-
-A fork of corescript engine. This engine use typescript instead of javascript.
+A fork of the Corescript engine. This engine uses TypeScript instead of JS.
 
 TODO:
-- [DONE] Using Typescript
-- [DONE] Upgrade to latest PIXI
-- [DONE] Remove decrypter and canvas support
-- [DONE] Only support desktop & evergreen browser for now
-- Create new way to extends functionaly of engine 
+- [x] Using Typescript
+- [x] Upgrade to latest PIXI
+- [x] Remove decrypter and canvas support
+- [x] Only support desktop & evergreen browser for now
+- [x] Port build system to rollup.js
+- Create new way to extend functionality of engine 
 - Reduce LOC  
-- Port build system to rollup.js
-- Unit test using jest
-
+- Unit test using Jest
 
 ## License
 This content is released under the (http://opensource.org/licenses/MIT) MIT License.
