@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { SceneManager } from 'rpg_managers';
 import { Window_Gold, Window_MenuStatus, Window_MenuCommand } from 'rpg_windows';
@@ -112,10 +113,10 @@ export default class Scene_Menu extends Scene_MenuBase {
 
     onFormationOk() {
         const index = this._statusWindow.index();
-        const actor = $gameParty.members()[index];
+        const actor = $.gameParty.members()[index];
         const pendingIndex = this._statusWindow.pendingIndex();
         if (pendingIndex >= 0) {
-            $gameParty.swapOrder(index, pendingIndex);
+            $.gameParty.swapOrder(index, pendingIndex);
             this._statusWindow.setPendingIndex(-1);
             this._statusWindow.redrawItem(index);
         } else {

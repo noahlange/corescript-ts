@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { SoundManager } from 'rpg_managers';
 import { Window_ItemCategory, Window_ItemList, Window_Help } from 'rpg_windows';
@@ -43,7 +44,7 @@ export default class Scene_Item extends Scene_ItemBase {
     };
     
     user() {
-        const members = $gameParty.movableMembers();
+        const members = $.gameParty.movableMembers();
         let bestActor = members[0];
         let bestPha = 0;
         for (let i = 0; i < members.length; i++) {
@@ -61,7 +62,7 @@ export default class Scene_Item extends Scene_ItemBase {
     };
     
     onItemOk() {
-        $gameParty.setLastItem(this.item());
+        $.gameParty.setLastItem(this.item());
         this.determineItem();
     };
     

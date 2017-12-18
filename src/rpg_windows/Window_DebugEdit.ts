@@ -1,3 +1,4 @@
+import $ from '$';
 import { Input } from 'rpg_core';
 import { SoundManager } from 'rpg_managers';
 
@@ -45,17 +46,17 @@ export default class Window_DebugEdit extends Window_Selectable {
 
     itemName(dataId: number) {
         if (this._mode === 'switch') {
-            return $dataSystem.switches[dataId];
+            return $.dataSystem.switches[dataId];
         } else {
-            return $dataSystem.variables[dataId];
+            return $.dataSystem.variables[dataId];
         }
     };
 
     itemStatus(dataId: number) {
         if (this._mode === 'switch') {
-            return $gameSwitches.value(dataId) ? '[ON]' : '[OFF]';
+            return $.gameSwitches.value(dataId) ? '[ON]' : '[OFF]';
         } else {
-            return String($gameVariables.value(dataId));
+            return String($.gameVariables.value(dataId));
         }
     };
 
@@ -92,14 +93,14 @@ export default class Window_DebugEdit extends Window_Selectable {
         if (Input.isRepeated('ok')) {
             const switchId = this.currentId();
             SoundManager.playCursor();
-            $gameSwitches.setValue(switchId, !$gameSwitches.value(switchId));
+            $.gameSwitches.setValue(switchId, !$.gameSwitches.value(switchId));
             this.redrawCurrentItem();
         }
     };
 
     updateVariable() {
         const variableId = this.currentId();
-        let value = $gameVariables.value(variableId);
+        let value = $.gameVariables.value(variableId);
         if (typeof value === 'number') {
             if (Input.isRepeated('right')) {
                 value++;
@@ -113,8 +114,8 @@ export default class Window_DebugEdit extends Window_Selectable {
             if (Input.isRepeated('pageup')) {
                 value -= 10;
             }
-            if ($gameVariables.value(variableId) !== value) {
-                $gameVariables.setValue(variableId, value);
+            if ($.gameVariables.value(variableId) !== value) {
+                $.gameVariables.setValue(variableId, value);
                 SoundManager.playCursor();
                 this.redrawCurrentItem();
             }

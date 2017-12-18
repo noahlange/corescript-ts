@@ -1,3 +1,4 @@
+import $ from '$';
 import Window_Base from './Window_Base';
 import { TextManager } from 'rpg_managers';
 //-----------------------------------------------------------------------------
@@ -28,7 +29,7 @@ export default class Window_Gold extends Window_Base {
     };
     
     value() {
-        return $gameParty.gold();
+        return $.gameParty.gold();
     };
     
     currencyUnit() {

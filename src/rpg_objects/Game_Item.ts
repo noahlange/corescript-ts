@@ -1,3 +1,4 @@
+import $ from '$';
 import { DataManager } from 'rpg_managers';
 
 //-----------------------------------------------------------------------------
@@ -50,13 +51,13 @@ export default class Game_Item {
     
     object(): DB.Skill | DB.Item | DB.Weapon | DB.Armor | null {
         if (this.isSkill()) {
-            return $dataSkills[this._itemId];
+            return $.dataSkills[this._itemId];
         } else if (this.isItem()) {
-            return $dataItems[this._itemId];
+            return $.dataItems[this._itemId];
         } else if (this.isWeapon()) {
-            return $dataWeapons[this._itemId];
+            return $.dataWeapons[this._itemId];
         } else if (this.isArmor()) {
-            return $dataArmors[this._itemId];
+            return $.dataArmors[this._itemId];
         } else {
             return null;
         }

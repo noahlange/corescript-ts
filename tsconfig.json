@@ -4,20 +4,17 @@
         "target": "esnext",
         "noImplicitUseStrict": false,
         "noImplicitAny": true,
-        "removeComments": false,
         "preserveConstEnums": false,
-        "allowJs": true,
         "strict": false,
+        "inlineSourceMap": true,
         "suppressExcessPropertyErrors": false,
         "suppressImplicitAnyIndexErrors": false,
         "rootDir": "src",
-        "outDir": "lib",
-        "lib": [
-            "dom",
-            "es6"
-        ],
+        "outDir": "build",
+        "lib": ["dom","es6"],
         "baseUrl": "src",
         "paths": {
+            "$": ["$"],
             "rpg_core": ["rpg_core/index"],
             "rpg_managers": ["rpg_managers/index"],
             "rpg_windows": ["rpg_windows/index"],
@@ -27,8 +24,6 @@
         }
     },
     "include": [
-        "src/**/*.ts",
-        "src/**/*.d.ts",
-        "src/**/*.js"
+        "src/**/*.ts"
     ]
 }

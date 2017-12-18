@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { SoundManager } from 'rpg_managers';
 import { Window_Base, Window_Gold, Window_ShopCommand, Window_ShopNumber, Window_ShopStatus, Window_ShopBuy, Window_ItemCategory, Window_ShopSell } from 'rpg_windows';
@@ -216,13 +217,13 @@ export default class Scene_Shop extends Scene_MenuBase {
     };
     
     doBuy(number: number) {
-        $gameParty.loseGold(number * this.buyingPrice());
-        $gameParty.gainItem(this._item, number);
+        $.gameParty.loseGold(number * this.buyingPrice());
+        $.gameParty.gainItem(this._item, number);
     };
     
     doSell(number: number) {
-        $gameParty.gainGold(number * this.sellingPrice());
-        $gameParty.loseItem(this._item, number);
+        $.gameParty.gainGold(number * this.sellingPrice());
+        $.gameParty.loseItem(this._item, number);
     };
     
     endNumberInput() {
@@ -238,7 +239,7 @@ export default class Scene_Shop extends Scene_MenuBase {
     };
     
     maxBuy() {
-        const max = $gameParty.maxItems(this._item) - $gameParty.numItems(this._item);
+        const max = $.gameParty.maxItems(this._item) - $.gameParty.numItems(this._item);
         const price = this.buyingPrice();
         if (price > 0) {
             return Math.min(max, Math.floor(this.money() / price));
@@ -248,7 +249,7 @@ export default class Scene_Shop extends Scene_MenuBase {
     };
     
     maxSell() {
-        return $gameParty.numItems(this._item);
+        return $.gameParty.numItems(this._item);
     };
     
     money() {

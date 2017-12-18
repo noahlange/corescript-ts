@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { DataManager } from 'rpg_managers';
 
@@ -49,7 +50,7 @@ export default class Window_EventItem extends Window_ItemList {
     };
     
     includes(item: any): item is DB.Item {
-        const itypeId = $gameMessage.itemChoiceItypeId();
+        const itypeId = $.gameMessage.itemChoiceItypeId();
         return DataManager.isItem(item) && item.itypeId === itypeId;
     };
     
@@ -60,13 +61,13 @@ export default class Window_EventItem extends Window_ItemList {
     onOk() {
         const item = this.item();
         const itemId = item ? item.id : 0;
-        $gameVariables.setValue($gameMessage.itemChoiceVariableId(), itemId);
+        $.gameVariables.setValue($.gameMessage.itemChoiceVariableId(), itemId);
         this._messageWindow.terminateMessage();
         this.close();
     };
     
     onCancel() {
-        $gameVariables.setValue($gameMessage.itemChoiceVariableId(), 0);
+        $.gameVariables.setValue($.gameMessage.itemChoiceVariableId(), 0);
         this._messageWindow.terminateMessage();
         this.close();
     };

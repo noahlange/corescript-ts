@@ -1,3 +1,4 @@
+import $ from '$';
 import { Bitmap, CoreWindow, Graphics, Sprite } from 'rpg_core';
 import { Game_Actor } from 'rpg_objects';
 import { ImageManager, TextManager } from 'rpg_managers';
@@ -73,9 +74,9 @@ export default class Window_Base extends CoreWindow {
     };
 
     standardFontFace() {
-        if ($gameSystem.isChinese()) {
+        if ($.gameSystem.isChinese()) {
             return 'SimHei, Heiti TC, sans-serif';
-        } else if ($gameSystem.isKorean()) {
+        } else if ($.gameSystem.isKorean()) {
             return 'Dotum, AppleGothic, sans-serif';
         } else {
             return 'GameFont';
@@ -119,11 +120,11 @@ export default class Window_Base extends CoreWindow {
     };
 
     static fittingHeight(numLines: number) {
-        return numLines * Window_Base.lineHeight() + this.standardPadding() * 2;
+        return numLines * this.lineHeight() + this.standardPadding() * 2;
     };
 
     updateTone() {
-        const tone = $gameSystem.windowTone();
+        const tone = $.gameSystem.windowTone();
         this.setTone(tone[0], tone[1], tone[2]);
     };
 
@@ -320,10 +321,10 @@ export default class Window_Base extends CoreWindow {
         text = text.replace(/\\/g, '\x1b');
         text = text.replace(/\x1b\x1b/g, '\\');
         text = text.replace(/\x1bV\[(\d+)\]/gi, function () {
-            return $gameVariables.value(parseInt(arguments[1]));
+            return $.gameVariables.value(parseInt(arguments[1]));
         }.bind(this));
         text = text.replace(/\x1bV\[(\d+)\]/gi, function () {
-            return $gameVariables.value(parseInt(arguments[1]));
+            return $.gameVariables.value(parseInt(arguments[1]));
         }.bind(this));
         text = text.replace(/\x1bN\[(\d+)\]/gi, function () {
             return this.actorName(parseInt(arguments[1]));
@@ -336,12 +337,12 @@ export default class Window_Base extends CoreWindow {
     };
 
     actorName(n: number) {
-        const actor = n >= 1 ? $gameActors.actor(n) : null;
+        const actor = n >= 1 ? $.gameActors.actor(n) : null;
         return actor ? actor.name() : '';
     };
 
     partyMemberName(n: number) {
-        const actor = n >= 1 ? $gameParty.members()[n - 1] : null;
+        const actor = n >= 1 ? $.gameParty.members()[n - 1] : null;
         return actor ? actor.name() : '';
     };
 
@@ -736,7 +737,7 @@ export default class Window_Base extends CoreWindow {
     };
 
     reserveFaceImages() {
-        $gameParty.members().forEach(function (actor) {
+        $.gameParty.members().forEach(function (actor) {
             ImageManager.reserveFace(actor.faceName());
         }, this);
     };

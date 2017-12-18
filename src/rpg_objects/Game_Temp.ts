@@ -1,3 +1,4 @@
+import $ from '$';
 import { Utils } from 'rpg_core';
 
 //-----------------------------------------------------------------------------
@@ -33,7 +34,7 @@ export default class Game_Temp {
     };
 
     reservedCommonEvent() {
-        return $dataCommonEvents[this._commonEventId];
+        return $.dataCommonEvents[this._commonEventId];
     };
 
     setDestination(x: number, y: number) {

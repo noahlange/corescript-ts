@@ -1,3 +1,4 @@
+import $ from '$';
 import Window_Selectable from './Window_Selectable';
 import Window_ShopStatus from './Window_ShopStatus';
 
@@ -48,7 +49,7 @@ export default class Window_ShopBuy extends Window_Selectable {
 
     isEnabled(item: DB.Item | DB.Weapon | DB.Armor): boolean {
         return (item && this.price(item) <= this._money &&
-            !$gameParty.hasMaxItems(item));
+            !$.gameParty.hasMaxItems(item));
     };
 
     refresh() {
@@ -64,13 +65,13 @@ export default class Window_ShopBuy extends Window_Selectable {
             let item = null;
             switch (goods[0]) {
                 case 0:
-                    item = $dataItems[goods[1]];
+                    item = $.dataItems[goods[1]];
                     break;
                 case 1:
-                    item = $dataWeapons[goods[1]];
+                    item = $.dataWeapons[goods[1]];
                     break;
                 case 2:
-                    item = $dataArmors[goods[1]];
+                    item = $.dataArmors[goods[1]];
                     break;
             }
             if (item) {

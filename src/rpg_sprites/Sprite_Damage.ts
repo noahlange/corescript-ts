@@ -8,7 +8,7 @@ import { Game_Battler } from 'rpg_objects';
 // The sprite for displaying a popup damage.
 
 /// special interface for sprite
-interface ISprite extends Sprite {
+export interface ISprite extends Sprite {
     dy: number;
     ry: number;
 }

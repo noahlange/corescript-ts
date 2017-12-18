@@ -1,3 +1,4 @@
+import $ from '$';
 import Game_Battler from './Game_Battler';
 import Game_Item from './Game_Item';
 import Game_Actor from './Game_Actor';
@@ -65,9 +66,9 @@ export default class Game_Action {
 
     subject(): Game_Actor | Game_Enemy {
         if (this._subjectActorId > 0) {
-            return $gameActors.actor(this._subjectActorId);
+            return $.gameActors.actor(this._subjectActorId);
         } else {
-            return $gameTroop.members()[this._subjectEnemyIndex];
+            return $.gameTroop.members()[this._subjectEnemyIndex];
         }
     };
 
@@ -96,11 +97,11 @@ export default class Game_Action {
     };
 
     setSkill(skillId: number) {
-        this._item.setObject($dataSkills[skillId]);
+        this._item.setObject($.dataSkills[skillId]);
     };
 
     setItem(itemId: number) {
-        this._item.setObject($dataItems[itemId]);
+        this._item.setObject($.dataItems[itemId]);
     };
 
     setItemObject(object: DB.Item | DB.Skill | DB.Weapon | DB.Armor) {
@@ -217,16 +218,16 @@ export default class Game_Action {
     };
 
     isAttack() {
-        return this.item() === $dataSkills[this.subject().attackSkillId()];
+        return this.item() === $.dataSkills[this.subject().attackSkillId()];
     };
 
     isGuard() {
-        return this.item() === $dataSkills[this.subject().guardSkillId()];
+        return this.item() === $.dataSkills[this.subject().guardSkillId()];
     };
 
     isMagicSkill() {
         if (this.isSkill()) {
-            return $dataSystem.magicSkills.contains((this.item() as DB.Skill).stypeId);
+            return $.dataSystem.magicSkills.contains((this.item() as DB.Skill).stypeId);
         } else {
             return false;
         }
@@ -402,7 +403,7 @@ export default class Game_Action {
 
     testApply(target: Game_Battler) {
         return (this.isForDeadFriend() === target.isDead() &&
-            ($gameParty.inBattle() || this.isForOpponent() ||
+            ($.gameParty.inBattle() || this.isForOpponent() ||
                 (this.isHpRecover() && target.hp < target.mhp) ||
                 (this.isMpRecover() && target.mp < target.mmp) ||
                 (this.hasItemAnyValidEffects(target))));
@@ -526,7 +527,7 @@ export default class Game_Action {
             const item = this.item() as DB.Item;
             const a = this.subject();
             const b = target;
-            const v = $gameVariables._data;
+            const v = $.gameVariables._data;
             const sign = ([3, 4].contains(item.damage.type) ? -1 : 1);
             let value = Math.max(eval(item.damage.formula), 0) * sign;
             if (isNaN(value)) value = 0;
@@ -806,7 +807,7 @@ export default class Game_Action {
     applyGlobal() {
         (this.item() as DB.Item).effects.forEach(function (effect) {
             if (effect.code === ActionEffect.COMMON_EVENT) {
-                $gameTemp.reserveCommonEvent(effect.dataId);
+                $.gameTemp.reserveCommonEvent(effect.dataId);
             }
         }, this);
     };

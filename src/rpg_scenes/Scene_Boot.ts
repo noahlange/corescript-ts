@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { ConfigManager, DataManager, ImageManager, SceneManager, SoundManager } from 'rpg_managers';
 import { Window_TitleCommand } from 'rpg_windows';
@@ -50,7 +51,7 @@ export default class Scene_Boot extends Scene_Base {
     isGameFontLoaded() {
         if (Graphics.isFontLoaded('GameFont')) {
             return true;
-        } else if (!Graphics.canUseCssFontLoading()){
+        } else if (!Graphics.canUseCssFontLoading()) {
             const elapsed = Date.now() - this._startDate;
             if (elapsed >= 60000) {
                 throw new Error('Failed to load GameFont');
@@ -77,11 +78,11 @@ export default class Scene_Boot extends Scene_Base {
     };
     
     updateDocumentTitle() {
-        document.title = $dataSystem.gameTitle;
+        document.title = $.dataSystem.gameTitle;
     };
     
     checkPlayerLocation() {
-        if ($dataSystem.startMapId === 0) {
+        if ($.dataSystem.startMapId === 0) {
             throw new Error('Player\'s starting position is not set');
         }
     };

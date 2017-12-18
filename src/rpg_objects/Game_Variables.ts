@@ -1,3 +1,5 @@
+import $ from '$';
+
 //-----------------------------------------------------------------------------
 // Game_Variables
 //
@@ -20,7 +22,7 @@ export default class Game_Variables {
     };
     
     setValue(variableId: number, value: number) {
-        if (variableId > 0 && variableId < $dataSystem.variables.length) {
+        if (variableId > 0 && variableId < $.dataSystem.variables.length) {
             if (typeof value === 'number') {
                 value = Math.floor(value);
             }
@@ -30,7 +32,7 @@ export default class Game_Variables {
     };
     
     onChange() {
-        $gameMap.requestRefresh();
+        $.gameMap.requestRefresh();
     };
         
 }

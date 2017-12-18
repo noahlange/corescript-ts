@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { ImageManager } from 'rpg_managers';
 import Window_Base from './Window_Base';
@@ -26,7 +27,7 @@ export default class Window_MenuStatus extends Window_Selectable {
     };
 
     maxItems(): number {
-        return $gameParty.size();
+        return $.gameParty.size();
     };
 
     itemHeight(): number {
@@ -39,7 +40,7 @@ export default class Window_MenuStatus extends Window_Selectable {
     };
 
     loadImages() {
-        $gameParty.members().forEach(function (actor) {
+        $.gameParty.members().forEach(function (actor) {
             ImageManager.reserveFace(actor.faceName());
         }, this);
     };
@@ -61,7 +62,7 @@ export default class Window_MenuStatus extends Window_Selectable {
     };
 
     drawItemImage(index: number) {
-        const actor = $gameParty.members()[index];
+        const actor = $.gameParty.members()[index];
         const rect = this.itemRect(index);
         this.changePaintOpacity(actor.isBattleMember());
         this.drawActorFace(actor, rect.x + 1, rect.y + 1, Window_Base._faceWidth, Window_Base._faceHeight);
@@ -69,7 +70,7 @@ export default class Window_MenuStatus extends Window_Selectable {
     };
 
     drawItemStatus(index: number) {
-        const actor = $gameParty.members()[index];
+        const actor = $.gameParty.members()[index];
         const rect = this.itemRect(index);
         const x = rect.x + 162;
         const y = rect.y + rect.height / 2 - Window_Base.lineHeight() * 1.5;
@@ -79,12 +80,12 @@ export default class Window_MenuStatus extends Window_Selectable {
 
     processOk() {
         super.processOk();
-        $gameParty.setMenuActor($gameParty.members()[this.index()]);
+        $.gameParty.setMenuActor($.gameParty.members()[this.index()]);
     };
 
     isCurrentItemEnabled() {
         if (this._formationMode) {
-            const actor = $gameParty.members()[this.index()];
+            const actor = $.gameParty.members()[this.index()];
             return actor && actor.isFormationChangeOk();
         } else {
             return true;
@@ -92,7 +93,7 @@ export default class Window_MenuStatus extends Window_Selectable {
     };
 
     selectLast() {
-        this.select($gameParty.menuActor().index() || 0);
+        this.select($.gameParty.menuActor().index() || 0);
     };
 
     formationMode() {

@@ -1,3 +1,4 @@
+import $ from '$';
 import { ConfigManager, TextManager } from 'rpg_managers';
 import { Graphics } from 'rpg_core';
 import { Game_Actor } from 'rpg_objects';
@@ -51,7 +52,7 @@ export default class Window_ActorCommand extends Window_Command {
             return a - b;
         });
         skillTypes.forEach(function(stypeId) {
-            const name = $dataSystem.skillTypes[stypeId];
+            const name = $.dataSystem.skillTypes[stypeId];
             this.addCommand(name, 'skill', true, stypeId);
         }, this);
     };

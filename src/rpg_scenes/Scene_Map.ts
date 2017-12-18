@@ -1,3 +1,4 @@
+import $ from '$';
 import { Input, TouchInput } from 'rpg_core';
 import { AudioManager, BattleManager, DataManager, ImageManager, SceneManager, SoundManager } from 'rpg_managers';
 import { Spriteset_Map } from 'rpg_sprites';
@@ -30,8 +31,8 @@ export default class Scene_Map extends Scene_Base {
 
     create() {
         super.create();
-        this._transfer = $gamePlayer.isTransferring();
-        const mapId = this._transfer ? $gamePlayer.newMapId() : $gameMap.mapId();
+        this._transfer = $.gamePlayer.isTransferring();
+        const mapId = this._transfer ? $.gamePlayer.newMapId() : $.gameMap.mapId();
         DataManager.loadMapData(mapId);
     };
 
@@ -43,7 +44,7 @@ export default class Scene_Map extends Scene_Base {
      * @memberof Scene_Base
      */
     checkGameover() {
-        if ($gameParty.isAllDead()) {
+        if ($.gameParty.isAllDead()) {
             SceneManager.goto(Scene_Gameover);
         }
     };
@@ -58,7 +59,7 @@ export default class Scene_Map extends Scene_Base {
 
     onMapLoaded() {
         if (this._transfer) {
-            $gamePlayer.performTransfer();
+            $.gamePlayer.performTransfer();
         }
         this.createDisplayObjects();
     };
@@ -69,7 +70,7 @@ export default class Scene_Map extends Scene_Base {
         if (this._transfer) {
             this.fadeInForTransfer();
             this._mapNameWindow.open();
-            $gameMap.autoplay();
+            $.gameMap.autoplay();
         } else if (this.needsFadeIn()) {
             this.startFadeIn(this.fadeSpeed(), false);
         }
@@ -97,20 +98,20 @@ export default class Scene_Map extends Scene_Base {
 
     updateMain() {
         const active = this.isActive();
-        $gameMap.update(active);
-        $gamePlayer.update(active);
-        $gameTimer.update(active);
-        $gameScreen.update();
+        $.gameMap.update(active);
+        $.gamePlayer.update(active);
+        $.gameTimer.update(active);
+        $.gameScreen.update();
     };
 
     isFastForward() {
-        return ($gameMap.isEventRunning() && !SceneManager.isSceneChanging() &&
+        return ($.gameMap.isEventRunning() && !SceneManager.isSceneChanging() &&
             (Input.isLongPressed('ok') || TouchInput.isLongPressed()));
     };
 
     stop() {
         super.stop();
-        $gamePlayer.straighten();
+        $.gamePlayer.straighten();
         this._mapNameWindow.close();
         if (this.needsSlowFadeOut()) {
             this.startFadeOut(this.slowFadeSpeed(), false);
@@ -141,7 +142,7 @@ export default class Scene_Map extends Scene_Base {
             ImageManager.clearRequest();
         }
 
-        $gameScreen.clearZoom();
+        $.gameScreen.clearZoom();
 
         this.removeChild(this._fadeSprite);
         this.removeChild(this._mapNameWindow);
@@ -171,22 +172,22 @@ export default class Scene_Map extends Scene_Base {
         if (this.isMapTouchOk()) {
             this.processMapTouch();
         } else {
-            $gameTemp.clearDestination();
+            $.gameTemp.clearDestination();
             this._touchCount = 0;
         }
     };
 
     isMapTouchOk() {
-        return this.isActive() && $gamePlayer.canMove();
+        return this.isActive() && $.gamePlayer.canMove();
     };
 
     processMapTouch() {
         if (TouchInput.isTriggered() || this._touchCount > 0) {
             if (TouchInput.isPressed()) {
                 if (this._touchCount === 0 || this._touchCount >= 15) {
-                    const x = $gameMap.canvasToMapX(TouchInput.x);
-                    const y = $gameMap.canvasToMapY(TouchInput.y);
-                    $gameTemp.setDestination(x, y);
+                    const x = $.gameMap.canvasToMapX(TouchInput.x);
+                    const y = $.gameMap.canvasToMapY(TouchInput.y);
+                    $.gameTemp.setDestination(x, y);
                 }
                 this._touchCount++;
             } else {
@@ -196,7 +197,7 @@ export default class Scene_Map extends Scene_Base {
     };
 
     isSceneChangeOk() {
-        return this.isActive() && !$gameMessage.isBusy();
+        return this.isActive() && !$.gameMessage.isBusy();
     };
 
     updateScene() {
@@ -251,13 +252,13 @@ export default class Scene_Map extends Scene_Base {
     };
 
     updateTransferPlayer() {
-        if ($gamePlayer.isTransferring()) {
+        if ($.gamePlayer.isTransferring()) {
             SceneManager.goto(Scene_Map);
         }
     };
 
     updateEncounter() {
-        if ($gamePlayer.executeEncounter()) {
+        if ($.gamePlayer.executeEncounter()) {
             SceneManager.push(Scene_Battle);
         }
     };
@@ -267,7 +268,7 @@ export default class Scene_Map extends Scene_Base {
             if (this.isMenuCalled()) {
                 this.menuCalling = true;
             }
-            if (this.menuCalling && !$gamePlayer.isMoving()) {
+            if (this.menuCalling && !$.gamePlayer.isMoving()) {
                 this.callMenu();
             }
         } else {
@@ -276,7 +277,7 @@ export default class Scene_Map extends Scene_Base {
     };
 
     isMenuEnabled() {
-        return $gameSystem.isMenuEnabled() && !$gameMap.isEventRunning();
+        return $.gameSystem.isMenuEnabled() && !$.gameMap.isEventRunning();
     };
 
     isMenuCalled() {
@@ -287,7 +288,7 @@ export default class Scene_Map extends Scene_Base {
         SoundManager.playOk();
         SceneManager.push(Scene_Menu);
         Window_MenuCommand.initCommandPosition();
-        $gameTemp.clearDestination();
+        $.gameTemp.clearDestination();
         this._mapNameWindow.hide();
         this._waitCount = 2;
     };
@@ -299,11 +300,11 @@ export default class Scene_Map extends Scene_Base {
     };
 
     isDebugCalled() {
-        return Input.isTriggered('debug') && $gameTemp.isPlaytest();
+        return Input.isTriggered('debug') && $.gameTemp.isPlaytest();
     };
 
     fadeInForTransfer() {
-        const fadeType = $gamePlayer.fadeType();
+        const fadeType = $.gamePlayer.fadeType();
         switch (fadeType) {
             case 0: case 1:
                 this.startFadeIn(this.fadeSpeed(), fadeType === 1);
@@ -312,7 +313,7 @@ export default class Scene_Map extends Scene_Base {
     };
 
     fadeOutForTransfer() {
-        const fadeType = $gamePlayer.fadeType();
+        const fadeType = $.gamePlayer.fadeType();
         switch (fadeType) {
             case 0: case 1:
                 this.startFadeOut(this.fadeSpeed(), fadeType === 1);
@@ -329,7 +330,7 @@ export default class Scene_Map extends Scene_Base {
     };
 
     stopAudioOnBattleStart() {
-        if (!AudioManager.isCurrentBgm($gameSystem.battleBgm())) {
+        if (!AudioManager.isCurrentBgm($.gameSystem.battleBgm())) {
             AudioManager.stopBgm();
         }
         AudioManager.stopBgs();
@@ -349,14 +350,14 @@ export default class Scene_Map extends Scene_Base {
             const n = speed - this._encounterEffectDuration;
             const p = n / speed;
             const q = ((p - 1) * 20 * p + 5) * p + 1;
-            const zoomX = $gamePlayer.screenX();
-            const zoomY = $gamePlayer.screenY() - 24;
+            const zoomX = $.gamePlayer.screenX();
+            const zoomY = $.gamePlayer.screenY() - 24;
             if (n === 2) {
-                $gameScreen.setZoom(zoomX, zoomY, 1);
+                $.gameScreen.setZoom(zoomX, zoomY, 1);
                 this.snapForBattleBackground();
                 this.startFlashForEncounter(speed / 2);
             }
-            $gameScreen.setZoom(zoomX, zoomY, q);
+            $.gameScreen.setZoom(zoomX, zoomY, q);
             if (n === Math.floor(speed / 6)) {
                 this.startFlashForEncounter(speed / 2);
             }
@@ -375,7 +376,7 @@ export default class Scene_Map extends Scene_Base {
 
     startFlashForEncounter(duration: number) {
         const color = [255, 255, 255, 255];
-        $gameScreen.startFlash(color, duration);
+        $.gameScreen.startFlash(color, duration);
     };
 
     encounterEffectSpeed() {

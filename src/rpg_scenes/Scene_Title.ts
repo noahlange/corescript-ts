@@ -1,3 +1,4 @@
+import $ from '$';
 import { Bitmap, Graphics, Sprite } from 'rpg_core';
 import { AudioManager, DataManager, ImageManager, SceneManager } from 'rpg_managers';
 import { Window_TitleCommand } from 'rpg_windows';
@@ -52,8 +53,8 @@ export default class Scene_Title extends Scene_Base {
     };
 
     createBackground() {
-        this._backSprite1 = new Sprite(ImageManager.loadTitle1($dataSystem.title1Name));
-        this._backSprite2 = new Sprite(ImageManager.loadTitle2($dataSystem.title2Name));
+        this._backSprite1 = new Sprite(ImageManager.loadTitle1($.dataSystem.title1Name));
+        this._backSprite2 = new Sprite(ImageManager.loadTitle2($.dataSystem.title2Name));
         this.addChild(this._backSprite1);
         this.addChild(this._backSprite2);
     };
@@ -61,7 +62,7 @@ export default class Scene_Title extends Scene_Base {
     createForeground() {
         this._gameTitleSprite = new Sprite(new Bitmap(Graphics.width, Graphics.height));
         this.addChild(this._gameTitleSprite);
-        if ($dataSystem.optDrawTitle) {
+        if ($.dataSystem.optDrawTitle) {
             this.drawGameTitle();
         }
     };
@@ -70,7 +71,7 @@ export default class Scene_Title extends Scene_Base {
         const x = 20;
         const y = Graphics.height / 4;
         const maxWidth = Graphics.width - x * 2;
-        const text = $dataSystem.gameTitle;
+        const text = $.dataSystem.gameTitle;
         this._gameTitleSprite.bitmap.outlineColor = 'black';
         this._gameTitleSprite.bitmap.outlineWidth = 8;
         this._gameTitleSprite.bitmap.fontSize = 72;
@@ -110,7 +111,7 @@ export default class Scene_Title extends Scene_Base {
     };
 
     playTitleMusic() {
-        AudioManager.playBgm($dataSystem.titleBgm);
+        AudioManager.playBgm($.dataSystem.titleBgm);
         AudioManager.stopBgs();
         AudioManager.stopMe();
     };

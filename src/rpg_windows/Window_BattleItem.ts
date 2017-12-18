@@ -1,3 +1,4 @@
+import $ from '$';
 import Window_ItemList from './Window_ItemList';
 
 //-----------------------------------------------------------------------------
@@ -13,7 +14,7 @@ export default class Window_BattleItem extends Window_ItemList {
     };
 
     includes(item: Object) {
-        return $gameParty.canUse(item);
+        return $.gameParty.canUse(item);
     };
 
     show() {

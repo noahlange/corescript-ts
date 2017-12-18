@@ -1,3 +1,4 @@
+import $ from '$';
 import Window_Base from './Window_Base';
 //-----------------------------------------------------------------------------
 // Window_MapName
@@ -24,7 +25,7 @@ export default class Window_MapName extends Window_Base {
     
     update() {
         super.update();
-        if (this._showCount > 0 && $gameMap.isNameDisplayEnabled()) {
+        if (this._showCount > 0 && $.gameMap.isNameDisplayEnabled()) {
             this.updateFadeIn();
             this._showCount--;
         } else {
@@ -51,10 +52,10 @@ export default class Window_MapName extends Window_Base {
     
     refresh() {
         this.contents.clear();
-        if ($gameMap.displayName()) {
+        if ($.gameMap.displayName()) {
             const width = this.contentsWidth();
             this.drawBackground(0, 0, width, Window_Base.lineHeight());
-            this.drawText($gameMap.displayName(), 0, 0, width, 'center');
+            this.drawText($.gameMap.displayName(), 0, 0, width, 'center');
         }
     };
     

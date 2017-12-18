@@ -1,3 +1,5 @@
+import $ from '$';
+
 //-----------------------------------------------------------------------------
 // Game_Switches
 //
@@ -15,14 +17,14 @@ export default class Game_Switches {
     };
     
     setValue(switchId: number, value: boolean) {
-        if (switchId > 0 && switchId < $dataSystem.switches.length) {
+        if (switchId > 0 && switchId < $.dataSystem.switches.length) {
             this._data[switchId] = value;
             this.onChange();
         }
     };
     
     onChange() {
-        $gameMap.requestRefresh();
+        $.gameMap.requestRefresh();
     };
         
 }

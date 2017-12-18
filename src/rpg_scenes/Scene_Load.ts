@@ -1,3 +1,4 @@
+import $ from '$';
 import { DataManager, SceneManager, SoundManager, TextManager } from 'rpg_managers';
 
 import Scene_File from './Scene_File';
@@ -14,7 +15,7 @@ export default class Scene_Load extends Scene_File {
     terminate() {
         super.terminate();
         if (this._loadSuccess) {
-            $gameSystem.onAfterLoad();
+            $.gameSystem.onAfterLoad();
         }
     };
     
@@ -53,9 +54,9 @@ export default class Scene_Load extends Scene_File {
     };
     
     reloadMapIfUpdated() {
-        if ($gameSystem.versionId() !== $dataSystem.versionId) {
-            $gamePlayer.reserveTransfer($gameMap.mapId(), $gamePlayer.x, $gamePlayer.y);
-            $gamePlayer.requestMapReload();
+        if ($.gameSystem.versionId() !== $.dataSystem.versionId) {
+            $.gamePlayer.reserveTransfer($.gameMap.mapId(), $.gamePlayer.x, $.gamePlayer.y);
+            $.gamePlayer.requestMapReload();
         }
     };
         

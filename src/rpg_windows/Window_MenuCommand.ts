@@ -1,3 +1,4 @@
+import $ from '$';
 import { DataManager, TextManager } from 'rpg_managers';
 import Window_Command from './Window_Command';
 
@@ -81,7 +82,7 @@ export default class Window_MenuCommand extends Window_Command {
     };
     
     needsCommand(name: string) {
-        const flags = $dataSystem.menuCommands;
+        const flags = $.dataSystem.menuCommands;
         if (flags) {
             switch (name) {
             case 'item':
@@ -102,11 +103,11 @@ export default class Window_MenuCommand extends Window_Command {
     };
     
     areMainCommandsEnabled() {
-        return $gameParty.exists();
+        return $.gameParty.exists();
     };
     
     isFormationEnabled() {
-        return $gameParty.size() >= 2 && $gameSystem.isFormationEnabled();
+        return $.gameParty.size() >= 2 && $.gameSystem.isFormationEnabled();
     };
     
     isOptionsEnabled() {
@@ -114,7 +115,7 @@ export default class Window_MenuCommand extends Window_Command {
     };
     
     isSaveEnabled() {
-        return !DataManager.isEventTest() && $gameSystem.isSaveEnabled();
+        return !DataManager.isEventTest() && $.gameSystem.isSaveEnabled();
     };
     
     isGameEndEnabled() {

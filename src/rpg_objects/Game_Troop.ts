@@ -1,15 +1,18 @@
+import $ from '$';
 import { BattleManager } from 'rpg_managers';
 
 import Game_Unit from './Game_Unit';
 import Game_Enemy from './Game_Enemy';
 import Game_Interpreter from './Game_Interpreter';
+import { NumberMap } from './Game_BattlerBase';
+
 
 //-----------------------------------------------------------------------------
 // Game_Troop
 //
 // The game object class for a troop and the battle-related data.
 
-interface EventFlags {
+export interface EventFlags {
     [key: number]: boolean;
 }
 
@@ -63,15 +66,15 @@ export default class Game_Troop extends Game_Unit<Game_Enemy> {
     };
 
     troop() {
-        return $dataTroops[this._troopId];
+        return $.dataTroops[this._troopId];
     };
 
     setup(troopId: number) {
         this.clear();
         this._troopId = troopId;
         this._enemies = [];
-        this.troop().members.forEach(function (member) {
-            if ($dataEnemies[member.enemyId]) {
+        this.troop().members.forEach((member: any) => {
+            if ($.dataEnemies[member.enemyId]) {
                 const enemyId = member.enemyId;
                 const x = member.x;
                 const y = member.y;
@@ -104,7 +107,7 @@ export default class Game_Troop extends Game_Unit<Game_Enemy> {
     };
 
     letterTable() {
-        return $gameSystem.isCJK() ? Game_Troop.LETTER_TABLE_FULL :
+        return $.gameSystem.isCJK() ? Game_Troop.LETTER_TABLE_FULL :
             Game_Troop.LETTER_TABLE_HALF;
     };
 
@@ -142,19 +145,19 @@ export default class Game_Troop extends Game_Unit<Game_Enemy> {
             }
         }
         if (c.enemyValid) {
-            const enemy = $gameTroop.members()[c.enemyIndex];
+            const enemy = $.gameTroop.members()[c.enemyIndex];
             if (!enemy || enemy.hpRate() * 100 > c.enemyHp) {
                 return false;
             }
         }
         if (c.actorValid) {
-            const actor = $gameActors.actor(c.actorId);
+            const actor = $.gameActors.actor(c.actorId);
             if (!actor || actor.hpRate() * 100 > c.actorHp) {
                 return false;
             }
         }
         if (c.switchValid) {
-            if (!$gameSwitches.value(c.switchId)) {
+            if (!$.gameSwitches.value(c.switchId)) {
                 return false;
             }
         }
@@ -204,7 +207,7 @@ export default class Game_Troop extends Game_Unit<Game_Enemy> {
     };
 
     goldRate() {
-        return $gameParty.hasGoldDouble() ? 2 : 1;
+        return $.gameParty.hasGoldDouble() ? 2 : 1;
     };
 
     makeDropItems() {

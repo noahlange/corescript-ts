@@ -1,3 +1,5 @@
+import $ from '$';
+
 //-----------------------------------------------------------------------------
 // Game_SelfSwitches
 //
@@ -25,7 +27,7 @@ export default class Game_SelfSwitches {
     };
     
     onChange() {
-        $gameMap.requestRefresh();
+        $.gameMap.requestRefresh();
     };
         
 }

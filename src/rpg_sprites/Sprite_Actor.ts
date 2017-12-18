@@ -11,12 +11,12 @@ import Sprite_StateOverlay from './Sprite_StateOverlay';
 // Sprite_Actor
 //
 // The sprite for displaying an actor.
-interface Motion {
+export interface Motion {
     index: number;
     loop: boolean;
 }
 
-interface MotionMap {
+export interface MotionMap {
     [key: string]: Motion
 }
 

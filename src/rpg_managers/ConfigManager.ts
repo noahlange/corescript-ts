@@ -6,8 +6,7 @@ import StorageManager from './StorageManager';
 //
 // The static class that manages the configuration data.
 
-
-interface ConfigOption {
+export interface ConfigOption {
     alwaysDash: boolean;
     commandRemember: boolean;
     bgmVolume: number;

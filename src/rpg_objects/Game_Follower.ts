@@ -1,3 +1,4 @@
+import $ from '$';
 import Game_Character from './Game_Character';
 
 //-----------------------------------------------------------------------------
@@ -12,7 +13,7 @@ export default class Game_Follower extends Game_Character {
     constructor(memberIndex: number) {
         super();
         this._memberIndex = memberIndex;
-        this.setTransparent($dataSystem.optTransparent);
+        this.setTransparent($.dataSystem.optTransparent);
         this.setThrough(true);
     };
     
@@ -23,22 +24,22 @@ export default class Game_Follower extends Game_Character {
     };
     
     actor() {
-        return $gameParty.battleMembers()[this._memberIndex];
+        return $.gameParty.battleMembers()[this._memberIndex];
     };
     
     isVisible() {
-        return this.actor() && $gamePlayer.followers().isVisible();
+        return this.actor() && $.gamePlayer.followers().isVisible();
     };
     
     update() {
         super.update();
-        this.setMoveSpeed($gamePlayer.realMoveSpeed());
-        this.setOpacity($gamePlayer.opacity());
-        this.setBlendMode($gamePlayer.blendMode());
-        this.setWalkAnime($gamePlayer.hasWalkAnime());
-        this.setStepAnime($gamePlayer.hasStepAnime());
-        this.setDirectionFix($gamePlayer.isDirectionFixed());
-        this.setTransparent($gamePlayer.isTransparent());
+        this.setMoveSpeed($.gamePlayer.realMoveSpeed());
+        this.setOpacity($.gamePlayer.opacity());
+        this.setBlendMode($.gamePlayer.blendMode());
+        this.setWalkAnime($.gamePlayer.hasWalkAnime());
+        this.setStepAnime($.gamePlayer.hasStepAnime());
+        this.setDirectionFix($.gamePlayer.isDirectionFixed());
+        this.setTransparent($.gamePlayer.isTransparent());
     };
     
     chaseCharacter(character: Game_Character) {
@@ -51,7 +52,7 @@ export default class Game_Follower extends Game_Character {
         } else if (sy !== 0) {
             this.moveStraight(sy > 0 ? 8 : 2);
         }
-        this.setMoveSpeed($gamePlayer.realMoveSpeed());
+        this.setMoveSpeed($.gamePlayer.realMoveSpeed());
     };
     
 }

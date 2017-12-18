@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { Game_Enemy } from 'rpg_objects';
 
@@ -64,17 +65,17 @@ export default class Window_BattleEnemy extends Window_Selectable {
     
     hide() {
         super.hide();
-        $gameTroop.select(null);
+        $.gameTroop.select(null);
     };
     
     refresh() {
-        this._enemies = $gameTroop.aliveMembers();
+        this._enemies = $.gameTroop.aliveMembers();
         super.refresh();
     };
     
     select(index: number) {
         super.select( index);
-        $gameTroop.select(this.enemy());
+        $.gameTroop.select(this.enemy());
     };
     
 }

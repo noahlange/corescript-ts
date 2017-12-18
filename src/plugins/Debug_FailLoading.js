@@ -93,7 +93,7 @@
         xhr.open('GET', url);
         xhr.overrideMimeType('application/json');
         xhr.onload = function() {
-            if (name === '$dataMap' && Math.random() < failMapData) {
+            if (name === '$.dataMap' && Math.random() < failMapData) {
                 xhr.onerror();
             } else if (xhr.status < 400) {
                 window[name] = JSON.parse(xhr.responseText);

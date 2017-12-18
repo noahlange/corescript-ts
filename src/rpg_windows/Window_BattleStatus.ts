@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { Game_Actor } from 'rpg_objects';
 // import * as PIXI from 'pixi.js';
@@ -40,7 +41,7 @@ export default class Window_BattleStatus extends Window_Selectable {
     };
     
     maxItems() {
-        return $gameParty.battleMembers().length;
+        return $.gameParty.battleMembers().length;
     };
     
     refresh() {
@@ -49,7 +50,7 @@ export default class Window_BattleStatus extends Window_Selectable {
     };
     
     drawItem(index: number) {
-        const actor = $gameParty.battleMembers()[index];
+        const actor = $.gameParty.battleMembers()[index];
         this.drawBasicArea(this.basicAreaRect(index), actor);
         this.drawGaugeArea(this.gaugeAreaRect(index), actor);
     };
@@ -77,7 +78,7 @@ export default class Window_BattleStatus extends Window_Selectable {
     };
     
     drawGaugeArea(rect: PIXI.Rectangle, actor: Game_Actor) {
-        if ($dataSystem.optDisplayTp) {
+        if ($.dataSystem.optDisplayTp) {
             this.drawGaugeAreaWithTp(rect, actor);
         } else {
             this.drawGaugeAreaWithoutTp(rect, actor);

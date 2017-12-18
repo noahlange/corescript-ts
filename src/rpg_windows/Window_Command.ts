@@ -1,13 +1,12 @@
 import Window_Base from './Window_Base';
 import Window_Selectable from './Window_Selectable';
-
 //-----------------------------------------------------------------------------
 // Window_Command
 //
 // The superclass of windows for selecting a command.
 
 // { name: name, symbol: symbol, enabled: enabled, ext: ext }
-interface CommandListItem {
+export interface CommandListItem {
     name: string;
     symbol: string;
     enabled: boolean;

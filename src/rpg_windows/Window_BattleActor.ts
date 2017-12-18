@@ -1,4 +1,6 @@
+import $ from '$';
 import Window_BattleStatus from './Window_BattleStatus';
+import Game_Actor from '../rpg_objects/Game_Actor';
 
 //-----------------------------------------------------------------------------
 // Window_BattleActor
@@ -22,16 +24,16 @@ export default class Window_BattleActor extends Window_BattleStatus {
     
     hide() {
         super.hide();
-        $gameParty.select(null);
+        $.gameParty.select(null);
     };
     
     select(index: number) {
         super.select( index);
-        $gameParty.select(this.actor());
+        $.gameParty.select(this.actor());
     };
     
     actor() {
-        return $gameParty.members()[this.index()];
+        return $.gameParty.members()[this.index()];
     };
     
 }

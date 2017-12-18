@@ -1,3 +1,4 @@
+import $ from '$';
 import Game_Interpreter from './Game_Interpreter';
 
 //-----------------------------------------------------------------------------
@@ -16,7 +17,7 @@ export default class Game_CommonEvent {
     };
     
     event() {
-        return $dataCommonEvents[this._commonEventId];
+        return $.dataCommonEvents[this._commonEventId];
     };
     
     list() {
@@ -35,7 +36,7 @@ export default class Game_CommonEvent {
     
     isActive() {
         const event = this.event();
-        return event.trigger === 2 && $gameSwitches.value(event.switchId);
+        return event.trigger === 2 && $.gameSwitches.value(event.switchId);
     };
     
     update() {

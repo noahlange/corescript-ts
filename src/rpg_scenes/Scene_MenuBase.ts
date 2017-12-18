@@ -1,3 +1,4 @@
+import $ from '$';
 import { Sprite } from 'rpg_core';
 import { Game_Actor } from 'rpg_objects';
 import { SceneManager } from 'rpg_managers';
@@ -27,7 +28,7 @@ export default class Scene_MenuBase extends Scene_Base {
     };
 
     updateActor() {
-        this._actor = $gameParty.menuActor();
+        this._actor = $.gameParty.menuActor();
     };
 
     createBackground() {
@@ -46,13 +47,13 @@ export default class Scene_MenuBase extends Scene_Base {
     };
 
     nextActor() {
-        $gameParty.makeMenuActorNext();
+        $.gameParty.makeMenuActorNext();
         this.updateActor();
         this.onActorChange();
     };
 
     previousActor() {
-        $gameParty.makeMenuActorPrevious();
+        $.gameParty.makeMenuActorPrevious();
         this.updateActor();
         this.onActorChange();
     };

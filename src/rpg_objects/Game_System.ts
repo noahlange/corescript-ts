@@ -1,5 +1,7 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { AudioManager } from 'rpg_managers';
+
 //-----------------------------------------------------------------------------
 // Game_System
 //
@@ -27,27 +29,27 @@ export default class Game_System {
 
     
     isJapanese() {
-        return $dataSystem.locale.match(/^ja/);
+        return $.dataSystem.locale.match(/^ja/);
     };
     
     isChinese() {
-        return $dataSystem.locale.match(/^zh/);
+        return $.dataSystem.locale.match(/^zh/);
     };
     
     isKorean() {
-        return $dataSystem.locale.match(/^ko/);
+        return $.dataSystem.locale.match(/^ko/);
     };
     
     isCJK() {
-        return $dataSystem.locale.match(/^(ja|zh|ko)/);
+        return $.dataSystem.locale.match(/^(ja|zh|ko)/);
     };
     
     isRussian() {
-        return $dataSystem.locale.match(/^ru/);
+        return $.dataSystem.locale.match(/^ru/);
     };
     
     isSideView() : boolean{
-        return $dataSystem.optSideView;
+        return $.dataSystem.optSideView;
     };
     
     isSaveEnabled(): boolean {
@@ -119,7 +121,7 @@ export default class Game_System {
     };
     
     windowTone() {
-        return this._windowTone || $dataSystem.windowTone;
+        return this._windowTone || $.dataSystem.windowTone;
     };
     
     setWindowTone(value: number[]) {
@@ -127,7 +129,7 @@ export default class Game_System {
     };
     
     battleBgm() {
-        return this._battleBgm || $dataSystem.battleBgm;
+        return this._battleBgm || $.dataSystem.battleBgm;
     };
     
     setBattleBgm(value: DB.Audio) {
@@ -135,7 +137,7 @@ export default class Game_System {
     };
     
     victoryMe() {
-        return this._victoryMe || $dataSystem.victoryMe;
+        return this._victoryMe || $.dataSystem.victoryMe;
     };
     
     setVictoryMe(value: DB.Audio) {
@@ -143,7 +145,7 @@ export default class Game_System {
     };
     
     defeatMe() {
-        return this._defeatMe || $dataSystem.defeatMe;
+        return this._defeatMe || $.dataSystem.defeatMe;
     };
     
     setDefeatMe(value: DB.Audio) {
@@ -164,7 +166,7 @@ export default class Game_System {
     
     onBeforeSave() {
         this._saveCount++;
-        this._versionId = $dataSystem.versionId;
+        this._versionId = $.dataSystem.versionId;
         this._framesOnSave = Graphics.frameCount;
         this._bgmOnSave = AudioManager.saveBgm();
         this._bgsOnSave = AudioManager.saveBgs();
@@ -208,7 +210,7 @@ export default class Game_System {
     };
     
     saveWalkingBgm2() {
-        this._walkingBgm = $dataMap.bgm;
+        this._walkingBgm = $.dataMap.bgm;
     };
     
 }

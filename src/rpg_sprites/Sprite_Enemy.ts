@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { Game_Enemy } from 'rpg_objects';
 import { ImageManager, SoundManager } from 'rpg_managers';
@@ -65,7 +66,7 @@ export default class Sprite_Enemy extends Sprite_Battler {
     };
 
     loadBitmap(name: string, hue: number) {
-        if ($gameSystem.isSideView()) {
+        if ($.gameSystem.isSideView()) {
             this.bitmap = ImageManager.loadSvEnemy(name, hue);
         } else {
             this.bitmap = ImageManager.loadEnemy(name, hue);

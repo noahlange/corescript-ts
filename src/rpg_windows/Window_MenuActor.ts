@@ -1,3 +1,4 @@
+import $ from '$';
 import { Game_Action } from 'rpg_objects';
 import { DataManager } from 'rpg_managers';
 
@@ -17,17 +18,17 @@ export default class Window_MenuActor extends Window_MenuStatus {
     
     processOk() {
         if (!this.cursorAll()) {
-            $gameParty.setTargetActor($gameParty.members()[this.index()]);
+            $.gameParty.setTargetActor($.gameParty.members()[this.index()]);
         }
         this.callOkHandler();
     };
     
     selectLast() {
-        this.select($gameParty.targetActor().index() || 0);
+        this.select($.gameParty.targetActor().index() || 0);
     };
     
     selectForItem(item: DB.Item | DB.Armor | DB.Weapon | DB.Skill) {
-        const actor = $gameParty.menuActor();
+        const actor = $.gameParty.menuActor();
         const action = new Game_Action(actor);
         action.setItemObject(item);
         this.setCursorFixed(false);

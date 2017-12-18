@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics, Input } from 'rpg_core';
 import Window_DebugEdit from './Window_DebugEdit';
 import Window_Selectable from './Window_Selectable';
@@ -17,8 +18,8 @@ export default class Window_DebugRange extends Window_Selectable {
 
     constructor(x: number, y: number) {
         super(x, y, undefined, undefined, function () {
-            this._maxSwitches = Math.ceil(($dataSystem.switches.length - 1) / 10);
-            this._maxVariables = Math.ceil(($dataSystem.variables.length - 1) / 10);
+            this._maxSwitches = Math.ceil(($.dataSystem.switches.length - 1) / 10);
+            this._maxVariables = Math.ceil(($.dataSystem.variables.length - 1) / 10);
         });
         this.refresh();
         this.setTopRow(Window_DebugRange.lastTopRow);

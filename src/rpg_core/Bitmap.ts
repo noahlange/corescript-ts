@@ -1,8 +1,7 @@
 // import * as PIXI from 'pixi.js';
-
 import CacheEntry from './CacheEntry';
-import Graphics from './Graphics';
 import Stage from './Stage';
+import Graphics from './Graphics';
 import ResourceHandler from './ResourceHandler';
 
 //-----------------------------------------------------------------------------
@@ -925,7 +924,5 @@ export default class Bitmap {
             this._requestImage(this._url);
         }
     };
-
-
 }
 

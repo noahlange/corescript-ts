@@ -1,4 +1,5 @@
 import { Graphics } from 'rpg_core';
+import { Game_Actor } from 'rpg_objects';
 import { SoundManager } from 'rpg_managers';
 import { Window_SkillType, Window_SkillStatus, Window_SkillList } from 'rpg_windows';
 import Scene_ItemBase from './Scene_ItemBase';

@@ -1,3 +1,4 @@
+import $ from '$';
 import { Bitmap, Graphics, Sprite } from 'rpg_core';
 
 //-----------------------------------------------------------------------------
@@ -16,7 +17,7 @@ export default class Sprite_Destination extends Sprite {
 
     update() {
         super.update();
-        if ($gameTemp.isDestinationValid()) {
+        if ($.gameTemp.isDestinationValid()) {
             this.updatePosition();
             this.updateAnimation();
             this.visible = true;
@@ -27,8 +28,8 @@ export default class Sprite_Destination extends Sprite {
     };
 
     createBitmap() {
-        const tileWidth = $gameMap.tileWidth();
-        const tileHeight = $gameMap.tileHeight();
+        const tileWidth = $.gameMap.tileWidth();
+        const tileHeight = $.gameMap.tileHeight();
         this.bitmap = new Bitmap(tileWidth, tileHeight);
         this.bitmap.fillAll('white');
         this.anchor.x = 0.5;
@@ -37,12 +38,12 @@ export default class Sprite_Destination extends Sprite {
     };
 
     updatePosition() {
-        const tileWidth = $gameMap.tileWidth();
-        const tileHeight = $gameMap.tileHeight();
-        const x = $gameTemp.destinationX();
-        const y = $gameTemp.destinationY();
-        this.x = ($gameMap.adjustX(x) + 0.5) * tileWidth;
-        this.y = ($gameMap.adjustY(y) + 0.5) * tileHeight;
+        const tileWidth = $.gameMap.tileWidth();
+        const tileHeight = $.gameMap.tileHeight();
+        const x = $.gameTemp.destinationX();
+        const y = $.gameTemp.destinationY();
+        this.x = ($.gameMap.adjustX(x) + 0.5) * tileWidth;
+        this.y = ($.gameMap.adjustY(y) + 0.5) * tileHeight;
     };
 
     updateAnimation() {

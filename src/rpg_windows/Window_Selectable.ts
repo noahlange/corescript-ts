@@ -8,7 +8,7 @@ import Window_Help from './Window_Help';
 //
 // The window class with cursor movement and scroll functions.
 
-interface FunctionMap {
+export interface FunctionMap {
     [key: string]: Function;
 }
 

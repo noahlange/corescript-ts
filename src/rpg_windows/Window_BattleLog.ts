@@ -1,3 +1,4 @@
+import $ from '$';
 import { Bitmap, Graphics, Input, Sprite, TouchInput } from 'rpg_core';
 import { Game_Actor, Game_Action, Game_Battler, Game_Enemy } from 'rpg_objects';
 import { DataManager, SoundManager, TextManager } from 'rpg_managers';
@@ -259,7 +260,7 @@ export default class Window_BattleLog extends Window_Selectable {
     };
     
     showNormalAnimation(targets: Game_Battler[], animationId: number, mirror?: boolean) {
-        const animation = $dataAnimations[animationId];
+        const animation = $.dataAnimations[animationId];
         if (animation) {
             let delay = this.animationBaseDelay();
             const nextDelay = this.animationNextDelay();

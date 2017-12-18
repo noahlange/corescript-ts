@@ -1,3 +1,4 @@
+import $ from '$';
 import Window_SkillList from './Window_SkillList';
 
 //-----------------------------------------------------------------------------

@@ -19,6 +19,38 @@ export default class SceneManager {
         return performance.now();
     };
 
+    static get screenWidth() {
+        return this._screenWidth;
+    }
+    
+    static get screenHeight() {
+        return this._screenWidth;
+    }
+
+    static set screenWidth(val: number) {
+        this._screenWidth = val;
+    }
+    
+    static set screenHeight(val: number) {
+        this._screenWidth = val;
+    }    
+
+    static get boxWidth() {
+        return this.boxWidth;
+    }
+    
+    static get boxHeight() {
+        return this._boxWidth;
+    }
+
+    static set boxWidth(val: number) {
+        this._boxWidth = val;
+    }
+    
+    static set boxHeight(val: number) {
+        this.boxWidth = val;
+    }    
+
     protected static _scene: Scene_Base | null = null;
     protected static _nextScene: Scene_Base | null = null;
     protected static _stack: Function[] = [];
@@ -57,14 +89,17 @@ export default class SceneManager {
     };
 
     static initGraphics() {
-        Graphics.initialize(this._screenWidth, this._screenHeight);
+        try {
+            Graphics.initialize(this._screenWidth, this._screenHeight);
+        } catch (e) {
+            this.onError(e);
+        }
         Graphics.boxWidth = this._boxWidth;
         Graphics.boxHeight = this._boxHeight;
         Graphics.setLoadingImage('img/system/Loading.png');
         if (Utils.isOptionValid('showfps')) {
             Graphics.showFps();
         }
-
         this.checkWebGL();
     };
 

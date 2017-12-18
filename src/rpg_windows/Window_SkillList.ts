@@ -1,3 +1,4 @@
+import $ from '$';
 import { Game_Actor } from 'rpg_objects';
 
 import Window_Selectable from './Window_Selectable';
@@ -68,7 +69,7 @@ export default class Window_SkillList extends Window_Selectable {
     
     selectLast() {
         let skill;
-        if ($gameParty.inBattle()) {
+        if ($.gameParty.inBattle()) {
             skill = this._actor.lastBattleSkill();
         } else {
             skill = this._actor.lastMenuSkill();

@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { Game_Actor } from 'rpg_objects';
 import { ImageManager } from 'rpg_managers';
@@ -81,7 +82,7 @@ export default class Window_NameEdit extends Window_Base {
     };
 
     charWidth(): number {
-        const text = $gameSystem.isJapanese() ? '\uff21' : 'A';
+        const text = $.gameSystem.isJapanese() ? '\uff21' : 'A';
         return this.textWidth(text);
     };
 

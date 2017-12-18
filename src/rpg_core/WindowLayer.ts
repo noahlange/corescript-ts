@@ -1,5 +1,4 @@
-// import * as PIXI from 'pixi.js';
-import CoreWindow from 'rpg_core/Window';
+import CoreWindow from './Window';
 
 //-----------------------------------------------------------------------------
 /**
@@ -39,7 +38,7 @@ export default class WindowLayer extends PIXI.Container {
         this.removeChildren();
     }
 
-    static voidFilter = new PIXI.filters.VoidFilter();
+    static voidFilter = new PIXI.filters.AlphaFilter();
 
     /**
      * The width of the window layer in pixels.

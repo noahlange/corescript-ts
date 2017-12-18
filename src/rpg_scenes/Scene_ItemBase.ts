@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { Game_Action, Game_Actor } from 'rpg_objects';
 import { SceneManager, SoundManager } from 'rpg_managers';
@@ -32,7 +33,7 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
      * @memberof Scene_Base
      */
     checkGameover() {
-        if ($gameParty.isAllDead()) {
+        if ($.gameParty.isAllDead()) {
             SceneManager.goto(Scene_Gameover);
         }
     };
@@ -107,9 +108,9 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
         if (!action.isForFriend()) {
             return [];
         } else if (action.isForAll()) {
-            return $gameParty.members();
+            return $.gameParty.members();
         } else {
-            return [$gameParty.members()[this._actorWindow.index()]];
+            return [$.gameParty.members()[this._actorWindow.index()]];
         }
     };
 
@@ -137,7 +138,7 @@ abstract class Scene_ItemBase extends Scene_MenuBase {
     };
 
     checkCommonEvent() {
-        if ($gameTemp.isCommonEventReserved()) {
+        if ($.gameTemp.isCommonEventReserved()) {
             SceneManager.goto(Scene_Map);
         }
     };

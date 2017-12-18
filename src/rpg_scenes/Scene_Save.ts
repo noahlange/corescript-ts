@@ -1,3 +1,4 @@
+import $ from '$';
 import { DataManager, SoundManager, StorageManager, TextManager } from 'rpg_managers';
 
 import Scene_File from './Scene_File';
@@ -23,7 +24,7 @@ export default class Scene_Save extends Scene_File {
     
     onSavefileOk() {
         super.onSavefileOk();
-        $gameSystem.onBeforeSave();
+        $.gameSystem.onBeforeSave();
         if (DataManager.saveGame(this.savefileId())) {
             this.onSaveSuccess();
         } else {

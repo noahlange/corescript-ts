@@ -1,3 +1,4 @@
+import $ from '$';
 import { DataManager } from 'rpg_managers';
 import Window_Selectable from './Window_Selectable';
 
@@ -63,11 +64,11 @@ export default class Window_ItemList extends Window_Selectable {
     };
     
     isEnabled(item: Object) {
-        return $gameParty.canUse(item);
+        return $.gameParty.canUse(item);
     };
     
     makeItemList() {
-        this._data = $gameParty.allItems().filter(function(item) {
+        this._data = $.gameParty.allItems().filter(function(item) {
             return this.includes(item);
         }, this);
         if (this.includes(null)) {
@@ -76,7 +77,7 @@ export default class Window_ItemList extends Window_Selectable {
     };
     
     selectLast() {
-        const index = this._data.indexOf($gameParty.lastItem());
+        const index = this._data.indexOf($.gameParty.lastItem());
         this.select(index >= 0 ? index : 0);
     };
     
@@ -100,7 +101,7 @@ export default class Window_ItemList extends Window_Selectable {
     drawItemNumber(item: any, x: number, y: number, width: number) {
         if (this.needsNumber()) {
             this.drawText(':', x, y, width - this.textWidth('00'), 'right');
-            this.drawText($gameParty.numItems(item).toString(), x, y, width, 'right');
+            this.drawText($.gameParty.numItems(item).toString(), x, y, width, 'right');
         }
     };
     

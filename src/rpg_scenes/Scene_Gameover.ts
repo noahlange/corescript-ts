@@ -1,3 +1,4 @@
+import $ from '$';
 import { Input, Sprite, TouchInput } from 'rpg_core';
 import { AudioManager, ImageManager, SceneManager } from 'rpg_managers';
 
@@ -43,7 +44,7 @@ export default class Scene_Gameover extends Scene_Base {
     playGameoverMusic() {
         AudioManager.stopBgm();
         AudioManager.stopBgs();
-        AudioManager.playMe($dataSystem.gameoverMe);
+        AudioManager.playMe($.dataSystem.gameoverMe);
     };
     
     createBackground() {

@@ -1,3 +1,4 @@
+import $ from '$';
 import { Input, TouchInput } from 'rpg_core';
 import { Game_Actor } from 'rpg_objects';
 import { DataManager, SoundManager, TextManager } from 'rpg_managers';
@@ -44,7 +45,7 @@ export default class Window_ShopStatus extends Window_Base {
         this.changeTextColor(this.systemColor());
         this.drawText(TextManager.possession, x, y, width - possessionWidth);
         this.resetTextColor();
-        this.drawText($gameParty.numItems(this._item).toString(), x, y, width, 'right');
+        this.drawText($.gameParty.numItems(this._item).toString(), x, y, width, 'right');
     };
 
     drawEquipInfo(x: number, y: number) {
@@ -57,7 +58,7 @@ export default class Window_ShopStatus extends Window_Base {
     statusMembers() {
         const start = this._pageIndex * this.pageSize();
         const end = start + this.pageSize();
-        return $gameParty.members().slice(start, end);
+        return $.gameParty.members().slice(start, end);
     };
 
     pageSize(): number {
@@ -65,7 +66,7 @@ export default class Window_ShopStatus extends Window_Base {
     };
 
     maxPages(): number {
-        return Math.floor(($gameParty.size() + this.pageSize() - 1) / this.pageSize());
+        return Math.floor(($.gameParty.size() + this.pageSize() - 1) / this.pageSize());
     };
 
     drawActorEquipInfo(x: number, y: number, actor: Game_Actor) {

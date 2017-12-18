@@ -1,3 +1,5 @@
+import $ from '$';
+
 //-----------------------------------------------------------------------------
 // Game_ActionResult
 //
@@ -47,13 +49,13 @@ export default class Game_ActionResult {
     
     addedStateObjects() {
         return this.addedStates.map(function(id) {
-            return $dataStates[id];
+            return $.dataStates[id];
         });
     };
     
     removedStateObjects() {
         return this.removedStates.map(function(id) {
-            return $dataStates[id];
+            return $.dataStates[id];
         });
     };
     

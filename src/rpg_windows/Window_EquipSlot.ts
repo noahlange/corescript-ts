@@ -1,3 +1,4 @@
+import $ from '$';
 import { Game_Actor } from 'rpg_objects';
 
 import Window_Selectable from './Window_Selectable';
@@ -56,7 +57,7 @@ export default class Window_EquipSlot extends Window_Selectable {
     
     slotName(index: number) {
         const slots = this._actor.equipSlots();
-        return this._actor ? $dataSystem.equipTypes[slots[index]] : '';
+        return this._actor ? $.dataSystem.equipTypes[slots[index]] : '';
     };
     
     isEnabled(index: number) {

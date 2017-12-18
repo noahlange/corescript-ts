@@ -4,7 +4,7 @@ import { Graphics, Html5Audio, WebAudio } from 'rpg_core';
 //
 // The static class that handles BGM, BGS, ME and SE.
 
-interface CoreAudioBuffer {
+export interface CoreAudioBuffer {
     play: (loop: boolean, offset?: number) => void;
     fadeIn: (duration: number) => void;
     fadeOut: (duration: number) => void;

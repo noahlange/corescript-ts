@@ -1,4 +1,5 @@
-import { Sprite } from 'rpg_core';
+import $ from '$';
+import { Bitmap, Sprite } from 'rpg_core';
 import { ImageManager } from 'rpg_managers';
 import { Game_Character } from 'rpg_objects';
 
@@ -68,14 +69,14 @@ export default class Sprite_Character extends Sprite_Base {
     };
     
     tilesetBitmap(tileId: number) {
-        const tileset = $gameMap.tileset();
+        const tileset = $.gameMap.tileset();
         const setNumber = 5 + Math.floor(tileId / 256);
         return ImageManager.loadTileset(tileset.tilesetNames[setNumber]);
     };
     
     updateBitmap() {
         if (this.isImageChanged()) {
-            this._tilesetId = $gameMap.tilesetId();
+            this._tilesetId = $.gameMap.tilesetId();
             this._tileId = this._character.tileId();
             this._characterName = this._character.characterName();
             this._characterIndex = this._character.characterIndex();
@@ -88,7 +89,7 @@ export default class Sprite_Character extends Sprite_Base {
     };
     
     isImageChanged() {
-        return (this._tilesetId !== $gameMap.tilesetId() ||
+        return (this._tilesetId !== $.gameMap.tilesetId() ||
                 this._tileId !== this._character.tileId() ||
                 this._characterName !== this._character.characterName() ||
                 this._characterIndex !== this._character.characterIndex());
@@ -163,7 +164,7 @@ export default class Sprite_Character extends Sprite_Base {
     
     patternWidth() {
         if (this._tileId > 0) {
-            return $gameMap.tileWidth();
+            return $.gameMap.tileWidth();
         } else if (this._isBigCharacter) {
             return this.bitmap.width / 3;
         } else {
@@ -173,7 +174,7 @@ export default class Sprite_Character extends Sprite_Base {
     
     patternHeight() {
         if (this._tileId > 0) {
-            return $gameMap.tileHeight();
+            return $.gameMap.tileHeight();
         } else if (this._isBigCharacter) {
             return this.bitmap.height / 4;
         } else {
@@ -239,7 +240,7 @@ export default class Sprite_Character extends Sprite_Base {
     
     setupAnimation() {
         if (this._character.animationId() > 0) {
-            const animation = $dataAnimations[this._character.animationId()];
+            const animation = $.dataAnimations[this._character.animationId()];
             this.startAnimation(animation, false, 0);
             this._character.startAnimation();
         }

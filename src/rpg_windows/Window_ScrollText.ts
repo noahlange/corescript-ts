@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics, Input, TouchInput } from 'rpg_core';
 import Window_Base from './Window_Base';
 import { TextState } from './Window_Message';
@@ -22,18 +23,18 @@ export default class Window_ScrollText extends Window_Base {
 
     update() {
         super.update();
-        if ($gameMessage.scrollMode()) {
+        if ($.gameMessage.scrollMode()) {
             if (this._text) {
                 this.updateMessage();
             }
-            if (!this._text && $gameMessage.hasText()) {
+            if (!this._text && $.gameMessage.hasText()) {
                 this.startMessage();
             }
         }
     };
 
     startMessage() {
-        this._text = $gameMessage.allText();
+        this._text = $.gameMessage.allText();
         this.refresh();
         this.show();
     };
@@ -62,7 +63,7 @@ export default class Window_ScrollText extends Window_Base {
     };
 
     scrollSpeed() {
-        let speed = $gameMessage.scrollSpeed() / 2;
+        let speed = $.gameMessage.scrollSpeed() / 2;
         if (this.isFastForward()) {
             speed *= this.fastForwardRate();
         }
@@ -70,7 +71,7 @@ export default class Window_ScrollText extends Window_Base {
     };
 
     isFastForward() {
-        if ($gameMessage.scrollNoFast()) {
+        if ($.gameMessage.scrollNoFast()) {
             return false;
         } else {
             return (Input.isPressed('ok') || Input.isPressed('shift') ||
@@ -84,7 +85,7 @@ export default class Window_ScrollText extends Window_Base {
 
     terminateMessage() {
         this._text = null;
-        $gameMessage.clear();
+        $.gameMessage.clear();
         this.hide();
     };
 

@@ -3,11 +3,11 @@ import ResourceHandler from './ResourceHandler';
 
 //-----------------------------------------------------------------------------
 
-interface IInputState {
+export interface IInputState {
     [key: string]: boolean;
 }
 
-interface IInputMapper {
+export interface IInputMapper {
     [key: number]: string;
 }
 

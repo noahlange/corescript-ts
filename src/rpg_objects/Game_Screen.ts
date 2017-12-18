@@ -1,3 +1,4 @@
+import $ from '$';
 import Game_Picture from './Game_Picture';
 
 //-----------------------------------------------------------------------------
@@ -98,7 +99,7 @@ export default class Game_Screen {
     };
 
     realPictureId(pictureId: number) {
-        if ($gameParty.inBattle()) {
+        if ($.gameParty.inBattle()) {
             return pictureId + this.maxPictures();
         } else {
             return pictureId;

@@ -1,4 +1,5 @@
 import AudioManager from './AudioManager';
+import $ from '$';
 
 //-----------------------------------------------------------------------------
 // SoundManager
@@ -14,14 +15,14 @@ export default class SoundManager {
     };
     
     static loadSystemSound(n: number) {
-        if ($dataSystem) {
-            AudioManager.loadStaticSe($dataSystem.sounds[n]);
+        if ($.dataSystem) {
+            AudioManager.loadStaticSe($.dataSystem.sounds[n]);
         }
     };
     
     static playSystemSound(n: number) {
-        if ($dataSystem) {
-            AudioManager.playStaticSe($dataSystem.sounds[n]);
+        if ($.dataSystem) {
+            AudioManager.playStaticSe($.dataSystem.sounds[n]);
         }
     };
     

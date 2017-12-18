@@ -10,6 +10,7 @@ import Utils from './Utils';
  * @constructor
  * @param {Bitmap} bitmap The image for the sprite
  */
+
 export default class Sprite extends PIXI.Sprite {
     protected _bitmap: Bitmap | null = null;
     protected _frame: PIXI.Rectangle = new PIXI.Rectangle();
@@ -31,7 +32,7 @@ export default class Sprite extends PIXI.Sprite {
     public spriteId: number;
     public opaque: boolean = false;
 
-    static voidFilter = new PIXI.filters.VoidFilter();
+    static voidFilter = new PIXI.filters.AlphaFilter();
     constructor(bitmap?: Bitmap) {
         super(new PIXI.Texture(new PIXI.BaseTexture()))
 

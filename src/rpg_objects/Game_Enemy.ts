@@ -1,3 +1,4 @@
+import $ from '$';
 import { SoundManager } from 'rpg_managers';
 
 import Game_Action from './Game_Action';
@@ -41,15 +42,15 @@ export default class Game_Enemy extends Game_Battler {
     };
     
     friendsUnit() {
-        return $gameTroop;
+        return $.gameTroop;
     };
     
     opponentsUnit() {
-        return $gameParty;
+        return $.gameParty;
     };
     
     index() {
-        return $gameTroop.members().indexOf(this);
+        return $.gameTroop.members().indexOf(this);
     };
     
     isBattleMember() {
@@ -61,7 +62,7 @@ export default class Game_Enemy extends Game_Battler {
     };
     
     enemy() {
-        return $dataEnemies[this._enemyId];
+        return $.dataEnemies[this._enemyId];
     };
     
     traitObjects() {
@@ -92,16 +93,16 @@ export default class Game_Enemy extends Game_Battler {
     };
     
     dropItemRate() {
-        return $gameParty.hasDropItemDouble() ? 2 : 1;
+        return $.gameParty.hasDropItemDouble() ? 2 : 1;
     };
     
     itemObject(kind: number, dataId: number) {
         if (kind === 1) {
-            return $dataItems[dataId];
+            return $.dataItems[dataId];
         } else if (kind === 2) {
-            return $dataWeapons[dataId];
+            return $.dataWeapons[dataId];
         } else if (kind === 3) {
-            return $dataArmors[dataId];
+            return $.dataArmors[dataId];
         } else {
             return null;
         }
@@ -218,7 +219,7 @@ export default class Game_Enemy extends Game_Battler {
     };
     
     meetsTurnCondition(param1: number, param2: number) {
-        const n = $gameTroop.turnCount();
+        const n = $.gameTroop.turnCount();
         if (param2 === 0) {
             return n === param1;
         } else {
@@ -239,15 +240,15 @@ export default class Game_Enemy extends Game_Battler {
     };
     
     meetsPartyLevelCondition(param: number) {
-        return $gameParty.highestLevel() >= param;
+        return $.gameParty.highestLevel() >= param;
     };
     
     meetsSwitchCondition(param: number) {
-        return $gameSwitches.value(param);
+        return $.gameSwitches.value(param);
     };
     
     isActionValid(action: DB.Action) {
-        return this.meetsCondition(action) && this.canUse($dataSkills[action.skillId]);
+        return this.meetsCondition(action) && this.canUse($.dataSkills[action.skillId]);
     };
     
     selectAction(actionList: DB.Action[], ratingZero: number) {

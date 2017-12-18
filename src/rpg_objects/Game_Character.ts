@@ -1,3 +1,4 @@
+import $ from '$';
 import { AudioManager } from 'rpg_managers';
 import Game_CharacterBase from './Game_CharacterBase';
 
@@ -220,10 +221,10 @@ export default class Game_Character extends Game_CharacterBase {
                 this.turnAwayFromPlayer();
                 break;
             case Route.SWITCH_ON:
-                $gameSwitches.setValue(params[0], true);
+                $.gameSwitches.setValue(params[0], true);
                 break;
             case Route.SWITCH_OFF:
-                $gameSwitches.setValue(params[0], false);
+                $.gameSwitches.setValue(params[0], false);
                 break;
             case Route.CHANGE_SPEED:
                 this.setMoveSpeed(params[0]);
@@ -280,11 +281,11 @@ export default class Game_Character extends Game_CharacterBase {
     };
 
     deltaXFrom(x: number) {
-        return $gameMap.deltaX(this.x, x);
+        return $.gameMap.deltaX(this.x, x);
     };
 
     deltaYFrom(y: number) {
-        return $gameMap.deltaY(this.y, y);
+        return $.gameMap.deltaY(this.y, y);
     };
 
     moveRandom() {
@@ -347,19 +348,19 @@ export default class Game_Character extends Game_CharacterBase {
     };
 
     turnTowardPlayer() {
-        this.turnTowardCharacter($gamePlayer);
+        this.turnTowardCharacter($.gamePlayer);
     };
 
     turnAwayFromPlayer() {
-        this.turnAwayFromCharacter($gamePlayer);
+        this.turnAwayFromCharacter($.gamePlayer);
     };
 
     moveTowardPlayer() {
-        this.moveTowardCharacter($gamePlayer);
+        this.moveTowardCharacter($.gamePlayer);
     };
 
     moveAwayFromPlayer() {
-        this.moveAwayFromCharacter($gamePlayer);
+        this.moveAwayFromCharacter($.gamePlayer);
     };
 
     moveForward() {
@@ -455,7 +456,7 @@ export default class Game_Character extends Game_CharacterBase {
 
     findDirectionTo(goalX: number, goalY: number) {
         const searchLimit = this.searchLimit();
-        const mapWidth = $gameMap.width();
+        const mapWidth = $.gameMap.width();
         const nodeList: IMapCoord[] = [];
         const openList: number[] = [];
         const closedList = [];
@@ -468,7 +469,7 @@ export default class Game_Character extends Game_CharacterBase {
             x: this.x,
             y: this.y,
             g: 0,
-            f: $gameMap.distance(this.x, this.y, goalX, goalY)
+            f: $.gameMap.distance(this.x, this.y, goalX, goalY)
         };
         let best : IMapCoord = start;
 
@@ -504,8 +505,8 @@ export default class Game_Character extends Game_CharacterBase {
 
             for (let j = 0; j < 4; j++) {
                 const direction = 2 + j * 2;
-                const x2 = $gameMap.roundXWithDirection(x1, direction);
-                const y2 = $gameMap.roundYWithDirection(y1, direction);
+                const x2 = $.gameMap.roundXWithDirection(x1, direction);
+                const y2 = $.gameMap.roundYWithDirection(y1, direction);
                 const pos2 = y2 * mapWidth + x2;
 
                 if (closedList.contains(pos2)) {
@@ -531,7 +532,7 @@ export default class Game_Character extends Game_CharacterBase {
                     neighbor.x = x2;
                     neighbor.y = y2;
                     neighbor.g = g2;
-                    neighbor.f = g2 + $gameMap.distance(x2, y2, goalX, goalY);
+                    neighbor.f = g2 + $.gameMap.distance(x2, y2, goalX, goalY);
                     if (!best || neighbor.f - neighbor.g < best['f'] - best['g']) {
                         best = neighbor;
                     }
@@ -544,8 +545,8 @@ export default class Game_Character extends Game_CharacterBase {
             node = node['parent'];
         }
 
-        const deltaX1 = $gameMap.deltaX(node['x'], start['x']);
-        const deltaY1 = $gameMap.deltaY(node['y'], start['y']);
+        const deltaX1 = $.gameMap.deltaX(node['x'], start['x']);
+        const deltaY1 = $.gameMap.deltaY(node['y'], start['y']);
         if (deltaY1 > 0) {
             return 2;
         } else if (deltaX1 < 0) {

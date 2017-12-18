@@ -1,4 +1,8 @@
 import './jsExtensions';
+
+import Stage from './Stage';
+import CoreWindow from './Window';
+
 import Utils from './Utils';
 import CacheEntry from './CacheEntry';
 import CacheMap from './CacheMap';
@@ -13,11 +17,10 @@ import Tilemap from './Tilemap';
 import ShaderTilemap from './ShaderTilemap';
 import TilingSprite from './TilingSprite';
 import ScreenSprite from './ScreenSprite';
-import CoreWindow from './Window';
 import WindowLayer from './WindowLayer';
 import Weather from './Weather';
 import ToneFilter from './ToneFilter';
-import Stage from './Stage';
+// STAGE
 import WebAudio from './WebAudio';
 import Html5Audio from './Html5Audio';
 import JsonEx from './JsonEx';

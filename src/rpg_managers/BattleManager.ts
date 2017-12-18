@@ -1,3 +1,4 @@
+import $ from '$';
 import { Window_BattleLog, Window_BattleStatus } from 'rpg_windows';
 import { Game_Actor, Game_Action, Game_Battler } from 'rpg_objects';
 import { Spriteset_Battle } from 'rpg_sprites';
@@ -14,7 +15,7 @@ import TextManager from './TextManager';
 //
 // The static class that manages battle progress.
 
-interface BattleReward {
+export interface BattleReward {
     gold?: number;
     exp?: number;
     items?: DB.Item[];
@@ -48,8 +49,8 @@ export default class BattleManager {
         this.initMembers();
         this._canEscape = canEscape;
         this._canLose = canLose;
-        $gameTroop.setup(troopId);
-        $gameScreen.onBattleStart();
+        $.gameTroop.setup(troopId);
+        $.gameScreen.onBattleStart();
         this.makeEscapeRatio();
     };
     
@@ -107,11 +108,11 @@ export default class BattleManager {
     };
     
     static ratePreemptive() {
-        return $gameParty.ratePreemptive($gameTroop.agility());
+        return $.gameParty.ratePreemptive($.gameTroop.agility());
     };
     
     static rateSurprise() {
-        return $gameParty.rateSurprise($gameTroop.agility());
+        return $.gameParty.rateSurprise($.gameTroop.agility());
     };
     
     static saveBgmAndBgs() {
@@ -120,16 +121,16 @@ export default class BattleManager {
     };
     
     static playBattleBgm() {
-        AudioManager.playBgm($gameSystem.battleBgm());
+        AudioManager.playBgm($.gameSystem.battleBgm());
         AudioManager.stopBgs();
     };
     
     static playVictoryMe() {
-        AudioManager.playMe($gameSystem.victoryMe());
+        AudioManager.playMe($.gameSystem.victoryMe());
     };
     
     static playDefeatMe() {
-        AudioManager.playMe($gameSystem.defeatMe());
+        AudioManager.playMe($.gameSystem.defeatMe());
     };
     
     static replayBgmAndBgs() {
@@ -144,7 +145,7 @@ export default class BattleManager {
     };
     
     static makeEscapeRatio() {
-        this._escapeRatio = 0.5 * $gameParty.agility() / $gameTroop.agility();
+        this._escapeRatio = 0.5 * $.gameParty.agility() / $.gameTroop.agility();
     };
     
     static update() {
@@ -185,20 +186,20 @@ export default class BattleManager {
     };
     
     static updateEventMain() {
-        $gameTroop.updateInterpreter();
-        $gameParty.requestMotionRefresh();
-        if ($gameTroop.isEventRunning() || this.checkBattleEnd()) {
+        $.gameTroop.updateInterpreter();
+        $.gameParty.requestMotionRefresh();
+        if ($.gameTroop.isEventRunning() || this.checkBattleEnd()) {
             return true;
         }
-        $gameTroop.setupBattleEvent();
-        if ($gameTroop.isEventRunning() || SceneManager.isSceneChanging()) {
+        $.gameTroop.setupBattleEvent();
+        if ($.gameTroop.isEventRunning() || SceneManager.isSceneChanging()) {
             return true;
         }
         return false;
     };
     
     static isBusy() {
-        return ($gameMessage.isBusy() || this._spriteset.isBusy() ||
+        return ($.gameMessage.isBusy() || this._spriteset.isBusy() ||
                 this._logWindow.isBusy());
     };
     
@@ -235,7 +236,7 @@ export default class BattleManager {
     };
     
     static actor() {
-        return this._actorIndex >= 0 ? $gameParty.members()[this._actorIndex] : null;
+        return this._actorIndex >= 0 ? $.gameParty.members()[this._actorIndex] : null;
     };
     
     static clearActor() {
@@ -256,29 +257,29 @@ export default class BattleManager {
     
     static startBattle() {
         this._phase = 'start';
-        $gameSystem.onBattleStart();
-        $gameParty.onBattleStart();
-        $gameTroop.onBattleStart();
+        $.gameSystem.onBattleStart();
+        $.gameParty.onBattleStart();
+        $.gameTroop.onBattleStart();
         this.displayStartMessages();
     };
     
     static displayStartMessages() {
-        $gameTroop.enemyNames().forEach(function(name) {
-            $gameMessage.add(TextManager.emerge.format(name));
+        $.gameTroop.enemyNames().forEach(function(name) {
+            $.gameMessage.add(TextManager.emerge.format(name));
         });
         if (this._preemptive) {
-            $gameMessage.add(TextManager.preemptive.format($gameParty.name()));
+            $.gameMessage.add(TextManager.preemptive.format($.gameParty.name()));
         } else if (this._surprise) {
-            $gameMessage.add(TextManager.surprise.format($gameParty.name()));
+            $.gameMessage.add(TextManager.surprise.format($.gameParty.name()));
         }
     };
     
     static startInput() {
         this._phase = 'input';
-        $gameParty.makeActions();
-        $gameTroop.makeActions();
+        $.gameParty.makeActions();
+        $.gameTroop.makeActions();
         this.clearActor();
-        if (this._surprise || !$gameParty.canInput()) {
+        if (this._surprise || !$.gameParty.canInput()) {
             this.startTurn();
         }
     };
@@ -291,7 +292,7 @@ export default class BattleManager {
         do {
             if (!this.actor() || !this.actor().selectNextCommand()) {
                 this.changeActor(this._actorIndex + 1, 'waiting');
-                if (this._actorIndex >= $gameParty.size()) {
+                if (this._actorIndex >= $.gameParty.size()) {
                     this.startTurn();
                     break;
                 }
@@ -317,14 +318,14 @@ export default class BattleManager {
     static startTurn() {
         this._phase = 'turn';
         this.clearActor();
-        $gameTroop.increaseTurn();
+        $.gameTroop.increaseTurn();
         this.makeActionOrders();
-        $gameParty.requestMotionRefresh();
+        $.gameParty.requestMotionRefresh();
         this._logWindow.startTurn();
     };
     
     static updateTurn() {
-        $gameParty.requestMotionRefresh();
+        $.gameParty.requestMotionRefresh();
         if (!this._subject) {
             this._subject = this.getNextSubject();
         }
@@ -383,18 +384,18 @@ export default class BattleManager {
     };
     
     static allBattleMembers(): Game_Battler[] {
-        const enemies = $gameTroop.members() as Game_Battler[];
-        const parties = $gameParty.members() as Game_Battler[];
+        const enemies = $.gameTroop.members() as Game_Battler[];
+        const parties = $.gameParty.members() as Game_Battler[];
         return parties.concat(enemies);
     };
     
     static makeActionOrders() {
         let battlers: Game_Battler[] = [];
         if (!this._surprise) {
-            battlers = battlers.concat($gameParty.members());
+            battlers = battlers.concat($.gameParty.members());
         }
         if (!this._preemptive) {
-            battlers = battlers.concat($gameTroop.members());
+            battlers = battlers.concat($.gameTroop.members());
         }
         battlers.forEach(function(battler) {
             battler.makeSpeed();
@@ -513,10 +514,10 @@ export default class BattleManager {
         if (this._phase) {
             if (this.checkAbort()) {
                 return true;
-            } else if ($gameParty.isAllDead()) {
+            } else if ($.gameParty.isAllDead()) {
                 this.processDefeat();
                 return true;
-            } else if ($gameTroop.isAllDead()) {
+            } else if ($.gameTroop.isAllDead()) {
                 this.processVictory();
                 return true;
             }
@@ -525,7 +526,7 @@ export default class BattleManager {
     };
     
     static checkAbort() {
-        if ($gameParty.isEmpty() || this.isAborting()) {
+        if ($.gameParty.isEmpty() || this.isAborting()) {
             this.processAbort();
             return true;
         }
@@ -533,7 +534,7 @@ export default class BattleManager {
     };
     
     static checkAbort2() {
-        if ($gameParty.isEmpty() || this.isAborting()) {
+        if ($.gameParty.isEmpty() || this.isAborting()) {
             SoundManager.playEscape();
             this._escaped = true;
             this.processAbort();
@@ -542,8 +543,8 @@ export default class BattleManager {
     };
     
     static processVictory() {
-        $gameParty.removeBattleStates();
-        $gameParty.performVictory();
+        $.gameParty.removeBattleStates();
+        $.gameParty.performVictory();
         this.playVictoryMe();
         this.replayBgmAndBgs();
         this.makeRewards();
@@ -554,7 +555,7 @@ export default class BattleManager {
     };
     
     static processEscape() {
-        $gameParty.performEscape();
+        $.gameParty.performEscape();
         SoundManager.playEscape();
         const success = this._preemptive ? true : (Math.random() < this._escapeRatio);
         if (success) {
@@ -564,14 +565,14 @@ export default class BattleManager {
         } else {
             this.displayEscapeFailureMessage();
             this._escapeRatio += 0.1;
-            $gameParty.clearActions();
+            $.gameParty.clearActions();
             this.startTurn();
         }
         return success;
     };
     
     static processAbort() {
-        $gameParty.removeBattleStates();
+        $.gameParty.removeBattleStates();
         this.replayBgmAndBgs();
         this.endBattle(1);
     };
@@ -593,9 +594,9 @@ export default class BattleManager {
             this._eventCallback(result);
         }
         if (result === 0) {
-            $gameSystem.onBattleWin();
+            $.gameSystem.onBattleWin();
         } else if (this._escaped) {
-            $gameSystem.onBattleEscape();
+            $.gameSystem.onBattleEscape();
         }
     };
     
@@ -603,9 +604,9 @@ export default class BattleManager {
         if (this.isBattleTest()) {
             AudioManager.stopBgm();
             SceneManager.exit();
-        } else if (!this._escaped && $gameParty.isAllDead()) {
+        } else if (!this._escaped && $.gameParty.isAllDead()) {
             if (this._canLose) {
-                $gameParty.reviveBattleMembers();
+                $.gameParty.reviveBattleMembers();
                 SceneManager.pop();
             } else {
                 SceneManager.goto(Scene_Gameover);
@@ -618,27 +619,27 @@ export default class BattleManager {
     
     static makeRewards() {
         this._rewards = {
-            gold: $gameTroop.goldTotal(),
-            exp: $gameTroop.expTotal(),
-            items: $gameTroop.makeDropItems()
+            gold: $.gameTroop.goldTotal(),
+            exp: $.gameTroop.expTotal(),
+            items: $.gameTroop.makeDropItems()
         };
     };
     
     static displayVictoryMessage() {
-        $gameMessage.add(TextManager.victory.format($gameParty.name()));
+        $.gameMessage.add(TextManager.victory.format($.gameParty.name()));
     };
     
     static displayDefeatMessage() {
-        $gameMessage.add(TextManager.defeat.format($gameParty.name()));
+        $.gameMessage.add(TextManager.defeat.format($.gameParty.name()));
     };
     
     static displayEscapeSuccessMessage() {
-        $gameMessage.add(TextManager.escapeStart.format($gameParty.name()));
+        $.gameMessage.add(TextManager.escapeStart.format($.gameParty.name()));
     };
     
     static displayEscapeFailureMessage() {
-        $gameMessage.add(TextManager.escapeStart.format($gameParty.name()));
-        $gameMessage.add('\\.' + TextManager.escapeFailure);
+        $.gameMessage.add(TextManager.escapeStart.format($.gameParty.name()));
+        $.gameMessage.add('\\.' + TextManager.escapeFailure);
     };
     
     static displayRewards() {
@@ -651,23 +652,23 @@ export default class BattleManager {
         const exp = this._rewards.exp;
         if (exp > 0) {
             const text = TextManager.obtainExp.format(exp, TextManager.exp);
-            $gameMessage.add('\\.' + text);
+            $.gameMessage.add('\\.' + text);
         }
     };
     
     static displayGold() {
         const gold = this._rewards.gold;
         if (gold > 0) {
-            $gameMessage.add('\\.' + TextManager.obtainGold.format(gold));
+            $.gameMessage.add('\\.' + TextManager.obtainGold.format(gold));
         }
     };
     
     static displayDropItems() {
         const items = this._rewards.items;
         if (items.length > 0) {
-            $gameMessage.newPage();
+            $.gameMessage.newPage();
             items.forEach(function(item: DB.Item) {
-                $gameMessage.add(TextManager.obtainItem.format(item.name));
+                $.gameMessage.add(TextManager.obtainItem.format(item.name));
             });
         }
     };
@@ -680,19 +681,19 @@ export default class BattleManager {
     
     static gainExp() {
         const exp = this._rewards.exp;
-        $gameParty.allMembers().forEach(function(actor) {
+        $.gameParty.allMembers().forEach(function(actor) {
             actor.gainExp(exp);
         });
     };
     
     static gainGold() {
-        $gameParty.gainGold(this._rewards.gold);
+        $.gameParty.gainGold(this._rewards.gold);
     };
     
     static gainDropItems() {
         const items = this._rewards.items;
         items.forEach(function(item: DB.Item) {
-            $gameParty.gainItem(item, 1);
+            $.gameParty.gainItem(item, 1);
         });
     };
         

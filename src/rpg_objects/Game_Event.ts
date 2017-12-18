@@ -1,3 +1,4 @@
+import $ from '$';
 import Game_Character from './Game_Character';
 import Game_Interpreter from './Game_Interpreter';
 
@@ -47,7 +48,7 @@ export default class Game_Event extends Game_Character {
     };
     
     event(): DB.Event {
-        return $dataMap.events[this._eventId];
+        return $.dataMap.events[this._eventId];
     };
     
     page(): DB.Page {
@@ -64,12 +65,12 @@ export default class Game_Event extends Game_Character {
     };
     
     isCollidedWithEvents(x: number, y: number) {
-        const events = $gameMap.eventsXyNt(x, y);
+        const events = $.gameMap.eventsXyNt(x, y);
         return events.length > 0;
     };
     
     isCollidedWithPlayerCharacters(x: number, y: number) {
-        return this.isNormalPriority() && $gamePlayer.isCollided(x, y);
+        return this.isNormalPriority() && $.gamePlayer.isCollided(x, y);
     };
     
     lock() {
@@ -151,8 +152,8 @@ export default class Game_Event extends Game_Character {
     };
     
     isNearThePlayer() {
-        const sx = Math.abs(this.deltaXFrom($gamePlayer.x));
-        const sy = Math.abs(this.deltaYFrom($gamePlayer.y));
+        const sx = Math.abs(this.deltaXFrom($.gamePlayer.x));
+        const sy = Math.abs(this.deltaYFrom($.gamePlayer.y));
         return sx + sy < 20;
     };
     
@@ -209,35 +210,35 @@ export default class Game_Event extends Game_Character {
     meetsConditions(page: DB.Page) {
         const c = page.conditions;
         if (c.switch1Valid) {
-            if (!$gameSwitches.value(c.switch1Id)) {
+            if (!$.gameSwitches.value(c.switch1Id)) {
                 return false;
             }
         }
         if (c.switch2Valid) {
-            if (!$gameSwitches.value(c.switch2Id)) {
+            if (!$.gameSwitches.value(c.switch2Id)) {
                 return false;
             }
         }
         if (c.variableValid) {
-            if ($gameVariables.value(c.variableId) < c.variableValue) {
+            if ($.gameVariables.value(c.variableId) < c.variableValue) {
                 return false;
             }
         }
         if (c.selfSwitchValid) {
             const key = [this._mapId, this._eventId, c.selfSwitchCh];
-            if ($gameSelfSwitches.value(key) !== true) {
+            if ($.gameSelfSwitches.value(key) !== true) {
                 return false;
             }
         }
         if (c.itemValid) {
-            const item = $dataItems[c.itemId];
-            if (!$gameParty.hasItem(item)) {
+            const item = $.dataItems[c.itemId];
+            if (!$.gameParty.hasItem(item)) {
                 return false;
             }
         }
         if (c.actorValid) {
-            const actor = $gameActors.actor(c.actorId);
-            if (!$gameParty.members().contains(actor)) {
+            const actor = $.gameActors.actor(c.actorId);
+            if (!$.gameParty.members().contains(actor)) {
                 return false;
             }
         }
@@ -307,8 +308,8 @@ export default class Game_Event extends Game_Character {
     };
     
     checkEventTriggerTouch(x: number, y: number) {
-        if (!$gameMap.isEventRunning()) {
-            if (this._trigger === 2 && $gamePlayer.pos(x, y)) {
+        if (!$.gameMap.isEventRunning()) {
+            if (this._trigger === 2 && $.gamePlayer.pos(x, y)) {
                 if (!this.isJumping() && this.isNormalPriority()) {
                     this.start();
                 }

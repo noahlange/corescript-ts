@@ -1,3 +1,4 @@
+import $ from '$';
 import { Window_NameEdit, Window_NameInput } from 'rpg_windows';
 import Scene_MenuBase from './Scene_MenuBase';
 
@@ -19,7 +20,7 @@ export default class Scene_Name extends Scene_MenuBase {
 
     create() {
         super.create();
-        this._actor = $gameActors.actor(this._actorId);
+        this._actor = $.gameActors.actor(this._actorId);
         this.createEditWindow();
         this.createInputWindow();
     };

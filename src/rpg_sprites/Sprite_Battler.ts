@@ -1,3 +1,4 @@
+import $ from '$';
 import { Game_Battler } from 'rpg_objects';
 
 import Sprite_Base from './Sprite_Base';
@@ -137,7 +138,7 @@ export default class Sprite_Battler extends Sprite_Base {
     setupAnimation() {
         while (this._battler.isAnimationRequested()) {
             const data = this._battler.shiftAnimation();
-            const animation = $dataAnimations[data.animationId];
+            const animation = $.dataAnimations[data.animationId];
             const mirror = data.mirror;
             const delay = animation.position === 3 ? 0 : data.delay;
             this.startAnimation(animation, mirror, delay);

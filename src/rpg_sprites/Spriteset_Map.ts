@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics, ShaderTilemap, Sprite, TilingSprite, Weather } from 'rpg_core';
 import { ImageManager } from 'rpg_managers';
 
@@ -56,23 +57,23 @@ export default class Spriteset_Map extends Spriteset_Base {
 
     createTilemap() {
         this._tilemap = new ShaderTilemap();
-        this._tilemap.tileWidth = $gameMap.tileWidth();
-        this._tilemap.tileHeight = $gameMap.tileHeight();
-        this._tilemap.setData($gameMap.width(), $gameMap.height(), $gameMap.data());
-        this._tilemap.horizontalWrap = $gameMap.isLoopHorizontal();
-        this._tilemap.verticalWrap = $gameMap.isLoopVertical();
+        this._tilemap.tileWidth = $.gameMap.tileWidth();
+        this._tilemap.tileHeight = $.gameMap.tileHeight();
+        this._tilemap.setData($.gameMap.width(), $.gameMap.height(), $.gameMap.data());
+        this._tilemap.horizontalWrap = $.gameMap.isLoopHorizontal();
+        this._tilemap.verticalWrap = $.gameMap.isLoopVertical();
         this.loadTileset();
         this._baseSprite.addChild(this._tilemap);
     };
 
     loadTileset() {
-        this._tileset = $gameMap.tileset();
+        this._tileset = $.gameMap.tileset();
         if (this._tileset) {
             const tilesetNames = this._tileset.tilesetNames;
             for (let i = 0; i < tilesetNames.length; i++) {
                 this._tilemap.bitmaps[i] = ImageManager.loadTileset(tilesetNames[i]);
             }
-            const newTilesetFlags = $gameMap.tilesetFlags();
+            const newTilesetFlags = $.gameMap.tilesetFlags();
             this._tilemap.refreshTileset();
             if (!this._tilemap.flags.equals(newTilesetFlags)) {
                 this._tilemap.refresh();
@@ -83,16 +84,16 @@ export default class Spriteset_Map extends Spriteset_Base {
 
     createCharacters() {
         this._characterSprites = [];
-        $gameMap.events().forEach(function (event) {
+        $.gameMap.events().forEach(function (event) {
             this._characterSprites.push(new Sprite_Character(event));
         }, this);
-        $gameMap.vehicles().forEach(function (vehicle) {
+        $.gameMap.vehicles().forEach(function (vehicle) {
             this._characterSprites.push(new Sprite_Character(vehicle));
         }, this);
-        $gamePlayer.followers().reverseEach(function (follower) {
+        $.gamePlayer.followers().reverseEach(function (follower) {
             this._characterSprites.push(new Sprite_Character(follower));
         }, this);
-        this._characterSprites.push(new Sprite_Character($gamePlayer));
+        this._characterSprites.push(new Sprite_Character($.gamePlayer));
         for (let i = 0; i < this._characterSprites.length; i++) {
             this._tilemap.addChild(this._characterSprites[i]);
         }
@@ -119,40 +120,40 @@ export default class Spriteset_Map extends Spriteset_Base {
     };
 
     updateTileset() {
-        if (this._tileset !== $gameMap.tileset()) {
+        if (this._tileset !== $.gameMap.tileset()) {
             this.loadTileset();
         }
     };
 
     updateParallax() {
-        if (this._parallaxName !== $gameMap.parallaxName()) {
-            this._parallaxName = $gameMap.parallaxName();
+        if (this._parallaxName !== $.gameMap.parallaxName()) {
+            this._parallaxName = $.gameMap.parallaxName();
 
             this._parallax.bitmap = ImageManager.loadParallax(this._parallaxName);
         }
         if (this._parallax.bitmap) {
-            this._parallax.origin.x = $gameMap.parallaxOx();
-            this._parallax.origin.y = $gameMap.parallaxOy();
+            this._parallax.origin.x = $.gameMap.parallaxOx();
+            this._parallax.origin.y = $.gameMap.parallaxOy();
         }
     };
 
     updateTilemap() {
-        this._tilemap.origin.x = $gameMap.displayX() * $gameMap.tileWidth();
-        this._tilemap.origin.y = $gameMap.displayY() * $gameMap.tileHeight();
+        this._tilemap.origin.x = $.gameMap.displayX() * $.gameMap.tileWidth();
+        this._tilemap.origin.y = $.gameMap.displayY() * $.gameMap.tileHeight();
     };
 
     updateShadow() {
-        const airship = $gameMap.airship();
+        const airship = $.gameMap.airship();
         this._shadowSprite.x = airship.shadowX();
         this._shadowSprite.y = airship.shadowY();
         this._shadowSprite.opacity = airship.shadowOpacity();
     };
 
     updateWeather() {
-        this._weather.type = $gameScreen.weatherType();
-        this._weather.power = $gameScreen.weatherPower();
-        this._weather.origin.x = $gameMap.displayX() * $gameMap.tileWidth();
-        this._weather.origin.y = $gameMap.displayY() * $gameMap.tileHeight();
+        this._weather.type = $.gameScreen.weatherType();
+        this._weather.power = $.gameScreen.weatherPower();
+        this._weather.origin.x = $.gameMap.displayX() * $.gameMap.tileWidth();
+        this._weather.origin.y = $.gameMap.displayY() * $.gameMap.tileHeight();
     };
 
 }

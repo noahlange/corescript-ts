@@ -1,4 +1,5 @@
 import { Sprite } from 'rpg_core';
+import { ImageManager } from 'rpg_managers';
 import { Game_Battler } from 'rpg_objects';
 
 //-----------------------------------------------------------------------------

@@ -1,3 +1,4 @@
+import $ from '$';
 import Game_Follower from './Game_Follower';
 
 //-----------------------------------------------------------------------------
@@ -5,7 +6,7 @@ import Game_Follower from './Game_Follower';
 //
 // The wrapper class for a follower array.
 
-type ForeachFn = (item: Game_Follower) => void;
+export type ForeachFn = (item: Game_Follower) => void;
 
 export default class Game_Followers {
     protected _visible: boolean;
@@ -13,8 +14,8 @@ export default class Game_Followers {
     protected _data: Game_Follower[] = [];
 
     constructor() {
-        this._visible = $dataSystem.optFollowers;
-        for (let i = 1; i < $gameParty.maxBattleMembers(); i++) {
+        this._visible = $.dataSystem.optFollowers;
+        for (let i = 1; i < $.gameParty.maxBattleMembers(); i++) {
             this._data.push(new Game_Follower(i));
         }
     }
@@ -67,17 +68,17 @@ export default class Game_Followers {
     
     updateMove() {
         for (let i = this._data.length - 1; i >= 0; i--) {
-            const precedingCharacter = (i > 0 ? this._data[i - 1] : $gamePlayer);
+            const precedingCharacter = (i > 0 ? this._data[i - 1] : $.gamePlayer);
             this._data[i].chaseCharacter(precedingCharacter);
         }
     };
     
     jumpAll() {
-        if ($gamePlayer.isJumping()) {
+        if ($.gamePlayer.isJumping()) {
             for (let i = 0; i < this._data.length; i++) {
                 const follower = this._data[i];
-                const sx = $gamePlayer.deltaXFrom(follower.x);
-                const sy = $gamePlayer.deltaYFrom(follower.y);
+                const sx = $.gamePlayer.deltaXFrom(follower.x);
+                const sy = $.gamePlayer.deltaYFrom(follower.y);
                 follower.jump(sx, sy);
             }
         }
@@ -112,7 +113,7 @@ export default class Game_Followers {
     
     areGathered(): boolean {
         return this.visibleFollowers().every(function(follower) {
-            return !follower.isMoving() && follower.pos($gamePlayer.x, $gamePlayer.y);
+            return !follower.isMoving() && follower.pos($.gamePlayer.x, $.gamePlayer.y);
         }, this);
     };
     

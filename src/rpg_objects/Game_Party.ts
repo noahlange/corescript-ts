@@ -1,9 +1,10 @@
+import $ from '$';
 import { DataManager, TextManager } from 'rpg_managers';
 
 import Game_Actor from './Game_Actor';
+import { NumberMap } from './Game_BattlerBase';
 import Game_Unit from './Game_Unit';
 import Game_Item from './Game_Item';
-
 //-----------------------------------------------------------------------------
 // Game_Party
 //
@@ -52,7 +53,7 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
 
     allMembers(): Game_Actor[] {
         return this._actors.map(function (id) {
-            return $gameActors.actor(id);
+            return $.gameActors.actor(id);
         });
     };
 
@@ -81,7 +82,7 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
     items(): DB.Item[] {
         const list = [];
         for (let id in this._items) {
-            list.push($dataItems[id]);
+            list.push($.dataItems[id]);
         }
         return list;
     };
@@ -89,7 +90,7 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
     weapons(): DB.Weapon[] {
         const list = [];
         for (let id in this._weapons) {
-            list.push($dataWeapons[id]);
+            list.push($.dataWeapons[id]);
         }
         return list;
     };
@@ -97,7 +98,7 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
     armors(): DB.Armor[] {
         const list = [];
         for (let id in this._armors) {
-            list.push($dataArmors[id]);
+            list.push($.dataArmors[id]);
         }
         return list;
     };
@@ -130,8 +131,8 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
 
     setupStartingMembers() {
         this._actors = [];
-        $dataSystem.partyMembers.forEach(function (actorId) {
-            if ($gameActors.actor(actorId)) {
+        $.dataSystem.partyMembers.forEach(function (actorId) {
+            if ($.gameActors.actor(actorId)) {
                 this._actors.push(actorId);
             }
         }, this);
@@ -154,8 +155,8 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     setupBattleTestMembers() {
-        $dataSystem.testBattlers.forEach(function (battler) {
-            const actor = $gameActors.actor(battler.actorId);
+        $.dataSystem.testBattlers.forEach(function (battler) {
+            const actor = $.gameActors.actor(battler.actorId);
             if (actor) {
                 actor.changeLevel(battler.level, false);
                 actor.initEquips(battler.equips);
@@ -166,7 +167,7 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     setupBattleTestItems() {
-        $dataItems.forEach(function (item) {
+        $.dataItems.forEach(function (item) {
             if (item && item.name.length > 0) {
                 this.gainItem(item, this.maxItems(item));
             }
@@ -182,16 +183,16 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
     addActor(actorId: number) {
         if (!this._actors.contains(actorId)) {
             this._actors.push(actorId);
-            $gamePlayer.refresh();
-            $gameMap.requestRefresh();
+            $.gamePlayer.refresh();
+            $.gameMap.requestRefresh();
         }
     };
 
     removeActor(actorId: number) {
         if (this._actors.contains(actorId)) {
             this._actors.splice(this._actors.indexOf(actorId), 1);
-            $gamePlayer.refresh();
-            $gameMap.requestRefresh();
+            $.gamePlayer.refresh();
+            $.gameMap.requestRefresh();
         }
     };
 
@@ -260,7 +261,7 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
             if (includeEquip && newNumber < 0) {
                 this.discardMembersEquip(item as DB.Armor, -newNumber);
             }
-            $gameMap.requestRefresh();
+            $.gameMap.requestRefresh();
         }
     };
 
@@ -311,7 +312,7 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     menuActor() {
-        let actor = $gameActors.actor(this._menuActorId);
+        let actor = $.gameActors.actor(this._menuActorId);
         if (!this.members().contains(actor)) {
             actor = this.members()[0];
         }
@@ -343,7 +344,7 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
     };
 
     targetActor() {
-        let actor = $gameActors.actor(this._targetActorId);
+        let actor = $.gameActors.actor(this._targetActorId);
         if (!this.members().contains(actor)) {
             actor = this.members()[0];
         }
@@ -366,7 +367,7 @@ export default class Game_Party extends Game_Unit<Game_Actor> {
         const temp = this._actors[index1];
         this._actors[index1] = this._actors[index2];
         this._actors[index2] = temp;
-        $gamePlayer.refresh();
+        $.gamePlayer.refresh();
     };
 
     charactersForSavefile() {

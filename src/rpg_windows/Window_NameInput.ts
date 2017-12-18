@@ -1,3 +1,4 @@
+import $ from '$';
 import { Input } from 'rpg_core';
 import { SoundManager } from 'rpg_managers';
 import Window_Base from './Window_Base';
@@ -89,11 +90,11 @@ export default class Window_NameInput extends Window_Selectable {
     };
 
     table() {
-        if ($gameSystem.isJapanese()) {
+        if ($.gameSystem.isJapanese()) {
             return [Window_NameInput.JAPAN1,
             Window_NameInput.JAPAN2,
             Window_NameInput.JAPAN3];
-        } else if ($gameSystem.isRussian()) {
+        } else if ($.gameSystem.isRussian()) {
             return [Window_NameInput.RUSSIA];
         } else {
             return [Window_NameInput.LATIN1,

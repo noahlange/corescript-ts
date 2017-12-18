@@ -2,7 +2,7 @@ import Sprite_Base from './Sprite_Base';
 import Sprite_Button from './Sprite_Button';
 import Sprite_Character from './Sprite_Character';
 import Sprite_Battler from './Sprite_Battler';
-import Sprite_Actor from './Sprite_Actor';
+import Sprite_Actor, { MotionMap } from './Sprite_Actor';
 import Sprite_Enemy from './Sprite_Enemy';
 import Sprite_Animation from './Sprite_Animation';
 import Sprite_Damage from './Sprite_Damage';
@@ -34,5 +34,7 @@ export {
   Sprite_Destination,
   Spriteset_Base,
   Spriteset_Map,
-  Spriteset_Battle
+  Spriteset_Battle,
+
+  MotionMap
 };

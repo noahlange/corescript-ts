@@ -1,4 +1,6 @@
-interface StringMap {
+import CacheEntry from './CacheEntry';
+
+export interface StringMap {
     [key: string] : any
 }
 

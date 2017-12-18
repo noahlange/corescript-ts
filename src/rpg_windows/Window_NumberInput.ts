@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics, Input, TouchInput } from 'rpg_core';
 import { ImageManager, SoundManager } from 'rpg_managers';
 import { Sprite_Button } from 'rpg_sprites';
@@ -27,8 +28,8 @@ export default class Window_NumberInput extends Window_Selectable {
     };
     
     start() {
-        this._maxDigits = $gameMessage.numInputMaxDigits();
-        this._number = $gameVariables.value($gameMessage.numInputVariableId());
+        this._maxDigits = $.gameMessage.numInputMaxDigits();
+        this._number = $.gameVariables.value($.gameMessage.numInputVariableId());
         this._number = this._number.clamp(0, Math.pow(10, this._maxDigits) - 1);
         this.updatePlacement();
         this.placeButtons();
@@ -191,7 +192,7 @@ export default class Window_NumberInput extends Window_Selectable {
     
     processOk() {
         SoundManager.playOk();
-        $gameVariables.setValue($gameMessage.numInputVariableId(), this._number);
+        $.gameVariables.setValue($.gameMessage.numInputVariableId(), this._number);
         this._messageWindow.terminateMessage();
         this.updateInputData();
         this.deactivate();

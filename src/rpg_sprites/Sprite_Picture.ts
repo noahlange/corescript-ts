@@ -1,3 +1,4 @@
+import $ from '$';
 import { Sprite } from 'rpg_core';
 import { ImageManager } from 'rpg_managers';
 
@@ -19,7 +20,7 @@ export default class Sprite_Picture extends Sprite {
     };
     
     picture() {
-        return $gameScreen.picture(this._pictureId);
+        return $.gameScreen.picture(this._pictureId);
     };
     
     update() {

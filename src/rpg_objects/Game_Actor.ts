@@ -1,8 +1,12 @@
+import $ from '$';
 import { BattleManager, DataManager, SoundManager, TextManager } from 'rpg_managers';
 
 import Game_Action, { ActionEffect } from './Game_Action';
 import Game_Battler from './Game_Battler';
+import { NumberMap } from './Game_BattlerBase';
 import Game_Item from './Game_Item';
+import Game_Party from './Game_Party';
+import Game_Troop from './Game_Troop';
 
 //-----------------------------------------------------------------------------
 
@@ -62,7 +66,7 @@ export default class Game_Actor extends Game_Battler {
     };
 
     setup(actorId: number) {
-        const actor = $dataActors[actorId];
+        const actor = $.dataActors[actorId];
         this._actorId = actorId;
         this._name = actor.name;
         this._nickname = actor.nickname;
@@ -82,7 +86,7 @@ export default class Game_Actor extends Game_Battler {
     };
 
     actor() {
-        return $dataActors[this._actorId];
+        return $.dataActors[this._actorId];
     };
 
     name() {
@@ -141,7 +145,7 @@ export default class Game_Actor extends Game_Battler {
 
     resetStateCounts(stateId: number) {
         super.resetStateCounts(stateId);
-        this._stateSteps[stateId] = $dataStates[stateId].stepsToRemove;
+        this._stateSteps[stateId] = $.dataStates[stateId].stepsToRemove;
     };
 
     initImages() {
@@ -193,7 +197,7 @@ export default class Game_Actor extends Game_Battler {
 
     initSkills() {
         this._skills = [];
-        this.currentClass().learnings.forEach(function (learning) {
+        this.currentClass().learnings.forEach((learning: any) => {
             if (learning.level <= this._level) {
                 this.learnSkill(learning.skillId);
             }
@@ -218,7 +222,7 @@ export default class Game_Actor extends Game_Battler {
 
     equipSlots() {
         const slots = [];
-        for (let i = 1; i < $dataSystem.equipTypes.length; i++) {
+        for (let i = 1; i < $.dataSystem.equipTypes.length; i++) {
             slots.push(i);
         }
         if (slots.length >= 2 && this.isDualWield()) {
@@ -273,11 +277,11 @@ export default class Game_Actor extends Game_Battler {
     };
 
     tradeItemWithParty(newItem: DB.Weapon | DB.Armor | DB.Item, oldItem: DB.Weapon | DB.Armor | DB.Item) {
-        if (newItem && !$gameParty.hasItem(newItem)) {
+        if (newItem && !$.gameParty.hasItem(newItem)) {
             return false;
         } else {
-            $gameParty.gainItem(oldItem, 1);
-            $gameParty.loseItem(newItem, 1);
+            $.gameParty.gainItem(oldItem, 1);
+            $.gameParty.loseItem(newItem, 1);
             return true;
         }
     };
@@ -285,9 +289,9 @@ export default class Game_Actor extends Game_Battler {
     changeEquipById(etypeId: number, itemId: number) {
         const slotId = etypeId - 1;
         if (this.equipSlots()[slotId] === 1) {
-            this.changeEquip(slotId, $dataWeapons[itemId]);
+            this.changeEquip(slotId, $.dataWeapons[itemId]);
         } else {
-            this.changeEquip(slotId, $dataArmors[itemId]);
+            this.changeEquip(slotId, $.dataArmors[itemId]);
         }
     };
 
@@ -344,7 +348,7 @@ export default class Game_Actor extends Game_Battler {
 
     bestEquipItem(slotId: number) {
         const etypeId = this.equipSlots()[slotId];
-        const items = $gameParty.equipItems().filter(function (item) {
+        const items = $.gameParty.equipItems().filter(function (item) {
             return item.etypeId === etypeId && this.canEquip(item);
         }, this);
         let bestItem = null;
@@ -393,19 +397,19 @@ export default class Game_Actor extends Game_Battler {
     };
 
     friendsUnit() {
-        return $gameParty;
+        return $.gameParty;
     };
 
     opponentsUnit() {
-        return $gameTroop;
+        return $.gameTroop;
     };
 
     index() {
-        return $gameParty.members().indexOf(this);
+        return $.gameParty.members().indexOf(this);
     };
 
     isBattleMember() {
-        return $gameParty.battleMembers().contains(this);
+        return $.gameParty.battleMembers().contains(this);
     };
 
     isFormationChangeOk() {
@@ -413,7 +417,7 @@ export default class Game_Actor extends Game_Battler {
     };
 
     currentClass() {
-        return $dataClasses[this._classId];
+        return $.dataClasses[this._classId];
     };
 
     isClass(gameClass: DB.Class) {
@@ -423,8 +427,8 @@ export default class Game_Actor extends Game_Battler {
     skills(): DB.Skill[] {
         const list: DB.Skill[] = [];
         this._skills.concat(this.addedSkills()).forEach(function (id) {
-            if (!list.contains($dataSkills[id])) {
-                list.push($dataSkills[id]);
+            if (!list.contains($.dataSkills[id])) {
+                list.push($.dataSkills[id]);
             }
         });
         return list;
@@ -526,7 +530,7 @@ export default class Game_Actor extends Game_Battler {
 
     levelUp() {
         this._level++;
-        this.currentClass().learnings.forEach(function (learning) {
+        this.currentClass().learnings.forEach(function (learning: any) {
             if (learning.level === this._level) {
                 this.learnSkill(learning.skillId);
             }
@@ -550,10 +554,10 @@ export default class Game_Actor extends Game_Battler {
 
     displayLevelUp(newSkills: DB.Skill[]) {
         const text = TextManager.levelUp.format(this._name, TextManager.level, this._level);
-        $gameMessage.newPage();
-        $gameMessage.add(text);
+        $.gameMessage.newPage();
+        $.gameMessage.add(text);
         newSkills.forEach(function (skill) {
-            $gameMessage.add(TextManager.obtainSkill.format(skill.name));
+            $.gameMessage.add(TextManager.obtainSkill.format(skill.name));
         });
     };
 
@@ -567,7 +571,7 @@ export default class Game_Actor extends Game_Battler {
     };
 
     benchMembersExpRate(): number {
-        return $dataSystem.optExtraExp ? 1 : 0;
+        return $.dataSystem.optExtraExp ? 1 : 0;
     };
 
     shouldDisplayLevelUp() {
@@ -600,7 +604,7 @@ export default class Game_Actor extends Game_Battler {
     };
 
     hasSkill(skillId: number) {
-        return this.skills().contains($dataSkills[skillId]);
+        return this.skills().contains($.dataSkills[skillId]);
     };
 
     changeClass(classId: number, keepExp: boolean) {
@@ -627,7 +631,7 @@ export default class Game_Actor extends Game_Battler {
     };
 
     isSpriteVisible() {
-        return $gameSystem.isSideView();
+        return $.gameSystem.isSideView();
     };
 
     startAnimation(animationId: number, mirror: boolean, delay: number) {
@@ -653,7 +657,7 @@ export default class Game_Actor extends Game_Battler {
     performAttack() {
         const weapons = this.weapons();
         const wtypeId = weapons[0] ? weapons[0].wtypeId : 0;
-        const attackMotion = $dataSystem.attackMotions[wtypeId];
+        const attackMotion = $.dataSystem.attackMotions[wtypeId];
         if (attackMotion) {
             if (attackMotion.type === 0) {
                 this.requestMotion('thrust');
@@ -671,7 +675,7 @@ export default class Game_Actor extends Game_Battler {
         if (this.isSpriteVisible()) {
             this.requestMotion('damage');
         } else {
-            $gameScreen.startShake(5, 5, 10);
+            $.gameScreen.startShake(5, 5, 10);
         }
         SoundManager.playActorDamage();
     };
@@ -693,7 +697,7 @@ export default class Game_Actor extends Game_Battler {
 
     performCollapse() {
         super.performCollapse();
-        if ($gameParty.inBattle()) {
+        if ($.gameParty.inBattle()) {
             SoundManager.playActorCollapse();
         }
     };
@@ -762,7 +766,7 @@ export default class Game_Actor extends Game_Battler {
     onPlayerWalk() {
         this.clearResult();
         this.checkFloorEffect();
-        if ($gamePlayer.isNormal()) {
+        if ($.gamePlayer.isNormal()) {
             this.turnEndOnMap();
             this.states().forEach(function (state) {
                 this.updateStateSteps(state);
@@ -785,7 +789,7 @@ export default class Game_Actor extends Game_Battler {
     showAddedStates() {
         this.result().addedStateObjects().forEach(function (state) {
             if (state.message1) {
-                $gameMessage.add(this._name + state.message1);
+                $.gameMessage.add(this._name + state.message1);
             }
         }, this);
     };
@@ -793,7 +797,7 @@ export default class Game_Actor extends Game_Battler {
     showRemovedStates() {
         this.result().removedStateObjects().forEach(function (state) {
             if (state.message4) {
-                $gameMessage.add(this._name + state.message4);
+                $.gameMessage.add(this._name + state.message4);
             }
         }, this);
     };
@@ -803,7 +807,7 @@ export default class Game_Actor extends Game_Battler {
     };
 
     turnEndOnMap() {
-        if ($gameParty.steps() % this.stepsForTurn() === 0) {
+        if ($.gameParty.steps() % this.stepsForTurn() === 0) {
             this.onTurnEnd();
             if (this.result().hpDamage > 0) {
                 this.performMapDamage();
@@ -812,7 +816,7 @@ export default class Game_Actor extends Game_Battler {
     };
 
     checkFloorEffect() {
-        if ($gamePlayer.isOnDamageFloor()) {
+        if ($.gamePlayer.isOnDamageFloor()) {
             this.executeFloorDamage();
         }
     };
@@ -831,12 +835,12 @@ export default class Game_Actor extends Game_Battler {
     };
 
     maxFloorDamage() {
-        return $dataSystem.optFloorDeath ? this.hp : Math.max(this.hp - 1, 0);
+        return $.dataSystem.optFloorDeath ? this.hp : Math.max(this.hp - 1, 0);
     };
 
     performMapDamage() {
-        if (!$gameParty.inBattle()) {
-            $gameScreen.startFlashForDamage();
+        if (!$.gameParty.inBattle()) {
+            $.gameScreen.startFlashForDamage();
         }
     };
 
@@ -898,7 +902,7 @@ export default class Game_Actor extends Game_Battler {
     };
 
     meetsUsableItemConditions(item: DB.Item) {
-        if ($gameParty.inBattle() && !BattleManager.canEscape() && this.testEscape(item)) {
+        if ($.gameParty.inBattle() && !BattleManager.canEscape() && this.testEscape(item)) {
             return false;
         }
         return super.meetsUsableItemConditions(item);

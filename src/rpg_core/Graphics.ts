@@ -1,9 +1,7 @@
-import { SceneManager } from 'rpg_managers';
-// import * as PIXI from 'pixi.js';
-
-import ResourceHandler from './ResourceHandler';
 import Utils from './Utils';
 import Stage from './Stage';
+import ResourceHandler from './ResourceHandler';
+// import { SceneManager } from 'rpg_managers';
 
 //-----------------------------------------------------------------------------
 /**
@@ -15,7 +13,6 @@ export default class Graphics {
     protected static _cssFontLoading = document.fonts && document.fonts.ready;
     protected static _fontLoaded : FontFaceSet | null = null;
     protected static _videoVolume = 1;
-
 
     protected static _width: number;
     protected static _height: number;
@@ -101,9 +98,7 @@ export default class Graphics {
         if (Graphics._cssFontLoading) {
             document.fonts.ready.then(function (fonts) {
                 Graphics._fontLoaded = fonts;
-            }).catch(function (error) {
-                SceneManager.onError(error);
-            });
+            }).catch(e => console.error(e));
         }
     };
 
@@ -374,7 +369,6 @@ export default class Graphics {
             if (Graphics._fontLoaded) {
                 return Graphics._fontLoaded.check('10px "' + name + '"');
             }
-
             return false;
         } else {
             if (!this._hiddenCanvas) {

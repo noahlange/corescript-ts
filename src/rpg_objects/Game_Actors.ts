@@ -1,3 +1,4 @@
+import $ from '$';
 import Game_Actor from './Game_Actor';
 
 //-----------------------------------------------------------------------------
@@ -9,7 +10,7 @@ export default class Game_Actors {
     protected _data: Game_Actor[] = [];
 
     actor(actorId: number) {
-        if ($dataActors[actorId]) {
+        if ($.dataActors[actorId]) {
             if (!this._data[actorId]) {
                 this._data[actorId] = new Game_Actor(actorId);
             }

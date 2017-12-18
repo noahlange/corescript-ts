@@ -1,4 +1,5 @@
-import { Graphics, TilingSprite, Sprite } from 'rpg_core';
+import $ from '$';
+import { Bitmap, Graphics, TilingSprite, Sprite } from 'rpg_core';
 import { BattleManager, ImageManager, SceneManager } from 'rpg_managers';
 
 import Sprite_Actor from './Sprite_Actor';
@@ -83,26 +84,26 @@ export default class Spriteset_Battle extends Spriteset_Base {
         const sprite2 = this._back2Sprite;
         sprite1.origin.x = sprite1.x + (sprite1.bitmap.width - width) / 2;
         sprite2.origin.x = sprite1.y + (sprite2.bitmap.width - width) / 2;
-        if ($gameSystem.isSideView()) {
+        if ($.gameSystem.isSideView()) {
             sprite1.origin.y = sprite1.x + sprite1.bitmap.height - height;
             sprite2.origin.y = sprite1.y + sprite2.bitmap.height - height;
         }
     };
     
-    battleback1Bitmap() {
+    battleback1Bitmap(): Bitmap {
         return ImageManager.loadBattleback1(this.battleback1Name());
     };
     
-    battleback2Bitmap() {
+    battleback2Bitmap(): Bitmap {
         return ImageManager.loadBattleback2(this.battleback2Name());
     };
     
     battleback1Name() {
         if (BattleManager.isBattleTest()) {
-            return $dataSystem.battleback1Name;
-        } else if ($gameMap.battleback1Name()) {
-            return $gameMap.battleback1Name();
-        } else if ($gameMap.isOverworld()) {
+            return $.dataSystem.battleback1Name;
+        } else if ($.gameMap.battleback1Name()) {
+            return $.gameMap.battleback1Name();
+        } else if ($.gameMap.isOverworld()) {
             return this.overworldBattleback1Name();
         } else {
             return '';
@@ -111,10 +112,10 @@ export default class Spriteset_Battle extends Spriteset_Base {
     
     battleback2Name() {
         if (BattleManager.isBattleTest()) {
-            return $dataSystem.battleback2Name;
-        } else if ($gameMap.battleback2Name()) {
-            return $gameMap.battleback2Name();
-        } else if ($gameMap.isOverworld()) {
+            return $.dataSystem.battleback2Name;
+        } else if ($.gameMap.battleback2Name()) {
+            return $.gameMap.battleback2Name();
+        } else if ($.gameMap.isOverworld()) {
             return this.overworldBattleback2Name();
         } else {
             return '';
@@ -122,7 +123,7 @@ export default class Spriteset_Battle extends Spriteset_Base {
     };
     
     overworldBattleback1Name() {
-        if ($gamePlayer.isInVehicle()) {
+        if ($.gamePlayer.isInVehicle()) {
             return this.shipBattleback1Name();
         } else {
             return this.normalBattleback1Name();
@@ -130,7 +131,7 @@ export default class Spriteset_Battle extends Spriteset_Base {
     };
     
     overworldBattleback2Name() {
-        if ($gamePlayer.isInVehicle()) {
+        if ($.gamePlayer.isInVehicle()) {
             return this.shipBattleback2Name();
         } else {
             return this.normalBattleback2Name();
@@ -210,11 +211,11 @@ export default class Spriteset_Battle extends Spriteset_Base {
     };
     
     autotileType(z: number) {
-        return $gameMap.autotileType($gamePlayer.x, $gamePlayer.y, z);
+        return $.gameMap.autotileType($.gamePlayer.x, $.gamePlayer.y, z);
     };
     
     createEnemies() {
-        const enemies = $gameTroop.members();
+        const enemies = $.gameTroop.members();
         const sprites = [];
         for (let i = 0; i < enemies.length; i++) {
             sprites[i] = new Sprite_Enemy(enemies[i]);
@@ -236,14 +237,14 @@ export default class Spriteset_Battle extends Spriteset_Base {
     
     createActors() {
         this._actorSprites = [];
-        for (let i = 0; i < $gameParty.maxBattleMembers(); i++) {
+        for (let i = 0; i < $.gameParty.maxBattleMembers(); i++) {
             this._actorSprites[i] = new Sprite_Actor();
             this._battleField.addChild(this._actorSprites[i]);
         }
     };
     
     updateActors() {
-        const members = $gameParty.battleMembers();
+        const members = $.gameParty.battleMembers();
         for (let i = 0; i < this._actorSprites.length; i++) {
             this._actorSprites[i].setBattler(members[i]);
         }

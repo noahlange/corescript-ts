@@ -1,6 +1,6 @@
 {
-    "rules": {
-        "indent": [true, "spaces", 4],
-        "await-promise":true
-    }
+  "rules": {
+    "indent": [true, "spaces", 4],
+    "await-promise": true
+  }
 }

@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics, ScreenSprite, Sprite, ToneFilter } from 'rpg_core';
 //-----------------------------------------------------------------------------
 import Sprite_Timer from './Sprite_Timer';
@@ -73,7 +74,7 @@ abstract class Spriteset_Base extends Sprite {
         const y = (Graphics.height - height) / 2;
         this._pictureContainer = new Sprite();
         this._pictureContainer.setFrame(x, y, width, height);
-        for (let i = 1; i <= $gameScreen.maxPictures(); i++) {
+        for (let i = 1; i <= $.gameScreen.maxPictures(); i++) {
             this._pictureContainer.addChild(new Sprite_Picture(i));
         }
         this.addChild(this._pictureContainer);
@@ -92,14 +93,14 @@ abstract class Spriteset_Base extends Sprite {
     };
 
     updateScreenSprites() {
-        const color = $gameScreen.flashColor();
+        const color = $.gameScreen.flashColor();
         this._flashSprite.setColor(color[0], color[1], color[2]);
         this._flashSprite.opacity = color[3];
-        this._fadeSprite.opacity = 255 - $gameScreen.brightness();
+        this._fadeSprite.opacity = 255 - $.gameScreen.brightness();
     };
 
     updateToneChanger() {
-        const tone = $gameScreen.tone();
+        const tone = $.gameScreen.tone();
         if (!this._tone.equals(tone)) {
             this._tone = tone.clone();
             this.updateWebGLToneChanger();
@@ -114,7 +115,7 @@ abstract class Spriteset_Base extends Sprite {
     };
 
     updatePosition() {
-        const screen = $gameScreen;
+        const screen = $.gameScreen;
         const scale = screen.zoomScale();
         this.scale.x = scale;
         this.scale.y = scale;

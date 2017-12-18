@@ -1,4 +1,6 @@
+import $ from '$';
 import { DataManager, SoundManager } from 'rpg_managers';
+import { MotionMap } from 'rpg_sprites';
 
 import Game_Action from './Game_Action';
 import Game_ActionResult from './Game_ActionResult';
@@ -10,7 +12,7 @@ import Game_BattlerBase from './Game_BattlerBase';
 // and actions.
 
 // { : animationId, mirror: mirror, delay: delay }
-interface AnimationState {
+export interface AnimationState {
     animationId: number;
     mirror: boolean;
     delay: number;
@@ -189,14 +191,14 @@ abstract class Game_Battler extends Game_BattlerBase {
     };
     
     isStateAddable(stateId: number) {
-        return (this.isAlive() && $dataStates[stateId] &&
+        return (this.isAlive() && $.dataStates[stateId] &&
                 !this.isStateResist(stateId) &&
                 !this._result.isStateRemoved(stateId) &&
                 !this.isStateRestrict(stateId));
     };
     
     isStateRestrict(stateId: number) {
-        return $dataStates[stateId].removeByRestriction && this.isRestricted();
+        return $.dataStates[stateId].removeByRestriction && this.isRestricted();
     };
     
     onRestrict() {
@@ -221,7 +223,7 @@ abstract class Game_Battler extends Game_BattlerBase {
     };
     
     escape() {
-        if ($gameParty.inBattle()) {
+        if ($.gameParty.inBattle()) {
             this.hide();
         }
         this.clearActions();
@@ -368,7 +370,7 @@ abstract class Game_Battler extends Game_BattlerBase {
     };
     
     consumeItem(item: DB.Item) {
-        $gameParty.consumeItem(item);
+        $.gameParty.consumeItem(item);
     };
     
     gainHp(value: number) {
@@ -413,7 +415,7 @@ abstract class Game_Battler extends Game_BattlerBase {
     };
     
     maxSlipDamage() {
-        return $dataSystem.optSlipDeath ? this.hp : Math.max(this.hp - 1, 0);
+        return $.dataSystem.optSlipDeath ? this.hp : Math.max(this.hp - 1, 0);
     };
     
     regenerateMp() {

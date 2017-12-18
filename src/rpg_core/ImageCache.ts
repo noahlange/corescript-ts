@@ -1,13 +1,13 @@
 import Bitmap from './Bitmap';
 
-interface ImageCacheItem {
+export interface ImageCacheItem {
     bitmap: Bitmap;
     touch: number;
     key: string;
     reservationId?: number;
 }
 
-interface ImageCacheItems {
+export interface ImageCacheItems {
     [key: string] : ImageCacheItem;
 }
 

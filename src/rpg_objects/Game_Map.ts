@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { AudioManager, ImageManager } from 'rpg_managers';
 
@@ -46,11 +47,11 @@ export default class Game_Map {
     };
 
     setup(mapId: number) {
-        if (!$dataMap) {
+        if (!$.dataMap) {
             throw new Error('The map data is not available');
         }
         this._mapId = mapId;
-        this._tilesetId = $dataMap.tilesetId;
+        this._tilesetId = $.dataMap.tilesetId;
         this._displayX = 0;
         this._displayY = 0;
         this.refereshVehicles();
@@ -160,8 +161,8 @@ export default class Game_Map {
 
     setupEvents() {
         this._events = [];
-        for (let i = 0; i < $dataMap.events.length; i++) {
-            if ($dataMap.events[i]) {
+        for (let i = 0; i < $.dataMap.events.length; i++) {
+            if ($.dataMap.events[i]) {
                 this._events[i] = new Game_Event(this._mapId, i);
             }
         }
@@ -186,7 +187,7 @@ export default class Game_Map {
     };
 
     parallelCommonEvents() {
-        return $dataCommonEvents.filter(function (commonEvent) {
+        return $.dataCommonEvents.filter(function (commonEvent) {
             return commonEvent && commonEvent.trigger === 2;
         });
     };
@@ -198,20 +199,20 @@ export default class Game_Map {
     };
 
     setupParallax() {
-        this._parallaxName = $dataMap.parallaxName || '';
+        this._parallaxName = $.dataMap.parallaxName || '';
         this._parallaxZero = ImageManager.isZeroParallax(this._parallaxName);
-        this._parallaxLoopX = $dataMap.parallaxLoopX;
-        this._parallaxLoopY = $dataMap.parallaxLoopY;
-        this._parallaxSx = $dataMap.parallaxSx;
-        this._parallaxSy = $dataMap.parallaxSy;
+        this._parallaxLoopX = $.dataMap.parallaxLoopX;
+        this._parallaxLoopY = $.dataMap.parallaxLoopY;
+        this._parallaxSx = $.dataMap.parallaxSx;
+        this._parallaxSy = $.dataMap.parallaxSy;
         this._parallaxX = 0;
         this._parallaxY = 0;
     };
 
     setupBattleback() {
-        if ($dataMap.specifyBattleback) {
-            this._battleback1Name = $dataMap.battleback1Name;
-            this._battleback2Name = $dataMap.battleback2Name;
+        if ($.dataMap.specifyBattleback) {
+            this._battleback1Name = $.dataMap.battleback1Name;
+            this._battleback2Name = $.dataMap.battleback2Name;
         } else {
             this._battleback1Name = null;
             this._battleback2Name = null;
@@ -258,7 +259,7 @@ export default class Game_Map {
     };
 
     tileset() {
-        return $dataTilesets[this._tilesetId];
+        return $.dataTilesets[this._tilesetId];
     };
 
     tilesetFlags() {
@@ -271,39 +272,39 @@ export default class Game_Map {
     };
 
     displayName() {
-        return $dataMap.displayName;
+        return $.dataMap.displayName;
     };
 
     width(): number {
-        return $dataMap.width;
+        return $.dataMap.width;
     };
 
     height(): number {
-        return $dataMap.height;
+        return $.dataMap.height;
     };
 
     data() {
-        return $dataMap.data;
+        return $.dataMap.data;
     };
 
     isLoopHorizontal() {
-        return $dataMap.scrollType === 2 || $dataMap.scrollType === 3;
+        return $.dataMap.scrollType === 2 || $.dataMap.scrollType === 3;
     };
 
     isLoopVertical() {
-        return $dataMap.scrollType === 1 || $dataMap.scrollType === 3;
+        return $.dataMap.scrollType === 1 || $.dataMap.scrollType === 3;
     };
 
     isDashDisabled() {
-        return $dataMap.disableDashing;
+        return $.dataMap.disableDashing;
     };
 
     encounterList() {
-        return $dataMap.encounterList;
+        return $.dataMap.encounterList;
     };
 
     encounterStep() {
-        return $dataMap.encounterStep;
+        return $.dataMap.encounterStep;
     };
 
     isOverworld() {
@@ -321,7 +322,7 @@ export default class Game_Map {
     adjustX(x: number) {
         if (this.isLoopHorizontal() && x < this._displayX -
             (this.width() - this.screenTileX()) / 2) {
-            return x - this._displayX + $dataMap.width;
+            return x - this._displayX + $.dataMap.width;
         } else {
             return x - this._displayX;
         }
@@ -330,7 +331,7 @@ export default class Game_Map {
     adjustY(y: number) {
         if (this.isLoopVertical() && y < this._displayY -
             (this.height() - this.screenTileY()) / 2) {
-            return y - this._displayY + $dataMap.height;
+            return y - this._displayY + $.dataMap.height;
         } else {
             return y - this._displayY;
         }
@@ -403,15 +404,15 @@ export default class Game_Map {
     };
 
     autoplay() {
-        if ($dataMap.autoplayBgm) {
-            if ($gamePlayer.isInVehicle()) {
-                $gameSystem.saveWalkingBgm2();
+        if ($.dataMap.autoplayBgm) {
+            if ($.gamePlayer.isInVehicle()) {
+                $.gameSystem.saveWalkingBgm2();
             } else {
-                AudioManager.playBgm($dataMap.bgm);
+                AudioManager.playBgm($.dataMap.bgm);
             }
         }
-        if ($dataMap.autoplayBgs) {
-            AudioManager.playBgs($dataMap.bgs);
+        if ($.dataMap.autoplayBgs) {
+            AudioManager.playBgs($.dataMap.bgs);
         }
     };
 
@@ -464,7 +465,7 @@ export default class Game_Map {
     scrollDown(distance: number) {
         if (this.isLoopVertical()) {
             this._displayY += distance;
-            this._displayY %= $dataMap.height;
+            this._displayY %= $.dataMap.height;
             if (this._parallaxLoopY) {
                 this._parallaxY += distance;
             }
@@ -478,8 +479,8 @@ export default class Game_Map {
 
     scrollLeft(distance: number) {
         if (this.isLoopHorizontal()) {
-            this._displayX += $dataMap.width - distance;
-            this._displayX %= $dataMap.width;
+            this._displayX += $.dataMap.width - distance;
+            this._displayX %= $.dataMap.width;
             if (this._parallaxLoopX) {
                 this._parallaxX -= distance;
             }
@@ -493,7 +494,7 @@ export default class Game_Map {
     scrollRight(distance: number) {
         if (this.isLoopHorizontal()) {
             this._displayX += distance;
-            this._displayX %= $dataMap.width;
+            this._displayX %= $.dataMap.width;
             if (this._parallaxLoopX) {
                 this._parallaxX += distance;
             }
@@ -507,8 +508,8 @@ export default class Game_Map {
 
     scrollUp(distance: number) {
         if (this.isLoopVertical()) {
-            this._displayY += $dataMap.height - distance;
-            this._displayY %= $dataMap.height;
+            this._displayY += $.dataMap.height - distance;
+            this._displayY %= $.dataMap.height;
             if (this._parallaxLoopY) {
                 this._parallaxY -= distance;
             }
@@ -539,9 +540,9 @@ export default class Game_Map {
     };
 
     tileId(x: number, y: number, z: number) {
-        const width = $dataMap.width;
-        const height = $dataMap.height;
-        return $dataMap.data[(z * height + y) * width + x] || 0;
+        const width = $.dataMap.width;
+        const height = $.dataMap.height;
+        return $.dataMap.data[(z * height + y) * width + x] || 0;
     };
 
     layeredTiles(x: number, y: number) {
@@ -765,9 +766,9 @@ export default class Game_Map {
     };
 
     setupTestEvent() {
-        if ($testEvent) {
-            this._interpreter.setup($testEvent, 0);
-            $testEvent = null;
+        if ($.testEvent) {
+            this._interpreter.setup($.testEvent, 0);
+            $.testEvent = null;
             return true;
         }
         return false;
@@ -787,9 +788,9 @@ export default class Game_Map {
     };
 
     setupAutorunCommonEvent() {
-        for (let i = 0; i < $dataCommonEvents.length; i++) {
-            const event = $dataCommonEvents[i];
-            if (event && event.trigger === 1 && $gameSwitches.value(event.switchId)) {
+        for (let i = 0; i < $.dataCommonEvents.length; i++) {
+            const event = $.dataCommonEvents[i];
+            if (event && event.trigger === 1 && $.gameSwitches.value(event.switchId)) {
                 this._interpreter.setup(event.list);
                 return true;
             }

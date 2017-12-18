@@ -1,3 +1,4 @@
+import $ from '$';
 import { AudioManager } from 'rpg_managers';
 import Game_Character from './Game_Character';
 
@@ -60,11 +61,11 @@ export default class Game_Vehicle extends Game_Character {
 
     vehicle() {
         if (this.isBoat()) {
-            return $dataSystem.boat;
+            return $.dataSystem.boat;
         } else if (this.isShip()) {
-            return $dataSystem.ship;
+            return $.dataSystem.ship;
         } else if (this.isAirship()) {
-            return $dataSystem.airship;
+            return $.dataSystem.airship;
         } else {
             return null;
         }
@@ -79,9 +80,9 @@ export default class Game_Vehicle extends Game_Character {
 
     refresh() {
         if (this._driving) {
-            this._mapId = $gameMap.mapId();
+            this._mapId = $.gameMap.mapId();
             this.syncWithPlayer();
-        } else if (this._mapId === $gameMap.mapId()) {
+        } else if (this._mapId === $.gameMap.mapId()) {
             this.locate(this.x, this.y);
         }
         if (this.isAirship()) {
@@ -91,7 +92,7 @@ export default class Game_Vehicle extends Game_Character {
         }
         this.setWalkAnime(this._driving);
         this.setStepAnime(this._driving);
-        this.setTransparent(this._mapId !== $gameMap.mapId());
+        this.setTransparent(this._mapId !== $.gameMap.mapId());
     };
 
     setLocation(mapId: number, x: number, y: number) {
@@ -101,7 +102,7 @@ export default class Game_Vehicle extends Game_Character {
     };
 
     pos(x: number, y: number) {
-        if (this._mapId === $gameMap.mapId()) {
+        if (this._mapId === $.gameMap.mapId()) {
             return super.pos(x, y);
         } else {
             return false;
@@ -109,12 +110,12 @@ export default class Game_Vehicle extends Game_Character {
     };
 
     isMapPassable(x: number, y: number, d: number) {
-        const x2 = $gameMap.roundXWithDirection(x, d);
-        const y2 = $gameMap.roundYWithDirection(y, d);
+        const x2 = $.gameMap.roundXWithDirection(x, d);
+        const y2 = $.gameMap.roundYWithDirection(y, d);
         if (this.isBoat()) {
-            return $gameMap.isBoatPassable(x2, y2);
+            return $.gameMap.isBoatPassable(x2, y2);
         } else if (this.isShip()) {
-            return $gameMap.isShipPassable(x2, y2);
+            return $.gameMap.isShipPassable(x2, y2);
         } else if (this.isAirship()) {
             return true;
         } else {
@@ -126,7 +127,7 @@ export default class Game_Vehicle extends Game_Character {
         this._driving = true;
         this.setWalkAnime(true);
         this.setStepAnime(true);
-        $gameSystem.saveWalkingBgm();
+        $.gameSystem.saveWalkingBgm();
         this.playBgm();
     };
 
@@ -135,7 +136,7 @@ export default class Game_Vehicle extends Game_Character {
         this.setWalkAnime(false);
         this.setStepAnime(false);
         this.resetDirection();
-        $gameSystem.replayWalkingBgm();
+        $.gameSystem.replayWalkingBgm();
     };
 
     setBgm(bgm: DB.Audio) {
@@ -147,7 +148,7 @@ export default class Game_Vehicle extends Game_Character {
     };
 
     syncWithPlayer() {
-        this.copyPosition($gamePlayer);
+        this.copyPosition($.gamePlayer);
         this.refreshBushDepth();
     };
 
@@ -210,24 +211,24 @@ export default class Game_Vehicle extends Game_Character {
     };
 
     isTakeoffOk() {
-        return $gamePlayer.areFollowersGathered();
+        return $.gamePlayer.areFollowersGathered();
     };
 
     isLandOk(x: number, y: number, d: number) {
         if (this.isAirship()) {
-            if (!$gameMap.isAirshipLandOk(x, y)) {
+            if (!$.gameMap.isAirshipLandOk(x, y)) {
                 return false;
             }
-            if ($gameMap.eventsXy(x, y).length > 0) {
+            if ($.gameMap.eventsXy(x, y).length > 0) {
                 return false;
             }
         } else {
-            const x2 = $gameMap.roundXWithDirection(x, d);
-            const y2 = $gameMap.roundYWithDirection(y, d);
-            if (!$gameMap.isValid(x2, y2)) {
+            const x2 = $.gameMap.roundXWithDirection(x, d);
+            const y2 = $.gameMap.roundYWithDirection(y, d);
+            if (!$.gameMap.isValid(x2, y2)) {
                 return false;
             }
-            if (!$gameMap.isPassable(x2, y2, this.reverseDir(d))) {
+            if (!$.gameMap.isPassable(x2, y2, this.reverseDir(d))) {
                 return false;
             }
             if (this.isCollidedWithCharacters(x2, y2)) {

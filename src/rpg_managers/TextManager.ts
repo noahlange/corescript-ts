@@ -1,3 +1,5 @@
+import $ from '$';
+
 //-----------------------------------------------------------------------------
 // TextManager
 //
@@ -5,22 +7,22 @@
 
 export default class TextManager {
     static basic(basicId: number): string {
-        return $dataSystem.terms.basic[basicId] || '';
+        return $.dataSystem.terms.basic[basicId] || '';
     };
 
     static param(paramId: number): string {
-        return $dataSystem.terms.params[paramId] || '';
+        return $.dataSystem.terms.params[paramId] || '';
     };
 
     static command(commandId: number): string {
-        return $dataSystem.terms.commands[commandId] || '';
+        return $.dataSystem.terms.commands[commandId] || '';
     };
 
     static message(messageId: string): string {
-        return $dataSystem.terms.messages[messageId] || '';
+        return $.dataSystem.terms.messages[messageId] || '';
     };
 
-    static get currencyUnit(): string { return $dataSystem.currencyUnit; }
+    static get currencyUnit(): string { return $.dataSystem.currencyUnit; }
 
 
     static get level() { return this.basic(0); }

@@ -1,3 +1,4 @@
+import $ from '$';
 import { DataManager } from 'rpg_managers';
 import Game_Actor from './Game_Actor';
 import Game_Enemy from './Game_Enemy';
@@ -6,7 +7,7 @@ import Game_Enemy from './Game_Enemy';
 // Game_BattlerBase
 //
 // The superclass of Game_Battler. It mainly contains parameters calculation.
-interface NumberMap {
+export interface NumberMap {
     [key: number]: number;
 }
 
@@ -159,7 +160,7 @@ export default class Game_BattlerBase {
     };
 
     resetStateCounts(stateId: number) {
-        const state = $dataStates[stateId];
+        const state = $.dataStates[stateId];
         const variance = 1 + Math.max(state.maxTurns - state.minTurns, 0);
         this._stateTurns[stateId] = state.minTurns + Math.randomInt(variance);
     };
@@ -258,7 +259,7 @@ export default class Game_BattlerBase {
 
     states() {
         return this._states.map(function (id) {
-            return $dataStates[id];
+            return $.dataStates[id];
         });
     };
 
@@ -620,8 +621,8 @@ export default class Game_BattlerBase {
 
     sortStates() {
         this._states.sort(function (a, b) {
-            const p1 = $dataStates[a].priority;
-            const p2 = $dataStates[b].priority;
+            const p1 = $.dataStates[a].priority;
+            const p2 = $.dataStates[b].priority;
             if (p1 !== p2) {
                 return p2 - p1;
             }
@@ -700,7 +701,7 @@ export default class Game_BattlerBase {
     };
 
     isOccasionOk(item: DB.Item | DB.Skill) {
-        if ($gameParty.inBattle()) {
+        if ($.gameParty.inBattle()) {
             return item.occasion === 0 || item.occasion === 1;
         } else {
             return item.occasion === 0 || item.occasion === 2;
@@ -718,7 +719,7 @@ export default class Game_BattlerBase {
     };
 
     meetsItemConditions(item: DB.Skill | DB.Item) {
-        return this.meetsUsableItemConditions(item) && $gameParty.hasItem(item as DB.Item);
+        return this.meetsUsableItemConditions(item) && $.gameParty.hasItem(item as DB.Item);
     };
 
     canUse(item: Object) {
@@ -762,11 +763,11 @@ export default class Game_BattlerBase {
     };
 
     canAttack() {
-        return this.canUse($dataSkills[this.attackSkillId()]);
+        return this.canUse($.dataSkills[this.attackSkillId()]);
     };
 
     canGuard() {
-        return this.canUse($dataSkills[this.guardSkillId()]);
+        return this.canUse($.dataSkills[this.guardSkillId()]);
     };
 
 }

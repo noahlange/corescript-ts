@@ -1,4 +1,5 @@
-import { Bitmap, Graphics, Sprite } from 'rpg_core';
+import $ from '$';import { Bitmap, Graphics, Sprite } from 'rpg_core';
+
 //-----------------------------------------------------------------------------
 // Sprite_Timer
 //
@@ -27,8 +28,8 @@ export default class Sprite_Timer extends Sprite {
     };
 
     updateBitmap() {
-        if (this._seconds !== $gameTimer.seconds()) {
-            this._seconds = $gameTimer.seconds();
+        if (this._seconds !== $.gameTimer.seconds()) {
+            this._seconds = $.gameTimer.seconds();
             this.redraw();
         }
     };
@@ -53,7 +54,7 @@ export default class Sprite_Timer extends Sprite {
     };
 
     updateVisibility() {
-        this.visible = $gameTimer.isWorking();
+        this.visible = $.gameTimer.isWorking();
     };
 
 }

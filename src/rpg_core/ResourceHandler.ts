@@ -1,5 +1,5 @@
 import Graphics from './Graphics';
-import { SceneManager } from 'rpg_managers';
+// import { SceneManager } from 'rpg_managers';
 
 //-----------------------------------------------------------------------------
 /**
@@ -27,7 +27,7 @@ export default class ResourceHandler {
                 if (url) {
                     if (reloaders.length === 0) {
                         Graphics.printLoadingError(url);
-                        SceneManager.stop();
+                        // SceneManager.stop();
                     }
                     reloaders.push(function () {
                         retryCount = 0;
@@ -45,7 +45,7 @@ export default class ResourceHandler {
     static retry() {
         if (this._reloaders.length > 0) {
             Graphics.eraseLoadingError();
-            SceneManager.resume();
+            // SceneManager.resume();
             this._reloaders.forEach(function (reloader) {
                 reloader();
             });

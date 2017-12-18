@@ -1,3 +1,4 @@
+import $ from '$';
 import { Graphics } from 'rpg_core';
 import { AudioManager, BattleManager, ImageManager, SceneManager } from 'rpg_managers';
 import { Spriteset_Battle } from 'rpg_sprites';
@@ -39,8 +40,8 @@ export default class Scene_Battle extends Scene_Base {
 
     update() {
         const active = this.isActive();
-        $gameTimer.update(active);
-        $gameScreen.update();
+        $.gameTimer.update(active);
+        $.gameScreen.update();
         this.updateStatusWindow();
         this.updateWindowPositions();
         if (active && !this.isBusy()) {
@@ -92,8 +93,8 @@ export default class Scene_Battle extends Scene_Base {
 
     terminate() {
         super.terminate();
-        $gameParty.onBattleEnd();
-        $gameTroop.onBattleEnd();
+        $.gameParty.onBattleEnd();
+        $.gameTroop.onBattleEnd();
         AudioManager.stopMe();
 
         ImageManager.clearRequest();
@@ -105,7 +106,7 @@ export default class Scene_Battle extends Scene_Base {
     };
 
     updateStatusWindow() {
-        if ($gameMessage.isBusy()) {
+        if ($.gameMessage.isBusy()) {
             this._statusWindow.close();
             this._partyCommandWindow.close();
             this._actorCommandWindow.close();
@@ -386,7 +387,7 @@ export default class Scene_Battle extends Scene_Base {
         const item = this._itemWindow.item();
         const action = BattleManager.inputtingAction();
         action.setItem(item.id);
-        $gameParty.setLastItem(item);
+        $.gameParty.setLastItem(item);
         this.onSelectAction();
     };
 

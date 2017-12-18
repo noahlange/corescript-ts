@@ -1,3 +1,4 @@
+import $ from '$';
 import { Bitmap, Graphics, Input, TouchInput, Utils } from 'rpg_core';
 import { ImageManager } from 'rpg_managers';
 
@@ -121,13 +122,13 @@ export default class Window_Message extends Window_Base {
     };
 
     canStart() {
-        return $gameMessage.hasText() && !$gameMessage.scrollMode();
+        return $.gameMessage.hasText() && !$.gameMessage.scrollMode();
     };
 
     startMessage() {
         this._textState = {
             index: 0,
-            text: this.convertEscapeCharacters($gameMessage.allText())
+            text: this.convertEscapeCharacters($.gameMessage.allText())
         };
         this.newPage(this._textState);
         this.updatePlacement();
@@ -136,20 +137,20 @@ export default class Window_Message extends Window_Base {
     };
 
     updatePlacement() {
-        this._positionType = $gameMessage.positionType();
+        this._positionType = $.gameMessage.positionType();
         this.y = this._positionType * (Graphics.boxHeight - this.height) / 2;
         this._goldWindow.y = this.y > 0 ? 0 : Graphics.boxHeight - this._goldWindow.height;
     };
 
     updateBackground() {
-        this._background = $gameMessage.background();
+        this._background = $.gameMessage.background();
         this.setBackgroundType(this._background);
     };
 
     terminateMessage() {
         this.close();
         this._goldWindow.close();
-        $gameMessage.clear();
+        $.gameMessage.clear();
     };
 
     updateWait() {
@@ -234,13 +235,13 @@ export default class Window_Message extends Window_Base {
     };
 
     startInput() {
-        if ($gameMessage.isChoice()) {
+        if ($.gameMessage.isChoice()) {
             this._choiceWindow.start();
             return true;
-        } else if ($gameMessage.isNumberInput()) {
+        } else if ($.gameMessage.isNumberInput()) {
             this._numberWindow.start();
             return true;
-        } else if ($gameMessage.isItemChoice()) {
+        } else if ($.gameMessage.isItemChoice()) {
             this._itemWindow.start();
             return true;
         } else {
@@ -254,13 +255,13 @@ export default class Window_Message extends Window_Base {
     };
 
     doesContinue() {
-        return ($gameMessage.hasText() && !$gameMessage.scrollMode() &&
+        return ($.gameMessage.hasText() && !$.gameMessage.scrollMode() &&
             !this.areSettingsChanged());
     };
 
     areSettingsChanged() {
-        return (this._background !== $gameMessage.background() ||
-            this._positionType !== $gameMessage.positionType());
+        return (this._background !== $.gameMessage.background() ||
+            this._positionType !== $.gameMessage.positionType());
     };
 
     updateShowFast() {
@@ -281,16 +282,16 @@ export default class Window_Message extends Window_Base {
     };
 
     loadMessageFace() {
-        this._faceBitmap = ImageManager.reserveFace($gameMessage.faceName(), 0, this._imageReservationId);
+        this._faceBitmap = ImageManager.reserveFace($.gameMessage.faceName(), 0, this._imageReservationId);
     };
 
     drawMessageFace() {
-        this.drawFace($gameMessage.faceName(), $gameMessage.faceIndex(), 0, 0);
+        this.drawFace($.gameMessage.faceName(), $.gameMessage.faceIndex(), 0, 0);
         ImageManager.releaseReservation(this._imageReservationId);
     };
 
     newLineX() {
-        return $gameMessage.faceName() === '' ? 0 : 168;
+        return $.gameMessage.faceName() === '' ? 0 : 168;
     };
 
     processNewLine(textState: TextState) {

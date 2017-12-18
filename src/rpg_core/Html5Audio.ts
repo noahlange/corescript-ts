@@ -15,7 +15,6 @@ export default class Html5Audio {
     protected static _tweenGainStep = 0;
     protected static _staticSePath: string | null = null;
 
-
     protected static _url: string;
     protected static _isLoading: boolean;
     protected static _buffered: boolean;

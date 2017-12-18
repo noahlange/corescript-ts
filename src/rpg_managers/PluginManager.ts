@@ -3,8 +3,8 @@
 //
 // The static class that manages the plugins.
 
-interface PluginParamMap {
-    [key: string]: Object;
+export interface PluginParamMap {
+    [key: string]: object;
 }
 
 export default class PluginManager {
