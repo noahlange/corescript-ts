@@ -1,3 +1,5 @@
+import * as corescript from 'corescript';
+
 (() => {
   const cs = (window as any).corescript;
   for (const lib in cs) {
