@@ -40,7 +40,6 @@ export default class PluginManager {
 
     static loadScript(name: string) {
         const url = `${ this._path + name }`;
-        // import(`/plugins/${ name }`).catch(e => console.info(e));
         const script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = url;

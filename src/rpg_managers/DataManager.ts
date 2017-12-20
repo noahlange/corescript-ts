@@ -81,8 +81,8 @@ export default class DataManager {
     static loadMapData(mapId: number) {
         if (mapId > 0) {
             const filename = 'Map%1.json'.format(mapId.padZero(3));
-            this._mapLoader = ResourceHandler.createLoader('data/' + filename, this.loadDataFile.bind(this, '$.dataMap', filename));
-            this.loadDataFile('$.dataMap', filename);
+            this._mapLoader = ResourceHandler.createLoader('data/' + filename, this.loadDataFile.bind(this, 'dataMap', filename));
+            this.loadDataFile('dataMap', filename);
         } else {
             this.makeEmptyMap();
         }
@@ -95,8 +95,6 @@ export default class DataManager {
             width: 100,
             height: 100,
             scrollType: 3,
-
-
             /// (bungcip): empty Data, added to make it compile
             autoplayBgm: false,
             autoplayBgs: false,

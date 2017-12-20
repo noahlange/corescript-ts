@@ -1,81 +1,85 @@
 import CacheEntry from './CacheEntry';
 
-export interface StringMap {
-    [key: string] : any
+export interface IStringMap {
+  [key: string]: any;
 }
 
 /**
  * Cache for images, audio, or any other kind of resource
- * @param manager
- * @constructor
  */
 export default class CacheMap {
-    public manager: any;
-    protected _inner: StringMap = {};
-    protected _lastRemovedEntries: any[] = [];
-    public updateTicks: number = 0;
-    public lastCheckTTL: number = 0;
-    public delayCheckTTL: number = 100;
-    public updateSeconds: number = Date.now();
+  public updateTicks: number = 0;
+  public lastCheckTTL: number = 0;
+  public delayCheckTTL: number = 100;
+  public updateSeconds: number = Date.now();
 
-    constructor(manager: any) {
-        this.manager = manager;
+  protected _inner: IStringMap = {};
+  protected _lastRemovedEntries: any[] = [];
+
+  /**
+   * Checks TTL of all elements and removes dead ones
+   */
+  public checkTTL() {
+    const cache = this._inner;
+    let temp = this._lastRemovedEntries;
+    if (!temp) {
+      temp = [];
+      this._lastRemovedEntries = temp;
     }
+    for (const key of Object.keys(cache)) {
+      const entry: any = cache[key];
+      if (!entry.isStillAlive()) {
+        temp.push(entry);
+      }
+    }
+    for (const item of temp) {
+      item.free(true);
+    }
+    temp.length = 0;
+  }
 
-    /**
-     * checks ttl of all elements and removes dead ones
-     */
-    checkTTL() {
-        let cache = this._inner;
-        let temp = this._lastRemovedEntries;
-        if (!temp) {
-            temp = [];
-            this._lastRemovedEntries = temp;
-        }
+  public getEntry(key: string): CacheEntry {
+    return this._inner[key];
+  }
 
-        for (const key in cache) {
-            const entry: any = cache[key];
-            if (!entry.isStillAlive()) {
-                temp.push(entry);
-            }
-        }
-        for (let i = 0; i < temp.length; i++) {
-            temp[i].free(true);
-        }
-        temp.length = 0;
-    };
+  public setEntry(key: string, value: CacheEntry): void {
+    this._inner[key] = value;
+  }
 
-    /**
-     * cache item
-     * @param key url of cache element
-     * @returns {*|null}
-     */
-    getItem(key: string): any|null {
-        const entry: any = this._inner[key];
-        if (entry) {
-            return entry.item;
-        }
-        return null;
-    };
+  public deleteEntry(key: string): void {
+    delete this._inner[key];
+  }
 
-    clear() {
-        const keys = Object.keys(this._inner);
-        for (let i = 0; i < keys.length; i++) {
-            this._inner[keys[i]].free();
-        }
-    };
+  /**
+   * Retrieve cached item.
+   */
+  public getItem(
+    /** url of cache element */
+    key: string
+  ): any | null {
+    const entry: any = this._inner[key];
+    if (entry) {
+      return entry.item;
+    }
+    return null;
+  }
 
-    setItem(key: string, item: any): CacheEntry {
-        return new CacheEntry(this, key, item).allocate();
-    };
+  public setItem(key: string, item: any): CacheEntry {
+    return new CacheEntry(this, key, item).allocate();
+  }
 
-    update(ticks: number, delta: number) {
-        this.updateTicks += ticks;
-        this.updateSeconds += delta;
-        if (this.updateSeconds >= this.delayCheckTTL + this.lastCheckTTL) {
-            this.lastCheckTTL = this.updateSeconds;
-            this.checkTTL();
-        }
-    };
+  public clear(): void {
+    for (const key of Object.keys(this._inner)) {
+      this._inner[key].free();
+    }
+  }
 
+  public update(ticks: number, delta: number) {
+    this.updateTicks += ticks;
+    this.updateSeconds += delta;
+    if (this.updateSeconds >= this.delayCheckTTL + this.lastCheckTTL) {
+      this.lastCheckTTL = this.updateSeconds;
+      this.checkTTL();
+    }
+  }
 }

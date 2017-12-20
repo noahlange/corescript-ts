@@ -1,18 +1,18 @@
 import {
+  Game_Action,
   Game_Actors,
+  Game_Map,
   Game_Message,
   Game_Party,
-  Game_Temp,
-  Game_Troop,
-  Game_Map,
   Game_Player,
-  Game_System,
+  Game_Screen,
   Game_SelfSwitches,
   Game_Switches,
-  Game_Screen,
+  Game_System,
+  Game_Temp,
   Game_Timer,
-  Game_Variables,
-  Game_Action
+  Game_Troop,
+  Game_Variables
 } from 'rpg_objects';
 
 export default class $ {

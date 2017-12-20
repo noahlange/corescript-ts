@@ -1,6 +1,16 @@
 {
+  "extends": [
+    "tslint:latest",
+    "tslint-config-prettier"
+  ],
   "rules": {
-    "indent": [true, "spaces", 4],
-    "await-promise": true
+    "no-implicit-dependencies": [ false ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ]
   }
 }

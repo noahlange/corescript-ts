@@ -15,8 +15,7 @@ export default class Window_EventItem extends Window_ItemList {
     protected _messageWindow: Window_Message;
 
     constructor(messageWindow: Window_Message) {
-        const width = Graphics.boxWidth;
-        super(0, 0, width, undefined, function() {
+        super(0, 0, Graphics.boxWidth, undefined, function() {
             this._messageWindow = messageWindow;
         });
         this.openness = 0;
