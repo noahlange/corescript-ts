@@ -1,4 +1,5 @@
 import $ from '$';
+import { Weather } from 'rpg_core';
 import Game_Picture from './Game_Picture';
 
 //-----------------------------------------------------------------------------
@@ -19,7 +20,7 @@ export default class Game_Screen {
     protected _zoomScale: number;
     protected _zoomScaleTarget: number;
     protected _zoomScaleDuration: number;
-    protected _weatherType: string;
+    protected _weatherType: 'none' | 'rain' | 'storm' | 'snow';
     protected _weatherPower: number;
     protected _weatherPowerTarget: number;
     protected _weatherDuration: number;

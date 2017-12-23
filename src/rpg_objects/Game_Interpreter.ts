@@ -6,12 +6,11 @@ import { Window_MenuCommand } from 'rpg_windows';
 
 import Game_Actor from './Game_Actor';
 import Game_Battler from './Game_Battler';
-import Game_Event from './Game_Event';
 import Game_Enemy from './Game_Enemy';
+import Game_Event from './Game_Event';
 import Game_Player from './Game_Player';
 import { Route } from './Game_Character';
 
-//-----------------------------------------------------------------------------
 // Game_Interpreter
 //
 // The interpreter for running event commands.

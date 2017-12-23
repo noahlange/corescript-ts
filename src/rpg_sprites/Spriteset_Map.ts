@@ -2,15 +2,13 @@ import $ from '$';
 import { Graphics, ShaderTilemap, Sprite, TilingSprite, Weather } from 'rpg_core';
 import { ImageManager } from 'rpg_managers';
 
-import Spriteset_Base from './Spriteset_Base';
 import Sprite_Character from './Sprite_Character';
 import Sprite_Destination from './Sprite_Destination';
+import Spriteset_Base from './Spriteset_Base';
 
-//-----------------------------------------------------------------------------
-// Spriteset_Map
-//
-// The set of sprites on the map screen.
-
+/**
+ * The set of sprites on the map screen.
+ */
 export default class Spriteset_Map extends Spriteset_Base {
     protected _characterSprites: Sprite_Character[];
     protected _parallax: TilingSprite;
@@ -41,8 +39,7 @@ export default class Spriteset_Map extends Spriteset_Base {
     };
 
     hideCharacters() {
-        for (let i = 0; i < this._characterSprites.length; i++) {
-            const sprite = this._characterSprites[i];
+        for (const sprite of this._characterSprites) {
             if (!sprite.isTile()) {
                 sprite.hide();
             }
@@ -94,8 +91,8 @@ export default class Spriteset_Map extends Spriteset_Base {
             this._characterSprites.push(new Sprite_Character(follower));
         }, this);
         this._characterSprites.push(new Sprite_Character($.gamePlayer));
-        for (let i = 0; i < this._characterSprites.length; i++) {
-            this._tilemap.addChild(this._characterSprites[i]);
+        for (const sprite of this._characterSprites) {
+            this._tilemap.addChild(sprite);
         }
     };
 

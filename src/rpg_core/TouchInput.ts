@@ -1,7 +1,6 @@
 import Graphics from './Graphics';
 import Utils from './Utils';
 
-//-----------------------------------------------------------------------------
 /**
  * The static class that handles input data from the mouse and touchscreen.
  *

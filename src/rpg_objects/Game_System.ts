@@ -26,7 +26,6 @@ export default class Game_System {
     protected _defeatMe: null | DB.Audio = null;
     protected _savedBgm: null | DB.Audio = null;
     protected _walkingBgm: null | DB.Audio = null;
-
     
     isJapanese() {
         return $.dataSystem.locale.match(/^ja/);

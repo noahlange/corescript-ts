@@ -1,0 +1,17 @@
+# Roadmap
+- [x] Use TypeScript
+- [x] Upgrade to latest PIXI
+- [x] Remove decrypter and canvas support
+- [x] Only support desktop & evergreen browsers for now
+- [x] Port build system to rollup.js
+- [x] Remove globals
+- [ ] TSLint
+  - [x] rpg_core
+  - [ ] rpg_managers
+  - [ ] rpg_objects
+  - [ ] rpg_scenes
+  - [ ] rpg_sprites
+  - [ ] rpg_windows
+- [ ] Create new way to extend functionality of engine
+- [ ] Reduce LOC
+- [ ] Add unit/integration tests

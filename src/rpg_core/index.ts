@@ -3,28 +3,29 @@ import './jsExtensions';
 import Stage from './Stage';
 import CoreWindow from './Window';
 
-import Utils from './Utils';
+import Bitmap from './Bitmap';
 import CacheEntry from './CacheEntry';
 import CacheMap from './CacheMap';
-import ImageCache from './ImageCache';
-import RequestQueue from './RequestQueue';
-import Bitmap from './Bitmap';
 import Graphics from './Graphics';
+import ImageCache from './ImageCache';
 import Input from './Input';
-import TouchInput from './TouchInput';
+import RequestQueue from './RequestQueue';
+import ScreenSprite from './ScreenSprite';
+import ShaderTilemap from './ShaderTilemap';
 import Sprite from './Sprite';
 import Tilemap from './Tilemap';
-import ShaderTilemap from './ShaderTilemap';
 import TilingSprite from './TilingSprite';
-import ScreenSprite from './ScreenSprite';
-import WindowLayer from './WindowLayer';
-import Weather from './Weather';
 import ToneFilter from './ToneFilter';
+import TouchInput from './TouchInput';
+import Utils from './Utils';
+import Weather from './Weather';
+import WindowLayer from './WindowLayer';
+
 // STAGE
-import WebAudio from './WebAudio';
 import Html5Audio from './Html5Audio';
 import JsonEx from './JsonEx';
 import ResourceHandler from './ResourceHandler';
+import WebAudio from './WebAudio';
 
 export {
   Bitmap,

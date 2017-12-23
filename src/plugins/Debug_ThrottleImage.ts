@@ -21,12 +21,15 @@
  * @default 2000
  */
 
-(function(){
-    var parameters = PluginManager.parameters('Debug_ThrottleImage');
-    var delay = +parameters['Delay'] || 2000;
+import { Core, Managers } from 'corescript';
 
-    var Bitmap_prototype_onLoad = Bitmap.prototype._onLoad;
-    Bitmap.prototype._onLoad = function(){
-        setTimeout(Bitmap_prototype_onLoad.bind(this), delay);
-    }
+(() => {
+  const parameters = Managers.PluginManager.parameters(
+    'Debug_ThrottleImage'
+  ) as any;
+  const delay = +parameters.Delay || 2000;
+  const BitmapPrototypeOnLoad = Core.Bitmap.prototype._onLoad;
+  Core.Bitmap.prototype._onLoad = function() {
+    setTimeout(BitmapPrototypeOnLoad.bind(this), delay);
+  };
 })();

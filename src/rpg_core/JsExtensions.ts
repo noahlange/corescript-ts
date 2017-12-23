@@ -1,34 +1,31 @@
-//-----------------------------------------------------------------------------
 /**
  * This is not a class, but contains some methods that will be added to the
  * standard Javascript objects.
  *
- * @class JsExtensions
+ * This should be deprecated ASAP. - NL
  */
 
 declare interface Number {
-    clamp(min: number, b: number): number;
-    mod(n: number): number;
-    padZero(n: number): string;
+  clamp(min: number, b: number): number;
+  mod(n: number): number;
+  padZero(n: number): string;
 }
 
 declare interface String {
-    padZero(n: number): string;
-    format(...args: any[]): string;
-    contains(n: string): boolean;
+  padZero(n: number): string;
+  format(...args: any[]): string;
+  contains(n: string): boolean;
 }
 
-
 declare interface Array<T> {
-    contains(n: T): boolean;
-    equals(n: T[]): boolean;
-    clone(): T[];
+  contains(n: T): boolean;
+  equals(n: T[]): boolean;
+  clone(): T[];
 }
 
 interface Math {
-    randomInt(number: number): number;
+  randomInt(number: number): number;
 }
-
 
 /**
  * Returns a number whose value is limited to the given range.
@@ -38,10 +35,9 @@ interface Math {
  * @param {Number} max The upper boundary
  * @return {Number} A number in the range (min, max)
  */
-Number.prototype.clamp = function (min, max) {
-    return Math.min(Math.max(this, min), max);
-}
-
+Number.prototype.clamp = function(min, max) {
+  return Math.min(Math.max(this, min), max);
+};
 
 /**
  * Returns a modulo value which is always positive.
@@ -50,8 +46,8 @@ Number.prototype.clamp = function (min, max) {
  * @param {Number} n The divisor
  * @return {Number} A modulo value
  */
-Number.prototype.mod = function (n: number): number {
-    return ((this % n) + n) % n;
+Number.prototype.mod = function(n: number): number {
+  return (this % n + n) % n;
 };
 
 /**
@@ -61,11 +57,10 @@ Number.prototype.mod = function (n: number): number {
  * @param {Any} ...args The objects to format
  * @return {String} A formatted string
  */
-String.prototype.format = function (): string {
-    const args = arguments;
-    return this.replace(/%([0-9]+)/g, function (s: any, n: string) {
-        return args[Number(n) - 1];
-    });
+String.prototype.format = function(): string {
+  return this.replace(/%([0-9]+)/g, (s: any, n: string) => {
+    return arguments[Number(n) - 1];
+  });
 };
 
 /**
@@ -75,12 +70,11 @@ String.prototype.format = function (): string {
  * @param {Number} length The length of the output string
  * @return {String} A string with leading zeros
  */
-String.prototype.padZero = function (length: number): string {
-    let s = this;
-    while (s.length < length) {
-        s = '0' + s;
-    }
-    return s;
+String.prototype.padZero = function(length: number): string {
+  while (s.length < length) {
+    this.s = '0' + this.s;
+  }
+  return this.s;
 };
 
 /**
@@ -90,82 +84,74 @@ String.prototype.padZero = function (length: number): string {
  * @param {Number} length The length of the output string
  * @return {String} A string with leading zeros
  */
-Number.prototype.padZero = function (length: number): string {
-    return String(this).padZero(length);
+Number.prototype.padZero = function(length: number): string {
+  return String(this).padZero(length);
 };
 
 Object.defineProperties(Array.prototype, {
-    /**
-     * Checks whether the two arrays are same.
-     *
-     * @method Array.prototype.equals
-     * @param {Array} array The array to compare to
-     * @return {Boolean} True if the two arrays are same
-     */
-    equals: {
-        enumerable: false,
-        value: function (array: any[]) {
-            if (!array || this.length !== array.length) {
-                return false;
-            }
-            for (let i = 0; i < this.length; i++) {
-                if (this[i] instanceof Array && array[i] instanceof Array) {
-                    if (!this[i].equals(array[i])) {
-                        return false;
-                    }
-                } else if (this[i] !== array[i]) {
-                    return false;
-                }
-            }
-            return true;
+  /**
+   * Checks whether the two arrays are same.
+   */
+  equals: {
+    enumerable: false,
+    value(
+      /** The array to compare to */
+      array: any[]
+    ) {
+      if (!array || this.length !== array.length) {
+        return false;
+      }
+      for (let i = 0; i < this.length; i++) {
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+          if (!this[i].equals(array[i])) {
+            return false;
+          }
+        } else if (this[i] !== array[i]) {
+          return false;
         }
-    },
-    /**
-     * Makes a shallow copy of the array.
-     *
-     * @method Array.prototype.clone
-     * @return {Array} A shallow copy of the array
-     */
-    clone: {
-        enumerable: false,
-        value: function () {
-            return this.slice(0);
-        }
-    },
-    /**
-     * Checks whether the array contains a given element.
-     *
-     * @method Array.prototype.contains
-     * @param {Any} element The element to search for
-     * @return {Boolean} True if the array contains a given element
-     */
-    contains: {
-        enumerable: false,
-        value: function (element: any) {
-            return this.indexOf(element) >= 0;
-        }
+      }
+      return true;
     }
+  },
+  /**
+   * Makes a shallow copy of the array.
+   */
+  clone: {
+    enumerable: false,
+    value() {
+      return this.slice(0);
+    }
+  },
+  /**
+   * Checks whether the array contains a given element.
+   */
+  contains: {
+    enumerable: false,
+    value(
+      /** The element to search for */
+      element: any
+    ) {
+      return this.indexOf(element) >= 0;
+    }
+  }
 });
 
 /**
  * Checks whether the string contains a given string.
- *
- * @method String.prototype.contains
- * @param {String} string The string to search for
- * @return {Boolean} True if the string contains a given string
  */
-String.prototype.contains = function (string: string): boolean {
-    return this.indexOf(string) >= 0;
+String.prototype.contains = (
+  /** The string to search for */
+  str: string
+): boolean => {
+  return this.indexOf(str) >= 0;
 };
 
 /**
- * Generates a random integer in the range (0, max-1).
- *
- * @static
- * @method Math.randomInt
- * @param {Number} max The upper boundary (excluded)
- * @return {Number} A random integer
+ * Generates a random integer in the range (0, max - 1).
  */
-Math.randomInt = function (max: number): number {
-    return Math.floor(max * Math.random());
+Math.randomInt = (
+  /** The upper boundary (excluded) */
+  max: number
+): number => {
+  return Math.floor(max * Math.random());
 };

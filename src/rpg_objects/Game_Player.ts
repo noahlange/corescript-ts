@@ -6,7 +6,7 @@ import Game_Character from './Game_Character';
 import Game_Followers from './Game_Followers';
 import { VehicleType } from './Game_Vehicle';
 
-//-----------------------------------------------------------------------------
+
 // Game_Player
 //
 // The game object class for the player. It contains event starting

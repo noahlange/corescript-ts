@@ -1,5 +1,5 @@
-const alias = require('rollup-plugin-alias');
-const minify = require('rollup-plugin-babel-minify');
+import alias from 'rollup-plugin-alias';
+import minify from 'rollup-plugin-babel-minify';
 
 export default {
   input: 'build/corescript.js',
@@ -19,6 +19,6 @@ export default {
       rpg_sprites: "build/rpg_sprites/index.js",
       rpg_objects: "build/rpg_objects/index.js"
     }),
-    // minify({ comments: false })
+    minify({ comments: false })
   ]
 };

@@ -80,7 +80,7 @@ interface ICommunityBasicParams {
   changeWindowHeightTo: string;
 }
 
-(function() {
+(() => {
 
   const { ImageCache, Utils } = cs.Core;
   const { ConfigManager, PluginManager, SceneManager } = cs.Managers;
@@ -133,17 +133,17 @@ interface ICommunityBasicParams {
     }
   });
 
-  const _ConfigManager_applyData = ConfigManager.applyData;
+  const ConfigManagerApplyData = ConfigManager.applyData;
   ConfigManager.applyData = function(config) {
-    _ConfigManager_applyData.apply(this, arguments);
+    ConfigManagerApplyData.apply(this, arguments);
     if (config.alwaysDash === undefined) {
       this.alwaysDash = alwaysDash;
     }
   };
 
-  const _SceneManager_initNwjs = SceneManager.initNwjs;
+  const SceneManagerInitNwjs = SceneManager.initNwjs;
   SceneManager.initNwjs = function(...args: any[]) {
-    _SceneManager_initNwjs.apply(this, args);
+    SceneManagerInitNwjs.apply(this, args);
     if ((Utils.isNwjs() || Utils.isElectron() && windowWidth && windowHeight)) {
       const dw = windowWidth - window.innerWidth;
       const dh = windowHeight - window.innerHeight;
